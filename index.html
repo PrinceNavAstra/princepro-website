@@ -206,6 +206,16 @@
 
   /* ═══ HERO ════════════════════════════════════════════════ */
   #hero{min-height:100vh;display:flex;align-items:center;padding:140px 0 100px;position:relative;overflow:hidden}
+  #hero::before{
+    content:'';position:absolute;inset:0;pointer-events:none;
+    background-image:
+      linear-gradient(var(--bdr-md) 1px,transparent 1px),
+      linear-gradient(90deg,var(--bdr-md) 1px,transparent 1px);
+    background-size:40px 40px;
+    opacity:.35;
+    mask-image:radial-gradient(ellipse 90% 80% at 50% 50%,black 25%,transparent 78%);
+    -webkit-mask-image:radial-gradient(ellipse 90% 80% at 50% 50%,black 25%,transparent 78%);
+  }
 
   .hero-layout{display:grid;grid-template-columns:1.2fr 0.8fr;gap:40px;align-items:center}
   .hero-image-wrap{position:relative;display:flex;justify-content:center;align-items:center;padding-right:20px}
@@ -295,35 +305,105 @@
   .svc-d{font-size:.875rem;line-height:1.72}
 
   /* ═══ INDUSTRIES ═════════════════════════════════════════ */
-  #industries{background:var(--bg2)}
-  .ind-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+  #industries{background:var(--bg2);position:relative;overflow:hidden}
+  #industries::before{
+    content:'';position:absolute;inset:0;pointer-events:none;
+    background-image:
+      linear-gradient(var(--bdr) 1px,transparent 1px),
+      linear-gradient(90deg,var(--bdr) 1px,transparent 1px);
+    background-size:48px 48px;
+    opacity:.22;
+    mask-image:linear-gradient(to bottom,black 0%,transparent 92%);
+    -webkit-mask-image:linear-gradient(to bottom,black 0%,transparent 92%);
+  }
+  .ind-head{
+    display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;
+    margin-bottom:56px;position:relative;z-index:1;
+  }
+  .ind-head-right{
+    padding-bottom:6px;border-left:2px solid var(--gold);
+    padding-left:28px;
+  }
+  .ind-head-right .sub{margin:0;max-width:none}
+  .ind-stats{display:flex;gap:28px;margin-top:28px;flex-wrap:wrap}
+  .ind-stat strong{
+    display:block;font-family:'Playfair Display',serif;
+    font-size:1.75rem;font-weight:700;color:var(--gold);line-height:1;
+  }
+  .ind-stat span{font-size:.78rem;color:var(--tm);letter-spacing:.02em}
+  .ind-grid{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:16px;
+    position:relative;z-index:1;
+  }
   .ind-card{
-    background:var(--card);border:1px solid var(--bdr);border-radius:14px;
-    padding:32px 18px 28px;text-align:center;
-    display:flex;flex-direction:column;align-items:center;
-    transition:border-color .25s,transform .25s cubic-bezier(.4,0,.2,1),box-shadow .25s,background var(--tt);
-    text-decoration:none;
-    position:relative;overflow:hidden;
+    background:var(--card);border:1px solid var(--bdr);border-radius:16px;
+    padding:24px 20px 20px;text-align:left;
+    display:flex;flex-direction:column;align-items:flex-start;min-height:100%;
+    transition:border-color .3s,transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s,background var(--tt);
+    text-decoration:none;position:relative;overflow:hidden;
+  }
+  .ind-card::before{
+    content:'';position:absolute;inset:0;
+    background:radial-gradient(circle at 50% 0%,var(--gdim),transparent 70%);
+    opacity:0;transition:opacity .3s;
   }
   .ind-card::after{
-    content:'';position:absolute;bottom:0;left:0;right:0;
-    height:2px;background:var(--gold);
-    transform:scaleX(0);transform-origin:center;
-    transition:transform .3s cubic-bezier(.4,0,.2,1);
+    content:'';position:absolute;top:0;left:20px;right:20px;height:2px;
+    background:linear-gradient(90deg,var(--gold),var(--teal));
+    transform:scaleX(0);transform-origin:left;
+    transition:transform .35s cubic-bezier(.4,0,.2,1);
   }
-  .ind-card:hover{border-color:var(--bdr-hi);transform:translateY(-6px);box-shadow:var(--shc)}
+  .ind-card:hover{border-color:var(--gold);transform:translateY(-8px);box-shadow:var(--shc);background:var(--card2)}
+  .ind-card:hover::before{opacity:1}
   .ind-card:hover::after{transform:scaleX(1)}
-  .ind-icon{font-size:2.1rem;margin-bottom:13px;transition:transform .25s}
-  .ind-card:hover .ind-icon{transform:scale(1.12)}
-  .ind-name{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--th);margin-bottom:8px;font-weight:500;transition:color var(--tt)}
-  .ind-desc{font-size:.78rem;line-height:1.6}
-  .ind-link{
-    display:inline-flex;align-items:center;gap:4px;
-    margin-top:14px;font-size:.74rem;font-weight:600;letter-spacing:.04em;color:var(--gold);
-    opacity:0;transform:translateY(4px);
-    transition:opacity .22s,transform .22s;
+  .ind-card-top{display:flex;align-items:flex-start;justify-content:space-between;width:100%;margin-bottom:18px;position:relative;z-index:1}
+  .ind-num{
+    font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.14em;
+    color:var(--tm);transition:color .25s;
   }
-  .ind-card:hover .ind-link{opacity:1;transform:none}
+  .ind-card:hover .ind-num{color:var(--gold)}
+  .ind-icon-wrap{
+    width:52px;height:52px;border-radius:14px;
+    display:flex;align-items:center;justify-content:center;
+    background:var(--gdim);border:1px solid var(--bdr-md);
+    transition:transform .3s,border-color .3s,box-shadow .3s,background .3s;
+  }
+  .ind-icon{font-size:1.65rem;line-height:1}
+  .ind-card:hover .ind-icon-wrap{
+    transform:scale(1.08) rotate(-4deg);
+    border-color:var(--gold);box-shadow:0 8px 24px var(--gglow);background:var(--gdim);
+  }
+  .ind-card[data-accent="teal"]:hover .ind-icon-wrap{border-color:var(--teal);box-shadow:0 8px 24px rgba(45,212,191,.25)}
+  .ind-card[data-accent="teal"]::after{background:linear-gradient(90deg,var(--teal),var(--gold))}
+  .ind-name{
+    font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;
+    color:var(--th);margin-bottom:10px;line-height:1.2;
+    transition:color .25s;position:relative;z-index:1;
+  }
+  .ind-card:hover .ind-name{color:var(--gold)}
+  .ind-card[data-accent="teal"]:hover .ind-name{color:var(--teal)}
+  .ind-desc{font-size:.8rem;line-height:1.65;flex:1;position:relative;z-index:1}
+  .ind-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;position:relative;z-index:1}
+  .ind-tag{
+    font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;
+    padding:4px 9px;border-radius:100px;border:1px solid var(--bdr-md);
+    color:var(--tm);background:var(--bg3);transition:border-color .2s,color .2s,background .2s;
+  }
+  .ind-card:hover .ind-tag{border-color:var(--bdr-hi);color:var(--tb)}
+  .ind-link{
+    display:inline-flex;align-items:center;justify-content:space-between;width:100%;
+    margin-top:18px;padding-top:16px;border-top:1px solid var(--bdr);
+    font-size:.76rem;font-weight:600;letter-spacing:.04em;color:var(--gold);
+    position:relative;z-index:1;transition:border-color .25s,gap .25s;
+  }
+  .ind-link-arrow{
+    width:28px;height:28px;border-radius:50%;border:1px solid var(--bdr-md);
+    display:inline-flex;align-items:center;justify-content:center;
+    font-size:.85rem;transition:background .25s,border-color .25s,transform .25s,color .25s;
+  }
+  .ind-card:hover .ind-link{border-color:var(--bdr-md)}
+  .ind-card:hover .ind-link-arrow{background:var(--gold);border-color:var(--gold);color:var(--bg);transform:translateX(2px)}
+  .ind-card[data-accent="teal"]:hover .ind-link-arrow{background:var(--teal);border-color:var(--teal)}
 
   /* ═══ AI SECTION ═════════════════════════════════════════ */
   #ai{background:var(--bg);overflow:hidden;position:relative}
@@ -529,6 +609,8 @@
     .about-grid{grid-template-columns:1fr;gap:40px} .about-left{position:static}
     .svc-grid{grid-template-columns:1fr 1fr}
     .svc:nth-child(2n){border-right:none} .svc:nth-child(3n){border-right:1px solid var(--bdr)}
+    .ind-head{grid-template-columns:1fr;gap:24px}
+    .ind-head-right{border-left:none;padding-left:0;border-top:2px solid var(--gold);padding-top:24px}
     .ind-grid{grid-template-columns:repeat(3,1fr)}
     .ai-wrap{grid-template-columns:1fr;gap:52px} .ai-rings{width:220px;height:220px}
     .exp-grid{grid-template-columns:1fr 1fr}
@@ -670,17 +752,56 @@
 <!-- INDUSTRIES ───────────────────────────────────────── -->
 <section id="industries">
   <div class="wrap">
-    <div class="reveal" style="margin-bottom:52px">
-      <div class="eyebrow">Industries We Serve</div>
-      <h2 class="serif" style="font-size:clamp(1.9rem,3.8vw,2.8rem);margin-bottom:14px"><strong>Deep Industry Expertise.</strong><br>Real-World ERP Results.</h2>
-      <p class="sub">We understand <strong>your industry</strong>, not just your technology — delivering implementations that solve <mark>real operational challenges</mark>.</p>
+    <div class="ind-head">
+      <div class="reveal">
+        <div class="eyebrow">Industries We Serve</div>
+        <h2 class="serif" style="font-size:clamp(1.9rem,3.8vw,2.8rem);margin-bottom:0"><strong>Deep Industry Expertise.</strong><br>Real-World ERP Results.</h2>
+        <div class="ind-stats">
+          <div class="ind-stat"><strong>5+</strong><span>Industries Served</span></div>
+          <div class="ind-stat"><strong>ERPNext</strong><span>&amp; Odoo Focus</span></div>
+          <div class="ind-stat"><strong>100%</strong><span>Tailored Solutions</span></div>
+        </div>
+      </div>
+      <div class="ind-head-right reveal" style="transition-delay:.08s">
+        <p class="sub">We understand <strong>your industry</strong>, not just your technology — delivering implementations that solve <mark>real operational challenges</mark> across manufacturing floors, job sites, warehouses, and beyond.</p>
+      </div>
     </div>
     <div class="ind-grid">
-      <a href="manufacturing.html" class="ind-card reveal" style="transition-delay:.05s"><div class="ind-icon">🏭</div><div class="ind-name">Manufacturing</div><div class="ind-desc">BOM management, production planning, inventory control, quality processes &amp; procurement.</div><span class="ind-link">Explore →</span></a>
-      <a href="logistics.html" class="ind-card reveal" style="transition-delay:.1s"><div class="ind-icon">🚚</div><div class="ind-name">Logistics</div><div class="ind-desc">Fleet management, shipment tracking, supply chain monitoring, warehouse &amp; delivery.</div><span class="ind-link">Explore →</span></a>
-      <a href="construction.html" class="ind-card reveal" style="transition-delay:.15s"><div class="ind-icon">🏗️</div><div class="ind-name">Construction</div><div class="ind-desc">Project management, resource allocation, material tracking, budgets &amp; contractors.</div><span class="ind-link">Explore →</span></a>
-      <a href="marketing.html" class="ind-card reveal" style="transition-delay:.2s"><div class="ind-icon">📈</div><div class="ind-name">Marketing</div><div class="ind-desc">Campaign management, lead tracking, customer data, collaboration &amp; performance reporting.</div><span class="ind-link">Explore →</span></a>
-      <a href="textile.html" class="ind-card reveal" style="transition-delay:.25s"><div class="ind-icon">🧵</div><div class="ind-name">Textile</div><div class="ind-desc">Production tracking, inventory control, distribution, purchase management &amp; order processing.</div><span class="ind-link">Explore →</span></a>
+      <a href="manufacturing.html" class="ind-card reveal" data-accent="gold" style="transition-delay:.05s">
+        <div class="ind-card-top"><span class="ind-num">01</span><div class="ind-icon-wrap"><span class="ind-icon">🏭</span></div></div>
+        <div class="ind-name">Manufacturing</div>
+        <div class="ind-desc">BOM management, production planning, inventory control, quality processes &amp; procurement.</div>
+        <div class="ind-tags"><span class="ind-tag">BOM</span><span class="ind-tag">Production</span><span class="ind-tag">QC</span></div>
+        <span class="ind-link">Explore <span class="ind-link-arrow">→</span></span>
+      </a>
+      <a href="logistics.html" class="ind-card reveal" data-accent="teal" style="transition-delay:.1s">
+        <div class="ind-card-top"><span class="ind-num">02</span><div class="ind-icon-wrap"><span class="ind-icon">🚚</span></div></div>
+        <div class="ind-name">Logistics</div>
+        <div class="ind-desc">Fleet management, shipment tracking, supply chain monitoring, warehouse &amp; delivery.</div>
+        <div class="ind-tags"><span class="ind-tag">Fleet</span><span class="ind-tag">Tracking</span><span class="ind-tag">Warehouse</span></div>
+        <span class="ind-link">Explore <span class="ind-link-arrow">→</span></span>
+      </a>
+      <a href="construction.html" class="ind-card reveal" data-accent="gold" style="transition-delay:.15s">
+        <div class="ind-card-top"><span class="ind-num">03</span><div class="ind-icon-wrap"><span class="ind-icon">🏗️</span></div></div>
+        <div class="ind-name">Construction</div>
+        <div class="ind-desc">Project management, resource allocation, material tracking, budgets &amp; contractors.</div>
+        <div class="ind-tags"><span class="ind-tag">Projects</span><span class="ind-tag">Materials</span><span class="ind-tag">Budgets</span></div>
+        <span class="ind-link">Explore <span class="ind-link-arrow">→</span></span>
+      </a>
+      <a href="marketing.html" class="ind-card reveal" data-accent="teal" style="transition-delay:.2s">
+        <div class="ind-card-top"><span class="ind-num">04</span><div class="ind-icon-wrap"><span class="ind-icon">📈</span></div></div>
+        <div class="ind-name">Marketing</div>
+        <div class="ind-desc">Campaign management, lead tracking, customer data, collaboration &amp; performance reporting.</div>
+        <div class="ind-tags"><span class="ind-tag">CRM</span><span class="ind-tag">Leads</span><span class="ind-tag">Analytics</span></div>
+        <span class="ind-link">Explore <span class="ind-link-arrow">→</span></span>
+      </a>
+      <a href="textile.html" class="ind-card reveal" data-accent="gold" style="transition-delay:.25s">
+        <div class="ind-card-top"><span class="ind-num">05</span><div class="ind-icon-wrap"><span class="ind-icon">🧵</span></div></div>
+        <div class="ind-name">Textile</div>
+        <div class="ind-desc">Production tracking, inventory control, distribution, purchase management &amp; order processing.</div>
+        <div class="ind-tags"><span class="ind-tag">Production</span><span class="ind-tag">Inventory</span><span class="ind-tag">Orders</span></div>
+        <span class="ind-link">Explore <span class="ind-link-arrow">→</span></span>
+      </a>
     </div>
   </div>
 </section>
