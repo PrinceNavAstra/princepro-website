@@ -70,6 +70,20 @@ section{padding:112px 0}
 .nav-links a{font-size:0.85rem;font-weight:500;color:var(--text-body);transition:color 0.2s;white-space:nowrap}
 .nav-links a:hover,.nav-links a.active{color:var(--text-primary)}
 .nav-links a.active{border-bottom:1px solid var(--gold);padding-bottom:2px}
+.nav-dropdown { position: relative; display: inline-block; }
+.nav-dropdown-content {
+  display: none; position: absolute; background-color: var(--nav-bg); 
+  min-width: 160px; box-shadow: var(--shadow-card); border-radius: 8px; 
+  z-index: 100; border: 1px solid var(--border); backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  top: 100%; left: 0; padding: 8px 0;
+}
+.nav-dropdown-content a {
+  color: var(--text-body); padding: 8px 16px; text-decoration: none; 
+  display: block; text-align: left; border-radius: 0; white-space: nowrap;
+}
+.nav-dropdown-content a:hover { background-color: var(--gold-dim); color: var(--text-primary); }
+.nav-dropdown:hover .nav-dropdown-content { display: block; }
 .nav-right{display:flex;align-items:center;gap:16px}
 .theme-toggle{
   width:46px;height:26px;background:var(--toggle-bg);

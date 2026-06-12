@@ -159,6 +159,21 @@
   }
   .nav-links a:hover{color:var(--th);background:var(--gdim)}
   .nav-links a:hover::after{transform:scaleX(1)}
+  .nav-dropdown { position: relative; display: inline-block; }
+  .nav-dropdown-content {
+    display: none; position: absolute; background-color: var(--nav-bg); 
+    min-width: 160px; box-shadow: var(--shc); border-radius: 8px; 
+    z-index: 100; border: 1px solid var(--bdr); backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    top: 100%; left: 0; padding: 8px 0;
+  }
+  .nav-dropdown-content a {
+    color: var(--tb); padding: 8px 16px; text-decoration: none; 
+    display: block; text-align: left; border-radius: 0; white-space: nowrap;
+  }
+  .nav-dropdown-content a::after { display: none; }
+  .nav-dropdown-content a:hover { background-color: var(--gdim); color: var(--th); }
+  .nav-dropdown:hover .nav-dropdown-content { display: block; }
   .nav-right{display:flex;align-items:center;gap:12px}
 
   /* Theme toggle */
@@ -513,13 +528,20 @@
 <!-- NAV ─────────────────────────────────────────────── -->
 <nav id="nav">
   <div class="nav-inner">
-    <div class="nav-logo">Prince <em>Prajapati</em></div>
+    <a href="index.html" class="nav-logo">Prince <em>Prajapati</em></a>
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#services">Services</a>
-      <a href="#industries">Industries</a>
-      <a href="#process">Process</a>
-      <a href="#contact">Contact</a>
+      <div class="nav-dropdown">
+        <a href="#industries" class="nav-dropbtn" style="cursor:pointer">Industries <span style="font-size: 0.7em;">▼</span></a>
+        <div class="nav-dropdown-content">
+          <a href="manufacturing.html">Manufacturing</a>
+          <a href="logistics.html">Logistics</a>
+          <a href="construction.html">Construction</a>
+          <a href="marketing.html">Marketing</a>
+          <a href="textile.html">Textile</a>
+        </div>
+      </div>
     </div>
     <div class="nav-right">
       <button class="tog" id="themeToggle" aria-label="Toggle light/dark mode">
