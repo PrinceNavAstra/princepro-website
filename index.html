@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
   /* ═══ TOKENS ════════════════════════════════════════════ */
-  :root { --tt:.4s ease; }
+  :root { --tt:.4s ease; --page-max:1440px; --page-pad:16px; }
 
   [data-theme="dark"] {
     --bg:#09090f; --bg2:#0f0f18; --bg3:#141420;
@@ -102,7 +102,7 @@
   body.touch-device #cursor-ring { display:none; }
 
   /* ═══ LAYOUT ════════════════════════════════════════════ */
-  .wrap{max-width:1280px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+  .wrap{max-width:var(--page-max);margin:0 auto;padding:0 var(--page-pad);position:relative;z-index:1}
   section{padding:112px 0}
   .divider{height:1px;background:var(--bdr);transition:background var(--tt)}
 
@@ -159,13 +159,22 @@
     border-bottom-color:var(--bdr-md);
     box-shadow:0 4px 40px rgba(0,0,0,.2);
   }
-  .nav-inner{max-width:1120px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-  .nav-logo{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--th);letter-spacing:-.02em;white-space:nowrap;transition:color var(--tt)}
+  .nav-inner{
+    max-width:var(--page-max);margin:0 auto;padding:0 var(--page-pad);
+    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;
+  }
+  .nav-logo{
+    justify-self:start;display:inline-flex;align-items:center;
+    font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;
+    color:var(--th);letter-spacing:-.02em;white-space:nowrap;
+    line-height:1;transition:color var(--tt);
+  }
   .nav-logo em{color:var(--gold);font-style:normal}
-  .nav-links{display:flex;gap:4px}
+  .nav-links{justify-self:center;display:flex;align-items:center;gap:4px}
   .nav-links a{
+    display:inline-flex;align-items:center;gap:4px;
     font-size:.84rem;font-weight:500;color:var(--tb);
-    padding:6px 14px;border-radius:7px;
+    padding:8px 14px;border-radius:7px;line-height:1;
     transition:color .2s,background .2s;white-space:nowrap;
     position:relative;
   }
@@ -177,7 +186,7 @@
   }
   .nav-links a:hover{color:var(--th);background:var(--gdim)}
   .nav-links a:hover::after{transform:scaleX(1)}
-  .nav-dropdown { position: relative; display: inline-block; }
+  .nav-dropdown{position:relative;display:inline-flex;align-items:center}
   .nav-dropdown-content {
     display: none; position: absolute; background-color: var(--nav-bg); 
     min-width: 160px; box-shadow: var(--shc); border-radius: 8px; 
@@ -192,7 +201,7 @@
   .nav-dropdown-content a::after { display: none; }
   .nav-dropdown-content a:hover { background-color: var(--gdim); color: var(--th); }
   .nav-dropdown:hover .nav-dropdown-content { display: block; }
-  .nav-right{display:flex;align-items:center;gap:12px}
+  .nav-right{justify-self:end;display:flex;align-items:center;gap:12px}
 
   /* Theme toggle */
   .tog{width:48px;height:27px;background:var(--tog-bg);border-radius:14px;border:1px solid var(--bdr-md);cursor:none;position:relative;transition:background var(--tt),border-color var(--tt);flex-shrink:0}
@@ -220,7 +229,8 @@
 
   .hero-layout{display:grid;grid-template-columns:1.2fr 0.8fr;gap:40px;align-items:center}
   .hero-image-wrap{position:relative;display:flex;justify-content:center;align-items:center;padding-right:20px}
-  .hero-image{width:100%;max-width:550px;filter:drop-shadow(0 20px 40px rgba(0,0,0,0.4));animation:float 6s ease-in-out infinite;border-radius:24px}
+  .hero-image{width:100%;max-width:520px;filter:drop-shadow(0 18px 36px rgba(0,0,0,0.35));animation:float 6s ease-in-out infinite}
+  [data-theme="light"] .hero-image{filter:drop-shadow(0 14px 28px rgba(0,0,0,0.12))}
   @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
 
   .hero-kicker{display:inline-flex;align-items:center;gap:8px;background:var(--gdim);border:1px solid var(--bdr-md);border-radius:100px;padding:6px 16px 6px 8px;margin-bottom:28px;transition:background var(--tt),border-color var(--tt)}
@@ -500,7 +510,7 @@
 
   /* ═══ FOOTER ═════════════════════════════════════════════ */
   footer{background:var(--bg);border-top:1px solid var(--bdr);padding:30px 0;transition:background var(--tt),border-color var(--tt)}
-  .foot-inner{max-width:1120px;margin:0 auto;padding:0 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  .foot-inner{max-width:var(--page-max);margin:0 auto;padding:0 var(--page-pad);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
   .foot-logo{font-family:'Playfair Display',serif;font-size:1rem;color:var(--th);transition:color var(--tt)}
   .foot-logo em{color:var(--gold);font-style:normal}
   .foot-copy{font-size:.78rem;color:var(--tm)}
@@ -530,8 +540,10 @@
     .process-layout{grid-template-columns:1fr;gap:48px} .process-left{position:static}
   }
   @media(max-width:768px){
-    .wrap{padding:0 22px} section{padding:80px 0}
+    .wrap{padding:0 var(--page-pad)} section{padding:80px 0}
+    .nav-inner{grid-template-columns:1fr auto}
     .nav-links{display:none}
+    .nav-right{grid-column:2;justify-self:end}
     .svc-grid{grid-template-columns:1fr}
     .svc{border-right:none} .svc:nth-child(3n){border-right:none}
     .ind-grid{grid-template-columns:1fr 1fr}
@@ -612,7 +624,7 @@
         </div>
       </div>
       <div class="hero-image-wrap reveal" style="transition-delay:.2s">
-        <img src="assets/erp-3d.png" alt="3D ERP Dashboard" class="hero-image">
+        <img src="assets/erp-diagram-dark.png" data-erp-dark="assets/erp-diagram-dark.png" data-erp-light="assets/erp-diagram-light.png" alt="ERP modules diagram — Production, Finance, Logistics, Sales, HR, Management" class="hero-image" id="erpDiagram">
       </div>
     </div>
   </div>
@@ -921,10 +933,19 @@
   const html = document.documentElement;
   const saved = localStorage.getItem('pp-theme');
   if (saved) html.setAttribute('data-theme', saved);
+
+  function updateErpDiagram() {
+    const img = document.getElementById('erpDiagram');
+    if (!img) return;
+    img.src = html.getAttribute('data-theme') === 'light' ? img.dataset.erpLight : img.dataset.erpDark;
+  }
+  updateErpDiagram();
+
   document.getElementById('themeToggle').addEventListener('click', () => {
     const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     html.setAttribute('data-theme', next);
     localStorage.setItem('pp-theme', next);
+    updateErpDiagram();
   });
 
   /* ── Nav scroll ────────────────────────────────────── */
