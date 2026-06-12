@@ -43,24 +43,6 @@
     --flow-g:linear-gradient(to bottom,#22c55e,#0d9488,#b8862e,#d4a853,#6366f1,#8b5cf6);
   }
 
-  /* Background glowing orbs */
-  .bg-glow-1, .bg-glow-2 {
-    position: fixed; border-radius: 50%; filter: blur(120px); -webkit-filter: blur(120px);
-    z-index: 0; pointer-events: none; opacity: 0.3; transition: opacity var(--tt);
-  }
-  .bg-glow-1 {
-    width: 50vw; height: 50vw; min-width: 400px; min-height: 400px;
-    background: radial-gradient(circle, var(--gold) 0%, rgba(212,168,83,0) 70%);
-    top: -20vh; right: -10vw;
-  }
-  .bg-glow-2 {
-    width: 60vw; height: 60vw; min-width: 500px; min-height: 500px;
-    background: radial-gradient(circle, #2dd4bf 0%, rgba(45,212,191,0) 70%);
-    bottom: -30vh; left: -20vw; opacity: 0.15;
-  }
-  [data-theme="light"] .bg-glow-1 { opacity: 0.15; }
-  [data-theme="light"] .bg-glow-2 { opacity: 0.08; }
-
   /* ═══ RESET ════════════════════════════════════════════ */
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth;font-size:16px}
@@ -224,13 +206,26 @@
 
   /* ═══ HERO ════════════════════════════════════════════════ */
   #hero{min-height:100vh;display:flex;align-items:center;padding:140px 0 100px;position:relative;overflow:hidden}
-  #hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 78% 18%,var(--gdim) 0%,transparent 62%),radial-gradient(ellipse 45% 38% at 8% 82%,rgba(45,212,191,.055) 0%,transparent 60%);pointer-events:none}
-  #hero::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,var(--bdr-md) 1px,transparent 1px);background-size:36px 36px;mask-image:radial-gradient(ellipse 88% 80% at 50% 50%,black 28%,transparent 78%);pointer-events:none;opacity:.45}
 
   .hero-layout{display:grid;grid-template-columns:1.2fr 0.8fr;gap:40px;align-items:center}
   .hero-image-wrap{position:relative;display:flex;justify-content:center;align-items:center;padding-right:20px}
-  .hero-image{width:100%;max-width:520px;filter:drop-shadow(0 18px 36px rgba(0,0,0,0.35));animation:float 6s ease-in-out infinite}
-  [data-theme="light"] .hero-image{filter:drop-shadow(0 14px 28px rgba(0,0,0,0.12))}
+  .erp-diagram{
+    width:100%;max-width:520px;
+    --ring-inner:rgba(212,168,83,0.10);--ring-mid:rgba(45,212,191,0.06);--ring-outer:transparent;
+    --ring-stroke:rgba(212,168,83,0.18);--ring-stroke2:rgba(45,212,191,0.14);
+    --shadow:rgba(0,0,0,0.35);--hub-bg:rgba(212,168,83,0.18);--hub-border:rgba(212,168,83,0.45);
+    --hub-text:#f0c878;--hub-sub:#9d9bb8;--label-bg:rgba(24,24,40,0.92);
+    --label-gold:#f0c878;--label-teal:#2dd4bf;
+  }
+  [data-theme="light"] .erp-diagram{
+    --ring-inner:rgba(184,134,46,0.12);--ring-mid:rgba(13,148,136,0.08);
+    --ring-stroke:rgba(184,134,46,0.22);--ring-stroke2:rgba(13,148,136,0.18);
+    --shadow:rgba(0,0,0,0.12);--hub-bg:rgba(184,134,46,0.14);--hub-border:rgba(184,134,46,0.40);
+    --hub-text:#8a6020;--hub-sub:#4a4860;--label-bg:rgba(255,255,255,0.96);
+    --label-gold:#8a6020;--label-teal:#0d7a6e;
+  }
+  .erp-diagram svg{width:100%;height:auto;display:block;filter:drop-shadow(0 18px 36px rgba(0,0,0,0.35));animation:float 6s ease-in-out infinite}
+  [data-theme="light"] .erp-diagram svg{filter:drop-shadow(0 14px 28px rgba(0,0,0,0.12))}
   @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
 
   .hero-kicker{display:inline-flex;align-items:center;gap:8px;background:var(--gdim);border:1px solid var(--bdr-md);border-radius:100px;padding:6px 16px 6px 8px;margin-bottom:28px;transition:background var(--tt),border-color var(--tt)}
@@ -247,11 +242,12 @@
     display:inline-flex;align-items:center;gap:7px;
     font-size:.79rem;font-weight:500;color:var(--tb);
     padding:6px 14px;border:1px solid var(--bdr);border-radius:100px;
-    background:var(--card);
-    transition:border-color .2s,color .2s,background var(--tt);
+    background:var(--card);cursor:none;
+    transition:border-color .2s,color .2s,background .2s,transform .2s,var(--tt);
   }
-  .trust-chip:hover{border-color:var(--bdr-md);color:var(--th)}
-  .chip-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);flex-shrink:0}
+  .trust-chip:hover{border-color:var(--gold);color:var(--gold);background:var(--gdim);transform:translateY(-2px)}
+  .chip-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);flex-shrink:0;transition:background .2s}
+  .trust-chip:hover .chip-dot{background:var(--gold)}
 
   /* ═══ ABOUT ══════════════════════════════════════════════ */
   #about{background:var(--bg2)}
@@ -331,7 +327,6 @@
 
   /* ═══ AI SECTION ═════════════════════════════════════════ */
   #ai{background:var(--bg);overflow:hidden;position:relative}
-  #ai::before{content:'';position:absolute;top:-150px;right:-200px;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,var(--gdim) 0%,transparent 65%);pointer-events:none}
   .ai-wrap{display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center}
   .ai-body{font-size:.98rem;line-height:1.8;margin-bottom:30px}
   .ai-pills{display:flex;flex-wrap:wrap;gap:9px}
@@ -564,9 +559,6 @@
   </style>
 </head>
 <body>
-<div class="bg-glow-1"></div>
-<div class="bg-glow-2"></div>
-
 <!-- CUSTOM CURSOR ────────────────────────────────────── -->
 <div id="cursor-dot"></div>
 <div id="cursor-ring"></div>
@@ -624,7 +616,7 @@
         </div>
       </div>
       <div class="hero-image-wrap reveal" style="transition-delay:.2s">
-        <img src="assets/erp-diagram-dark.png" data-erp-dark="assets/erp-diagram-dark.png" data-erp-light="assets/erp-diagram-light.png" alt="ERP modules diagram — Production, Finance, Logistics, Sales, HR, Management" class="hero-image" id="erpDiagram">
+        <div class="erp-diagram" id="erpDiagram" role="img" aria-label="ERP modules diagram — Production, Finance, Logistics, Sales, HR, Management"></div>
       </div>
     </div>
   </div>
@@ -934,19 +926,21 @@
   const saved = localStorage.getItem('pp-theme');
   if (saved) html.setAttribute('data-theme', saved);
 
-  function updateErpDiagram() {
-    const img = document.getElementById('erpDiagram');
-    if (!img) return;
-    img.src = html.getAttribute('data-theme') === 'light' ? img.dataset.erpLight : img.dataset.erpDark;
-  }
-  updateErpDiagram();
-
   document.getElementById('themeToggle').addEventListener('click', () => {
     const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
     html.setAttribute('data-theme', next);
     localStorage.setItem('pp-theme', next);
-    updateErpDiagram();
   });
+
+  const erpHost = document.getElementById('erpDiagram');
+  if (erpHost) {
+    fetch('assets/erp-diagram.svg')
+      .then(r => r.text())
+      .then(svg => { erpHost.innerHTML = svg; })
+      .catch(() => {
+        erpHost.innerHTML = '<img src="assets/erp-diagram.svg" alt="ERP modules diagram" style="width:100%">';
+      });
+  }
 
   /* ── Nav scroll ────────────────────────────────────── */
   const nav = document.getElementById('nav');
