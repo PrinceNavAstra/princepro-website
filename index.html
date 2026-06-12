@@ -43,6 +43,24 @@
     --flow-g:linear-gradient(to bottom,#22c55e,#0d9488,#b8862e,#d4a853,#6366f1,#8b5cf6);
   }
 
+  /* Background glowing orbs */
+  .bg-glow-1, .bg-glow-2 {
+    position: fixed; border-radius: 50%; filter: blur(120px); -webkit-filter: blur(120px);
+    z-index: 0; pointer-events: none; opacity: 0.3; transition: opacity var(--tt);
+  }
+  .bg-glow-1 {
+    width: 50vw; height: 50vw; min-width: 400px; min-height: 400px;
+    background: radial-gradient(circle, var(--gold) 0%, rgba(212,168,83,0) 70%);
+    top: -20vh; right: -10vw;
+  }
+  .bg-glow-2 {
+    width: 60vw; height: 60vw; min-width: 500px; min-height: 500px;
+    background: radial-gradient(circle, #2dd4bf 0%, rgba(45,212,191,0) 70%);
+    bottom: -30vh; left: -20vw; opacity: 0.15;
+  }
+  [data-theme="light"] .bg-glow-1 { opacity: 0.15; }
+  [data-theme="light"] .bg-glow-2 { opacity: 0.08; }
+
   /* ═══ RESET ════════════════════════════════════════════ */
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth;font-size:16px}
@@ -199,6 +217,11 @@
   #hero{min-height:100vh;display:flex;align-items:center;padding:140px 0 100px;position:relative;overflow:hidden}
   #hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 78% 18%,var(--gdim) 0%,transparent 62%),radial-gradient(ellipse 45% 38% at 8% 82%,rgba(45,212,191,.055) 0%,transparent 60%);pointer-events:none}
   #hero::after{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,var(--bdr-md) 1px,transparent 1px);background-size:36px 36px;mask-image:radial-gradient(ellipse 88% 80% at 50% 50%,black 28%,transparent 78%);pointer-events:none;opacity:.45}
+
+  .hero-layout{display:grid;grid-template-columns:1.2fr 0.8fr;gap:40px;align-items:center}
+  .hero-image-wrap{position:relative;display:flex;justify-content:center;align-items:center;padding-right:20px}
+  .hero-image{width:100%;max-width:550px;filter:drop-shadow(0 20px 40px rgba(0,0,0,0.4));animation:float 6s ease-in-out infinite;border-radius:24px}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
 
   .hero-kicker{display:inline-flex;align-items:center;gap:8px;background:var(--gdim);border:1px solid var(--bdr-md);border-radius:100px;padding:6px 16px 6px 8px;margin-bottom:28px;transition:background var(--tt),border-color var(--tt)}
   .kicker-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pulse 2.2s ease-in-out infinite;flex-shrink:0}
@@ -446,10 +469,10 @@
 
   .contact-cards{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:36px}
   .ccard{
-    display:flex;align-items:center;gap:18px;
+    display:flex;align-items:center;gap:20px;
     background:var(--card);border:1px solid var(--bdr);
-    border-radius:16px;padding:22px 30px;
-    min-width:270px;text-align:left;
+    border-radius:16px;padding:24px 32px;
+    min-width:320px;text-align:left;
     transition:border-color .25s,box-shadow .25s,transform .25s cubic-bezier(.4,0,.2,1),background var(--tt);
     position:relative;overflow:hidden;
   }
@@ -462,15 +485,17 @@
   .ccard:hover{border-color:var(--bdr-md);box-shadow:var(--shc);transform:translateY(-4px)}
   .ccard:hover::before{transform:scaleX(1)}
   .ccard-icon{
-    width:50px;height:50px;border-radius:13px;
+    width:56px;height:56px;border-radius:14px;
     background:var(--gdim);border:1px solid var(--bdr-md);
     display:flex;align-items:center;justify-content:center;
-    font-size:1.4rem;flex-shrink:0;
+    font-size:1.6rem;flex-shrink:0;
     transition:background var(--tt),transform .25s;
+    box-shadow:inset 0 2px 10px rgba(0,0,0,0.1);
   }
   .ccard:hover .ccard-icon{transform:scale(1.06)}
-  .ccard-label{font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tm);margin-bottom:5px;transition:color var(--tt)}
-  .ccard-value{font-size:.95rem;font-weight:600;color:var(--th);transition:color .2s}
+  .ccard-text{display:flex;flex-direction:column;justify-content:center;}
+  .ccard-label{font-family:'DM Mono',monospace;font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:2px;transition:color var(--tt)}
+  .ccard-value{font-size:1.05rem;font-weight:700;color:var(--th);transition:color .2s;line-height:1.2}
   .ccard:hover .ccard-value{color:var(--gold)}
 
   /* ═══ FOOTER ═════════════════════════════════════════════ */
@@ -489,6 +514,13 @@
 
   /* ═══ RESPONSIVE ═════════════════════════════════════════ */
   @media(max-width:1020px){
+    .hero-layout{grid-template-columns:1fr;text-align:center;gap:60px}
+    .hero-image-wrap{display:flex;justify-content:center;padding:0}
+    .hero-h1{margin-left:auto;margin-right:auto}
+    .hero-p{margin-left:auto;margin-right:auto}
+    .hero-actions{justify-content:center}
+    .trust-row{justify-content:center}
+    
     .about-grid{grid-template-columns:1fr;gap:40px} .about-left{position:static}
     .svc-grid{grid-template-columns:1fr 1fr}
     .svc:nth-child(2n){border-right:none} .svc:nth-child(3n){border-right:1px solid var(--bdr)}
@@ -520,6 +552,8 @@
   </style>
 </head>
 <body>
+<div class="bg-glow-1"></div>
+<div class="bg-glow-2"></div>
 
 <!-- CUSTOM CURSOR ────────────────────────────────────── -->
 <div id="cursor-dot"></div>
@@ -556,23 +590,30 @@
 <!-- HERO ─────────────────────────────────────────────── -->
 <section id="hero">
   <div class="wrap">
-    <div class="hero-kicker">
-      <span class="kicker-dot"></span>
-      <span class="kicker-txt">ERP Consulting · Business Analysis · AI Workflow Design</span>
-    </div>
-    <h1 class="hero-h1 serif">
-      We Turn Business Complexity<br>Into <em>Scalable ERP Solutions</em>
-    </h1>
-    <p class="hero-p">Empowering <strong>Manufacturing, Logistics, Construction, Marketing, and Textile</strong> businesses to operate smarter — through expert <mark>ERPNext &amp; Odoo</mark> implementation, intelligent automation, and AI-powered custom solutions.</p>
-    <div class="hero-actions">
-      <a href="#contact" class="btn-g">Book a Free Consultation <span class="arrow">→</span></a>
-      <a href="#process" class="btn-o">See How We Work</a>
-    </div>
-    <div class="trust-row">
-      <span class="trust-chip"><span class="chip-dot"></span>ERPNext &amp; Odoo Specialists</span>
-      <span class="trust-chip"><span class="chip-dot"></span>Multiple Industries Served</span>
-      <span class="trust-chip"><span class="chip-dot"></span>End-to-End Delivery</span>
-      <span class="trust-chip"><span class="chip-dot"></span>AI-Powered Solutions</span>
+    <div class="hero-layout">
+      <div class="hero-content">
+        <div class="hero-kicker">
+          <span class="kicker-dot"></span>
+          <span class="kicker-txt">ERP Consulting · Business Analysis · AI Workflow Design</span>
+        </div>
+        <h1 class="hero-h1 serif">
+          We Turn Business Complexity<br>Into <em>Scalable ERP Solutions</em>
+        </h1>
+        <p class="hero-p">Empowering <strong>Manufacturing, Logistics, Construction, Marketing, and Textile</strong> businesses to operate smarter — through expert <mark>ERPNext &amp; Odoo</mark> implementation, intelligent automation, and AI-powered custom solutions.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-g">Book a Free Consultation <span class="arrow">→</span></a>
+          <a href="#process" class="btn-o">See How We Work</a>
+        </div>
+        <div class="trust-row">
+          <span class="trust-chip"><span class="chip-dot"></span>ERPNext &amp; Odoo Specialists</span>
+          <span class="trust-chip"><span class="chip-dot"></span>Multiple Industries Served</span>
+          <span class="trust-chip"><span class="chip-dot"></span>End-to-End Delivery</span>
+          <span class="trust-chip"><span class="chip-dot"></span>AI-Powered Solutions</span>
+        </div>
+      </div>
+      <div class="hero-image-wrap reveal" style="transition-delay:.2s">
+        <img src="assets/erp-3d.png" alt="3D ERP Dashboard" class="hero-image">
+      </div>
     </div>
   </div>
 </section>
@@ -841,14 +882,14 @@
       <div class="contact-cards reveal" style="transition-delay:.18s">
         <a href="mailto:prince679.pro@gmail.com" class="ccard">
           <div class="ccard-icon">✉️</div>
-          <div>
+          <div class="ccard-text">
             <div class="ccard-label">Email Us</div>
             <div class="ccard-value">prince679.pro@gmail.com</div>
           </div>
         </a>
         <a href="tel:+917043176485" class="ccard">
           <div class="ccard-icon">📞</div>
-          <div>
+          <div class="ccard-text">
             <div class="ccard-label">Call Us</div>
             <div class="ccard-value">+91 70431 76485</div>
           </div>
