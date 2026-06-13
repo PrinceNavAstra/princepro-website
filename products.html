@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Financial Tools — SIP, Loan &amp; Ratios | Prince Prajapati</title>
+  <meta name="description" content="Free financial calculators — SIP investment planner, loan EMI calculator, and quick financial ratios analysis for business decision-making." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="industry.css" />
+  <link rel="stylesheet" href="products.css" />
+</head>
+<body>
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Prince <em>Prajapati</em></a>
+    <div class="nav-links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#services">Services</a>
+      <div class="nav-dropdown">
+        <a href="index.html#industries" class="nav-dropbtn" style="cursor:pointer">Industries <span style="font-size:0.7em">▼</span></a>
+        <div class="nav-dropdown-content">
+          <a href="manufacturing.html">Manufacturing</a>
+          <a href="logistics.html">Logistics</a>
+          <a href="construction.html">Construction</a>
+          <a href="marketing.html">Marketing</a>
+          <a href="textile.html">Textile</a>
+        </div>
+      </div>
+      <div class="nav-dropdown">
+        <a href="products.html" class="nav-dropbtn active" style="cursor:pointer">Products <span style="font-size:0.7em">▼</span></a>
+        <div class="nav-dropdown-content">
+          <a href="products.html#sip-calculator">SIP Calculator</a>
+          <a href="products.html#loan-calculator">Loan Calculator</a>
+          <a href="products.html#ratios-analysis">Quick Ratios Analysis</a>
+        </div>
+      </div>
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span class="theme-toggle-icon moon">🌙</span>
+        <span class="theme-toggle-icon sun">☀️</span>
+      </button>
+      <a href="index.html#contact" class="nav-cta">Book a Call</a>
+    </div>
+  </div>
+</nav>
+
+<section class="prod-hero">
+  <div class="wrap">
+    <div class="prod-hero-inner reveal">
+      <a href="index.html" class="breadcrumb">← Back to Home</a>
+      <div class="eyebrow">Products</div>
+      <h1 class="display ind-h1">Financial Tools for Smarter Decisions</h1>
+      <p class="ind-subhead">Plan investments, estimate loan repayments, and analyse key financial ratios — all in one place.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="ind-body bg-2">
+  <div class="wrap">
+    <div class="prod-tabs reveal">
+      <button class="prod-tab active" data-panel="sip-calculator" type="button">SIP Calculator</button>
+      <button class="prod-tab" data-panel="loan-calculator" type="button">Loan Calculator</button>
+      <button class="prod-tab" data-panel="ratios-analysis" type="button">Quick Ratios Analysis</button>
+    </div>
+
+    <!-- SIP Calculator -->
+    <div id="sip-calculator" class="prod-panel active reveal">
+      <div class="calc-layout">
+        <div class="calc-card">
+          <h3>SIP Calculator</h3>
+          <p class="calc-desc">Estimate the future value of your Systematic Investment Plan based on monthly contributions and expected returns.</p>
+          <div class="calc-field">
+            <label for="sip-amount">Monthly Investment</label>
+            <div class="input-wrap">
+              <span class="input-prefix">₹</span>
+              <input type="number" id="sip-amount" value="10000" min="0" step="500" />
+            </div>
+          </div>
+          <div class="calc-field">
+            <label for="sip-rate">Expected Annual Return (%)</label>
+            <div class="input-wrap has-suffix">
+              <input type="number" id="sip-rate" value="12" min="0" max="50" step="0.5" />
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
+          <div class="calc-field">
+            <label for="sip-years">Investment Period (Years)</label>
+            <div class="input-wrap has-suffix">
+              <input type="number" id="sip-years" value="10" min="1" max="40" step="1" />
+              <span class="input-suffix">yrs</span>
+            </div>
+          </div>
+          <button class="calc-btn" id="sip-calc-btn" type="button">Calculate SIP Returns</button>
+        </div>
+        <div class="calc-card">
+          <h3>Projected Results</h3>
+          <p class="calc-desc">Based on monthly SIP contributions compounded at the expected rate of return.</p>
+          <div class="calc-results">
+            <div class="result-item">
+              <div class="result-label">Total Invested</div>
+              <div class="result-value" id="sip-invested">—</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">Estimated Returns</div>
+              <div class="result-value" id="sip-returns">—</div>
+            </div>
+            <div class="result-item highlight">
+              <div class="result-label">Maturity Value</div>
+              <div class="result-value" id="sip-maturity">—</div>
+            </div>
+          </div>
+          <p class="result-note">Returns are indicative and not guaranteed. Actual performance may vary based on market conditions.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loan Calculator -->
+    <div id="loan-calculator" class="prod-panel reveal">
+      <div class="calc-layout">
+        <div class="calc-card">
+          <h3>Loan Calculator</h3>
+          <p class="calc-desc">Calculate your monthly EMI, total interest payable, and overall repayment amount for any loan.</p>
+          <div class="calc-field">
+            <label for="loan-amount">Loan Amount</label>
+            <div class="input-wrap">
+              <span class="input-prefix">₹</span>
+              <input type="number" id="loan-amount" value="5000000" min="0" step="10000" />
+            </div>
+          </div>
+          <div class="calc-field">
+            <label for="loan-rate">Annual Interest Rate (%)</label>
+            <div class="input-wrap has-suffix">
+              <input type="number" id="loan-rate" value="8.5" min="0" max="30" step="0.1" />
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
+          <div class="calc-field">
+            <label for="loan-years">Loan Tenure (Years)</label>
+            <div class="input-wrap has-suffix">
+              <input type="number" id="loan-years" value="20" min="1" max="30" step="1" />
+              <span class="input-suffix">yrs</span>
+            </div>
+          </div>
+          <button class="calc-btn" id="loan-calc-btn" type="button">Calculate EMI</button>
+        </div>
+        <div class="calc-card">
+          <h3>Repayment Summary</h3>
+          <p class="calc-desc">Your estimated monthly instalment and total cost of borrowing.</p>
+          <div class="calc-results">
+            <div class="result-item highlight">
+              <div class="result-label">Monthly EMI</div>
+              <div class="result-value" id="loan-emi">—</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">Total Interest</div>
+              <div class="result-value" id="loan-interest">—</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">Total Payment</div>
+              <div class="result-value" id="loan-total">—</div>
+            </div>
+          </div>
+          <p class="result-note">EMI calculated using standard reducing-balance method. Processing fees and charges are not included.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Ratios Analysis -->
+    <div id="ratios-analysis" class="prod-panel reveal">
+      <div class="calc-layout">
+        <div class="calc-card">
+          <h3>Enter Financial Data</h3>
+          <p class="calc-desc">Input your balance sheet and income statement figures to instantly compute key financial ratios.</p>
+          <div class="ratios-input-grid">
+            <div class="calc-field">
+              <label for="ratio-current-assets">Current Assets (₹)</label>
+              <input type="number" id="ratio-current-assets" value="2500000" min="0" step="1000" />
+            </div>
+            <div class="calc-field">
+              <label for="ratio-inventory">Inventory (₹)</label>
+              <input type="number" id="ratio-inventory" value="600000" min="0" step="1000" />
+            </div>
+            <div class="calc-field">
+              <label for="ratio-current-liab">Current Liabilities (₹)</label>
+              <input type="number" id="ratio-current-liab" value="1200000" min="0" step="1000" />
+            </div>
+            <div class="calc-field">
+              <label for="ratio-total-debt">Total Debt (₹)</label>
+              <input type="number" id="ratio-total-debt" value="3000000" min="0" step="1000" />
+            </div>
+            <div class="calc-field">
+              <label for="ratio-equity">Shareholders' Equity (₹)</label>
+              <input type="number" id="ratio-equity" value="4000000" min="0" step="1000" />
+            </div>
+            <div class="calc-field">
+              <label for="ratio-total-assets">Total Assets (₹)</label>
+              <input type="number" id="ratio-total-assets" value="8000000" min="0" step="1000" />
+            </div>
+            <div class="calc-field">
+              <label for="ratio-revenue">Revenue / Net Sales (₹)</label>
+              <input type="number" id="ratio-revenue" value="12000000" min="0" step="1000" />
+            </div>
+            <div class="calc-field">
+              <label for="ratio-gross-profit">Gross Profit (₹)</label>
+              <input type="number" id="ratio-gross-profit" value="4800000" min="0" step="1000" />
+            </div>
+            <div class="calc-field" style="grid-column:1/-1">
+              <label for="ratio-net-income">Net Income (₹)</label>
+              <input type="number" id="ratio-net-income" value="960000" min="0" step="1000" />
+            </div>
+          </div>
+          <button class="calc-btn" id="ratios-calc-btn" type="button">Analyse Ratios</button>
+        </div>
+        <div class="calc-card">
+          <h3>Ratio Analysis</h3>
+          <p class="calc-desc">Key liquidity, leverage, and profitability ratios computed from your data.</p>
+          <div class="ratios-results">
+            <div class="ratio-card">
+              <div class="result-label">Current Ratio</div>
+              <div class="result-value" id="ratio-current-value">—</div>
+              <div class="ratio-formula">Current Assets ÷ Current Liabilities</div>
+              <span class="ratio-status" id="ratio-current-status"></span>
+            </div>
+            <div class="ratio-card">
+              <div class="result-label">Quick Ratio</div>
+              <div class="result-value" id="ratio-quick-value">—</div>
+              <div class="ratio-formula">(Current Assets − Inventory) ÷ Current Liab.</div>
+              <span class="ratio-status" id="ratio-quick-status"></span>
+            </div>
+            <div class="ratio-card">
+              <div class="result-label">Debt-to-Equity</div>
+              <div class="result-value" id="ratio-debt-equity-value">—</div>
+              <div class="ratio-formula">Total Debt ÷ Shareholders' Equity</div>
+              <span class="ratio-status" id="ratio-debt-equity-status"></span>
+            </div>
+            <div class="ratio-card">
+              <div class="result-label">Debt-to-Assets</div>
+              <div class="result-value" id="ratio-debt-assets-value">—</div>
+              <div class="ratio-formula">Total Debt ÷ Total Assets</div>
+              <span class="ratio-status" id="ratio-debt-assets-status"></span>
+            </div>
+            <div class="ratio-card">
+              <div class="result-label">Return on Equity (ROE)</div>
+              <div class="result-value" id="ratio-roe-value">—</div>
+              <div class="ratio-formula">Net Income ÷ Equity × 100</div>
+              <span class="ratio-status" id="ratio-roe-status"></span>
+            </div>
+            <div class="ratio-card">
+              <div class="result-label">Return on Assets (ROA)</div>
+              <div class="result-value" id="ratio-roa-value">—</div>
+              <div class="ratio-formula">Net Income ÷ Total Assets × 100</div>
+              <span class="ratio-status" id="ratio-roa-status"></span>
+            </div>
+            <div class="ratio-card">
+              <div class="result-label">Net Profit Margin</div>
+              <div class="result-value" id="ratio-net-margin-value">—</div>
+              <div class="ratio-formula">Net Income ÷ Revenue × 100</div>
+              <span class="ratio-status" id="ratio-net-margin-status"></span>
+            </div>
+            <div class="ratio-card">
+              <div class="result-label">Gross Profit Margin</div>
+              <div class="result-value" id="ratio-gross-margin-value">—</div>
+              <div class="ratio-formula">Gross Profit ÷ Revenue × 100</div>
+              <span class="ratio-status" id="ratio-gross-margin-status"></span>
+            </div>
+            <div class="ratio-card" style="grid-column:1/-1">
+              <div class="result-label">Equity Ratio</div>
+              <div class="result-value" id="ratio-equity-value">—</div>
+              <div class="ratio-formula">Shareholders' Equity ÷ Total Assets × 100</div>
+              <span class="ratio-status" id="ratio-equity-status"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Prince <em>Prajapati</em></div>
+    <div class="footer-copy">© 2026 · ERP Consulting &amp; AI Workflow Design</div>
+  </div>
+</footer>
+
+<script src="shared.js"></script>
+<script src="products.js"></script>
+</body>
+</html>
