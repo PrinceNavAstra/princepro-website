@@ -100,6 +100,16 @@
         <h1 class="display ind-h1">Financial Tools for Smarter Decisions</h1>
         <p class="ind-subhead">Plan investments, estimate loan repayments, and analyse key financial ratios — all in one
           place.</p>
+
+        <div class="hero-quick-links" style="display:flex;flex-wrap:wrap;gap:12px;margin-top:18px;align-items:center;">
+          <a href="products.html#sip-calculator" class="hero-ql"
+            style="display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:10px;border:1px solid var(--border);background:var(--card-bg);color:var(--text-body);font-weight:600;transition:transform .2s, box-shadow .2s, border-color .2s;">Investment</a>
+          <a href="products.html#loan-calculator" class="hero-ql"
+            style="display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:10px;border:1px solid var(--border);background:var(--card-bg);color:var(--text-body);font-weight:600;transition:transform .2s, box-shadow .2s, border-color .2s;">Loans
+            and Debt</a>
+          <a href="products.html#ratios-analysis" class="hero-ql"
+            style="display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:10px;border:1px solid var(--border);background:var(--card-bg);color:var(--text-body);font-weight:600;transition:transform .2s, box-shadow .2s, border-color .2s;">Fundamental</a>
+        </div>
       </div>
     </div>
   </section>
@@ -146,7 +156,8 @@
               <label for="sip-stepup-amount">Optional Step-Up Amount (₹)</label>
               <div class="input-wrap">
                 <span class="input-prefix">₹</span>
-                <input type="number" id="sip-stepup-amount" min="0" step="100" placeholder="Leave blank for regular SIP" />
+                <input type="number" id="sip-stepup-amount" min="0" step="100"
+                  placeholder="Leave blank for regular SIP" />
               </div>
             </div>
             <div class="calc-field">
@@ -212,7 +223,8 @@
           <h3
             style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">
             Yearly Progression</h3>
-          <p class="calc-desc" style="margin-bottom: 20px;">Detailed year-by-year breakdown of your SIP investment and step-up impact.</p>
+          <p class="calc-desc" style="margin-bottom: 20px;">Detailed year-by-year breakdown of your SIP investment and
+            step-up impact.</p>
           <div class="table-wrapper" id="sip-table-wrapper">
             <table class="sip-progression-table" id="sip-progression-table">
               <thead>
