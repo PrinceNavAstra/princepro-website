@@ -204,6 +204,153 @@
   .nav-cta:hover{transform:translateY(-2px);box-shadow:var(--shb)}
   .nav-cta:hover::before{opacity:1}
 
+  /* ═══ HAMBURGER & SIDEBAR ══════════════════════════════ */
+  .hamburger{
+    display:none;
+    flex-direction:column;
+    background:none;
+    border:none;
+    cursor:pointer;
+    gap:5px;
+    padding:8px;
+    margin-left:8px;
+    position:relative;
+    z-index:301;
+  }
+  .hamburger span{
+    width:22px;
+    height:2px;
+    background:var(--tb);
+    border-radius:2px;
+    transition:all .3s cubic-bezier(.4,0,.2,1);
+    transform-origin:center;
+  }
+  .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(8px,8px)}
+  .hamburger.active span:nth-child(2){opacity:0}
+  .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(7px,-7px)}
+  .sidebar{
+    position:fixed;top:0;left:-100%;
+    display:none;
+    width:100%;height:100vh;
+    background:var(--bg);
+    z-index:299;
+    transition:left .3s cubic-bezier(.4,0,.2,1);
+    overflow-y:auto;
+    padding-top:80px;
+    visibility:hidden;
+  }
+  .sidebar.active{
+    left:0;
+    display:block;
+    visibility:visible;
+  }
+  .sidebar-content{padding:24px 20px}
+  .sidebar-header{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    margin-bottom:32px;
+    padding-bottom:20px;
+    border-bottom:1px solid var(--bdr);
+  }
+  .sidebar-close{
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:8px;
+    width:40px;
+    height:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    transition:color .2s;
+  }
+  .sidebar-close::before,
+  .sidebar-close::after{
+    content:'';
+    position:absolute;
+    width:24px;
+    height:2px;
+    background:var(--tb);
+    border-radius:2px;
+    transition:all .2s;
+  }
+  .sidebar-close::before{transform:rotate(45deg)}
+  .sidebar-close::after{transform:rotate(-45deg)}
+  .sidebar-close:hover::before,
+  .sidebar-close:hover::after{background:var(--th)}
+  .sidebar-links{
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  .sidebar-link{
+    display:block;
+    font-size:.95rem;
+    font-weight:500;
+    color:var(--tb);
+    padding:12px 0;
+    transition:color .2s;
+    background:none;
+    border:none;
+    cursor:pointer;
+    text-align:left;
+    width:100%;
+  }
+  .sidebar-link:hover{color:var(--th)}
+  .sidebar-dropdown{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+  }
+  .sidebar-dropdown-btn{
+    padding:12px 0;
+    justify-content:space-between;
+    display:flex;
+  }
+  .sidebar-dropdown-btn::after{
+    content:'▼';
+    font-size:.6rem;
+    transition:transform .3s;
+  }
+  .sidebar-dropdown-btn.active::after{transform:rotate(180deg)}
+  .sidebar-dropdown-content{
+    display:none;
+    flex-direction:column;
+    gap:8px;
+    padding-left:16px;
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .3s;
+  }
+  .sidebar-dropdown-content.active{
+    display:flex;
+    max-height:500px;
+  }
+  .sidebar-dropdown-content a{
+    font-size:.9rem;
+    color:var(--tb);
+    padding:10px 0;
+    transition:color .2s;
+    border-left:2px solid transparent;
+    padding-left:12px;
+  }
+  .sidebar-dropdown-content a:hover{
+    color:var(--th);
+    border-left-color:var(--gold);
+  }
+  .sidebar-cta{
+    background:var(--gold);
+    color:var(--bg);
+    padding:12px 20px !important;
+    border-radius:6px;
+    margin-top:16px;
+    text-align:center;
+    font-weight:600;
+  }
+  .sidebar-cta:hover{opacity:.9}
+
   /* ═══ HERO ════════════════════════════════════════════════ */
   #hero{min-height:100vh;display:flex;align-items:center;padding:140px 0 100px;position:relative;overflow:hidden}
   #hero::before{
@@ -563,8 +710,10 @@
   @media(max-width:768px){
     .wrap{padding:0 var(--page-pad)} section{padding:80px 0}
     .nav-inner{grid-template-columns:1fr auto}
-    .nav-links{display:none}
-    .nav-right{grid-column:2;justify-self:end}
+    .nav-links{display:none !important}
+    .nav-right{grid-column:2;justify-self:end;gap:0}
+    .tog,.nav-cta{display:none !important}
+    .hamburger{display:flex !important}
     .svc-grid{grid-template-columns:1fr}
     .svc{border-right:none} .svc:nth-child(3n){border-right:none}
     .ind-grid{grid-template-columns:1fr 1fr}
@@ -582,6 +731,7 @@
     #cursor-dot,#cursor-ring{display:none}
     body{cursor:auto}
   }
+  body.touch-device .nav-dropdown:hover .nav-dropdown-content{display:none}
   </style>
 </head>
 <body>
@@ -1088,42 +1238,84 @@
   const isTouchDevice = window.matchMedia('(pointer:coarse)').matches;
   if (isTouchDevice) {
     document.body.classList.add('touch-device');
-    return;
+  } else {
+    const dot  = document.getElementById('cursor-dot');
+    const ring = document.getElementById('cursor-ring');
+    let mx = -100, my = -100;
+    let rx = -100, ry = -100;
+    let raf;
+
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    document.addEventListener('mousedown', () => ring.classList.add('clicking'));
+    document.addEventListener('mouseup',   () => ring.classList.remove('clicking'));
+
+    // Hover detection — expand ring on interactive elements
+    const hoverEls = 'a, button, .svc, .ind-card, .exp-card, .ccard, .ai-pill, .trust-chip, .flow-step';
+    document.querySelectorAll(hoverEls).forEach(el => {
+      el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
+    });
+
+    // Dot follows cursor instantly; ring uses lerp for smooth lag
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function loop() {
+      dot.style.left  = mx + 'px';
+      dot.style.top   = my + 'px';
+      rx = lerp(rx, mx, 0.12);
+      ry = lerp(ry, my, 0.12);
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      raf = requestAnimationFrame(loop);
+    }
+    loop();
+
+    // Hide cursor when leaving window
+    document.addEventListener('mouseleave', () => { dot.style.opacity = 0; ring.style.opacity = 0; });
+    document.addEventListener('mouseenter', () => { dot.style.opacity = 1; ring.style.opacity = ''; });
   }
 
-  const dot  = document.getElementById('cursor-dot');
-  const ring = document.getElementById('cursor-ring');
-  let mx = -100, my = -100;
-  let rx = -100, ry = -100;
-  let raf;
+  /* ── Mobile Sidebar ─────────────────────────────────── */
+  const hamburger = document.getElementById('hamburger');
+  const sidebar = document.getElementById('sidebar');
+  const sidebarClose = document.getElementById('sidebarClose');
 
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-  document.addEventListener('mousedown', () => ring.classList.add('clicking'));
-  document.addEventListener('mouseup',   () => ring.classList.remove('clicking'));
+  if (hamburger && sidebar && sidebarClose) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      sidebar.classList.toggle('active');
+    });
 
-  // Hover detection — expand ring on interactive elements
-  const hoverEls = 'a, button, .svc, .ind-card, .exp-card, .ccard, .ai-pill, .trust-chip, .flow-step';
-  document.querySelectorAll(hoverEls).forEach(el => {
-    el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
-    el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
-  });
+    sidebarClose.addEventListener('click', () => {
+      hamburger.classList.remove('active');
+      sidebar.classList.remove('active');
+    });
 
-  // Dot follows cursor instantly; ring uses lerp for smooth lag
-  function lerp(a, b, t) { return a + (b - a) * t; }
-  function loop() {
-    dot.style.left  = mx + 'px';
-    dot.style.top   = my + 'px';
-    rx = lerp(rx, mx, 0.12);
-    ry = lerp(ry, my, 0.12);
-    ring.style.left = rx + 'px';
-    ring.style.top  = ry + 'px';
-    raf = requestAnimationFrame(loop);
+    sidebar.querySelectorAll('.sidebar-link:not(.sidebar-dropdown-btn)').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        sidebar.classList.remove('active');
+      });
+    });
+
+    sidebar.querySelectorAll('.sidebar-dropdown-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const content = btn.nextElementSibling;
+        if (content && content.classList.contains('sidebar-dropdown-content')) {
+          btn.classList.toggle('active');
+          content.classList.toggle('active');
+        }
+      });
+    });
+
+    document.addEventListener('click', e => {
+      if (sidebar.classList.contains('active') &&
+          !sidebar.contains(e.target) &&
+          !hamburger.contains(e.target)) {
+        hamburger.classList.remove('active');
+        sidebar.classList.remove('active');
+      }
+    });
   }
-  loop();
-
-  // Hide cursor when leaving window
-  document.addEventListener('mouseleave', () => { dot.style.opacity = 0; ring.style.opacity = 0; });
-  document.addEventListener('mouseenter', () => { dot.style.opacity = 1; ring.style.opacity = ''; });
 })();
 </script>
 </body>
