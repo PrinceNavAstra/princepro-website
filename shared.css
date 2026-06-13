@@ -424,10 +424,13 @@ section {
   transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow-y: auto;
   padding-top: 80px;
+  /* Prevent any flicker/paint of sidebar text above header when closed */
+  visibility: hidden;
 }
 
 .sidebar.active {
   left: 0;
+  visibility: visible;
 }
 
 .sidebar-content {

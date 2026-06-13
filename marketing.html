@@ -1,165 +1,217 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ERP & CRM Solutions for Marketing Agencies | ERPNext & Odoo | Prince Prajapati</title>
-  <meta name="description" content="We implement ERP & CRM solutions for marketing teams and agencies using ERPNext & Odoo. Manage campaigns, leads, customers, team collaboration & performance reporting." />
+  <meta name="description"
+    content="We implement ERP & CRM solutions for marketing teams and agencies using ERPNext & Odoo. Manage campaigns, leads, customers, team collaboration & performance reporting." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="shared.css" />
   <link rel="stylesheet" href="industry.css" />
 </head>
+
 <body>
-<nav id="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo">Prince <em>Prajapati</em></a>
-    <div class="nav-links">
-      <a href="index.html#about">About</a>
-      <a href="index.html#services">Services</a>
-      <div class="nav-dropdown">
-        <a href="index.html#industries" class="nav-dropbtn active" style="cursor:pointer">Industries <span style="font-size: 0.7em;">▼</span></a>
-        <div class="nav-dropdown-content">
-          <a href="manufacturing.html">Manufacturing</a>
-          <a href="logistics.html">Logistics</a>
-          <a href="construction.html">Construction</a>
-          <a href="marketing.html">Marketing</a>
-          <a href="textile.html">Textile</a>
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Prince <em>Prajapati</em></a>
+      <div class="nav-links">
+        <a href="index.html#about">About</a>
+        <a href="index.html#services">Services</a>
+        <div class="nav-dropdown">
+          <a href="index.html#industries" class="nav-dropbtn active" style="cursor:pointer">Industries <span
+              style="font-size: 0.7em;">▼</span></a>
+          <div class="nav-dropdown-content">
+            <a href="manufacturing.html">Manufacturing</a>
+            <a href="logistics.html">Logistics</a>
+            <a href="construction.html">Construction</a>
+            <a href="marketing.html">Marketing</a>
+            <a href="textile.html">Textile</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <a href="products.html" class="nav-dropbtn" style="cursor:pointer">Products <span
+              style="font-size: 0.7em;">▼</span></a>
+          <div class="nav-dropdown-content">
+            <a href="products.html#sip-calculator">SIP Calculator</a>
+            <a href="products.html#loan-calculator">Loan Calculator</a>
+            <a href="products.html#ratios-analysis">Quick Ratios Analysis</a>
+          </div>
         </div>
       </div>
-      <div class="nav-dropdown">
-        <a href="products.html" class="nav-dropbtn" style="cursor:pointer">Products <span style="font-size: 0.7em;">▼</span></a>
-        <div class="nav-dropdown-content">
-          <a href="products.html#sip-calculator">SIP Calculator</a>
-          <a href="products.html#loan-calculator">Loan Calculator</a>
-          <a href="products.html#ratios-analysis">Quick Ratios Analysis</a>
-        </div>
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span class="theme-toggle-icon moon">🌙</span>
+          <span class="theme-toggle-icon sun">☀️</span>
+        </button>
+        <a href="index.html#contact" class="nav-cta">Book a Call</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </div>
-    <div class="nav-right">
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <span class="theme-toggle-icon moon">🌙</span>
-        <span class="theme-toggle-icon sun">☀️</span>
-      </button>
-      <a href="index.html#contact" class="nav-cta">Book a Call</a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-  </div>
-</nav>
+  </nav>
 
-<!-- Mobile Sidebar -->
-<div class="sidebar" id="sidebar">
-  <div class="sidebar-content">
-    <div class="sidebar-header">
-      <button class="sidebar-close" id="sidebarClose" aria-label="Close menu"></button>
-    </div>
-    <div class="sidebar-links">
-      <a href="index.html#about" class="sidebar-link">About</a>
-      <a href="index.html#services" class="sidebar-link">Services</a>
-      <div class="sidebar-dropdown">
-        <button class="sidebar-link sidebar-dropdown-btn">Industries</button>
-        <div class="sidebar-dropdown-content">
-          <a href="manufacturing.html">Manufacturing</a>
-          <a href="logistics.html">Logistics</a>
-          <a href="construction.html">Construction</a>
-          <a href="marketing.html">Marketing</a>
-          <a href="textile.html">Textile</a>
-        </div>
+  <!-- Mobile Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-content">
+      <div class="sidebar-header">
+        <button class="sidebar-close" id="sidebarClose" aria-label="Close menu"></button>
       </div>
-      <div class="sidebar-dropdown">
-        <button class="sidebar-link sidebar-dropdown-btn">Products</button>
-        <div class="sidebar-dropdown-content">
-          <a href="products.html#sip-calculator">SIP Calculator</a>
-          <a href="products.html#loan-calculator">Loan Calculator</a>
-          <a href="products.html#ratios-analysis">Quick Ratios Analysis</a>
+      <div class="sidebar-links">
+        <a href="index.html#about" class="sidebar-link">About</a>
+        <a href="index.html#services" class="sidebar-link">Services</a>
+        <div class="sidebar-dropdown">
+          <button class="sidebar-link sidebar-dropdown-btn">Industries</button>
+          <div class="sidebar-dropdown-content">
+            <a href="manufacturing.html">Manufacturing</a>
+            <a href="logistics.html">Logistics</a>
+            <a href="construction.html">Construction</a>
+            <a href="marketing.html">Marketing</a>
+            <a href="textile.html">Textile</a>
+          </div>
         </div>
+        <div class="sidebar-dropdown">
+          <button class="sidebar-link sidebar-dropdown-btn">Products</button>
+          <div class="sidebar-dropdown-content">
+            <a href="products.html#sip-calculator">SIP Calculator</a>
+            <a href="products.html#loan-calculator">Loan Calculator</a>
+            <a href="products.html#ratios-analysis">Quick Ratios Analysis</a>
+          </div>
+        </div>
+        <a href="index.html#contact" class="sidebar-link sidebar-cta">Book a Free Consultation</a>
       </div>
-      <a href="index.html#contact" class="sidebar-link sidebar-cta">Book a Free Consultation</a>
     </div>
   </div>
-</div>
-  </div>
-</nav>
 
-<section class="ind-hero">
-  <div class="wrap">
+  <section <div class="wrap">
     <div class="ind-hero-inner">
       <div class="reveal">
         <a href="index.html#industries" class="breadcrumb">← All Industries</a>
         <div class="ind-icon-badge">📈</div>
         <div class="eyebrow">Marketing</div>
         <h1 class="display ind-h1">ERP &amp; CRM Solutions That Power High-Performing Marketing Teams</h1>
-        <p class="ind-subhead">We help marketing teams and agencies centralize operations, track every lead, manage every campaign, and report on performance — all from one connected platform.</p>
+        <p class="ind-subhead">We help marketing teams and agencies centralize operations, track every lead, manage
+          every campaign, and report on performance — all from one connected platform.</p>
         <a href="index.html#contact" class="btn-gold">Let's Centralize Your Marketing Operations →</a>
       </div>
     </div>
-  </div>
-</section>
+    </div>
+  </section>
 
-<div class="divider"></div>
+  <div class="divider"></div>
 
-<section class="ind-body bg-2">
-  <div class="wrap">
-    <div class="ind-two-col">
-      <div class="reveal">
-        <div class="eyebrow">Overview</div>
-        <h2 class="display ind-h2">One Connected Platform for Every Marketing Operation</h2>
-        <div class="gold-bar"></div>
+  <section class="ind-body bg-2">
+    <div class="wrap">
+      <div class="ind-two-col">
+        <div class="reveal">
+          <div class="eyebrow">Overview</div>
+          <h2 class="display ind-h2">One Connected Platform for Every Marketing Operation</h2>
+          <div class="gold-bar"></div>
+        </div>
+        <div class="reveal" style="transition-delay:0.1s">
+          <p>Marketing agencies and teams juggle dozens of campaigns, clients, deadlines, and performance metrics
+            simultaneously. Without a centralized system, critical tasks fall through the cracks, reporting becomes
+            time-consuming, and client relationships suffer.</p>
+          <p>We implement ERP and CRM solutions that bring clarity and control to marketing operations — connecting your
+            team, your clients, and your data in one intelligent platform.</p>
+        </div>
       </div>
-      <div class="reveal" style="transition-delay:0.1s">
-        <p>Marketing agencies and teams juggle dozens of campaigns, clients, deadlines, and performance metrics simultaneously. Without a centralized system, critical tasks fall through the cracks, reporting becomes time-consuming, and client relationships suffer.</p>
-        <p>We implement ERP and CRM solutions that bring clarity and control to marketing operations — connecting your team, your clients, and your data in one intelligent platform.</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="ind-problems">
+    <div class="wrap">
+      <div class="reveal" style="margin-bottom:48px">
+        <div class="eyebrow">Pain Points We Solve</div>
+        <h2 class="display ind-h2">What We Solve</h2>
+      </div>
+      <div class="problems-grid reveal" style="transition-delay:0.1s">
+        <div class="problem-card"><span class="problem-icon">🗂️</span>
+          <p>Scattered client and campaign data across multiple tools</p>
+        </div>
+        <div class="problem-card"><span class="problem-icon">🎯</span>
+          <p>Poor lead visibility and follow-up tracking</p>
+        </div>
+        <div class="problem-card"><span class="problem-icon">⏱️</span>
+          <p>Time-consuming manual reporting and performance tracking</p>
+        </div>
+        <div class="problem-card"><span class="problem-icon">👥</span>
+          <p>Lack of team collaboration and task accountability</p>
+        </div>
+        <div class="problem-card"><span class="problem-icon">📉</span>
+          <p>Inability to measure campaign ROI accurately</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="divider"></div>
+  <div class="divider"></div>
 
-<section class="ind-problems">
-  <div class="wrap">
-    <div class="reveal" style="margin-bottom:48px">
-      <div class="eyebrow">Pain Points We Solve</div>
-      <h2 class="display ind-h2">What We Solve</h2>
+  <section class="ind-caps bg-2">
+    <div class="wrap">
+      <div class="reveal" style="margin-bottom:48px">
+        <div class="eyebrow">Capabilities</div>
+        <h2 class="display ind-h2">Our Marketing ERP Capabilities</h2>
+      </div>
+      <div class="caps-table reveal" style="transition-delay:0.1s">
+        <div class="caps-row caps-header">
+          <div class="caps-module">Module</div>
+          <div class="caps-deliver">What We Deliver</div>
+        </div>
+        <div class="caps-row">
+          <div class="caps-module">Campaign Management</div>
+          <div class="caps-deliver">End-to-end campaign planning, execution tracking, and performance measurement</div>
+        </div>
+        <div class="caps-row">
+          <div class="caps-module">Lead Tracking</div>
+          <div class="caps-deliver">Pipeline management, lead scoring, and automated follow-up workflows</div>
+        </div>
+        <div class="caps-row">
+          <div class="caps-module">Customer Management</div>
+          <div class="caps-deliver">Centralized CRM with full client history, communication logs, and segmentation</div>
+        </div>
+        <div class="caps-row">
+          <div class="caps-module">Team Collaboration</div>
+          <div class="caps-deliver">Task assignment, project tracking, and team productivity reporting</div>
+        </div>
+        <div class="caps-row">
+          <div class="caps-module">Reporting & Analytics</div>
+          <div class="caps-deliver">Custom dashboards, ROI reporting, and real-time performance insights</div>
+        </div>
+      </div>
     </div>
-    <div class="problems-grid reveal" style="transition-delay:0.1s">
-      <div class="problem-card"><span class="problem-icon">🗂️</span><p>Scattered client and campaign data across multiple tools</p></div>
-      <div class="problem-card"><span class="problem-icon">🎯</span><p>Poor lead visibility and follow-up tracking</p></div>
-      <div class="problem-card"><span class="problem-icon">⏱️</span><p>Time-consuming manual reporting and performance tracking</p></div>
-      <div class="problem-card"><span class="problem-icon">👥</span><p>Lack of team collaboration and task accountability</p></div>
-      <div class="problem-card"><span class="problem-icon">📉</span><p>Inability to measure campaign ROI accurately</p></div>
+  </section>
+
+  <div class="divider"></div>
+  <section class="ind-cta">
+    <div class="wrap">
+      <div class="cta-inner reveal">
+        <h2 class="display" style="font-size:clamp(1.8rem,3.5vw,2.6rem);margin-bottom:16px">Ready to Centralize Your
+          Marketing Operations?</h2>
+        <p style="margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto">Let's discuss how a unified ERP
+          and CRM platform can power your team's performance.</p><a href="index.html#contact" class="btn-gold">Book a
+          Free Consultation →</a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="divider"></div>
-
-<section class="ind-caps bg-2">
-  <div class="wrap">
-    <div class="reveal" style="margin-bottom:48px">
-      <div class="eyebrow">Capabilities</div>
-      <h2 class="display ind-h2">Our Marketing ERP Capabilities</h2>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Prince <em>Prajapati</em></div>
+      <div class="footer-copy">© 2026 · ERP Consulting &amp; AI Workflow Design</div>
     </div>
-    <div class="caps-table reveal" style="transition-delay:0.1s">
-      <div class="caps-row caps-header"><div class="caps-module">Module</div><div class="caps-deliver">What We Deliver</div></div>
-      <div class="caps-row"><div class="caps-module">Campaign Management</div><div class="caps-deliver">End-to-end campaign planning, execution tracking, and performance measurement</div></div>
-      <div class="caps-row"><div class="caps-module">Lead Tracking</div><div class="caps-deliver">Pipeline management, lead scoring, and automated follow-up workflows</div></div>
-      <div class="caps-row"><div class="caps-module">Customer Management</div><div class="caps-deliver">Centralized CRM with full client history, communication logs, and segmentation</div></div>
-      <div class="caps-row"><div class="caps-module">Team Collaboration</div><div class="caps-deliver">Task assignment, project tracking, and team productivity reporting</div></div>
-      <div class="caps-row"><div class="caps-module">Reporting & Analytics</div><div class="caps-deliver">Custom dashboards, ROI reporting, and real-time performance insights</div></div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-<section class="ind-cta"><div class="wrap"><div class="cta-inner reveal"><h2 class="display" style="font-size:clamp(1.8rem,3.5vw,2.6rem);margin-bottom:16px">Ready to Centralize Your Marketing Operations?</h2><p style="margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto">Let's discuss how a unified ERP and CRM platform can power your team's performance.</p><a href="index.html#contact" class="btn-gold">Book a Free Consultation →</a></div></div></section>
-
-<footer><div class="footer-inner"><div class="footer-logo">Prince <em>Prajapati</em></div><div class="footer-copy">© 2026 · ERP Consulting &amp; AI Workflow Design</div></div></footer>
-<script src="shared.js"></script>
+  </footer>
+  <script src="shared.js"></script>
 </body>
+
 </html>
