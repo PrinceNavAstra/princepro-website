@@ -417,6 +417,7 @@ section {
   position: fixed;
   top: 0;
   left: -100%;
+  display: none;
   width: 100%;
   height: 100vh;
   background: var(--bg);
@@ -430,6 +431,7 @@ section {
 
 .sidebar.active {
   left: 0;
+  display: block;
   visibility: visible;
 }
 
@@ -695,7 +697,7 @@ footer {
   }
 
   .nav-links {
-    display: none
+    display: none !important
   }
 
   .nav-right {
@@ -706,12 +708,16 @@ footer {
 
   .theme-toggle,
   .nav-cta {
-    display: none;
+    display: none !important;
   }
 
   .hamburger {
-    display: flex;
+    display: flex !important;
   }
+}
+
+body.touch-device .nav-dropdown:hover .nav-dropdown-content {
+  display: none;
 }
 
 @media(prefers-reduced-motion:reduce) {
