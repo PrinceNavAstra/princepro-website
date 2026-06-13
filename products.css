@@ -123,6 +123,12 @@
   display: block;
 }
 
+/* Used by JS to hide specific calculators based on hero selection */
+.is-hidden {
+  display: none !important;
+}
+
+
 .calc-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;

@@ -1,1335 +1,2715 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Prince Prajapati | ERP Consultant & AI Workflow Designer | ERPNext & Odoo Specialist</title>
-  <meta name="description" content="Expert ERPNext & Odoo implementation, AI workflow automation, and business process optimization across Manufacturing, Logistics, Construction, Textile & Marketing." />
+  <meta name="description"
+    content="Expert ERPNext & Odoo implementation, AI workflow automation, and business process optimization across Manufacturing, Logistics, Construction, Textile & Marketing." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
   <style>
-  /* ═══ TOKENS ════════════════════════════════════════════ */
-  :root { --tt:.4s ease; --page-max:1440px; --page-pad:16px; }
+    /* ═══ TOKENS ════════════════════════════════════════════ */
+    :root {
+      --tt: .4s ease;
+      --page-max: 1440px;
+      --page-pad: 16px;
+    }
 
-  [data-theme="dark"] {
-    --bg:#09090f; --bg2:#0f0f18; --bg3:#141420;
-    --card:#181828; --card2:#1d1d30;
-    --bdr:rgba(255,255,255,.07); --bdr-md:rgba(255,255,255,.13); --bdr-hi:rgba(255,255,255,.25);
-    --th:#f0eff8; --tb:#9d9bb8; --tm:#5e5c7a;
-    --gold:#d4a853; --gold-l:#f0c878; --gold-d:#a07830;
-    --gdim:rgba(212,168,83,.1); --gglow:rgba(212,168,83,.25);
-    --teal:#2dd4bf;
-    --nav-bg:rgba(9,9,15,.6);
-    --tog-bg:#1e1e30; --tog-k:#f0eff8;
-    --shc:0 2px 8px rgba(0,0,0,.5),0 16px 48px rgba(0,0,0,.35);
-    --shb:0 6px 28px rgba(212,168,83,.32);
-    --cur:#d4a853;
-    --flow-g:linear-gradient(to bottom,#4ade80,#2dd4bf,#d4a853,#f0c878,#818cf8,#a78bfa);
-  }
-  [data-theme="light"] {
-    --bg:#fafaf8; --bg2:#f4f3ef; --bg3:#eeede8;
-    --card:#ffffff; --card2:#f5f4f0;
-    --bdr:rgba(0,0,0,.08); --bdr-md:rgba(0,0,0,.15); --bdr-hi:rgba(0,0,0,.28);
-    --th:#111118; --tb:#4a4860; --tm:#9e9cb8;
-    --gold:#b8862e; --gold-l:#d4a853; --gold-d:#8a6020;
-    --gdim:rgba(184,134,46,.1); --gglow:rgba(184,134,46,.22);
-    --teal:#0d9488;
-    --nav-bg:rgba(250,250,248,.65);
-    --tog-bg:#e8e6f0; --tog-k:#111118;
-    --shc:0 1px 4px rgba(0,0,0,.06),0 12px 40px rgba(0,0,0,.1);
-    --shb:0 6px 24px rgba(184,134,46,.28);
-    --cur:#b8862e;
-    --flow-g:linear-gradient(to bottom,#22c55e,#0d9488,#b8862e,#d4a853,#6366f1,#8b5cf6);
-  }
+    [data-theme="dark"] {
+      --bg: #09090f;
+      --bg2: #0f0f18;
+      --bg3: #141420;
+      --card: #181828;
+      --card2: #1d1d30;
+      --bdr: rgba(255, 255, 255, .07);
+      --bdr-md: rgba(255, 255, 255, .13);
+      --bdr-hi: rgba(255, 255, 255, .25);
+      --th: #f0eff8;
+      --tb: #9d9bb8;
+      --tm: #5e5c7a;
+      --gold: #d4a853;
+      --gold-l: #f0c878;
+      --gold-d: #a07830;
+      --gdim: rgba(212, 168, 83, .1);
+      --gglow: rgba(212, 168, 83, .25);
+      --teal: #2dd4bf;
+      --nav-bg: rgba(9, 9, 15, .6);
+      --tog-bg: #1e1e30;
+      --tog-k: #f0eff8;
+      --shc: 0 2px 8px rgba(0, 0, 0, .5), 0 16px 48px rgba(0, 0, 0, .35);
+      --shb: 0 6px 28px rgba(212, 168, 83, .32);
+      --cur: #d4a853;
+      --flow-g: linear-gradient(to bottom, #4ade80, #2dd4bf, #d4a853, #f0c878, #818cf8, #a78bfa);
+    }
 
-  /* ═══ RESET ════════════════════════════════════════════ */
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth;font-size:16px}
-  body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--tb);line-height:1.65;overflow-x:hidden;transition:background-color var(--tt),color var(--tt);cursor:none}
-  a{color:inherit;text-decoration:none}
-  button{cursor:none}
+    [data-theme="light"] {
+      --bg: #fafaf8;
+      --bg2: #f4f3ef;
+      --bg3: #eeede8;
+      --card: #ffffff;
+      --card2: #f5f4f0;
+      --bdr: rgba(0, 0, 0, .08);
+      --bdr-md: rgba(0, 0, 0, .15);
+      --bdr-hi: rgba(0, 0, 0, .28);
+      --th: #111118;
+      --tb: #4a4860;
+      --tm: #9e9cb8;
+      --gold: #b8862e;
+      --gold-l: #d4a853;
+      --gold-d: #8a6020;
+      --gdim: rgba(184, 134, 46, .1);
+      --gglow: rgba(184, 134, 46, .22);
+      --teal: #0d9488;
+      --nav-bg: rgba(250, 250, 248, .65);
+      --tog-bg: #e8e6f0;
+      --tog-k: #111118;
+      --shc: 0 1px 4px rgba(0, 0, 0, .06), 0 12px 40px rgba(0, 0, 0, .1);
+      --shb: 0 6px 24px rgba(184, 134, 46, .28);
+      --cur: #b8862e;
+      --flow-g: linear-gradient(to bottom, #22c55e, #0d9488, #b8862e, #d4a853, #6366f1, #8b5cf6);
+    }
 
-  /* ═══ CUSTOM CURSOR ══════════════════════════════════════ */
-  #cursor-dot, #cursor-ring {
-    position:fixed; pointer-events:none; z-index:9999;
-    border-radius:50%; transform:translate(-50%,-50%);
-    transition:opacity .3s;
-  }
-  #cursor-dot {
-    width:6px; height:6px;
-    background:var(--gold);
-    top:0; left:0;
-  }
-  #cursor-ring {
-    width:36px; height:36px;
-    border:1.5px solid var(--gold);
-    top:0; left:0;
-    transition:width .22s cubic-bezier(.4,0,.2,1),
-               height .22s cubic-bezier(.4,0,.2,1),
-               border-color .22s,
-               opacity .3s;
-    opacity:.6;
-  }
-  #cursor-ring.hovering {
-    width:56px; height:56px;
-    border-color:var(--gold-l);
-    opacity:.35;
-  }
-  #cursor-ring.clicking {
-    width:28px; height:28px;
-    opacity:.9;
-  }
-  body.touch-device #cursor-dot,
-  body.touch-device #cursor-ring { display:none; }
+    /* ═══ RESET ════════════════════════════════════════════ */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
 
-  /* ═══ LAYOUT ════════════════════════════════════════════ */
-  .wrap{max-width:var(--page-max);margin:0 auto;padding:0 var(--page-pad);position:relative;z-index:1}
-  section{padding:112px 0}
-  .divider{height:1px;background:var(--bdr);transition:background var(--tt)}
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px
+    }
 
-  /* ═══ TYPE ══════════════════════════════════════════════ */
-  .serif{font-family:'Playfair Display',Georgia,serif;color:var(--th);font-weight:700;letter-spacing:-.02em;line-height:1.1;transition:color var(--tt)}
-  .eyebrow{font-family:'DM Mono',monospace;font-size:.7rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:10px;transition:color var(--tt)}
-  .eyebrow::before{content:'';display:block;width:24px;height:1.5px;background:var(--gold);flex-shrink:0;transition:background var(--tt)}
-  .sub{font-size:1.02rem;line-height:1.76;color:var(--tb);max-width:520px;transition:color var(--tt)}
-  mark{background:var(--gdim);color:var(--gold);padding:2px 6px;border-radius:5px;font-weight:600;transition:background var(--tt),color var(--tt)}
-  strong{color:var(--th);font-weight:600;transition:color var(--tt)}
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--tb);
+      line-height: 1.65;
+      overflow-x: hidden;
+      transition: background-color var(--tt), color var(--tt);
+      cursor: none
+    }
 
-  /* ═══ BUTTONS ════════════════════════════════════════════ */
-  .btn-g{
-    display:inline-flex;align-items:center;gap:9px;
-    padding:14px 32px;
-    background:var(--gold);color:var(--bg);
-    font-weight:700;font-size:.9rem;border-radius:9px;
-    letter-spacing:.01em;
-    position:relative;overflow:hidden;
-    transition:transform .2s cubic-bezier(.4,0,.2,1),box-shadow .2s;
-  }
-  .btn-g::before{
-    content:'';position:absolute;inset:0;
-    background:rgba(255,255,255,.12);
-    opacity:0;transition:opacity .2s;
-  }
-  .btn-g:hover{transform:translateY(-3px);box-shadow:var(--shb)}
-  .btn-g:hover::before{opacity:1}
-  .btn-g:active{transform:translateY(-1px)}
-  .btn-g .arrow{display:inline-block;transition:transform .2s}
-  .btn-g:hover .arrow{transform:translateX(4px)}
+    a {
+      color: inherit;
+      text-decoration: none
+    }
 
-  .btn-o{
-    display:inline-flex;align-items:center;gap:9px;
-    padding:14px 32px;
-    border:1.5px solid var(--bdr-md);
-    color:var(--th);font-weight:500;font-size:.9rem;border-radius:9px;
-    transition:border-color .2s,color .2s,background .2s;
-  }
-  .btn-o:hover{border-color:var(--gold);color:var(--gold);background:var(--gdim)}
+    button {
+      cursor: none
+    }
 
-  /* ═══ MATTE GLASS NAV ════════════════════════════════════ */
-  #nav{
-    position:fixed;top:0;width:100%;z-index:300;
-    padding:18px 0;
-    background:var(--nav-bg);
-    backdrop-filter:blur(28px) saturate(180%);
-    -webkit-backdrop-filter:blur(28px) saturate(180%);
-    border-bottom:1px solid var(--bdr);
-    transition:padding .3s,border-color var(--tt),box-shadow .3s,background var(--tt);
-  }
-  #nav.scrolled{
-    padding:12px 0;
-    border-bottom-color:var(--bdr-md);
-    box-shadow:0 4px 40px rgba(0,0,0,.2);
-  }
-  .nav-inner{
-    max-width:var(--page-max);margin:0 auto;padding:0 var(--page-pad);
-    display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;
-  }
-  .nav-logo{
-    justify-self:start;display:inline-flex;align-items:center;
-    font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;
-    color:var(--th);letter-spacing:-.02em;white-space:nowrap;
-    line-height:1;transition:color var(--tt);
-  }
-  .nav-logo em{color:var(--gold);font-style:normal}
-  .nav-links{justify-self:center;display:flex;align-items:center;gap:4px}
-  .nav-links a{
-    display:inline-flex;align-items:center;gap:4px;
-    font-size:.84rem;font-weight:500;color:var(--tb);
-    padding:8px 14px;border-radius:7px;line-height:1;
-    transition:color .2s,background .2s;white-space:nowrap;
-    position:relative;
-  }
-  .nav-links a::after{
-    content:'';position:absolute;bottom:2px;left:14px;right:14px;
-    height:1.5px;background:var(--gold);
-    transform:scaleX(0);transform-origin:left;
-    transition:transform .25s cubic-bezier(.4,0,.2,1);
-  }
-  .nav-links a:hover{color:var(--th);background:var(--gdim)}
-  .nav-links a:hover::after{transform:scaleX(1)}
-  .nav-dropdown{position:relative;display:inline-flex;align-items:center}
-  .nav-dropdown-content {
-    display: none; position: absolute; background-color: var(--nav-bg); 
-    min-width: 160px; box-shadow: var(--shc); border-radius: 8px; 
-    z-index: 100; border: 1px solid var(--bdr); backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
-    top: 100%; left: 0; padding: 8px 0;
-  }
-  .nav-dropdown-content a {
-    color: var(--tb); padding: 8px 16px; text-decoration: none; 
-    display: block; text-align: left; border-radius: 0; white-space: nowrap;
-  }
-  .nav-dropdown-content a::after { display: none; }
-  .nav-dropdown-content a:hover { background-color: var(--gdim); color: var(--th); }
-  .nav-dropdown:hover .nav-dropdown-content { display: block; }
-  .nav-right{justify-self:end;display:flex;align-items:center;gap:12px}
+    /* ═══ CUSTOM CURSOR ══════════════════════════════════════ */
+    #cursor-dot,
+    #cursor-ring {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: opacity .3s;
+    }
 
-  /* Theme toggle */
-  .tog{width:48px;height:27px;background:var(--tog-bg);border-radius:14px;border:1px solid var(--bdr-md);cursor:none;position:relative;transition:background var(--tt),border-color var(--tt);flex-shrink:0}
-  .tog::after{content:'';position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:var(--tog-k);transition:transform .32s cubic-bezier(.4,0,.2,1),background var(--tt);box-shadow:0 1px 4px rgba(0,0,0,.3)}
-  [data-theme="light"] .tog::after{transform:translateX(21px)}
-  .tog-i{position:absolute;top:50%;transform:translateY(-50%);font-size:.6rem;pointer-events:none;transition:opacity .2s}
-  .tog-i.m{left:6px;opacity:1} .tog-i.s{right:6px;opacity:.35}
-  [data-theme="light"] .tog-i.m{opacity:.35} [data-theme="light"] .tog-i.s{opacity:1}
+    #cursor-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      top: 0;
+      left: 0;
+    }
 
-  .nav-cta{
-    font-size:.82rem;font-weight:700;padding:9px 22px;
-    background:var(--gold);color:var(--bg);
-    border-radius:8px;white-space:nowrap;
-    position:relative;overflow:hidden;
-    transition:transform .2s,box-shadow .2s;
-  }
-  .nav-cta::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.12);opacity:0;transition:opacity .2s}
-  .nav-cta:hover{transform:translateY(-2px);box-shadow:var(--shb)}
-  .nav-cta:hover::before{opacity:1}
+    #cursor-ring {
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid var(--gold);
+      top: 0;
+      left: 0;
+      transition: width .22s cubic-bezier(.4, 0, .2, 1),
+        height .22s cubic-bezier(.4, 0, .2, 1),
+        border-color .22s,
+        opacity .3s;
+      opacity: .6;
+    }
 
-  /* ═══ HAMBURGER & SIDEBAR ══════════════════════════════ */
-  .hamburger{
-    display:none;
-    flex-direction:column;
-    background:none;
-    border:none;
-    cursor:pointer;
-    gap:5px;
-    padding:8px;
-    margin-left:8px;
-    position:relative;
-    z-index:301;
-  }
-  .hamburger span{
-    width:22px;
-    height:2px;
-    background:var(--tb);
-    border-radius:2px;
-    transition:all .3s cubic-bezier(.4,0,.2,1);
-    transform-origin:center;
-  }
-  .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(8px,8px)}
-  .hamburger.active span:nth-child(2){opacity:0}
-  .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(7px,-7px)}
-  .sidebar{
-    position:fixed;top:0;left:-100%;
-    display:none;
-    width:100%;height:100vh;
-    background:var(--bg);
-    z-index:400;
-    transition:left .3s cubic-bezier(.4,0,.2,1);
-    overflow-y:auto;
-    padding-top:0;
-    visibility:hidden;
-  }
-  .sidebar.active{
-    left:0;
-    display:block;
-    visibility:visible;
-  }
-  .sidebar-content{padding:20px 20px 28px}
-  .sidebar-header{
-    display:flex;
-    justify-content:flex-end;
-    align-items:center;
-    margin-bottom:24px;
-    padding-bottom:16px;
-    border-bottom:1px solid var(--bdr);
-  }
-  .sidebar-close{
-    background:none;
-    border:none;
-    cursor:pointer;
-    padding:8px;
-    width:40px;
-    height:40px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-    transition:color .2s;
-  }
-  .sidebar-close::before,
-  .sidebar-close::after{
-    content:'';
-    position:absolute;
-    width:24px;
-    height:2px;
-    background:var(--tb);
-    border-radius:2px;
-    transition:all .2s;
-  }
-  .sidebar-close::before{transform:rotate(45deg)}
-  .sidebar-close::after{transform:rotate(-45deg)}
-  .sidebar-close:hover::before,
-  .sidebar-close:hover::after{background:var(--th)}
-  .sidebar-links{
-    display:flex;
-    flex-direction:column;
-    gap:16px;
-  }
-  .sidebar-link{
-    display:block;
-    font-size:.95rem;
-    font-weight:500;
-    color:var(--tb);
-    padding:12px 0;
-    transition:color .2s;
-    background:none;
-    border:none;
-    cursor:pointer;
-    text-align:left;
-    width:100%;
-  }
-  .sidebar-link:hover{color:var(--th)}
-  .sidebar-dropdown{
-    display:flex;
-    flex-direction:column;
-    gap:0;
-  }
-  .sidebar-dropdown-btn{
-    padding:12px 0;
-    justify-content:space-between;
-    display:flex;
-  }
-  .sidebar-dropdown-btn::after{
-    content:'▼';
-    font-size:.6rem;
-    transition:transform .3s;
-  }
-  .sidebar-dropdown-btn.active::after{transform:rotate(180deg)}
-  .sidebar-dropdown-content{
-    display:none;
-    flex-direction:column;
-    gap:8px;
-    padding-left:16px;
-    max-height:0;
-    overflow:hidden;
-    transition:max-height .3s;
-  }
-  .sidebar-dropdown-content.active{
-    display:flex;
-    max-height:500px;
-  }
-  .sidebar-dropdown-content a{
-    font-size:.9rem;
-    color:var(--tb);
-    padding:10px 0;
-    transition:color .2s;
-    border-left:2px solid transparent;
-    padding-left:12px;
-  }
-  .sidebar-dropdown-content a:hover{
-    color:var(--th);
-    border-left-color:var(--gold);
-  }
-  .sidebar-cta{
-    background:var(--gold);
-    color:var(--bg);
-    padding:12px 20px !important;
-    border-radius:6px;
-    margin-top:16px;
-    text-align:center;
-    font-weight:600;
-  }
-  .sidebar-cta:hover{opacity:.9}
+    #cursor-ring.hovering {
+      width: 56px;
+      height: 56px;
+      border-color: var(--gold-l);
+      opacity: .35;
+    }
 
-  /* ═══ HERO ════════════════════════════════════════════════ */
-  #hero{min-height:100vh;display:flex;align-items:center;padding:140px 0 100px;position:relative;overflow:hidden}
-  #hero::before{
-    content:'';position:absolute;inset:0;pointer-events:none;
-    background-image:
-      linear-gradient(var(--bdr-md) 1px,transparent 1px),
-      linear-gradient(90deg,var(--bdr-md) 1px,transparent 1px);
-    background-size:40px 40px;
-    opacity:.35;
-    mask-image:radial-gradient(ellipse 90% 80% at 50% 50%,black 25%,transparent 78%);
-    -webkit-mask-image:radial-gradient(ellipse 90% 80% at 50% 50%,black 25%,transparent 78%);
-  }
+    #cursor-ring.clicking {
+      width: 28px;
+      height: 28px;
+      opacity: .9;
+    }
 
-  .hero-layout{display:grid;grid-template-columns:1.2fr 0.8fr;gap:40px;align-items:center}
-  .hero-image-wrap{position:relative;display:flex;justify-content:center;align-items:center;padding-right:20px}
-  .erp-diagram{
-    width:100%;max-width:520px;
-    --ring-inner:rgba(212,168,83,0.10);--ring-mid:rgba(45,212,191,0.06);--ring-outer:transparent;
-    --ring-stroke:rgba(212,168,83,0.18);--ring-stroke2:rgba(45,212,191,0.14);
-    --shadow:rgba(0,0,0,0.35);--hub-bg:rgba(212,168,83,0.18);--hub-border:rgba(212,168,83,0.45);
-    --hub-text:#f0c878;--hub-sub:#9d9bb8;--label-bg:rgba(24,24,40,0.92);
-    --label-gold:#f0c878;--label-teal:#2dd4bf;
-  }
-  [data-theme="light"] .erp-diagram{
-    --ring-inner:rgba(184,134,46,0.12);--ring-mid:rgba(13,148,136,0.08);
-    --ring-stroke:rgba(184,134,46,0.22);--ring-stroke2:rgba(13,148,136,0.18);
-    --shadow:rgba(0,0,0,0.12);--hub-bg:rgba(184,134,46,0.14);--hub-border:rgba(184,134,46,0.40);
-    --hub-text:#8a6020;--hub-sub:#4a4860;--label-bg:rgba(255,255,255,0.96);
-    --label-gold:#8a6020;--label-teal:#0d7a6e;
-  }
-  .erp-diagram svg{width:100%;height:auto;display:block;filter:drop-shadow(0 18px 36px rgba(0,0,0,0.35));animation:float 6s ease-in-out infinite}
-  [data-theme="light"] .erp-diagram svg{filter:drop-shadow(0 14px 28px rgba(0,0,0,0.12))}
-  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+    body.touch-device #cursor-dot,
+    body.touch-device #cursor-ring {
+      display: none;
+    }
 
-  .hero-kicker{display:inline-flex;align-items:center;gap:8px;background:var(--gdim);border:1px solid var(--bdr-md);border-radius:100px;padding:6px 16px 6px 8px;margin-bottom:28px;transition:background var(--tt),border-color var(--tt)}
-  .kicker-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pulse 2.2s ease-in-out infinite;flex-shrink:0}
-  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 var(--gglow)}50%{box-shadow:0 0 0 8px transparent}}
-  .kicker-txt{font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+    /* ═══ LAYOUT ════════════════════════════════════════════ */
+    .wrap {
+      max-width: var(--page-max);
+      margin: 0 auto;
+      padding: 0 var(--page-pad);
+      position: relative;
+      z-index: 1
+    }
 
-  .hero-h1{font-size:clamp(2.6rem,5.5vw,4.6rem);max-width:840px;margin-bottom:26px}
-  .hero-h1 em{font-style:italic;color:var(--gold)}
-  .hero-p{font-size:1.08rem;line-height:1.78;color:var(--tb);max-width:570px;margin-bottom:42px}
-  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:60px;align-items:center}
-  .trust-row{display:flex;flex-wrap:wrap;gap:9px}
-  .trust-chip{
-    display:inline-flex;align-items:center;gap:7px;
-    font-size:.79rem;font-weight:500;color:var(--tb);
-    padding:6px 14px;border:1px solid var(--bdr);border-radius:100px;
-    background:var(--card);cursor:none;
-    transition:border-color .2s,color .2s,background .2s,transform .2s,var(--tt);
-  }
-  .trust-chip:hover{border-color:var(--gold);color:var(--gold);background:var(--gdim);transform:translateY(-2px)}
-  .chip-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);flex-shrink:0;transition:background .2s}
-  .trust-chip:hover .chip-dot{background:var(--gold)}
+    section {
+      padding: 112px 0
+    }
 
-  /* ═══ ABOUT ══════════════════════════════════════════════ */
-  #about{background:var(--bg2)}
-  .about-grid{display:grid;grid-template-columns:400px 1fr;gap:80px;align-items:start}
-  .about-left{position:sticky;top:100px}
-  .about-h2{font-size:clamp(1.9rem,3.5vw,2.7rem);margin-bottom:20px}
-  .accent-bar{width:44px;height:3px;background:var(--gold);border-radius:2px;margin-bottom:22px;transition:background var(--tt)}
-  .about-right p{font-size:.98rem;line-height:1.82;color:var(--tb);margin-bottom:20px;transition:color var(--tt)}
-  .about-right p:last-child{margin-bottom:0}
+    .divider {
+      height: 1px;
+      background: var(--bdr);
+      transition: background var(--tt)
+    }
 
-  /* ═══ SERVICES ═══════════════════════════════════════════ */
-  #services{background:var(--bg)}
-  .sec-head{margin-bottom:56px}
-  .svc-grid{
-    display:grid;grid-template-columns:repeat(3,1fr);
-    border:1px solid var(--bdr);border-radius:16px;overflow:hidden;
-    transition:border-color var(--tt);
-  }
-  .svc{
-    background:var(--card);padding:36px 30px 40px;
-    position:relative;overflow:hidden;
-    border-right:1px solid var(--bdr);border-bottom:1px solid var(--bdr);
-    transition:background .25s,border-color var(--tt);
-  }
-  .svc:nth-child(3n){border-right:none}
-  .svc:nth-last-child(-n+3){border-bottom:none}
-  .svc::before{
-    content:'';position:absolute;top:0;left:0;right:0;
-    height:3px;
-    background:linear-gradient(90deg,var(--gold),var(--teal));
-    transform:scaleX(0);transform-origin:left;
-    transition:transform .38s cubic-bezier(.4,0,.2,1);
-  }
-  .svc::after{
-    content:'';position:absolute;inset:0;
-    background:radial-gradient(circle at var(--mx,50%) var(--my,50%),var(--gdim),transparent 65%);
-    opacity:0;transition:opacity .3s;pointer-events:none;
-  }
-  .svc:hover{background:var(--card2)}
-  .svc:hover::before{transform:scaleX(1)}
-  .svc:hover::after{opacity:1}
-  .svc-n{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.12em;color:var(--gold);margin-bottom:18px;transition:color var(--tt)}
-  .svc-icon{font-size:1.9rem;margin-bottom:14px}
-  .svc-t{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--th);margin-bottom:10px;transition:color var(--tt)}
-  .svc-d{font-size:.875rem;line-height:1.72}
+    /* ═══ TYPE ══════════════════════════════════════════════ */
+    .serif {
+      font-family: 'Playfair Display', Georgia, serif;
+      color: var(--th);
+      font-weight: 700;
+      letter-spacing: -.02em;
+      line-height: 1.1;
+      transition: color var(--tt)
+    }
 
-  /* ═══ INDUSTRIES ═════════════════════════════════════════ */
-  #industries{background:var(--bg2)}
-  .ind-intro{max-width:620px;margin-bottom:52px}
-  .ind-grid{
-    display:grid;grid-template-columns:repeat(6,1fr);gap:20px;
-  }
-  .ind-card{
-    grid-column:span 2;
-    background:var(--card);border:1px solid var(--bdr);border-radius:18px;
-    padding:36px 30px 32px;
-    display:flex;flex-direction:column;align-items:flex-start;
-    text-decoration:none;position:relative;overflow:hidden;
-    transition:border-color .25s,transform .25s cubic-bezier(.4,0,.2,1),box-shadow .25s,background var(--tt);
-  }
-  .ind-card:nth-child(4){grid-column:2 / span 2}
-  .ind-card:nth-child(5){grid-column:4 / span 2}
-  .ind-card::after{
-    content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
-    background:var(--gold);transform:scaleX(0);transform-origin:left;
-    transition:transform .3s cubic-bezier(.4,0,.2,1);
-  }
-  .ind-card:hover{border-color:var(--gold);transform:translateY(-5px);box-shadow:var(--shc);background:var(--card2)}
-  .ind-card:hover::after{transform:scaleX(1)}
-  .ind-icon-wrap{
-    width:58px;height:58px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    background:var(--gdim);border:1px solid var(--bdr-md);
-    margin-bottom:22px;
-    transition:transform .25s,border-color .25s,box-shadow .25s;
-  }
-  .ind-icon{font-size:1.75rem;line-height:1}
-  .ind-card:hover .ind-icon-wrap{transform:scale(1.06);border-color:var(--gold);box-shadow:0 6px 20px var(--gglow)}
-  .ind-name{
-    font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;
-    color:var(--th);margin-bottom:12px;line-height:1.25;
-    transition:color .2s;
-  }
-  .ind-card:hover .ind-name{color:var(--gold)}
-  .ind-desc{font-size:.875rem;line-height:1.72;color:var(--tb);flex:1}
-  .ind-link{
-    display:inline-flex;align-items:center;gap:6px;
-    margin-top:22px;font-size:.8rem;font-weight:600;color:var(--gold);
-    transition:gap .2s;
-  }
-  .ind-card:hover .ind-link{gap:10px}
+    .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: .7rem;
+      font-weight: 500;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: color var(--tt)
+    }
 
-  /* ═══ AI SECTION ═════════════════════════════════════════ */
-  #ai{background:var(--bg);overflow:hidden;position:relative}
-  .ai-wrap{display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center}
-  .ai-body{font-size:.98rem;line-height:1.8;margin-bottom:30px}
-  .ai-pills{display:flex;flex-wrap:wrap;gap:9px}
-  .ai-pill{
-    font-size:.79rem;font-weight:500;padding:7px 16px;
-    border:1px solid var(--bdr-md);color:var(--tb);border-radius:100px;background:var(--card);
-    transition:border-color .2s,color .2s,background .2s,transform .2s,var(--tt);
-  }
-  .ai-pill:hover{border-color:var(--gold);color:var(--gold);background:var(--gdim);transform:translateY(-2px)}
-  .ai-vis{display:flex;align-items:center;justify-content:center}
-  .ai-rings{width:300px;height:300px;position:relative}
-  .ring{position:absolute;border-radius:50%;border:1px solid var(--bdr-md);animation:rspin 18s linear infinite;transition:border-color var(--tt)}
-  .ring::before{content:'';position:absolute;top:-5px;left:50%;width:10px;height:10px;border-radius:50%;transform:translateX(-50%);background:var(--gold);box-shadow:0 0 12px var(--gglow);transition:background var(--tt)}
-  .ring:nth-child(1){inset:0}
-  .ring:nth-child(2){inset:28px;animation-duration:12s;animation-direction:reverse}
-  .ring:nth-child(2)::before{background:var(--teal);box-shadow:0 0 12px rgba(45,212,191,.4)}
-  .ring:nth-child(3){inset:58px;animation-duration:8s}
-  .ring:nth-child(3)::before{width:6px;height:6px;top:-3px;background:var(--gold-l)}
-  .ai-core{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-  .ai-core-label{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:700;color:var(--th);transition:color var(--tt)}
-  .ai-core-sub{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
-  @keyframes rspin{to{transform:rotate(360deg)}}
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--gold);
+      flex-shrink: 0;
+      transition: background var(--tt)
+    }
 
-  /* ═══ EXPERTISE CARDS ════════════════════════════════════ */
-  #skills{background:var(--bg2)}
-  .exp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  .exp-card{
-    background:var(--card);border:1px solid var(--bdr);border-radius:16px;
-    padding:30px 26px 28px;display:flex;flex-direction:column;gap:12px;
-    position:relative;overflow:hidden;
-    transition:border-color .25s,transform .25s cubic-bezier(.4,0,.2,1),box-shadow .25s,background var(--tt);
-  }
-  .exp-card::before{
-    content:'';position:absolute;top:0;left:0;right:0;
-    height:3px;background:linear-gradient(90deg,var(--gold),var(--teal));
-    transform:scaleX(0);transform-origin:left;
-    transition:transform .38s cubic-bezier(.4,0,.2,1);
-  }
-  .exp-card:hover{border-color:var(--bdr-hi);transform:translateY(-5px);box-shadow:var(--shc)}
-  .exp-card:hover::before{transform:scaleX(1)}
-  .exp-icon{width:50px;height:50px;border-radius:13px;background:var(--gdim);border:1px solid var(--bdr-md);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;transition:background var(--tt),transform .25s}
-  .exp-card:hover .exp-icon{transform:scale(1.05)}
-  .exp-title{font-family:'Playfair Display',serif;font-size:1.04rem;font-weight:700;color:var(--th);line-height:1.2;transition:color var(--tt)}
-  .exp-desc{font-size:.83rem;line-height:1.66;color:var(--tb)}
-  .exp-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
-  .exp-tag{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:100px;border:1px solid var(--bdr-md);color:var(--gold);background:var(--gdim);transition:background var(--tt),color var(--tt)}
+    .sub {
+      font-size: 1.02rem;
+      line-height: 1.76;
+      color: var(--tb);
+      max-width: 520px;
+      transition: color var(--tt)
+    }
 
-  /* ═══ PROCESS — VERTICAL FLOWCHART (FIXED) ═══════════════ */
-  #process{background:var(--bg)}
-  .process-layout{display:grid;grid-template-columns:1fr 1fr;gap:88px;align-items:start}
-  .process-left{position:sticky;top:100px}
+    mark {
+      background: var(--gdim);
+      color: var(--gold);
+      padding: 2px 6px;
+      border-radius: 5px;
+      font-weight: 600;
+      transition: background var(--tt), color var(--tt)
+    }
 
-  /* Chart container */
-  .flow-chart{position:relative;padding-left:0}
+    strong {
+      color: var(--th);
+      font-weight: 600;
+      transition: color var(--tt)
+    }
 
-  /* The vertical animated line — perfectly centered on circles */
-  .flow-line{
-    position:absolute;
-    left:29px;          /* (60px circle / 2) - (4px line / 2) = 28px, +1px optical */
-    top:30px;           /* start at circle center */
-    bottom:30px;        /* end at last circle center */
-    width:4px;
-    border-radius:2px;
-    background:var(--flow-g);
-    transform-origin:top;
-    transform:scaleY(0);
-    transition:transform 1.8s cubic-bezier(.4,0,.2,1);
-  }
-  .flow-line.animated{transform:scaleY(1)}
+    /* ═══ BUTTONS ════════════════════════════════════════════ */
+    .btn-g {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 14px 32px;
+      background: var(--gold);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: .9rem;
+      border-radius: 9px;
+      letter-spacing: .01em;
+      position: relative;
+      overflow: hidden;
+      transition: transform .2s cubic-bezier(.4, 0, .2, 1), box-shadow .2s;
+    }
 
-  /* Each step row */
-  .flow-step{
-    display:grid;
-    grid-template-columns:60px 1fr;
-    gap:0 28px;
-    align-items:start;
-    position:relative;z-index:1;
-    padding-bottom:48px;
-    opacity:0;transform:translateX(24px);
-    transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1);
-  }
-  .flow-step:last-child{padding-bottom:0}
-  .flow-step.vis{opacity:1;transform:none}
+    .btn-g::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, .12);
+      opacity: 0;
+      transition: opacity .2s;
+    }
 
-  /* Left column: circle + dashed line */
-  .flow-left-col{
-    display:flex;flex-direction:column;align-items:center;
-    position:relative;
-  }
+    .btn-g:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shb)
+    }
 
-  /* Coloured circle badge */
-  .flow-circle{
-    width:60px;height:60px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    font-family:'DM Mono',monospace;font-size:1rem;font-weight:500;color:#fff;
-    flex-shrink:0;position:relative;z-index:2;
-    box-shadow:0 4px 18px rgba(0,0,0,.32);
-    transition:transform .3s cubic-bezier(.4,0,.2,1),box-shadow .3s;
-  }
-  .flow-step:hover .flow-circle{transform:scale(1.08);box-shadow:0 8px 28px rgba(0,0,0,.38)}
+    .btn-g:hover::before {
+      opacity: 1
+    }
 
-  /* Per-step colours */
-  .flow-step:nth-child(2) .flow-circle{background:linear-gradient(135deg,#4ade80,#22c55e)}
-  .flow-step:nth-child(3) .flow-circle{background:linear-gradient(135deg,#2dd4bf,#14b8a6)}
-  .flow-step:nth-child(4) .flow-circle{background:linear-gradient(135deg,#fcd34d,#d4a853)}
-  .flow-step:nth-child(5) .flow-circle{background:linear-gradient(135deg,#f0c878,#e8a045)}
-  .flow-step:nth-child(6) .flow-circle{background:linear-gradient(135deg,#818cf8,#6366f1)}
-  .flow-step:nth-child(7) .flow-circle{background:linear-gradient(135deg,#a78bfa,#8b5cf6)}
+    .btn-g:active {
+      transform: translateY(-1px)
+    }
 
-  /* Horizontal dashed connector */
-  .flow-dash{
-    position:absolute;
-    top:30px;                    /* vertically centred on 60px circle */
-    left:60px;                   /* starts at right edge of circle */
-    width:28px;height:0;
-    border-top:1.5px dashed var(--bdr-md);
-    transition:border-color var(--tt);
-  }
-  .flow-dash::after{
-    content:'';position:absolute;right:-5px;top:-4px;
-    width:7px;height:7px;border-radius:50%;
-    background:var(--bdr-md);
-    transition:background var(--tt);
-  }
-  .flow-step:hover .flow-dash{border-color:var(--bdr-hi)}
-  .flow-step:hover .flow-dash::after{background:var(--bdr-hi)}
+    .btn-g .arrow {
+      display: inline-block;
+      transition: transform .2s
+    }
 
-  /* Right column: content */
-  .flow-content{padding-top:8px}
-  .flow-icon{font-size:1.45rem;margin-bottom:6px}
-  .flow-name{font-family:'Playfair Display',serif;font-size:1.18rem;font-weight:700;margin-bottom:7px;transition:color .3s}
-  .flow-step:nth-child(2) .flow-name{color:#22c55e}
-  .flow-step:nth-child(3) .flow-name{color:#14b8a6}
-  .flow-step:nth-child(4) .flow-name{color:var(--gold)}
-  .flow-step:nth-child(5) .flow-name{color:var(--gold-l)}
-  .flow-step:nth-child(6) .flow-name{color:#6366f1}
-  .flow-step:nth-child(7) .flow-name{color:#8b5cf6}
-  .flow-desc{font-size:.875rem;line-height:1.72;color:var(--tb)}
+    .btn-g:hover .arrow {
+      transform: translateX(4px)
+    }
 
-  /* ═══ CONTACT ════════════════════════════════════════════ */
-  #contact{background:var(--bg2)}
-  .contact-inner{max-width:720px;margin:0 auto;text-align:center}
-  .contact-h2{font-size:clamp(2rem,4.5vw,3.2rem);margin-bottom:20px;line-height:1.1}
-  .contact-sub{margin-bottom:44px;margin-left:auto;margin-right:auto;text-align:center;max-width:580px}
+    .btn-o {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 14px 32px;
+      border: 1.5px solid var(--bdr-md);
+      color: var(--th);
+      font-weight: 500;
+      font-size: .9rem;
+      border-radius: 9px;
+      transition: border-color .2s, color .2s, background .2s;
+    }
 
-  .contact-cards{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:36px}
-  .ccard{
-    display:flex;align-items:center;gap:20px;
-    background:var(--card);border:1px solid var(--bdr);
-    border-radius:16px;padding:24px 32px;
-    min-width:320px;text-align:left;
-    transition:border-color .25s,box-shadow .25s,transform .25s cubic-bezier(.4,0,.2,1),background var(--tt);
-    position:relative;overflow:hidden;
-  }
-  .ccard::before{
-    content:'';position:absolute;bottom:0;left:0;right:0;
-    height:2px;background:linear-gradient(90deg,var(--gold),var(--teal));
-    transform:scaleX(0);transform-origin:left;
-    transition:transform .32s cubic-bezier(.4,0,.2,1);
-  }
-  .ccard:hover{border-color:var(--bdr-md);box-shadow:var(--shc);transform:translateY(-4px)}
-  .ccard:hover::before{transform:scaleX(1)}
-  .ccard-icon{
-    width:56px;height:56px;border-radius:14px;
-    background:var(--gdim);border:1px solid var(--bdr-md);
-    display:flex;align-items:center;justify-content:center;
-    font-size:1.6rem;flex-shrink:0;
-    transition:background var(--tt),transform .25s;
-    box-shadow:inset 0 2px 10px rgba(0,0,0,0.1);
-  }
-  .ccard:hover .ccard-icon{transform:scale(1.06)}
-  .ccard-text{display:flex;flex-direction:column;justify-content:center;}
-  .ccard-label{font-family:'DM Mono',monospace;font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:2px;transition:color var(--tt)}
-  .ccard-value{font-size:1.05rem;font-weight:700;color:var(--th);transition:color .2s;line-height:1.2}
-  .ccard:hover .ccard-value{color:var(--gold)}
+    .btn-o:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--gdim)
+    }
 
-  /* ═══ FOOTER ═════════════════════════════════════════════ */
-  footer{background:var(--bg);border-top:1px solid var(--bdr);padding:30px 0;transition:background var(--tt),border-color var(--tt)}
-  .foot-inner{max-width:var(--page-max);margin:0 auto;padding:0 var(--page-pad);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-  .foot-logo{font-family:'Playfair Display',serif;font-size:1rem;color:var(--th);transition:color var(--tt)}
-  .foot-logo em{color:var(--gold);font-style:normal}
-  .foot-copy{font-size:.78rem;color:var(--tm)}
-  .foot-links{display:flex;gap:20px}
-  .foot-links a{font-size:.78rem;color:var(--tm);transition:color .2s}
-  .foot-links a:hover{color:var(--gold)}
+    /* ═══ MATTE GLASS NAV ════════════════════════════════════ */
+    #nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 300;
+      padding: 18px 0;
+      background: var(--nav-bg);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border-bottom: 1px solid var(--bdr);
+      transition: padding .3s, border-color var(--tt), box-shadow .3s, background var(--tt);
+    }
 
-  /* ═══ REVEAL ═════════════════════════════════════════════ */
-  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
-  .reveal.in{opacity:1;transform:none}
+    #nav.scrolled {
+      padding: 12px 0;
+      border-bottom-color: var(--bdr-md);
+      box-shadow: 0 4px 40px rgba(0, 0, 0, .2);
+    }
 
-  /* ═══ RESPONSIVE ═════════════════════════════════════════ */
-  @media(max-width:1020px){
-    .hero-layout{grid-template-columns:1fr;text-align:center;gap:60px}
-    .hero-image-wrap{display:flex;justify-content:center;padding:0}
-    .hero-h1{margin-left:auto;margin-right:auto}
-    .hero-p{margin-left:auto;margin-right:auto}
-    .hero-actions{justify-content:center}
-    .trust-row{justify-content:center}
-    
-    .about-grid{grid-template-columns:1fr;gap:40px} .about-left{position:static}
-    .svc-grid{grid-template-columns:1fr 1fr}
-    .svc:nth-child(2n){border-right:none} .svc:nth-child(3n){border-right:1px solid var(--bdr)}
-    .ind-grid{grid-template-columns:repeat(2,1fr)}
-    .ind-card,.ind-card:nth-child(4),.ind-card:nth-child(5){grid-column:span 1}
-    .ai-wrap{grid-template-columns:1fr;gap:52px} .ai-rings{width:220px;height:220px}
-    .exp-grid{grid-template-columns:1fr 1fr}
-    .process-layout{grid-template-columns:1fr;gap:48px} .process-left{position:static}
-  }
-  @media(max-width:768px){
-    .wrap{padding:0 var(--page-pad)} section{padding:80px 0}
-    .nav-inner{grid-template-columns:1fr auto}
-    .nav-links{display:none !important}
-    .nav-right{grid-column:2;justify-self:end;gap:0}
-    .tog,.nav-cta{display:none !important}
-    .hamburger{display:flex !important}
-    .svc-grid{grid-template-columns:1fr}
-    .svc{border-right:none} .svc:nth-child(3n){border-right:none}
-    .ind-grid{grid-template-columns:1fr 1fr}
-    .hero-actions{flex-direction:column;max-width:280px;align-items:flex-start}
-    .exp-grid{grid-template-columns:1fr}
-    .contact-cards{flex-direction:column;align-items:center}
-    .foot-inner{flex-direction:column;text-align:center}
-    .foot-links{justify-content:center}
-  }
-  @media(max-width:480px){.ind-grid{grid-template-columns:1fr}}
-  @media(prefers-reduced-motion:reduce){
-    .reveal,.flow-step{transition:none}
-    .ring{animation:none}
-    .flow-line{transition:none;transform:scaleY(1)}
-    #cursor-dot,#cursor-ring{display:none}
-    body{cursor:auto}
-  }
-  body.touch-device .nav-dropdown:hover .nav-dropdown-content{display:none}
-  body.sidebar-open{overflow:hidden}
+    .nav-inner {
+      max-width: var(--page-max);
+      margin: 0 auto;
+      padding: 0 var(--page-pad);
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-logo {
+      justify-self: start;
+      display: inline-flex;
+      align-items: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--th);
+      letter-spacing: -.02em;
+      white-space: nowrap;
+      line-height: 1;
+      transition: color var(--tt);
+    }
+
+    .nav-logo em {
+      color: var(--gold);
+      font-style: normal
+    }
+
+    .nav-links {
+      justify-self: center;
+      display: flex;
+      align-items: center;
+      gap: 4px
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: .84rem;
+      font-weight: 500;
+      color: var(--tb);
+      padding: 8px 14px;
+      border-radius: 7px;
+      line-height: 1;
+      transition: color .2s, background .2s;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 14px;
+      right: 14px;
+      height: 1.5px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .25s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .nav-links a:hover {
+      color: var(--th);
+      background: var(--gdim)
+    }
+
+    .nav-links a:hover::after {
+      transform: scaleX(1)
+    }
+
+    .nav-dropdown {
+      position: relative;
+      display: inline-flex;
+      align-items: center
+    }
+
+    .nav-dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: var(--nav-bg);
+      min-width: 160px;
+      box-shadow: var(--shc);
+      border-radius: 8px;
+      z-index: 100;
+      border: 1px solid var(--bdr);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      top: 100%;
+      left: 0;
+      padding: 8px 0;
+    }
+
+    .nav-dropdown-content a {
+      color: var(--tb);
+      padding: 8px 16px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+      border-radius: 0;
+      white-space: nowrap;
+    }
+
+    .nav-dropdown-content a::after {
+      display: none;
+    }
+
+    .nav-dropdown-content a:hover {
+      background-color: var(--gdim);
+      color: var(--th);
+    }
+
+    .nav-dropdown:hover .nav-dropdown-content {
+      display: block;
+    }
+
+    .nav-right {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    /* Theme toggle */
+    .tog {
+      width: 48px;
+      height: 27px;
+      background: var(--tog-bg);
+      border-radius: 14px;
+      border: 1px solid var(--bdr-md);
+      cursor: none;
+      position: relative;
+      transition: background var(--tt), border-color var(--tt);
+      flex-shrink: 0
+    }
+
+    .tog::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 19px;
+      height: 19px;
+      border-radius: 50%;
+      background: var(--tog-k);
+      transition: transform .32s cubic-bezier(.4, 0, .2, 1), background var(--tt);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .3)
+    }
+
+    [data-theme="light"] .tog::after {
+      transform: translateX(21px)
+    }
+
+    .tog-i {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: .6rem;
+      pointer-events: none;
+      transition: opacity .2s
+    }
+
+    .tog-i.m {
+      left: 6px;
+      opacity: 1
+    }
+
+    .tog-i.s {
+      right: 6px;
+      opacity: .35
+    }
+
+    [data-theme="light"] .tog-i.m {
+      opacity: .35
+    }
+
+    [data-theme="light"] .tog-i.s {
+      opacity: 1
+    }
+
+    .nav-cta {
+      font-size: .82rem;
+      font-weight: 700;
+      padding: 9px 22px;
+      background: var(--gold);
+      color: var(--bg);
+      border-radius: 8px;
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .nav-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, .12);
+      opacity: 0;
+      transition: opacity .2s
+    }
+
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shb)
+    }
+
+    .nav-cta:hover::before {
+      opacity: 1
+    }
+
+    /* ═══ HAMBURGER & SIDEBAR ══════════════════════════════ */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      background: none;
+      border: none;
+      cursor: pointer;
+      gap: 5px;
+      padding: 8px;
+      margin-left: 8px;
+      position: relative;
+      z-index: 301;
+    }
+
+    .hamburger span {
+      width: 22px;
+      height: 2px;
+      background: var(--tb);
+      border-radius: 2px;
+      transition: all .3s cubic-bezier(.4, 0, .2, 1);
+      transform-origin: center;
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px)
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px)
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      display: none;
+      width: 100%;
+      height: 100vh;
+      background: var(--bg);
+      z-index: 400;
+      transition: left .3s cubic-bezier(.4, 0, .2, 1);
+      overflow-y: auto;
+      padding-top: 0;
+      visibility: hidden;
+    }
+
+    .sidebar.active {
+      left: 0;
+      display: block;
+      visibility: visible;
+    }
+
+    .sidebar-content {
+      padding: 20px 20px 28px
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--bdr);
+    }
+
+    .sidebar-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      transition: color .2s;
+    }
+
+    .sidebar-close::before,
+    .sidebar-close::after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 2px;
+      background: var(--tb);
+      border-radius: 2px;
+      transition: all .2s;
+    }
+
+    .sidebar-close::before {
+      transform: rotate(45deg)
+    }
+
+    .sidebar-close::after {
+      transform: rotate(-45deg)
+    }
+
+    .sidebar-close:hover::before,
+    .sidebar-close:hover::after {
+      background: var(--th)
+    }
+
+    .sidebar-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar-link {
+      display: block;
+      font-size: .95rem;
+      font-weight: 500;
+      color: var(--tb);
+      padding: 12px 0;
+      transition: color .2s;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
+    }
+
+    .sidebar-link:hover {
+      color: var(--th)
+    }
+
+    .sidebar-dropdown {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .sidebar-dropdown-btn {
+      padding: 12px 0;
+      justify-content: space-between;
+      display: flex;
+    }
+
+    .sidebar-dropdown-btn::after {
+      content: '▼';
+      font-size: .6rem;
+      transition: transform .3s;
+    }
+
+    .sidebar-dropdown-btn.active::after {
+      transform: rotate(180deg)
+    }
+
+    .sidebar-dropdown-content {
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      padding-left: 16px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s;
+    }
+
+    .sidebar-dropdown-content.active {
+      display: flex;
+      max-height: 500px;
+    }
+
+    .sidebar-dropdown-content a {
+      font-size: .9rem;
+      color: var(--tb);
+      padding: 10px 0;
+      transition: color .2s;
+      border-left: 2px solid transparent;
+      padding-left: 12px;
+    }
+
+    .sidebar-dropdown-content a:hover {
+      color: var(--th);
+      border-left-color: var(--gold);
+    }
+
+    .sidebar-cta {
+      background: var(--gold);
+      color: var(--bg);
+      padding: 12px 20px !important;
+      border-radius: 6px;
+      margin-top: 16px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .sidebar-cta:hover {
+      opacity: .9
+    }
+
+    /* ═══ HERO ════════════════════════════════════════════════ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 140px 0 100px;
+      position: relative;
+      overflow: hidden
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(var(--bdr-md) 1px, transparent 1px),
+        linear-gradient(90deg, var(--bdr-md) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: .35;
+      mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 25%, transparent 78%);
+      -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 25%, transparent 78%);
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: center
+    }
+
+    .hero-image-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-right: 20px
+    }
+
+    .erp-diagram {
+      width: 100%;
+      max-width: 520px;
+      --ring-inner: rgba(212, 168, 83, 0.10);
+      --ring-mid: rgba(45, 212, 191, 0.06);
+      --ring-outer: transparent;
+      --ring-stroke: rgba(212, 168, 83, 0.18);
+      --ring-stroke2: rgba(45, 212, 191, 0.14);
+      --shadow: rgba(0, 0, 0, 0.35);
+      --hub-bg: rgba(212, 168, 83, 0.18);
+      --hub-border: rgba(212, 168, 83, 0.45);
+      --hub-text: #f0c878;
+      --hub-sub: #9d9bb8;
+      --label-bg: rgba(24, 24, 40, 0.92);
+      --label-gold: #f0c878;
+      --label-teal: #2dd4bf;
+    }
+
+    [data-theme="light"] .erp-diagram {
+      --ring-inner: rgba(184, 134, 46, 0.12);
+      --ring-mid: rgba(13, 148, 136, 0.08);
+      --ring-stroke: rgba(184, 134, 46, 0.22);
+      --ring-stroke2: rgba(13, 148, 136, 0.18);
+      --shadow: rgba(0, 0, 0, 0.12);
+      --hub-bg: rgba(184, 134, 46, 0.14);
+      --hub-border: rgba(184, 134, 46, 0.40);
+      --hub-text: #8a6020;
+      --hub-sub: #4a4860;
+      --label-bg: rgba(255, 255, 255, 0.96);
+      --label-gold: #8a6020;
+      --label-teal: #0d7a6e;
+    }
+
+    .erp-diagram svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.35));
+      animation: float 6s ease-in-out infinite
+    }
+
+    [data-theme="light"] .erp-diagram svg {
+      filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.12))
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0)
+      }
+
+      50% {
+        transform: translateY(-15px)
+      }
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gdim);
+      border: 1px solid var(--bdr-md);
+      border-radius: 100px;
+      padding: 6px 16px 6px 8px;
+      margin-bottom: 28px;
+      transition: background var(--tt), border-color var(--tt)
+    }
+
+    .kicker-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      animation: pulse 2.2s ease-in-out infinite;
+      flex-shrink: 0
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 var(--gglow)
+      }
+
+      50% {
+        box-shadow: 0 0 0 8px transparent
+      }
+    }
+
+    .kicker-txt {
+      font-family: 'DM Mono', monospace;
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold)
+    }
+
+    .hero-h1 {
+      font-size: clamp(2.6rem, 5.5vw, 4.6rem);
+      max-width: 840px;
+      margin-bottom: 26px
+    }
+
+    .hero-h1 em {
+      font-style: italic;
+      color: var(--gold)
+    }
+
+    .hero-p {
+      font-size: 1.08rem;
+      line-height: 1.78;
+      color: var(--tb);
+      max-width: 570px;
+      margin-bottom: 42px
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+      align-items: center
+    }
+
+    .trust-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px
+    }
+
+    .trust-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: .79rem;
+      font-weight: 500;
+      color: var(--tb);
+      padding: 6px 14px;
+      border: 1px solid var(--bdr);
+      border-radius: 100px;
+      background: var(--card);
+      cursor: none;
+      transition: border-color .2s, color .2s, background .2s, transform .2s, var(--tt);
+    }
+
+    .trust-chip:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--gdim);
+      transform: translateY(-2px)
+    }
+
+    .chip-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--teal);
+      flex-shrink: 0;
+      transition: background .2s
+    }
+
+    .trust-chip:hover .chip-dot {
+      background: var(--gold)
+    }
+
+    /* ═══ ABOUT ══════════════════════════════════════════════ */
+    #about {
+      background: var(--bg2)
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 80px;
+      align-items: start
+    }
+
+    .about-left {
+      position: sticky;
+      top: 100px
+    }
+
+    .about-h2 {
+      font-size: clamp(1.9rem, 3.5vw, 2.7rem);
+      margin-bottom: 20px
+    }
+
+    .accent-bar {
+      width: 44px;
+      height: 3px;
+      background: var(--gold);
+      border-radius: 2px;
+      margin-bottom: 22px;
+      transition: background var(--tt)
+    }
+
+    .about-right p {
+      font-size: .98rem;
+      line-height: 1.82;
+      color: var(--tb);
+      margin-bottom: 20px;
+      transition: color var(--tt)
+    }
+
+    .about-right p:last-child {
+      margin-bottom: 0
+    }
+
+    /* ═══ SERVICES ═══════════════════════════════════════════ */
+    #services {
+      background: var(--bg)
+    }
+
+    .sec-head {
+      margin-bottom: 56px
+    }
+
+    .svc-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--bdr);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color var(--tt);
+    }
+
+    .svc {
+      background: var(--card);
+      padding: 36px 30px 40px;
+      position: relative;
+      overflow: hidden;
+      border-right: 1px solid var(--bdr);
+      border-bottom: 1px solid var(--bdr);
+      transition: background .25s, border-color var(--tt);
+    }
+
+    .svc:nth-child(3n) {
+      border-right: none
+    }
+
+    .svc:nth-last-child(-n+3) {
+      border-bottom: none
+    }
+
+    .svc::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--teal));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .38s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .svc::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), var(--gdim), transparent 65%);
+      opacity: 0;
+      transition: opacity .3s;
+      pointer-events: none;
+    }
+
+    .svc:hover {
+      background: var(--card2)
+    }
+
+    .svc:hover::before {
+      transform: scaleX(1)
+    }
+
+    .svc:hover::after {
+      opacity: 1
+    }
+
+    .svc-n {
+      font-family: 'DM Mono', monospace;
+      font-size: .68rem;
+      letter-spacing: .12em;
+      color: var(--gold);
+      margin-bottom: 18px;
+      transition: color var(--tt)
+    }
+
+    .svc-icon {
+      font-size: 1.9rem;
+      margin-bottom: 14px
+    }
+
+    .svc-t {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--th);
+      margin-bottom: 10px;
+      transition: color var(--tt)
+    }
+
+    .svc-d {
+      font-size: .875rem;
+      line-height: 1.72
+    }
+
+    /* ═══ INDUSTRIES ═════════════════════════════════════════ */
+    #industries {
+      background: var(--bg2)
+    }
+
+    .ind-intro {
+      max-width: 620px;
+      margin-bottom: 52px
+    }
+
+    .ind-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 20px;
+    }
+
+    .ind-card {
+      grid-column: span 2;
+      background: var(--card);
+      border: 1px solid var(--bdr);
+      border-radius: 18px;
+      padding: 36px 30px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .25s, transform .25s cubic-bezier(.4, 0, .2, 1), box-shadow .25s, background var(--tt);
+    }
+
+    .ind-card:nth-child(4) {
+      grid-column: 2 / span 2
+    }
+
+    .ind-card:nth-child(5) {
+      grid-column: 4 / span 2
+    }
+
+    .ind-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .3s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .ind-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-5px);
+      box-shadow: var(--shc);
+      background: var(--card2)
+    }
+
+    .ind-card:hover::after {
+      transform: scaleX(1)
+    }
+
+    .ind-icon-wrap {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gdim);
+      border: 1px solid var(--bdr-md);
+      margin-bottom: 22px;
+      transition: transform .25s, border-color .25s, box-shadow .25s;
+    }
+
+    .ind-icon {
+      font-size: 1.75rem;
+      line-height: 1
+    }
+
+    .ind-card:hover .ind-icon-wrap {
+      transform: scale(1.06);
+      border-color: var(--gold);
+      box-shadow: 0 6px 20px var(--gglow)
+    }
+
+    .ind-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--th);
+      margin-bottom: 12px;
+      line-height: 1.25;
+      transition: color .2s;
+    }
+
+    .ind-card:hover .ind-name {
+      color: var(--gold)
+    }
+
+    .ind-desc {
+      font-size: .875rem;
+      line-height: 1.72;
+      color: var(--tb);
+      flex: 1
+    }
+
+    .ind-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 22px;
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--gold);
+      transition: gap .2s;
+    }
+
+    .ind-card:hover .ind-link {
+      gap: 10px
+    }
+
+    /* ═══ AI SECTION ═════════════════════════════════════════ */
+    #ai {
+      background: var(--bg);
+      overflow: hidden;
+      position: relative
+    }
+
+    .ai-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 96px;
+      align-items: center
+    }
+
+    .ai-body {
+      font-size: .98rem;
+      line-height: 1.8;
+      margin-bottom: 30px
+    }
+
+    .ai-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px
+    }
+
+    .ai-pill {
+      font-size: .79rem;
+      font-weight: 500;
+      padding: 7px 16px;
+      border: 1px solid var(--bdr-md);
+      color: var(--tb);
+      border-radius: 100px;
+      background: var(--card);
+      transition: border-color .2s, color .2s, background .2s, transform .2s, var(--tt);
+    }
+
+    .ai-pill:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--gdim);
+      transform: translateY(-2px)
+    }
+
+    .ai-vis {
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .ai-rings {
+      width: 300px;
+      height: 300px;
+      position: relative
+    }
+
+    .ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid var(--bdr-md);
+      animation: rspin 18s linear infinite;
+      transition: border-color var(--tt)
+    }
+
+    .ring::before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      box-shadow: 0 0 12px var(--gglow);
+      transition: background var(--tt)
+    }
+
+    .ring:nth-child(1) {
+      inset: 0
+    }
+
+    .ring:nth-child(2) {
+      inset: 28px;
+      animation-duration: 12s;
+      animation-direction: reverse
+    }
+
+    .ring:nth-child(2)::before {
+      background: var(--teal);
+      box-shadow: 0 0 12px rgba(45, 212, 191, .4)
+    }
+
+    .ring:nth-child(3) {
+      inset: 58px;
+      animation-duration: 8s
+    }
+
+    .ring:nth-child(3)::before {
+      width: 6px;
+      height: 6px;
+      top: -3px;
+      background: var(--gold-l)
+    }
+
+    .ai-core {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center
+    }
+
+    .ai-core-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--th);
+      transition: color var(--tt)
+    }
+
+    .ai-core-sub {
+      font-family: 'DM Mono', monospace;
+      font-size: .62rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold)
+    }
+
+    @keyframes rspin {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    /* ═══ EXPERTISE CARDS ════════════════════════════════════ */
+    #skills {
+      background: var(--bg2)
+    }
+
+    .exp-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px
+    }
+
+    .exp-card {
+      background: var(--card);
+      border: 1px solid var(--bdr);
+      border-radius: 16px;
+      padding: 30px 26px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .25s, transform .25s cubic-bezier(.4, 0, .2, 1), box-shadow .25s, background var(--tt);
+    }
+
+    .exp-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--teal));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .38s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .exp-card:hover {
+      border-color: var(--bdr-hi);
+      transform: translateY(-5px);
+      box-shadow: var(--shc)
+    }
+
+    .exp-card:hover::before {
+      transform: scaleX(1)
+    }
+
+    .exp-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 13px;
+      background: var(--gdim);
+      border: 1px solid var(--bdr-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      transition: background var(--tt), transform .25s
+    }
+
+    .exp-card:hover .exp-icon {
+      transform: scale(1.05)
+    }
+
+    .exp-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.04rem;
+      font-weight: 700;
+      color: var(--th);
+      line-height: 1.2;
+      transition: color var(--tt)
+    }
+
+    .exp-desc {
+      font-size: .83rem;
+      line-height: 1.66;
+      color: var(--tb)
+    }
+
+    .exp-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px
+    }
+
+    .exp-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: .63rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 100px;
+      border: 1px solid var(--bdr-md);
+      color: var(--gold);
+      background: var(--gdim);
+      transition: background var(--tt), color var(--tt)
+    }
+
+    /* ═══ PROCESS — VERTICAL FLOWCHART (FIXED) ═══════════════ */
+    #process {
+      background: var(--bg)
+    }
+
+    .process-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 88px;
+      align-items: start
+    }
+
+    .process-left {
+      position: sticky;
+      top: 100px
+    }
+
+    /* Chart container */
+    .flow-chart {
+      position: relative;
+      padding-left: 0
+    }
+
+    /* The vertical animated line — perfectly centered on circles */
+    .flow-line {
+      position: absolute;
+      left: 29px;
+      /* (60px circle / 2) - (4px line / 2) = 28px, +1px optical */
+      top: 30px;
+      /* start at circle center */
+      bottom: 30px;
+      /* end at last circle center */
+      width: 4px;
+      border-radius: 2px;
+      background: var(--flow-g);
+      transform-origin: top;
+      transform: scaleY(0);
+      transition: transform 1.8s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .flow-line.animated {
+      transform: scaleY(1)
+    }
+
+    /* Each step row */
+    .flow-step {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 0 28px;
+      align-items: start;
+      position: relative;
+      z-index: 1;
+      padding-bottom: 48px;
+      opacity: 0;
+      transform: translateX(24px);
+      transition: opacity .55s cubic-bezier(.4, 0, .2, 1), transform .55s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .flow-step:last-child {
+      padding-bottom: 0
+    }
+
+    .flow-step.vis {
+      opacity: 1;
+      transform: none
+    }
+
+    /* Left column: circle + dashed line */
+    .flow-left-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Coloured circle badge */
+    .flow-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #fff;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, .32);
+      transition: transform .3s cubic-bezier(.4, 0, .2, 1), box-shadow .3s;
+    }
+
+    .flow-step:hover .flow-circle {
+      transform: scale(1.08);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, .38)
+    }
+
+    /* Per-step colours */
+    .flow-step:nth-child(2) .flow-circle {
+      background: linear-gradient(135deg, #4ade80, #22c55e)
+    }
+
+    .flow-step:nth-child(3) .flow-circle {
+      background: linear-gradient(135deg, #2dd4bf, #14b8a6)
+    }
+
+    .flow-step:nth-child(4) .flow-circle {
+      background: linear-gradient(135deg, #fcd34d, #d4a853)
+    }
+
+    .flow-step:nth-child(5) .flow-circle {
+      background: linear-gradient(135deg, #f0c878, #e8a045)
+    }
+
+    .flow-step:nth-child(6) .flow-circle {
+      background: linear-gradient(135deg, #818cf8, #6366f1)
+    }
+
+    .flow-step:nth-child(7) .flow-circle {
+      background: linear-gradient(135deg, #a78bfa, #8b5cf6)
+    }
+
+    /* Horizontal dashed connector */
+    .flow-dash {
+      position: absolute;
+      top: 30px;
+      /* vertically centred on 60px circle */
+      left: 60px;
+      /* starts at right edge of circle */
+      width: 28px;
+      height: 0;
+      border-top: 1.5px dashed var(--bdr-md);
+      transition: border-color var(--tt);
+    }
+
+    .flow-dash::after {
+      content: '';
+      position: absolute;
+      right: -5px;
+      top: -4px;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--bdr-md);
+      transition: background var(--tt);
+    }
+
+    .flow-step:hover .flow-dash {
+      border-color: var(--bdr-hi)
+    }
+
+    .flow-step:hover .flow-dash::after {
+      background: var(--bdr-hi)
+    }
+
+    /* Right column: content */
+    .flow-content {
+      padding-top: 8px
+    }
+
+    .flow-icon {
+      font-size: 1.45rem;
+      margin-bottom: 6px
+    }
+
+    .flow-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.18rem;
+      font-weight: 700;
+      margin-bottom: 7px;
+      transition: color .3s
+    }
+
+    .flow-step:nth-child(2) .flow-name {
+      color: #22c55e
+    }
+
+    .flow-step:nth-child(3) .flow-name {
+      color: #14b8a6
+    }
+
+    .flow-step:nth-child(4) .flow-name {
+      color: var(--gold)
+    }
+
+    .flow-step:nth-child(5) .flow-name {
+      color: var(--gold-l)
+    }
+
+    .flow-step:nth-child(6) .flow-name {
+      color: #6366f1
+    }
+
+    .flow-step:nth-child(7) .flow-name {
+      color: #8b5cf6
+    }
+
+    .flow-desc {
+      font-size: .875rem;
+      line-height: 1.72;
+      color: var(--tb)
+    }
+
+    /* ═══ CONTACT ════════════════════════════════════════════ */
+    #contact {
+      background: var(--bg2)
+    }
+
+    .contact-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: center
+    }
+
+    .contact-h2 {
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      margin-bottom: 20px;
+      line-height: 1.1
+    }
+
+    .contact-sub {
+      margin-bottom: 44px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      max-width: 580px
+    }
+
+    .contact-cards {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 36px
+    }
+
+    .ccard {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: var(--card);
+      border: 1px solid var(--bdr);
+      border-radius: 16px;
+      padding: 24px 32px;
+      min-width: 320px;
+      text-align: left;
+      transition: border-color .25s, box-shadow .25s, transform .25s cubic-bezier(.4, 0, .2, 1), background var(--tt);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ccard::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--teal));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .32s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .ccard:hover {
+      border-color: var(--bdr-md);
+      box-shadow: var(--shc);
+      transform: translateY(-4px)
+    }
+
+    .ccard:hover::before {
+      transform: scaleX(1)
+    }
+
+    .ccard-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: var(--gdim);
+      border: 1px solid var(--bdr-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      transition: background var(--tt), transform .25s;
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .ccard:hover .ccard-icon {
+      transform: scale(1.06)
+    }
+
+    .ccard-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .ccard-label {
+      font-family: 'DM Mono', monospace;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2px;
+      transition: color var(--tt)
+    }
+
+    .ccard-value {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--th);
+      transition: color .2s;
+      line-height: 1.2
+    }
+
+    .ccard:hover .ccard-value {
+      color: var(--gold)
+    }
+
+    /* ═══ FOOTER ═════════════════════════════════════════════ */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--bdr);
+      padding: 30px 0;
+      transition: background var(--tt), border-color var(--tt)
+    }
+
+    .foot-inner {
+      max-width: var(--page-max);
+      margin: 0 auto;
+      padding: 0 var(--page-pad);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .foot-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--th);
+      transition: color var(--tt)
+    }
+
+    .foot-logo em {
+      color: var(--gold);
+      font-style: normal
+    }
+
+    .foot-copy {
+      font-size: .78rem;
+      color: var(--tm)
+    }
+
+    .foot-links {
+      display: flex;
+      gap: 20px
+    }
+
+    .foot-links a {
+      font-size: .78rem;
+      color: var(--tm);
+      transition: color .2s
+    }
+
+    .foot-links a:hover {
+      color: var(--gold)
+    }
+
+    /* ═══ REVEAL ═════════════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .7s cubic-bezier(.4, 0, .2, 1), transform .7s cubic-bezier(.4, 0, .2, 1)
+    }
+
+    .reveal.in {
+      opacity: 1;
+      transform: none
+    }
+
+    /* ═══ RESPONSIVE ═════════════════════════════════════════ */
+    @media(max-width:1020px) {
+      .hero-layout {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 60px
+      }
+
+      .hero-image-wrap {
+        display: flex;
+        justify-content: center;
+        padding: 0
+      }
+
+      .hero-h1 {
+        margin-left: auto;
+        margin-right: auto
+      }
+
+      .hero-p {
+        margin-left: auto;
+        margin-right: auto
+      }
+
+      .hero-actions {
+        justify-content: center
+      }
+
+      .trust-row {
+        justify-content: center
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px
+      }
+
+      .about-left {
+        position: static
+      }
+
+      .svc-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .svc:nth-child(2n) {
+        border-right: none
+      }
+
+      .svc:nth-child(3n) {
+        border-right: 1px solid var(--bdr)
+      }
+
+      .ind-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .ind-card,
+      .ind-card:nth-child(4),
+      .ind-card:nth-child(5) {
+        grid-column: span 1
+      }
+
+      .ai-wrap {
+        grid-template-columns: 1fr;
+        gap: 52px
+      }
+
+      .ai-rings {
+        width: 220px;
+        height: 220px
+      }
+
+      .exp-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .process-layout {
+        grid-template-columns: 1fr;
+        gap: 48px
+      }
+
+      .process-left {
+        position: static
+      }
+    }
+
+    @media(max-width:768px) {
+      .wrap {
+        padding: 0 var(--page-pad)
+      }
+
+      section {
+        padding: 80px 0
+      }
+
+      .nav-inner {
+        grid-template-columns: 1fr auto
+      }
+
+      .nav-links {
+        display: none !important
+      }
+
+      .nav-right {
+        grid-column: 2;
+        justify-self: end;
+        gap: 0
+      }
+
+      .tog,
+      .nav-cta {
+        display: none !important
+      }
+
+      .hamburger {
+        display: flex !important
+      }
+
+      .svc-grid {
+        grid-template-columns: 1fr
+      }
+
+      .svc {
+        border-right: none
+      }
+
+      .svc:nth-child(3n) {
+        border-right: none
+      }
+
+      .ind-grid {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        max-width: 280px;
+        align-items: flex-start
+      }
+
+      .exp-grid {
+        grid-template-columns: 1fr
+      }
+
+      .contact-cards {
+        flex-direction: column;
+        align-items: center
+      }
+
+      .foot-inner {
+        flex-direction: column;
+        text-align: center
+      }
+
+      .foot-links {
+        justify-content: center
+      }
+    }
+
+    @media(max-width:480px) {
+      .ind-grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+
+      .reveal,
+      .flow-step {
+        transition: none
+      }
+
+      .ring {
+        animation: none
+      }
+
+      .flow-line {
+        transition: none;
+        transform: scaleY(1)
+      }
+
+      #cursor-dot,
+      #cursor-ring {
+        display: none
+      }
+
+      body {
+        cursor: auto
+      }
+    }
+
+    body.touch-device .nav-dropdown:hover .nav-dropdown-content {
+      display: none
+    }
+
+    body.sidebar-open {
+      overflow: hidden
+    }
   </style>
 </head>
+
 <body>
-<!-- CUSTOM CURSOR ────────────────────────────────────── -->
-<div id="cursor-dot"></div>
-<div id="cursor-ring"></div>
+  <!-- CUSTOM CURSOR ────────────────────────────────────── -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
 
-<!-- NAV ─────────────────────────────────────────────── -->
-<nav id="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo">Prince <em>Prajapati</em></a>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <div class="nav-dropdown">
-        <a href="#industries" class="nav-dropbtn" style="cursor:pointer">Industries <span style="font-size: 0.7em;">▼</span></a>
-        <div class="nav-dropdown-content">
-          <a href="manufacturing.html">Manufacturing</a>
-          <a href="logistics.html">Logistics</a>
-          <a href="construction.html">Construction</a>
-          <a href="marketing.html">Marketing</a>
-          <a href="textile.html">Textile</a>
-        </div>
-      </div>
-      <div class="nav-dropdown">
-        <a href="products.html" class="nav-dropbtn" style="cursor:pointer">Financial Tools <span style="font-size: 0.7em;">▼</span></a>
-        <div class="nav-dropdown-content">
-          <a href="products.html#sip-calculator">SIP Calculator</a>
-          <a href="products.html#loan-calculator">Loan Calculator</a>
-          <a href="products.html#ratios-analysis">Financial Ratio Analysis</a>
-        </div>
-      </div>
-    </div>
-    <div class="nav-right">
-      <button class="tog" id="themeToggle" aria-label="Toggle light/dark mode">
-        <span class="tog-i m">🌙</span>
-        <span class="tog-i s">☀️</span>
-      </button>
-      <a href="#contact" class="nav-cta">Book a Call</a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-  </div>
-</nav>
-
-<!-- Mobile Sidebar -->
-<div class="sidebar" id="sidebar">
-  <div class="sidebar-content">
-    <div class="sidebar-header">
-      <button class="sidebar-close" id="sidebarClose" aria-label="Close menu"></button>
-    </div>
-    <div class="sidebar-links">
-      <a href="#about" class="sidebar-link">About</a>
-      <a href="#services" class="sidebar-link">Services</a>
-      <div class="sidebar-dropdown">
-        <button class="sidebar-link sidebar-dropdown-btn">Industries</button>
-        <div class="sidebar-dropdown-content">
-          <a href="manufacturing.html">Manufacturing</a>
-          <a href="logistics.html">Logistics</a>
-          <a href="construction.html">Construction</a>
-          <a href="marketing.html">Marketing</a>
-          <a href="textile.html">Textile</a>
-        </div>
-      </div>
-      <div class="sidebar-dropdown">
-        <button class="sidebar-link sidebar-dropdown-btn">Financial Tools</button>
-        <div class="sidebar-dropdown-content">
-          <a href="products.html#sip-calculator">SIP Calculator</a>
-          <a href="products.html#loan-calculator">Loan Calculator</a>
-          <a href="products.html#ratios-analysis">Financial Ratio Analysis</a>
-        </div>
-      </div>
-      <a href="#contact" class="sidebar-link sidebar-cta">Book a Free Consultation</a>
-    </div>
-  </div>
-</div>
-
-<!-- HERO ─────────────────────────────────────────────── -->
-<section id="hero">
-  <div class="wrap">
-    <div class="hero-layout">
-      <div class="hero-content">
-        <div class="hero-kicker">
-          <span class="kicker-dot"></span>
-          <span class="kicker-txt">ERP Consulting · Business Analysis · AI Workflow Design</span>
-        </div>
-        <h1 class="hero-h1 serif">
-          We Turn Business Complexity<br>Into <em>Scalable ERP Solutions</em>
-        </h1>
-        <p class="hero-p">Empowering <strong>Manufacturing, Logistics, Construction, Marketing, and Textile</strong> businesses to operate smarter — through expert <mark>ERPNext &amp; Odoo</mark> implementation, intelligent automation, and AI-powered custom solutions.</p>
-        <div class="hero-actions">
-          <a href="#contact" class="btn-g">Book a Free Consultation <span class="arrow">→</span></a>
-          <a href="#process" class="btn-o">See How We Work</a>
-        </div>
-        <div class="trust-row">
-          <span class="trust-chip"><span class="chip-dot"></span>ERPNext &amp; Odoo Specialists</span>
-          <span class="trust-chip"><span class="chip-dot"></span>Multiple Industries Served</span>
-          <span class="trust-chip"><span class="chip-dot"></span>End-to-End Delivery</span>
-          <span class="trust-chip"><span class="chip-dot"></span>AI-Powered Solutions</span>
-        </div>
-      </div>
-      <div class="hero-image-wrap reveal" style="transition-delay:.2s">
-        <div class="erp-diagram" id="erpDiagram" role="img" aria-label="ERP modules diagram — Production, Finance, Logistics, Sales, HR, Management"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ABOUT ────────────────────────────────────────────── -->
-<section id="about">
-  <div class="wrap">
-    <div class="about-grid">
-      <div class="about-left reveal">
-        <div class="eyebrow">Who We Are</div>
-        <h2 class="about-h2 serif">Your Trusted ERP &amp; AI Solutions Partner</h2>
-        <div class="accent-bar"></div>
-        <p class="sub">Bridging the gap between <strong>business strategy</strong> and technology execution — with precision, transparency, and a deep commitment to <mark>measurable outcomes</mark>.</p>
-      </div>
-      <div class="about-right reveal" style="transition-delay:.12s">
-        <p>We are a specialized ERP consulting practice delivering <strong>end-to-end ERP implementations</strong>, business process transformations, and AI-driven digital solutions.</p>
-        <p>Our expertise lies in bridging the gap between business strategy and technology execution. We work closely with stakeholders, operations teams, and technical architects to design ERP systems that don't just function — <strong>they perform</strong>.</p>
-        <p>From initial <strong>requirement discovery</strong> to <strong>post-go-live optimization</strong>, every engagement is handled with precision, transparency, and a deep commitment to delivering <mark>measurable business outcomes</mark>.</p>
-        <p>We don't believe in one-size-fits-all solutions — every system we build is <strong>tailored to your unique processes</strong>, goals, and growth plans.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- SERVICES ─────────────────────────────────────────── -->
-<section id="services">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow">Our Services</div>
-      <h2 class="serif" style="font-size:clamp(1.9rem,3.8vw,2.8rem);margin-bottom:14px">Comprehensive <mark>ERP &amp; AI</mark> Services<br>Built for Business Growth</h2>
-      <p class="sub">From initial consultation to post-deployment support — <strong>complete, reliable, and future-ready</strong>.</p>
-    </div>
-    <div class="svc-grid reveal" style="transition-delay:.1s">
-      <div class="svc"><div class="svc-n">01</div><div class="svc-icon">🔧</div><div class="svc-t">ERP Implementation</div><div class="svc-d">Full-cycle <strong>ERPNext and Odoo</strong> deployments — system configuration, data migration, user training, and go-live support with <strong>zero business disruption</strong>.</div></div>
-      <div class="svc"><div class="svc-n">02</div><div class="svc-icon">⚙️</div><div class="svc-t">ERP Customization</div><div class="svc-d"><strong>Custom modules</strong>, automated workflows, tailored reports, and seamless third-party integrations aligned perfectly with your operations.</div></div>
-      <div class="svc"><div class="svc-n">03</div><div class="svc-icon">🤖</div><div class="svc-t">AI-Assisted Development</div><div class="svc-d"><strong>Prompt engineering</strong> and AI-driven development to accelerate ERP delivery, <mark>reduce costs</mark>, and build smarter, self-improving solutions.</div></div>
-      <div class="svc"><div class="svc-n">04</div><div class="svc-icon">📋</div><div class="svc-t">Business Analysis</div><div class="svc-d">Structured <strong>requirement gathering</strong>, as-is/to-be process mapping, <strong>gap analysis</strong>, and solution design to ensure solid ERP foundations.</div></div>
-      <div class="svc"><div class="svc-n">05</div><div class="svc-icon">📊</div><div class="svc-t">Power BI Dashboards</div><div class="svc-d">Transform complex ERP data into <strong>intuitive, real-time dashboards</strong> and BI reports — giving decision-makers the clarity to <mark>act fast and confidently</mark>.</div></div>
-      <div class="svc"><div class="svc-n">06</div><div class="svc-icon">⚡</div><div class="svc-t">Process Automation</div><div class="svc-d">Smart <strong>workflow automation</strong> and system integrations that eliminate manual effort, reduce errors, and <strong>free your team's focus</strong>.</div></div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- INDUSTRIES ───────────────────────────────────────── -->
-<section id="industries">
-  <div class="wrap">
-    <div class="ind-intro reveal">
-      <div class="eyebrow">Industries We Serve</div>
-      <h2 class="serif" style="font-size:clamp(1.9rem,3.8vw,2.8rem);margin-bottom:14px"><strong>Deep Industry Expertise.</strong><br>Real-World ERP Results.</h2>
-      <p class="sub">We understand <strong>your industry</strong>, not just your technology — delivering implementations that solve <mark>real operational challenges</mark>.</p>
-    </div>
-    <div class="ind-grid">
-      <a href="manufacturing.html" class="ind-card reveal" style="transition-delay:.05s">
-        <div class="ind-icon-wrap"><span class="ind-icon">🏭</span></div>
-        <div class="ind-name">Manufacturing</div>
-        <p class="ind-desc">BOM management, production planning, inventory control, quality processes &amp; procurement.</p>
-        <span class="ind-link">Explore →</span>
-      </a>
-      <a href="logistics.html" class="ind-card reveal" style="transition-delay:.1s">
-        <div class="ind-icon-wrap"><span class="ind-icon">🚚</span></div>
-        <div class="ind-name">Logistics</div>
-        <p class="ind-desc">Fleet management, shipment tracking, supply chain monitoring, warehouse &amp; delivery.</p>
-        <span class="ind-link">Explore →</span>
-      </a>
-      <a href="construction.html" class="ind-card reveal" style="transition-delay:.15s">
-        <div class="ind-icon-wrap"><span class="ind-icon">🏗️</span></div>
-        <div class="ind-name">Construction</div>
-        <p class="ind-desc">Project management, resource allocation, material tracking, budgets &amp; contractors.</p>
-        <span class="ind-link">Explore →</span>
-      </a>
-      <a href="marketing.html" class="ind-card reveal" style="transition-delay:.2s">
-        <div class="ind-icon-wrap"><span class="ind-icon">📈</span></div>
-        <div class="ind-name">Marketing</div>
-        <p class="ind-desc">Campaign management, lead tracking, customer data, collaboration &amp; performance reporting.</p>
-        <span class="ind-link">Explore →</span>
-      </a>
-      <a href="textile.html" class="ind-card reveal" style="transition-delay:.25s">
-        <div class="ind-icon-wrap"><span class="ind-icon">🧵</span></div>
-        <div class="ind-name">Textile</div>
-        <p class="ind-desc">Production tracking, inventory control, distribution, purchase management &amp; order processing.</p>
-        <span class="ind-link">Explore →</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- AI ───────────────────────────────────────────────── -->
-<section id="ai">
-  <div class="wrap">
-    <div class="ai-wrap">
-      <div>
-        <div class="eyebrow reveal">AI &amp; Innovation</div>
-        <h2 class="serif reveal" style="font-size:clamp(1.9rem,3.8vw,2.8rem);margin-bottom:18px;transition-delay:.06s">The Future of ERP Is <mark>Intelligent</mark> — And We're Already There</h2>
-        <p class="ai-body reveal" style="transition-delay:.12s">ERP is no longer just about managing data — it's about turning that data into <strong>decisions</strong>. We combine deep ERP expertise with cutting-edge <strong>AI workflow design</strong> and prompt engineering to build solutions that don't just automate tasks — <mark>they think ahead.</mark></p>
-        <div class="ai-pills reveal" style="transition-delay:.18s">
-          <span class="ai-pill">AI Workflow Design</span>
-          <span class="ai-pill">Prompt Engineering</span>
-          <span class="ai-pill">ERP Automation</span>
-          <span class="ai-pill">Custom Business Solutions</span>
-          <span class="ai-pill">Intelligent Process Optimization</span>
-        </div>
-      </div>
-      <div class="ai-vis reveal" style="transition-delay:.24s">
-        <div class="ai-rings">
-          <div class="ring"></div>
-          <div class="ring"></div>
-          <div class="ring"></div>
-          <div class="ai-core">
-            <span class="ai-core-label">AI</span>
-            <span class="ai-core-sub">Powered</span>
+  <!-- NAV ─────────────────────────────────────────────── -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Prince <em>Prajapati</em></a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <div class="nav-dropdown">
+          <a href="#industries" class="nav-dropbtn" style="cursor:pointer">Industries <span
+              style="font-size: 0.7em;">▼</span></a>
+          <div class="nav-dropdown-content">
+            <a href="manufacturing.html">Manufacturing</a>
+            <a href="logistics.html">Logistics</a>
+            <a href="construction.html">Construction</a>
+            <a href="marketing.html">Marketing</a>
+            <a href="textile.html">Textile</a>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- EXPERTISE ────────────────────────────────────────── -->
-<section id="skills">
-  <div class="wrap">
-    <div class="reveal" style="margin-bottom:52px">
-      <div class="eyebrow">Our Expertise</div>
-      <h2 class="serif" style="font-size:clamp(1.9rem,3.8vw,2.8rem);margin-bottom:14px">Hands-On Expertise Across <mark>Leading ERP</mark> &amp; Analytics Platforms</h2>
-      <p class="sub">Every tool applied in <strong>real production environments</strong> — not just in theory.</p>
-    </div>
-    <div class="exp-grid reveal" style="transition-delay:.1s">
-      <div class="exp-card">
-        <div class="exp-icon">⚙️</div>
-        <div class="exp-title">ERPNext</div>
-        <div class="exp-desc">Full-cycle implementation, module configuration, custom apps, workflows, and multi-company setups on the <strong>Frappe framework</strong>.</div>
-        <div class="exp-tags"><span class="exp-tag">Open Source</span><span class="exp-tag">Python</span><span class="exp-tag">Frappe</span></div>
-      </div>
-      <div class="exp-card">
-        <div class="exp-icon">🟣</div>
-        <div class="exp-title">Odoo ERP</div>
-        <div class="exp-desc">End-to-end Odoo deployments including <strong>custom module development</strong>, integrations, and multi-instance environments.</div>
-        <div class="exp-tags"><span class="exp-tag">Odoo 16/17</span><span class="exp-tag">OWL</span><span class="exp-tag">XML/Python</span></div>
-      </div>
-      <div class="exp-card">
-        <div class="exp-icon">📋</div>
-        <div class="exp-title">Business Analysis</div>
-        <div class="exp-desc"><strong>As-is/to-be mapping</strong>, gap analysis, stakeholder workshops, and solution blueprinting for ERP transformation projects.</div>
-        <div class="exp-tags"><span class="exp-tag">GAP Analysis</span><span class="exp-tag">BRD</span><span class="exp-tag">FRD</span></div>
-      </div>
-      <div class="exp-card">
-        <div class="exp-icon">📊</div>
-        <div class="exp-title">Power BI</div>
-        <div class="exp-desc">Real-time <strong>ERP-connected dashboards</strong>, KPI tracking, automated reports, and executive-level data visualizations.</div>
-        <div class="exp-tags"><span class="exp-tag">DAX</span><span class="exp-tag">Power Query</span><span class="exp-tag">Data Model</span></div>
-      </div>
-      <div class="exp-card">
-        <div class="exp-icon">🤖</div>
-        <div class="exp-title">AI Workflow Design</div>
-        <div class="exp-desc"><strong>Prompt engineering</strong>, AI-assisted ERP development, intelligent automation design, and LLM-powered business logic.</div>
-        <div class="exp-tags"><span class="exp-tag">LLM</span><span class="exp-tag">Prompt Eng.</span><span class="exp-tag">Automation</span></div>
-      </div>
-      <div class="exp-card">
-        <div class="exp-icon">⚡</div>
-        <div class="exp-title">Process Automation</div>
-        <div class="exp-desc">End-to-end <strong>workflow automation</strong>, API integrations, scheduled tasks, and smart trigger-based business process flows.</div>
-        <div class="exp-tags"><span class="exp-tag">REST APIs</span><span class="exp-tag">Webhooks</span><span class="exp-tag">Zapier</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- PROCESS — VERTICAL FLOWCHART ─────────────────────── -->
-<section id="process">
-  <div class="wrap">
-    <div class="process-layout">
-
-      <!-- Sticky left intro -->
-      <div class="process-left">
-        <div class="eyebrow reveal">How We Work</div>
-        <h2 class="serif reveal" style="font-size:clamp(1.9rem,3.8vw,2.8rem);margin-bottom:0;transition-delay:.06s">Our Proven <mark>6-Step</mark> Delivery Process</h2>
-        <p class="sub reveal" style="margin-top:16px;transition-delay:.12s">Transparency, structure, and <strong>accountability at every stage</strong> — so you always know what's happening, what's next, and what to expect.</p>
-        <div class="reveal" style="transition-delay:.18s;margin-top:32px">
-          <a href="#contact" class="btn-g">Start Your Project <span class="arrow">→</span></a>
+        <div class="nav-dropdown">
+          <a href="products.html" class="nav-dropbtn" style="cursor:pointer">Financial Tools <span
+              style="font-size: 0.7em;">▼</span></a>
+          <div class="nav-dropdown-content">
+            <a href="products.html" class="nav-dropbtn" style="cursor:pointer">Financial Tools <span
+                style="font-size: 0.7em;">▼</span></a>
+            <div class="nav-dropdown-content">
+              <a href="products.html#ratios-analysis">Financial Ratio Analysis</a>
+              <a href="products.html#sip-calculator">SIP Calculator</a>
+              <a href="products.html#loan-calculator">Loan Calculator</a>
+              <a href="products.html#ratios-analysis">Financial Ratio Analysis</a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-right">
+          <button class="tog" id="themeToggle" aria-label="Toggle light/dark mode">
+            <span class="tog-i m">🌙</span>
+            <span class="tog-i s">☀️</span>
+          </button>
+          <a href="#contact" class="nav-cta">Book a Call</a>
+          <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
         </div>
       </div>
+  </nav>
 
-      <!-- Flowchart — fixed alignment -->
-      <div>
-        <div class="flow-chart" id="flowChart">
-          <div class="flow-line" id="flowLine"></div>
-
-          <div class="flow-step">
-            <div class="flow-left-col">
-              <div class="flow-circle">01</div>
-              <div class="flow-dash"></div>
-            </div>
-            <div class="flow-content">
-              <div class="flow-icon">🔍</div>
-              <div class="flow-name">Discover</div>
-              <div class="flow-desc">We begin by deeply understanding your business — your <strong>goals, pain points, workflows</strong>, and growth vision. No assumptions, only insights.</div>
-            </div>
+  <!-- Mobile Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-content">
+      <div class="sidebar-header">
+        <button class="sidebar-close" id="sidebarClose" aria-label="Close menu"></button>
+      </div>
+      <div class="sidebar-links">
+        <a href="#about" class="sidebar-link">About</a>
+        <a href="#services" class="sidebar-link">Services</a>
+        <div class="sidebar-dropdown">
+          <button class="sidebar-link sidebar-dropdown-btn">Industries</button>
+          <div class="sidebar-dropdown-content">
+            <a href="manufacturing.html">Manufacturing</a>
+            <a href="logistics.html">Logistics</a>
+            <a href="construction.html">Construction</a>
+            <a href="marketing.html">Marketing</a>
+            <a href="textile.html">Textile</a>
           </div>
-
-          <div class="flow-step">
-            <div class="flow-left-col">
-              <div class="flow-circle">02</div>
-              <div class="flow-dash"></div>
-            </div>
-            <div class="flow-content">
-              <div class="flow-icon">📐</div>
-              <div class="flow-name">Analyze</div>
-              <div class="flow-desc">We document current processes, identify <strong>inefficiencies and gaps</strong>, and design a clear blueprint for your future-state operations.</div>
-            </div>
+        </div>
+        <div class="sidebar-dropdown">
+          <button class="sidebar-link sidebar-dropdown-btn">Financial Tools</button>
+          <div class="sidebar-dropdown-content">
+            <a href="products.html#sip-calculator">SIP Calculator</a>
+            <a href="products.html#loan-calculator">Loan Calculator</a>
+            <a href="products.html#ratios-analysis">Financial Ratio Analysis</a>
           </div>
+        </div>
+        <a href="#contact" class="sidebar-link sidebar-cta">Book a Free Consultation</a>
+      </div>
+    </div>
+  </div>
 
-          <div class="flow-step">
-            <div class="flow-left-col">
-              <div class="flow-circle">03</div>
-              <div class="flow-dash"></div>
-            </div>
-            <div class="flow-content">
-              <div class="flow-icon">🗺️</div>
-              <div class="flow-name">Design</div>
-              <div class="flow-desc">We architect a <strong>tailored ERP solution</strong> — selecting the right modules, mapping workflows, and defining the complete system structure.</div>
-            </div>
+  <!-- HERO ─────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="wrap">
+      <div class="hero-layout">
+        <div class="hero-content">
+          <div class="hero-kicker">
+            <span class="kicker-dot"></span>
+            <span class="kicker-txt">ERP Consulting · Business Analysis · AI Workflow Design</span>
           </div>
-
-          <div class="flow-step">
-            <div class="flow-left-col">
-              <div class="flow-circle">04</div>
-              <div class="flow-dash"></div>
-            </div>
-            <div class="flow-content">
-              <div class="flow-icon">💻</div>
-              <div class="flow-name">Develop</div>
-              <div class="flow-desc">We build customizations, configure automation, and integrate systems — with <strong>regular reviews</strong> to ensure everything aligns with your expectations.</div>
-            </div>
+          <h1 class="hero-h1 serif">
+            We Turn Business Complexity<br>Into <em>Scalable ERP Solutions</em>
+          </h1>
+          <p class="hero-p">Empowering <strong>Manufacturing, Logistics, Construction, Marketing, and Textile</strong>
+            businesses to operate smarter — through expert <mark>ERPNext &amp; Odoo</mark> implementation, intelligent
+            automation, and AI-powered custom solutions.</p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn-g">Book a Free Consultation <span class="arrow">→</span></a>
+            <a href="#process" class="btn-o">See How We Work</a>
           </div>
-
-          <div class="flow-step">
-            <div class="flow-left-col">
-              <div class="flow-circle">05</div>
-              <div class="flow-dash"></div>
-            </div>
-            <div class="flow-content">
-              <div class="flow-icon">🚀</div>
-              <div class="flow-name">Deploy</div>
-              <div class="flow-desc">Thorough testing, hands-on <strong>user training</strong>, data migration, and a confident, <mark>disruption-free go-live</mark>.</div>
-            </div>
+          <div class="trust-row">
+            <span class="trust-chip"><span class="chip-dot"></span>ERPNext &amp; Odoo Specialists</span>
+            <span class="trust-chip"><span class="chip-dot"></span>Multiple Industries Served</span>
+            <span class="trust-chip"><span class="chip-dot"></span>End-to-End Delivery</span>
+            <span class="trust-chip"><span class="chip-dot"></span>AI-Powered Solutions</span>
           </div>
-
-          <div class="flow-step">
-            <div class="flow-left-col">
-              <div class="flow-circle">06</div>
-              <div class="flow-dash"></div>
-            </div>
-            <div class="flow-content">
-              <div class="flow-icon">📈</div>
-              <div class="flow-name">Optimize</div>
-              <div class="flow-desc">Our commitment doesn't end at go-live. We monitor performance, gather feedback, and <strong>continuously refine</strong> your system to <mark>maximize long-term ROI</mark>.</div>
-            </div>
-          </div>
-
+        </div>
+        <div class="hero-image-wrap reveal" style="transition-delay:.2s">
+          <div class="erp-diagram" id="erpDiagram" role="img"
+            aria-label="ERP modules diagram — Production, Finance, Logistics, Sales, HR, Management"></div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="divider"></div>
+  <div class="divider"></div>
 
-<!-- CONTACT ──────────────────────────────────────────── -->
-<section id="contact">
-  <div class="wrap">
-    <div class="contact-inner">
-      <div class="eyebrow reveal" style="justify-content:center">Get In Touch</div>
-      <h2 class="contact-h2 serif reveal" style="transition-delay:.06s">
-        Ready to <mark>Transform Your Business?</mark><br>Let's Talk.
-      </h2>
-      <p class="sub contact-sub reveal" style="transition-delay:.12s">
-        Whether you're embarking on your <strong>first ERP implementation</strong>, migrating from a legacy system, or ready to unlock <strong>AI-driven automation</strong> — we're here to help. No pressure, no jargon — just an <mark>honest conversation</mark> about your business.
-      </p>
+  <!-- ABOUT ────────────────────────────────────────────── -->
+  <section id="about">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="about-left reveal">
+          <div class="eyebrow">Who We Are</div>
+          <h2 class="about-h2 serif">Your Trusted ERP &amp; AI Solutions Partner</h2>
+          <div class="accent-bar"></div>
+          <p class="sub">Bridging the gap between <strong>business strategy</strong> and technology execution — with
+            precision, transparency, and a deep commitment to <mark>measurable outcomes</mark>.</p>
+        </div>
+        <div class="about-right reveal" style="transition-delay:.12s">
+          <p>We are a specialized ERP consulting practice delivering <strong>end-to-end ERP implementations</strong>,
+            business process transformations, and AI-driven digital solutions.</p>
+          <p>Our expertise lies in bridging the gap between business strategy and technology execution. We work closely
+            with stakeholders, operations teams, and technical architects to design ERP systems that don't just function
+            — <strong>they perform</strong>.</p>
+          <p>From initial <strong>requirement discovery</strong> to <strong>post-go-live optimization</strong>, every
+            engagement is handled with precision, transparency, and a deep commitment to delivering <mark>measurable
+              business outcomes</mark>.</p>
+          <p>We don't believe in one-size-fits-all solutions — every system we build is <strong>tailored to your unique
+              processes</strong>, goals, and growth plans.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <div class="contact-cards reveal" style="transition-delay:.18s">
-        <a href="mailto:prince679.pro@gmail.com" class="ccard">
-          <div class="ccard-icon">✉️</div>
-          <div class="ccard-text">
-            <div class="ccard-label">Email Us</div>
-            <div class="ccard-value">prince679.pro@gmail.com</div>
-          </div>
+  <div class="divider"></div>
+
+  <!-- SERVICES ─────────────────────────────────────────── -->
+  <section id="services">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="eyebrow">Our Services</div>
+        <h2 class="serif" style="font-size:clamp(1.9rem,3.8vw,2.8rem);margin-bottom:14px">Comprehensive <mark>ERP &amp;
+            AI</mark> Services<br>Built for Business Growth</h2>
+        <p class="sub">From initial consultation to post-deployment support — <strong>complete, reliable, and
+            future-ready</strong>.</p>
+      </div>
+      <div class="svc-grid reveal" style="transition-delay:.1s">
+        <div class="svc">
+          <div class="svc-n">01</div>
+          <div class="svc-icon">🔧</div>
+          <div class="svc-t">ERP Implementation</div>
+          <div class="svc-d">Full-cycle <strong>ERPNext and Odoo</strong> deployments — system configuration, data
+            migration, user training, and go-live support with <strong>zero business disruption</strong>.</div>
+        </div>
+        <div class="svc">
+          <div class="svc-n">02</div>
+          <div class="svc-icon">⚙️</div>
+          <div class="svc-t">ERP Customization</div>
+          <div class="svc-d"><strong>Custom modules</strong>, automated workflows, tailored reports, and seamless
+            third-party integrations aligned perfectly with your operations.</div>
+        </div>
+        <div class="svc">
+          <div class="svc-n">03</div>
+          <div class="svc-icon">🤖</div>
+          <div class="svc-t">AI-Assisted Development</div>
+          <div class="svc-d"><strong>Prompt engineering</strong> and AI-driven development to accelerate ERP delivery,
+            <mark>reduce costs</mark>, and build smarter, self-improving solutions.</div>
+        </div>
+        <div class="svc">
+          <div class="svc-n">04</div>
+          <div class="svc-icon">📋</div>
+          <div class="svc-t">Business Analysis</div>
+          <div class="svc-d">Structured <strong>requirement gathering</strong>, as-is/to-be process mapping, <strong>gap
+              analysis</strong>, and solution design to ensure solid ERP foundations.</div>
+        </div>
+        <div class="svc">
+          <div class="svc-n">05</div>
+          <div class="svc-icon">📊</div>
+          <div class="svc-t">Power BI Dashboards</div>
+          <div class="svc-d">Transform complex ERP data into <strong>intuitive, real-time dashboards</strong> and BI
+            reports — giving decision-makers the clarity to <mark>act fast and confidently</mark>.</div>
+        </div>
+        <div class="svc">
+          <div class="svc-n">06</div>
+          <div class="svc-icon">⚡</div>
+          <div class="svc-t">Process Automation</div>
+          <div class="svc-d">Smart <strong>workflow automation</strong> and system integrations that eliminate manual
+            effort, reduce errors, and <strong>free your team's focus</strong>.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- INDUSTRIES ───────────────────────────────────────── -->
+  <section id="industries">
+    <div class="wrap">
+      <div class="ind-intro reveal">
+        <div class="eyebrow">Industries We Serve</div>
+        <h2 class="serif" style="font-size:clamp(1.9rem,3.8vw,2.8rem);margin-bottom:14px"><strong>Deep Industry
+            Expertise.</strong><br>Real-World ERP Results.</h2>
+        <p class="sub">We understand <strong>your industry</strong>, not just your technology — delivering
+          implementations that solve <mark>real operational challenges</mark>.</p>
+      </div>
+      <div class="ind-grid">
+        <a href="manufacturing.html" class="ind-card reveal" style="transition-delay:.05s">
+          <div class="ind-icon-wrap"><span class="ind-icon">🏭</span></div>
+          <div class="ind-name">Manufacturing</div>
+          <p class="ind-desc">BOM management, production planning, inventory control, quality processes &amp;
+            procurement.</p>
+          <span class="ind-link">Explore →</span>
         </a>
-        <a href="tel:+917043176485" class="ccard">
-          <div class="ccard-icon">📞</div>
-          <div class="ccard-text">
-            <div class="ccard-label">Call Us</div>
-            <div class="ccard-value">+91 70431 76485</div>
-          </div>
+        <a href="logistics.html" class="ind-card reveal" style="transition-delay:.1s">
+          <div class="ind-icon-wrap"><span class="ind-icon">🚚</span></div>
+          <div class="ind-name">Logistics</div>
+          <p class="ind-desc">Fleet management, shipment tracking, supply chain monitoring, warehouse &amp; delivery.
+          </p>
+          <span class="ind-link">Explore →</span>
+        </a>
+        <a href="construction.html" class="ind-card reveal" style="transition-delay:.15s">
+          <div class="ind-icon-wrap"><span class="ind-icon">🏗️</span></div>
+          <div class="ind-name">Construction</div>
+          <p class="ind-desc">Project management, resource allocation, material tracking, budgets &amp; contractors.</p>
+          <span class="ind-link">Explore →</span>
+        </a>
+        <a href="marketing.html" class="ind-card reveal" style="transition-delay:.2s">
+          <div class="ind-icon-wrap"><span class="ind-icon">📈</span></div>
+          <div class="ind-name">Marketing</div>
+          <p class="ind-desc">Campaign management, lead tracking, customer data, collaboration &amp; performance
+            reporting.</p>
+          <span class="ind-link">Explore →</span>
+        </a>
+        <a href="textile.html" class="ind-card reveal" style="transition-delay:.25s">
+          <div class="ind-icon-wrap"><span class="ind-icon">🧵</span></div>
+          <div class="ind-name">Textile</div>
+          <p class="ind-desc">Production tracking, inventory control, distribution, purchase management &amp; order
+            processing.</p>
+          <span class="ind-link">Explore →</span>
         </a>
       </div>
+    </div>
+  </section>
 
-      <div class="reveal" style="transition-delay:.24s">
-        <a href="mailto:prince679.pro@gmail.com" class="btn-g">Book Your Free Consultation Today <span class="arrow">→</span></a>
+  <div class="divider"></div>
+
+  <!-- AI ───────────────────────────────────────────────── -->
+  <section id="ai">
+    <div class="wrap">
+      <div class="ai-wrap">
+        <div>
+          <div class="eyebrow reveal">AI &amp; Innovation</div>
+          <h2 class="serif reveal"
+            style="font-size:clamp(1.9rem,3.8vw,2.8rem);margin-bottom:18px;transition-delay:.06s">The Future of ERP Is
+            <mark>Intelligent</mark> — And We're Already There</h2>
+          <p class="ai-body reveal" style="transition-delay:.12s">ERP is no longer just about managing data — it's about
+            turning that data into <strong>decisions</strong>. We combine deep ERP expertise with cutting-edge
+            <strong>AI workflow design</strong> and prompt engineering to build solutions that don't just automate tasks
+            — <mark>they think ahead.</mark></p>
+          <div class="ai-pills reveal" style="transition-delay:.18s">
+            <span class="ai-pill">AI Workflow Design</span>
+            <span class="ai-pill">Prompt Engineering</span>
+            <span class="ai-pill">ERP Automation</span>
+            <span class="ai-pill">Custom Business Solutions</span>
+            <span class="ai-pill">Intelligent Process Optimization</span>
+          </div>
+        </div>
+        <div class="ai-vis reveal" style="transition-delay:.24s">
+          <div class="ai-rings">
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ring"></div>
+            <div class="ai-core">
+              <span class="ai-core-label">AI</span>
+              <span class="ai-core-sub">Powered</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- FOOTER ───────────────────────────────────────────── -->
-<footer>
-  <div class="foot-inner">
-    <div class="foot-logo">Prince <em>Prajapati</em></div>
-    <div class="foot-links">
-      <a href="mailto:prince679.pro@gmail.com">prince679.pro@gmail.com</a>
-      <a href="tel:+917043176485">+91 70431 76485</a>
+  <div class="divider"></div>
+
+  <!-- EXPERTISE ────────────────────────────────────────── -->
+  <section id="skills">
+    <div class="wrap">
+      <div class="reveal" style="margin-bottom:52px">
+        <div class="eyebrow">Our Expertise</div>
+        <h2 class="serif" style="font-size:clamp(1.9rem,3.8vw,2.8rem);margin-bottom:14px">Hands-On Expertise Across
+          <mark>Leading ERP</mark> &amp; Analytics Platforms</h2>
+        <p class="sub">Every tool applied in <strong>real production environments</strong> — not just in theory.</p>
+      </div>
+      <div class="exp-grid reveal" style="transition-delay:.1s">
+        <div class="exp-card">
+          <div class="exp-icon">⚙️</div>
+          <div class="exp-title">ERPNext</div>
+          <div class="exp-desc">Full-cycle implementation, module configuration, custom apps, workflows, and
+            multi-company setups on the <strong>Frappe framework</strong>.</div>
+          <div class="exp-tags"><span class="exp-tag">Open Source</span><span class="exp-tag">Python</span><span
+              class="exp-tag">Frappe</span></div>
+        </div>
+        <div class="exp-card">
+          <div class="exp-icon">🟣</div>
+          <div class="exp-title">Odoo ERP</div>
+          <div class="exp-desc">End-to-end Odoo deployments including <strong>custom module development</strong>,
+            integrations, and multi-instance environments.</div>
+          <div class="exp-tags"><span class="exp-tag">Odoo 16/17</span><span class="exp-tag">OWL</span><span
+              class="exp-tag">XML/Python</span></div>
+        </div>
+        <div class="exp-card">
+          <div class="exp-icon">📋</div>
+          <div class="exp-title">Business Analysis</div>
+          <div class="exp-desc"><strong>As-is/to-be mapping</strong>, gap analysis, stakeholder workshops, and solution
+            blueprinting for ERP transformation projects.</div>
+          <div class="exp-tags"><span class="exp-tag">GAP Analysis</span><span class="exp-tag">BRD</span><span
+              class="exp-tag">FRD</span></div>
+        </div>
+        <div class="exp-card">
+          <div class="exp-icon">📊</div>
+          <div class="exp-title">Power BI</div>
+          <div class="exp-desc">Real-time <strong>ERP-connected dashboards</strong>, KPI tracking, automated reports,
+            and executive-level data visualizations.</div>
+          <div class="exp-tags"><span class="exp-tag">DAX</span><span class="exp-tag">Power Query</span><span
+              class="exp-tag">Data Model</span></div>
+        </div>
+        <div class="exp-card">
+          <div class="exp-icon">🤖</div>
+          <div class="exp-title">AI Workflow Design</div>
+          <div class="exp-desc"><strong>Prompt engineering</strong>, AI-assisted ERP development, intelligent automation
+            design, and LLM-powered business logic.</div>
+          <div class="exp-tags"><span class="exp-tag">LLM</span><span class="exp-tag">Prompt Eng.</span><span
+              class="exp-tag">Automation</span></div>
+        </div>
+        <div class="exp-card">
+          <div class="exp-icon">⚡</div>
+          <div class="exp-title">Process Automation</div>
+          <div class="exp-desc">End-to-end <strong>workflow automation</strong>, API integrations, scheduled tasks, and
+            smart trigger-based business process flows.</div>
+          <div class="exp-tags"><span class="exp-tag">REST APIs</span><span class="exp-tag">Webhooks</span><span
+              class="exp-tag">Zapier</span></div>
+        </div>
+      </div>
     </div>
-    <div class="foot-copy">© 2026 · ERP Consulting &amp; AI Workflow Design</div>
-  </div>
-</footer>
+  </section>
 
-<script>
-(function() {
-  /* ── Theme ─────────────────────────────────────────── */
-  const html = document.documentElement;
-  const saved = localStorage.getItem('pp-theme');
-  if (saved) html.setAttribute('data-theme', saved);
+  <div class="divider"></div>
 
-  document.getElementById('themeToggle').addEventListener('click', () => {
-    const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', next);
-    localStorage.setItem('pp-theme', next);
-  });
+  <!-- PROCESS — VERTICAL FLOWCHART ─────────────────────── -->
+  <section id="process">
+    <div class="wrap">
+      <div class="process-layout">
 
-  const erpHost = document.getElementById('erpDiagram');
-  if (erpHost) {
-    fetch('assets/erp-diagram.svg')
-      .then(r => r.text())
-      .then(svg => { erpHost.innerHTML = svg; })
-      .catch(() => {
-        erpHost.innerHTML = '<img src="assets/erp-diagram.svg" alt="ERP modules diagram" style="width:100%">';
+        <!-- Sticky left intro -->
+        <div class="process-left">
+          <div class="eyebrow reveal">How We Work</div>
+          <h2 class="serif reveal" style="font-size:clamp(1.9rem,3.8vw,2.8rem);margin-bottom:0;transition-delay:.06s">
+            Our Proven <mark>6-Step</mark> Delivery Process</h2>
+          <p class="sub reveal" style="margin-top:16px;transition-delay:.12s">Transparency, structure, and
+            <strong>accountability at every stage</strong> — so you always know what's happening, what's next, and what
+            to expect.</p>
+          <div class="reveal" style="transition-delay:.18s;margin-top:32px">
+            <a href="#contact" class="btn-g">Start Your Project <span class="arrow">→</span></a>
+          </div>
+        </div>
+
+        <!-- Flowchart — fixed alignment -->
+        <div>
+          <div class="flow-chart" id="flowChart">
+            <div class="flow-line" id="flowLine"></div>
+
+            <div class="flow-step">
+              <div class="flow-left-col">
+                <div class="flow-circle">01</div>
+                <div class="flow-dash"></div>
+              </div>
+              <div class="flow-content">
+                <div class="flow-icon">🔍</div>
+                <div class="flow-name">Discover</div>
+                <div class="flow-desc">We begin by deeply understanding your business — your <strong>goals, pain points,
+                    workflows</strong>, and growth vision. No assumptions, only insights.</div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left-col">
+                <div class="flow-circle">02</div>
+                <div class="flow-dash"></div>
+              </div>
+              <div class="flow-content">
+                <div class="flow-icon">📐</div>
+                <div class="flow-name">Analyze</div>
+                <div class="flow-desc">We document current processes, identify <strong>inefficiencies and gaps</strong>,
+                  and design a clear blueprint for your future-state operations.</div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left-col">
+                <div class="flow-circle">03</div>
+                <div class="flow-dash"></div>
+              </div>
+              <div class="flow-content">
+                <div class="flow-icon">🗺️</div>
+                <div class="flow-name">Design</div>
+                <div class="flow-desc">We architect a <strong>tailored ERP solution</strong> — selecting the right
+                  modules, mapping workflows, and defining the complete system structure.</div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left-col">
+                <div class="flow-circle">04</div>
+                <div class="flow-dash"></div>
+              </div>
+              <div class="flow-content">
+                <div class="flow-icon">💻</div>
+                <div class="flow-name">Develop</div>
+                <div class="flow-desc">We build customizations, configure automation, and integrate systems — with
+                  <strong>regular reviews</strong> to ensure everything aligns with your expectations.</div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left-col">
+                <div class="flow-circle">05</div>
+                <div class="flow-dash"></div>
+              </div>
+              <div class="flow-content">
+                <div class="flow-icon">🚀</div>
+                <div class="flow-name">Deploy</div>
+                <div class="flow-desc">Thorough testing, hands-on <strong>user training</strong>, data migration, and a
+                  confident, <mark>disruption-free go-live</mark>.</div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left-col">
+                <div class="flow-circle">06</div>
+                <div class="flow-dash"></div>
+              </div>
+              <div class="flow-content">
+                <div class="flow-icon">📈</div>
+                <div class="flow-name">Optimize</div>
+                <div class="flow-desc">Our commitment doesn't end at go-live. We monitor performance, gather feedback,
+                  and <strong>continuously refine</strong> your system to <mark>maximize long-term ROI</mark>.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CONTACT ──────────────────────────────────────────── -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-inner">
+        <div class="eyebrow reveal" style="justify-content:center">Get In Touch</div>
+        <h2 class="contact-h2 serif reveal" style="transition-delay:.06s">
+          Ready to <mark>Transform Your Business?</mark><br>Let's Talk.
+        </h2>
+        <p class="sub contact-sub reveal" style="transition-delay:.12s">
+          Whether you're embarking on your <strong>first ERP implementation</strong>, migrating from a legacy system, or
+          ready to unlock <strong>AI-driven automation</strong> — we're here to help. No pressure, no jargon — just an
+          <mark>honest conversation</mark> about your business.
+        </p>
+
+        <div class="contact-cards reveal" style="transition-delay:.18s">
+          <a href="mailto:prince679.pro@gmail.com" class="ccard">
+            <div class="ccard-icon">✉️</div>
+            <div class="ccard-text">
+              <div class="ccard-label">Email Us</div>
+              <div class="ccard-value">prince679.pro@gmail.com</div>
+            </div>
+          </a>
+          <a href="tel:+917043176485" class="ccard">
+            <div class="ccard-icon">📞</div>
+            <div class="ccard-text">
+              <div class="ccard-label">Call Us</div>
+              <div class="ccard-value">+91 70431 76485</div>
+            </div>
+          </a>
+        </div>
+
+        <div class="reveal" style="transition-delay:.24s">
+          <a href="mailto:prince679.pro@gmail.com" class="btn-g">Book Your Free Consultation Today <span
+              class="arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER ───────────────────────────────────────────── -->
+  <footer>
+    <div class="foot-inner">
+      <div class="foot-logo">Prince <em>Prajapati</em></div>
+      <div class="foot-links">
+        <a href="mailto:prince679.pro@gmail.com">prince679.pro@gmail.com</a>
+        <a href="tel:+917043176485">+91 70431 76485</a>
+      </div>
+      <div class="foot-copy">© 2026 · ERP Consulting &amp; AI Workflow Design</div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      /* ── Theme ─────────────────────────────────────────── */
+      const html = document.documentElement;
+      const saved = localStorage.getItem('pp-theme');
+      if (saved) html.setAttribute('data-theme', saved);
+
+      document.getElementById('themeToggle').addEventListener('click', () => {
+        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('pp-theme', next);
       });
-  }
 
-  /* ── Nav scroll ────────────────────────────────────── */
-  const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 50);
-  }, { passive: true });
-
-  /* ── Active nav link ───────────────────────────────── */
-  const sections = ['about','services','industries','ai','skills','process','contact'];
-  const navLinks = document.querySelectorAll('.nav-links a');
-  const sectionEls = sections.map(id => document.getElementById(id)).filter(Boolean);
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sectionEls.forEach(s => { if (window.scrollY >= s.offsetTop - 140) current = s.id; });
-    navLinks.forEach(a => {
-      a.style.color = a.getAttribute('href') === '#'+current ? 'var(--gold)' : '';
-    });
-  }, { passive: true });
-
-  /* ── Scroll reveal ─────────────────────────────────── */
-  const rio = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); rio.unobserve(e.target); } });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => rio.observe(el));
-
-  /* ── Flowchart ─────────────────────────────────────── */
-  const flowIO = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) {
-      document.getElementById('flowLine').classList.add('animated');
-      document.querySelectorAll('.flow-step').forEach((s, i) => {
-        setTimeout(() => s.classList.add('vis'), 200 + i * 160);
-      });
-      flowIO.disconnect();
-    }
-  }, { threshold: 0.08 });
-  const fc = document.getElementById('flowChart');
-  if (fc) flowIO.observe(fc);
-
-  /* ── Service card mouse spotlight ─────────────────── */
-  document.querySelectorAll('.svc').forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const r = card.getBoundingClientRect();
-      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
-      card.style.setProperty('--my', ((e.clientY - r.top)  / r.height * 100) + '%');
-    });
-  });
-
-  /* ── Custom cursor ─────────────────────────────────── */
-  const isTouchDevice = window.matchMedia('(pointer:coarse)').matches;
-  if (isTouchDevice) {
-    document.body.classList.add('touch-device');
-  } else {
-    const dot  = document.getElementById('cursor-dot');
-    const ring = document.getElementById('cursor-ring');
-    let mx = -100, my = -100;
-    let rx = -100, ry = -100;
-    let raf;
-
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-    document.addEventListener('mousedown', () => ring.classList.add('clicking'));
-    document.addEventListener('mouseup',   () => ring.classList.remove('clicking'));
-
-    // Hover detection — expand ring on interactive elements
-    const hoverEls = 'a, button, .svc, .ind-card, .exp-card, .ccard, .ai-pill, .trust-chip, .flow-step';
-    document.querySelectorAll(hoverEls).forEach(el => {
-      el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
-      el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
-    });
-
-    // Dot follows cursor instantly; ring uses lerp for smooth lag
-    function lerp(a, b, t) { return a + (b - a) * t; }
-    function loop() {
-      dot.style.left  = mx + 'px';
-      dot.style.top   = my + 'px';
-      rx = lerp(rx, mx, 0.12);
-      ry = lerp(ry, my, 0.12);
-      ring.style.left = rx + 'px';
-      ring.style.top  = ry + 'px';
-      raf = requestAnimationFrame(loop);
-    }
-    loop();
-
-    // Hide cursor when leaving window
-    document.addEventListener('mouseleave', () => { dot.style.opacity = 0; ring.style.opacity = 0; });
-    document.addEventListener('mouseenter', () => { dot.style.opacity = 1; ring.style.opacity = ''; });
-  }
-
-  /* ── Mobile Sidebar ─────────────────────────────────── */
-  const hamburger = document.getElementById('hamburger');
-  const sidebar = document.getElementById('sidebar');
-  const sidebarClose = document.getElementById('sidebarClose');
-
-  if (hamburger && sidebar && sidebarClose) {
-    const openSidebar = () => {
-      hamburger.classList.add('active');
-      sidebar.classList.add('active');
-      document.body.classList.add('sidebar-open');
-    };
-
-    const closeSidebar = () => {
-      hamburger.classList.remove('active');
-      sidebar.classList.remove('active');
-      document.body.classList.remove('sidebar-open');
-    };
-
-    hamburger.addEventListener('click', () => {
-      if (sidebar.classList.contains('active')) {
-        closeSidebar();
-      } else {
-        openSidebar();
+      const erpHost = document.getElementById('erpDiagram');
+      if (erpHost) {
+        fetch('assets/erp-diagram.svg')
+          .then(r => r.text())
+          .then(svg => { erpHost.innerHTML = svg; })
+          .catch(() => {
+            erpHost.innerHTML = '<img src="assets/erp-diagram.svg" alt="ERP modules diagram" style="width:100%">';
+          });
       }
-    });
 
-    sidebarClose.addEventListener('click', () => {
-      closeSidebar();
-    });
+      /* ── Nav scroll ────────────────────────────────────── */
+      const nav = document.getElementById('nav');
+      window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+      }, { passive: true });
 
-    sidebar.querySelectorAll('.sidebar-link:not(.sidebar-dropdown-btn)').forEach(link => {
-      link.addEventListener('click', () => {
-        closeSidebar();
-      });
-    });
+      /* ── Active nav link ───────────────────────────────── */
+      const sections = ['about', 'services', 'industries', 'ai', 'skills', 'process', 'contact'];
+      const navLinks = document.querySelectorAll('.nav-links a');
+      const sectionEls = sections.map(id => document.getElementById(id)).filter(Boolean);
+      window.addEventListener('scroll', () => {
+        let current = '';
+        sectionEls.forEach(s => { if (window.scrollY >= s.offsetTop - 140) current = s.id; });
+        navLinks.forEach(a => {
+          a.style.color = a.getAttribute('href') === '#' + current ? 'var(--gold)' : '';
+        });
+      }, { passive: true });
 
-    sidebar.querySelectorAll('.sidebar-dropdown-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const content = btn.nextElementSibling;
-        if (content && content.classList.contains('sidebar-dropdown-content')) {
-          btn.classList.toggle('active');
-          content.classList.toggle('active');
+      /* ── Scroll reveal ─────────────────────────────────── */
+      const rio = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); rio.unobserve(e.target); } });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.reveal').forEach(el => rio.observe(el));
+
+      /* ── Flowchart ─────────────────────────────────────── */
+      const flowIO = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting) {
+          document.getElementById('flowLine').classList.add('animated');
+          document.querySelectorAll('.flow-step').forEach((s, i) => {
+            setTimeout(() => s.classList.add('vis'), 200 + i * 160);
+          });
+          flowIO.disconnect();
         }
-      });
-    });
+      }, { threshold: 0.08 });
+      const fc = document.getElementById('flowChart');
+      if (fc) flowIO.observe(fc);
 
-    document.addEventListener('click', e => {
-      if (sidebar.classList.contains('active') &&
-          !sidebar.contains(e.target) &&
-          !hamburger.contains(e.target)) {
-        closeSidebar();
+      /* ── Service card mouse spotlight ─────────────────── */
+      document.querySelectorAll('.svc').forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const r = card.getBoundingClientRect();
+          card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+          card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+        });
+      });
+
+      /* ── Custom cursor ─────────────────────────────────── */
+      const isTouchDevice = window.matchMedia('(pointer:coarse)').matches;
+      if (isTouchDevice) {
+        document.body.classList.add('touch-device');
+      } else {
+        const dot = document.getElementById('cursor-dot');
+        const ring = document.getElementById('cursor-ring');
+        let mx = -100, my = -100;
+        let rx = -100, ry = -100;
+        let raf;
+
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+        document.addEventListener('mousedown', () => ring.classList.add('clicking'));
+        document.addEventListener('mouseup', () => ring.classList.remove('clicking'));
+
+        // Hover detection — expand ring on interactive elements
+        const hoverEls = 'a, button, .svc, .ind-card, .exp-card, .ccard, .ai-pill, .trust-chip, .flow-step';
+        document.querySelectorAll(hoverEls).forEach(el => {
+          el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
+          el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
+        });
+
+        // Dot follows cursor instantly; ring uses lerp for smooth lag
+        function lerp(a, b, t) { return a + (b - a) * t; }
+        function loop() {
+          dot.style.left = mx + 'px';
+          dot.style.top = my + 'px';
+          rx = lerp(rx, mx, 0.12);
+          ry = lerp(ry, my, 0.12);
+          ring.style.left = rx + 'px';
+          ring.style.top = ry + 'px';
+          raf = requestAnimationFrame(loop);
+        }
+        loop();
+
+        // Hide cursor when leaving window
+        document.addEventListener('mouseleave', () => { dot.style.opacity = 0; ring.style.opacity = 0; });
+        document.addEventListener('mouseenter', () => { dot.style.opacity = 1; ring.style.opacity = ''; });
       }
-    });
-  }
-})();
-</script>
+
+      /* ── Mobile Sidebar ─────────────────────────────────── */
+      const hamburger = document.getElementById('hamburger');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarClose = document.getElementById('sidebarClose');
+
+      if (hamburger && sidebar && sidebarClose) {
+        const openSidebar = () => {
+          hamburger.classList.add('active');
+          sidebar.classList.add('active');
+          document.body.classList.add('sidebar-open');
+        };
+
+        const closeSidebar = () => {
+          hamburger.classList.remove('active');
+          sidebar.classList.remove('active');
+          document.body.classList.remove('sidebar-open');
+        };
+
+        hamburger.addEventListener('click', () => {
+          if (sidebar.classList.contains('active')) {
+            closeSidebar();
+          } else {
+            openSidebar();
+          }
+        });
+
+        sidebarClose.addEventListener('click', () => {
+          closeSidebar();
+        });
+
+        sidebar.querySelectorAll('.sidebar-link:not(.sidebar-dropdown-btn)').forEach(link => {
+          link.addEventListener('click', () => {
+            closeSidebar();
+          });
+        });
+
+        sidebar.querySelectorAll('.sidebar-dropdown-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const content = btn.nextElementSibling;
+            if (content && content.classList.contains('sidebar-dropdown-content')) {
+              btn.classList.toggle('active');
+              content.classList.toggle('active');
+            }
+          });
+        });
+
+        document.addEventListener('click', e => {
+          if (sidebar.classList.contains('active') &&
+            !sidebar.contains(e.target) &&
+            !hamburger.contains(e.target)) {
+            closeSidebar();
+          }
+        });
+      }
+    })();
+  </script>
 </body>
+
 </html>
