@@ -6,7 +6,8 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 140px 0 100px;
+  padding: 160px 0 110px;
+
   position: relative;
   overflow: hidden;
   background: var(--bg);
@@ -33,8 +34,9 @@
 .prod-tabs {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 36px;
+  gap: 12px;
+  margin-bottom: 42px;
+
   position: relative;
   z-index: 1;
 }
@@ -81,15 +83,19 @@
 
 .calc-card {
   background: var(--card-bg);
+
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 32px 28px;
+  padding: 40px 32px;
   transition: var(--transition-theme);
 }
 
+
+
 .calc-card h3 {
   font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.35rem;
+  font-size: 1.45rem;
+
   font-weight: 700;
   color: var(--text-primary);
   margin-bottom: 8px;
@@ -108,7 +114,8 @@
 
 .calc-field label {
   display: block;
-  font-size: 0.78rem;
+  font-size: 0.86rem;
+
   font-weight: 500;
   color: var(--text-muted);
   margin-bottom: 8px;
@@ -118,6 +125,7 @@
 .calc-field input,
 .calc-field select {
   width: 100%;
+
   padding: 12px 14px;
   font-family: 'DM Sans', system-ui, sans-serif;
   font-size: 0.92rem;
@@ -471,8 +479,9 @@
 
 @media (max-width: 680px) {
   .prod-hero {
-    padding: 120px 0 48px;
+    padding: 128px 0 52px;
   }
+
 
   .calc-card {
     padding: 24px 20px;
