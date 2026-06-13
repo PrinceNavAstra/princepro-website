@@ -4,14 +4,27 @@
 
 /* HERO */
 .ind-hero {
-  min-height: 80vh;
+  min-height: 100vh;
   display: flex; align-items: center;
   padding: 140px 0 100px;
   position: relative;
   overflow: hidden;
   background: var(--bg);
 }
-.ind-hero-inner { max-width: 780px; }
+.ind-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: .35;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 25%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 25%, transparent 78%);
+}
+.ind-hero-inner { max-width: 840px; }
 
 .breadcrumb {
   display: inline-flex; align-items: center; gap: 6px;
@@ -38,7 +51,8 @@
 .ind-subhead {
   font-size: 1.1rem; line-height: 1.75;
   color: var(--text-body);
-  max-width: 620px; margin-bottom: 40px;
+  max-width: 570px;
+  margin-bottom: 40px;
 }
 
 /* BODY OVERVIEW */
