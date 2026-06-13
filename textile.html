@@ -1,126 +1,220 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ERP Solutions for Textile Industry | ERPNext & Odoo | Prince Prajapati</title>
-  <meta name="description" content="We deliver ERPNext & Odoo ERP solutions for textile businesses. Manage production tracking, inventory, distribution, purchase management & order processing end-to-end." />
+  <meta name="description"
+    content="We deliver ERPNext & Odoo ERP solutions for textile businesses. Manage production tracking, inventory, distribution, purchase management & order processing end-to-end." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="shared.css" />
   <link rel="stylesheet" href="industry.css" />
 </head>
+
 <body>
-<nav id="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo">Prince <em>Prajapati</em></a>
-    <div class="nav-links">
-      <a href="index.html#about">About</a>
-      <a href="index.html#services">Services</a>
-      <div class="nav-dropdown">
-        <a href="index.html#industries" class="nav-dropbtn active" style="cursor:pointer">Industries <span style="font-size: 0.7em;">▼</span></a>
-        <div class="nav-dropdown-content">
-          <a href="manufacturing.html">Manufacturing</a>
-          <a href="logistics.html">Logistics</a>
-          <a href="construction.html">Construction</a>
-          <a href="marketing.html">Marketing</a>
-          <a href="textile.html">Textile</a>
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Prince <em>Prajapati</em></a>
+      <div class="nav-links">
+        <a href="index.html#about">About</a>
+        <a href="index.html#services">Services</a>
+        <div class="nav-dropdown">
+          <a href="index.html#industries" class="nav-dropbtn active" style="cursor:pointer">Industries <span
+              style="font-size: 0.7em;">▼</span></a>
+          <div class="nav-dropdown-content">
+            <a href="manufacturing.html">Manufacturing</a>
+            <a href="logistics.html">Logistics</a>
+            <a href="construction.html">Construction</a>
+            <a href="marketing.html">Marketing</a>
+            <a href="textile.html">Textile</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <a href="products.html" class="nav-dropbtn" style="cursor:pointer">Products <span
+              style="font-size: 0.7em;">▼</span></a>
+          <div class="nav-dropdown-content">
+            <a href="products.html#sip-calculator">SIP Calculator</a>
+            <a href="products.html#loan-calculator">Loan Calculator</a>
+            <a href="products.html#ratios-analysis">Quick Ratios Analysis</a>
+          </div>
         </div>
       </div>
-      <div class="nav-dropdown">
-        <a href="products.html" class="nav-dropbtn" style="cursor:pointer">Products <span style="font-size: 0.7em;">▼</span></a>
-        <div class="nav-dropdown-content">
-          <a href="products.html#sip-calculator">SIP Calculator</a>
-          <a href="products.html#loan-calculator">Loan Calculator</a>
-          <a href="products.html#ratios-analysis">Quick Ratios Analysis</a>
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span class="theme-toggle-icon moon">🌙</span>
+          <span class="theme-toggle-icon sun">☀️</span>
+        </button>
+        <a href="index.html#contact" class="nav-cta">Book a Call</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-content">
+      <div class="sidebar-header">
+        <button class="sidebar-close" id="sidebarClose" aria-label="Close menu"></button>
+      </div>
+      <div class="sidebar-links">
+        <a href="index.html#about" class="sidebar-link">About</a>
+        <a href="index.html#services" class="sidebar-link">Services</a>
+        <div class="sidebar-dropdown">
+          <button class="sidebar-link sidebar-dropdown-btn">Industries</button>
+          <div class="sidebar-dropdown-content">
+            <a href="manufacturing.html">Manufacturing</a>
+            <a href="logistics.html">Logistics</a>
+            <a href="construction.html">Construction</a>
+            <a href="marketing.html">Marketing</a>
+            <a href="textile.html">Textile</a>
+          </div>
+        </div>
+        <div class="sidebar-dropdown">
+          <button class="sidebar-link sidebar-dropdown-btn">Products</button>
+          <div class="sidebar-dropdown-content">
+            <a href="products.html#sip-calculator">SIP Calculator</a>
+            <a href="products.html#loan-calculator">Loan Calculator</a>
+            <a href="products.html#ratios-analysis">Quick Ratios Analysis</a>
+          </div>
+        </div>
+        <a href="index.html#contact" class="sidebar-link sidebar-cta">Book a Free Consultation</a>
+      </div>
+    </div>
+  </div>
+  </div>
+  </nav>
+
+  <section class="ind-hero">
+    <div class="wrap">
+      <div class="ind-hero-inner">
+        <div class="reveal">
+          <a href="index.html#industries" class="breadcrumb">← All Industries</a>
+          <div class="ind-icon-badge">🧵</div>
+          <div class="eyebrow">Textile</div>
+          <h1 class="display ind-h1">End-to-End ERP Solutions for Textile Businesses</h1>
+          <p class="ind-subhead">We help textile businesses gain complete control over their production, inventory, and
+            distribution — through purpose-built ERP solutions that cover every stage of the supply chain.</p>
+          <a href="index.html#contact" class="btn-gold">Let's Transform Your Textile Operations →</a>
         </div>
       </div>
     </div>
-    <div class="nav-right">
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-        <span class="theme-toggle-icon moon">🌙</span>
-        <span class="theme-toggle-icon sun">☀️</span>
-      </button>
-      <a href="index.html#contact" class="nav-cta">Book a Call</a>
-    </div>
-  </div>
-</nav>
+  </section>
 
-<section class="ind-hero">
-  <div class="wrap">
-    <div class="ind-hero-inner">
-      <div class="reveal">
-        <a href="index.html#industries" class="breadcrumb">← All Industries</a>
-        <div class="ind-icon-badge">🧵</div>
-        <div class="eyebrow">Textile</div>
-        <h1 class="display ind-h1">End-to-End ERP Solutions for Textile Businesses</h1>
-        <p class="ind-subhead">We help textile businesses gain complete control over their production, inventory, and distribution — through purpose-built ERP solutions that cover every stage of the supply chain.</p>
-        <a href="index.html#contact" class="btn-gold">Let's Transform Your Textile Operations →</a>
+  <div class="divider"></div>
+
+  <section class="ind-body bg-2">
+    <div class="wrap">
+      <div class="ind-two-col">
+        <div class="reveal">
+          <div class="eyebrow">Overview</div>
+          <h2 class="display ind-h2">Unified ERP from Factory Floor to Final Delivery</h2>
+          <div class="gold-bar"></div>
+        </div>
+        <div class="reveal" style="transition-delay:0.1s">
+          <p>The textile industry demands precision at every stage — from raw material procurement and production
+            tracking to quality checks, distribution, and order fulfilment. Managing these operations manually or across
+            disconnected systems leads to inefficiencies, stock mismatches, and delayed deliveries.</p>
+          <p>We implement ERP solutions that unify every aspect of textile operations — giving businesses real-time
+            visibility and control from factory floor to final delivery.</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="divider"></div>
+  <div class="divider"></div>
 
-<section class="ind-body bg-2">
-  <div class="wrap">
-    <div class="ind-two-col">
-      <div class="reveal">
-        <div class="eyebrow">Overview</div>
-        <h2 class="display ind-h2">Unified ERP from Factory Floor to Final Delivery</h2>
-        <div class="gold-bar"></div>
+  <section class="ind-problems">
+    <div class="wrap">
+      <div class="reveal" style="margin-bottom:48px">
+        <div class="eyebrow">Pain Points We Solve</div>
+        <h2 class="display ind-h2">What We Solve</h2>
       </div>
-      <div class="reveal" style="transition-delay:0.1s">
-        <p>The textile industry demands precision at every stage — from raw material procurement and production tracking to quality checks, distribution, and order fulfilment. Managing these operations manually or across disconnected systems leads to inefficiencies, stock mismatches, and delayed deliveries.</p>
-        <p>We implement ERP solutions that unify every aspect of textile operations — giving businesses real-time visibility and control from factory floor to final delivery.</p>
+      <div class="problems-grid reveal" style="transition-delay:0.1s">
+        <div class="problem-card"><span class="problem-icon">🧶</span>
+          <p>Inaccurate inventory causing production delays and stock imbalances</p>
+        </div>
+        <div class="problem-card"><span class="problem-icon">🔍</span>
+          <p>Poor visibility into production progress and order status</p>
+        </div>
+        <div class="problem-card"><span class="problem-icon">📋</span>
+          <p>Manual purchase management leading to procurement errors</p>
+        </div>
+        <div class="problem-card"><span class="problem-icon">🚚</span>
+          <p>Disconnected distribution and dispatch workflows</p>
+        </div>
+        <div class="problem-card"><span class="problem-icon">📦</span>
+          <p>Lack of end-to-end order tracking and fulfilment visibility</p>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="divider"></div>
+  <div class="divider"></div>
 
-<section class="ind-problems">
-  <div class="wrap">
-    <div class="reveal" style="margin-bottom:48px">
-      <div class="eyebrow">Pain Points We Solve</div>
-      <h2 class="display ind-h2">What We Solve</h2>
+  <section class="ind-caps bg-2">
+    <div class="wrap">
+      <div class="reveal" style="margin-bottom:48px">
+        <div class="eyebrow">Capabilities</div>
+        <h2 class="display ind-h2">Our Textile ERP Capabilities</h2>
+      </div>
+      <div class="caps-table reveal" style="transition-delay:0.1s">
+        <div class="caps-row caps-header">
+          <div class="caps-module">Module</div>
+          <div class="caps-deliver">What We Deliver</div>
+        </div>
+        <div class="caps-row">
+          <div class="caps-module">Production Tracking</div>
+          <div class="caps-deliver">Real-time production monitoring, work order management, and output tracking</div>
+        </div>
+        <div class="caps-row">
+          <div class="caps-module">Inventory Control</div>
+          <div class="caps-deliver">Multi-warehouse stock management, batch tracking, and reorder automation</div>
+        </div>
+        <div class="caps-row">
+          <div class="caps-module">Distribution Management</div>
+          <div class="caps-deliver">Dispatch planning, delivery tracking, and distribution channel management</div>
+        </div>
+        <div class="caps-row">
+          <div class="caps-module">Purchase Management</div>
+          <div class="caps-deliver">Supplier management, purchase orders, and raw material procurement workflows</div>
+        </div>
+        <div class="caps-row">
+          <div class="caps-module">Order Processing</div>
+          <div class="caps-deliver">End-to-end order management from enquiry to dispatch and invoicing</div>
+        </div>
+      </div>
     </div>
-    <div class="problems-grid reveal" style="transition-delay:0.1s">
-      <div class="problem-card"><span class="problem-icon">🧶</span><p>Inaccurate inventory causing production delays and stock imbalances</p></div>
-      <div class="problem-card"><span class="problem-icon">🔍</span><p>Poor visibility into production progress and order status</p></div>
-      <div class="problem-card"><span class="problem-icon">📋</span><p>Manual purchase management leading to procurement errors</p></div>
-      <div class="problem-card"><span class="problem-icon">🚚</span><p>Disconnected distribution and dispatch workflows</p></div>
-      <div class="problem-card"><span class="problem-icon">📦</span><p>Lack of end-to-end order tracking and fulfilment visibility</p></div>
+  </section>
+
+  <div class="divider"></div>
+  <section class="ind-cta">
+    <div class="wrap">
+      <div class="cta-inner reveal">
+        <h2 class="display" style="font-size:clamp(1.8rem,3.5vw,2.6rem);margin-bottom:16px">Ready to Transform Your
+          Textile Operations?</h2>
+        <p style="margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto">Let's discuss how end-to-end
+          ERP visibility can transform your textile supply chain.</p><a href="index.html#contact" class="btn-gold">Book
+          a Free Consultation →</a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<div class="divider"></div>
-
-<section class="ind-caps bg-2">
-  <div class="wrap">
-    <div class="reveal" style="margin-bottom:48px">
-      <div class="eyebrow">Capabilities</div>
-      <h2 class="display ind-h2">Our Textile ERP Capabilities</h2>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Prince <em>Prajapati</em></div>
+      <div class="footer-copy">© 2026 · ERP Consulting &amp; AI Workflow Design</div>
     </div>
-    <div class="caps-table reveal" style="transition-delay:0.1s">
-      <div class="caps-row caps-header"><div class="caps-module">Module</div><div class="caps-deliver">What We Deliver</div></div>
-      <div class="caps-row"><div class="caps-module">Production Tracking</div><div class="caps-deliver">Real-time production monitoring, work order management, and output tracking</div></div>
-      <div class="caps-row"><div class="caps-module">Inventory Control</div><div class="caps-deliver">Multi-warehouse stock management, batch tracking, and reorder automation</div></div>
-      <div class="caps-row"><div class="caps-module">Distribution Management</div><div class="caps-deliver">Dispatch planning, delivery tracking, and distribution channel management</div></div>
-      <div class="caps-row"><div class="caps-module">Purchase Management</div><div class="caps-deliver">Supplier management, purchase orders, and raw material procurement workflows</div></div>
-      <div class="caps-row"><div class="caps-module">Order Processing</div><div class="caps-deliver">End-to-end order management from enquiry to dispatch and invoicing</div></div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-<section class="ind-cta"><div class="wrap"><div class="cta-inner reveal"><h2 class="display" style="font-size:clamp(1.8rem,3.5vw,2.6rem);margin-bottom:16px">Ready to Transform Your Textile Operations?</h2><p style="margin-bottom:32px;max-width:500px;margin-left:auto;margin-right:auto">Let's discuss how end-to-end ERP visibility can transform your textile supply chain.</p><a href="index.html#contact" class="btn-gold">Book a Free Consultation →</a></div></div></section>
-
-<footer><div class="footer-inner"><div class="footer-logo">Prince <em>Prajapati</em></div><div class="footer-copy">© 2026 · ERP Consulting &amp; AI Workflow Design</div></div></footer>
-<script src="shared.js"></script>
+  </footer>
+  <script src="shared.js"></script>
 </body>
+
 </html>
