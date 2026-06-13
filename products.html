@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Financial Tools — SIP, Loan &amp; Ratios | Prince Prajapati</title>
   <meta name="description"
-    content="Free financial calculators — SIP investment planner, loan EMI calculator, and quick financial ratios analysis for business decision-making." />
+    content="Free financial calculators — SIP investment planner, loan EMI calculator, and financial ratio analysis for business decision-making." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -36,12 +36,12 @@
           </div>
         </div>
         <div class="nav-dropdown">
-          <a href="products.html" class="nav-dropbtn active" style="cursor:pointer">Products <span
+          <a href="products.html" class="nav-dropbtn active" style="cursor:pointer">Financial Tools <span
               style="font-size:0.7em">▼</span></a>
           <div class="nav-dropdown-content">
             <a href="products.html#sip-calculator">SIP Calculator</a>
             <a href="products.html#loan-calculator">Loan Calculator</a>
-            <a href="products.html#ratios-analysis">Quick Ratios Analysis</a>
+            <a href="products.html#ratios-analysis">Financial Ratio Analysis</a>
           </div>
         </div>
       </div>
@@ -80,11 +80,11 @@
           </div>
         </div>
         <div class="sidebar-dropdown">
-          <button class="sidebar-link sidebar-dropdown-btn">Products</button>
+          <button class="sidebar-link sidebar-dropdown-btn">Financial Tools</button>
           <div class="sidebar-dropdown-content">
             <a href="products.html#sip-calculator">SIP Calculator</a>
             <a href="products.html#loan-calculator">Loan Calculator</a>
-            <a href="products.html#ratios-analysis">Quick Ratios Analysis</a>
+            <a href="products.html#ratios-analysis">Financial Ratio Analysis</a>
           </div>
         </div>
         <a href="index.html#contact" class="sidebar-link sidebar-cta">Book a Free Consultation</a>
@@ -96,7 +96,7 @@
     <div class="wrap">
       <div class="prod-hero-inner reveal">
         <a href="index.html" class="breadcrumb">← Back to Home</a>
-        <div class="eyebrow">Products</div>
+        <div class="eyebrow">Financial Tools</div>
         <h1 class="display ind-h1">Financial Tools for Smarter Decisions</h1>
         <p class="ind-subhead">Plan investments, estimate loan repayments, and analyse key financial ratios — all in one
           place.</p>
@@ -111,7 +111,7 @@
       <div class="prod-tabs reveal">
         <button class="prod-tab active" data-panel="sip-calculator" type="button">SIP Calculator</button>
         <button class="prod-tab" data-panel="loan-calculator" type="button">Loan Calculator</button>
-        <button class="prod-tab" data-panel="ratios-analysis" type="button">Quick Ratios Analysis</button>
+        <button class="prod-tab" data-panel="ratios-analysis" type="button">Financial Ratio Analysis</button>
       </div>
 
       <!-- SIP Calculator -->
@@ -142,6 +142,22 @@
                 <span class="input-suffix">yrs</span>
               </div>
             </div>
+            <div class="calc-field">
+              <label for="sip-stepup-amount">Optional Step-Up Amount (₹)</label>
+              <div class="input-wrap">
+                <span class="input-prefix">₹</span>
+                <input type="number" id="sip-stepup-amount" min="0" step="100" placeholder="Leave blank for regular SIP" />
+              </div>
+            </div>
+            <div class="calc-field">
+              <label for="sip-stepup-percent">Optional Step-Up by Percentage (%)</label>
+              <div class="input-wrap has-suffix">
+                <input type="number" id="sip-stepup-percent" min="0" max="50" step="0.5"
+                  placeholder="Leave blank for regular SIP" />
+                <span class="input-suffix">%</span>
+              </div>
+            </div>
+            <p class="calc-note">Leave both step-up fields blank to calculate a regular SIP.</p>
             <button class="calc-btn" id="sip-calc-btn" type="button">Calculate SIP Returns</button>
           </div>
           <div class="calc-card">
@@ -166,62 +182,28 @@
           </div>
         </div>
 
-        <!-- SIP Advanced Section -->
-        <div class="calc-layout calc-layout-single" style="margin-top: 36px;">
-          <div class="calc-card">
-            <h3>SIP with Step-Up (Advanced)</h3>
-            <p class="calc-desc">Increase your SIP amount yearly to boost your wealth accumulation over time.</p>
-
-            <div class="calc-field">
-              <label for="sip-stepup-enable">
-                <input type="checkbox" id="sip-stepup-enable" />
-                Enable Step-Up SIP
-              </label>
+        <div class="calc-card" style="margin-top: 36px;">
+          <h3>Step-Up Impact</h3>
+          <p class="calc-desc">Filled only when optional step-up values are entered above.</p>
+          <div class="calc-results">
+            <div class="result-item">
+              <div class="result-label">Total Invested</div>
+              <div class="result-value" id="sip-stepup-invested">—</div>
             </div>
-
-            <div class="calc-field" id="sip-stepup-amount-field" style="display: none;">
-              <label for="sip-stepup-amount">Yearly Step-Up Amount (₹)</label>
-              <div class="input-wrap">
-                <span class="input-prefix">₹</span>
-                <input type="number" id="sip-stepup-amount" value="500" min="0" step="100" />
-              </div>
+            <div class="result-item">
+              <div class="result-label">Estimated Returns</div>
+              <div class="result-value" id="sip-stepup-returns">—</div>
             </div>
-
-            <div class="calc-field" id="sip-stepup-percent-field" style="display: none;">
-              <label for="sip-stepup-percent">Or Step-Up by Percentage (%)</label>
-              <div class="input-wrap has-suffix">
-                <input type="number" id="sip-stepup-percent" value="5" min="0" max="50" step="0.5" />
-                <span class="input-suffix">%</span>
-              </div>
+            <div class="result-item highlight">
+              <div class="result-label">Maturity Value</div>
+              <div class="result-value" id="sip-stepup-maturity">—</div>
             </div>
-
-            <button class="calc-btn" id="sip-advance-btn" type="button">Calculate with Step-Up</button>
+            <div class="result-item" style="border-top: 1px solid var(--border); margin-top: 12px; padding-top: 12px;">
+              <div class="result-label">Extra Returns vs Regular SIP</div>
+              <div class="result-value" id="sip-stepup-extra">—</div>
+            </div>
           </div>
-
-          <div class="calc-card">
-            <h3>Step-Up SIP Results</h3>
-            <p class="calc-desc">Comparison of regular vs step-up SIP returns.</p>
-            <div class="calc-results">
-              <div class="result-item">
-                <div class="result-label">Total Invested</div>
-                <div class="result-value" id="sip-stepup-invested">—</div>
-              </div>
-              <div class="result-item">
-                <div class="result-label">Estimated Returns</div>
-                <div class="result-value" id="sip-stepup-returns">—</div>
-              </div>
-              <div class="result-item highlight">
-                <div class="result-label">Maturity Value</div>
-                <div class="result-value" id="sip-stepup-maturity">—</div>
-              </div>
-              <div class="result-item"
-                style="border-top: 1px solid var(--border); margin-top: 12px; padding-top: 12px;">
-                <div class="result-label">Extra Returns vs Regular SIP</div>
-                <div class="result-value" id="sip-stepup-extra">—</div>
-              </div>
-            </div>
-            <p class="result-note">Step-up increases your SIP contribution yearly, maximizing returns over time.</p>
-          </div>
+          <p class="result-note">The impact card updates only when you enter a step-up amount or percentage.</p>
         </div>
 
         <!-- SIP Yearly Progression Table -->
@@ -230,7 +212,7 @@
           <h3
             style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">
             Yearly Progression</h3>
-          <p class="calc-desc" style="margin-bottom: 20px;">Detailed year-by-year breakdown of your SIP investment.</p>
+          <p class="calc-desc" style="margin-bottom: 20px;">Detailed year-by-year breakdown of your SIP investment and step-up impact.</p>
           <div class="table-wrapper" id="sip-table-wrapper">
             <table class="sip-progression-table" id="sip-progression-table">
               <thead>
@@ -238,14 +220,22 @@
                   <th>Year</th>
                   <th>Monthly SIP</th>
                   <th>Annual Contribution</th>
-                  <th>Returns (Approx)</th>
+                  <th>Cumulative Invested</th>
                   <th>Accumulated Value</th>
+                  <th>Cumulative Returns</th>
+                  <th>Step-Up Impact</th>
                 </tr>
               </thead>
               <tbody id="sip-progression-tbody">
               </tbody>
             </table>
           </div>
+        </div>
+
+        <div class="calc-card" style="margin-top: 28px;">
+          <h3>Growth Chart</h3>
+          <p class="calc-desc">A visual view of the yearly accumulated value for the current SIP plan.</p>
+          <div class="mini-chart" id="sip-chart"></div>
         </div>
       </div>
 
@@ -287,6 +277,15 @@
                 <span class="input-suffix">yrs</span>
               </div>
             </div>
+            <div class="calc-field">
+              <label for="loan-extra-principal">Optional Extra Principal Per Year (₹)</label>
+              <div class="input-wrap">
+                <span class="input-prefix">₹</span>
+                <input type="number" id="loan-extra-principal" min="0" step="10000"
+                  placeholder="Leave blank for regular EMI" />
+              </div>
+            </div>
+            <p class="calc-note">Leave the extra principal field blank to calculate the regular loan schedule.</p>
             <button class="calc-btn" id="loan-calc-btn" type="button">Calculate EMI</button>
           </div>
 
@@ -312,42 +311,24 @@
           </div>
         </div>
 
-        <!-- Loan Advanced Section -->
-        <div class="calc-layout calc-layout-single" style="margin-top: 36px;">
-          <div class="calc-card">
-            <h3>Extra Principal Payout (Advanced)</h3>
-            <p class="calc-desc">See how extra principal payments can reduce your loan tenure and save interest.</p>
-
-            <div class="calc-field">
-              <label for="loan-extra-principal">Extra Principal Per Year (₹)</label>
-              <div class="input-wrap">
-                <span class="input-prefix">₹</span>
-                <input type="number" id="loan-extra-principal" value="0" min="0" step="10000" />
-              </div>
+        <div class="calc-card" style="margin-top: 36px;">
+          <h3>Extra Principal Impact</h3>
+          <p class="calc-desc">Filled only when you enter an extra principal amount above.</p>
+          <div class="calc-results">
+            <div class="result-item">
+              <div class="result-label">Tenure Reduced By</div>
+              <div class="result-value" id="loan-tenure-reduction">—</div>
             </div>
-
-            <button class="calc-btn" id="loan-advance-btn" type="button">Calculate Impact</button>
-          </div>
-
-          <div class="calc-card">
-            <h3>Impact of Extra Principal Payment</h3>
-            <p class="calc-desc">Comparison of regular vs extra principal payment scenario.</p>
-            <div class="calc-results">
-              <div class="result-item">
-                <div class="result-label">Tenure Reduced By</div>
-                <div class="result-value" id="loan-tenure-reduction">—</div>
-              </div>
-              <div class="result-item highlight">
-                <div class="result-label">Total Interest Saved</div>
-                <div class="result-value" id="loan-interest-saved">—</div>
-              </div>
-              <div class="result-item">
-                <div class="result-label">New Tenure</div>
-                <div class="result-value" id="loan-new-tenure">—</div>
-              </div>
+            <div class="result-item highlight">
+              <div class="result-label">Total Interest Saved</div>
+              <div class="result-value" id="loan-interest-saved">—</div>
             </div>
-            <p class="result-note">Extra principal payments are deducted from principal balance every year.</p>
+            <div class="result-item">
+              <div class="result-label">New Tenure</div>
+              <div class="result-value" id="loan-new-tenure">—</div>
+            </div>
           </div>
+          <p class="result-note">The impact card updates automatically when extra principal is entered.</p>
         </div>
 
         <!-- Loan Amortization Table -->
@@ -356,8 +337,8 @@
           <h3
             style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">
             Amortization Schedule</h3>
-          <p class="calc-desc" style="margin-bottom: 20px;">Yearly breakdown of principal, interest and remaining
-            balance.</p>
+          <p class="calc-desc" style="margin-bottom: 20px;">Yearly breakdown of principal, interest, remaining
+            balance and balance reduction.</p>
           <div class="table-wrapper" id="loan-table-wrapper">
             <table class="loan-amortization-table" id="loan-amortization-table">
               <thead>
@@ -365,8 +346,10 @@
                   <th>Year</th>
                   <th>Beginning Balance</th>
                   <th>Principal Payment</th>
+                  <th>Extra Principal</th>
                   <th>Interest Payment</th>
                   <th>Ending Balance</th>
+                  <th>Balance Reduction</th>
                 </tr>
               </thead>
               <tbody id="loan-amortization-tbody">
@@ -374,9 +357,15 @@
             </table>
           </div>
         </div>
+
+        <div class="calc-card" style="margin-top: 28px;">
+          <h3>Balance Chart</h3>
+          <p class="calc-desc">A visual view of the year-end loan balance for the current repayment plan.</p>
+          <div class="mini-chart" id="loan-chart"></div>
+        </div>
       </div>
 
-      <!-- Quick Ratios Analysis -->
+      <!-- Financial Ratio Analysis -->
       <div id="ratios-analysis" class="prod-panel reveal">
         <!-- Input Method Selector -->
         <div
@@ -426,39 +415,39 @@
               <div class="ratios-input-grid">
                 <div class="calc-field">
                   <label for="ratio-current-assets">Current Assets (₹)</label>
-                  <input type="number" id="ratio-current-assets" value="2500000" min="0" step="1000" />
+                  <input type="number" id="ratio-current-assets" min="0" step="1000" placeholder="Enter value" />
                 </div>
                 <div class="calc-field">
                   <label for="ratio-inventory">Inventory (₹)</label>
-                  <input type="number" id="ratio-inventory" value="600000" min="0" step="1000" />
+                  <input type="number" id="ratio-inventory" min="0" step="1000" placeholder="Enter value" />
                 </div>
                 <div class="calc-field">
                   <label for="ratio-current-liab">Current Liabilities (₹)</label>
-                  <input type="number" id="ratio-current-liab" value="1200000" min="0" step="1000" />
+                  <input type="number" id="ratio-current-liab" min="0" step="1000" placeholder="Enter value" />
                 </div>
                 <div class="calc-field">
                   <label for="ratio-total-debt">Total Debt (₹)</label>
-                  <input type="number" id="ratio-total-debt" value="3000000" min="0" step="1000" />
+                  <input type="number" id="ratio-total-debt" min="0" step="1000" placeholder="Enter value" />
                 </div>
                 <div class="calc-field">
                   <label for="ratio-equity">Shareholders' Equity (₹)</label>
-                  <input type="number" id="ratio-equity" value="4000000" min="0" step="1000" />
+                  <input type="number" id="ratio-equity" min="0" step="1000" placeholder="Enter value" />
                 </div>
                 <div class="calc-field">
                   <label for="ratio-total-assets">Total Assets (₹)</label>
-                  <input type="number" id="ratio-total-assets" value="8000000" min="0" step="1000" />
+                  <input type="number" id="ratio-total-assets" min="0" step="1000" placeholder="Enter value" />
                 </div>
                 <div class="calc-field">
                   <label for="ratio-revenue">Revenue / Net Sales (₹)</label>
-                  <input type="number" id="ratio-revenue" value="12000000" min="0" step="1000" />
+                  <input type="number" id="ratio-revenue" min="0" step="1000" placeholder="Enter value" />
                 </div>
                 <div class="calc-field">
                   <label for="ratio-gross-profit">Gross Profit (₹)</label>
-                  <input type="number" id="ratio-gross-profit" value="4800000" min="0" step="1000" />
+                  <input type="number" id="ratio-gross-profit" min="0" step="1000" placeholder="Enter value" />
                 </div>
                 <div class="calc-field" style="grid-column:1/-1">
                   <label for="ratio-net-income">Net Income (₹)</label>
-                  <input type="number" id="ratio-net-income" value="960000" min="0" step="1000" />
+                  <input type="number" id="ratio-net-income" min="0" step="1000" placeholder="Enter value" />
                 </div>
               </div>
               <button class="calc-btn" id="ratios-calc-btn" type="button">Analyse Ratios</button>

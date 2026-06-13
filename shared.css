@@ -421,10 +421,10 @@ section {
   width: 100%;
   height: 100vh;
   background: var(--bg);
-  z-index: 199;
+  z-index: 250;
   transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow-y: auto;
-  padding-top: 80px;
+  padding-top: 0;
   /* Prevent any flicker/paint of sidebar text above header when closed */
   visibility: hidden;
 }
@@ -436,16 +436,20 @@ section {
 }
 
 .sidebar-content {
-  padding: 24px 20px;
+  padding: 20px 20px 28px;
 }
 
 .sidebar-header {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-bottom: 32px;
-  padding-bottom: 20px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
   border-bottom: 1px solid var(--border);
+}
+
+body.sidebar-open {
+  overflow: hidden;
 }
 
 .sidebar-logo {
