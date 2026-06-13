@@ -37,6 +37,8 @@
   overflow: hidden;
   text-decoration: none;
   user-select: none;
+
+  transition: transform 0.2s cubic-bezier(.4, 0, .2, 1), box-shadow 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s;
 }
 
 .hero-ql::before {
@@ -46,14 +48,11 @@
   background: rgba(255, 255, 255, 0.12);
   opacity: 0;
   transition: opacity 0.2s ease;
+  pointer-events: none;
 }
 
 .hero-ql:hover::before {
   opacity: 1;
-}
-
-.hero-ql {
-  transition: transform 0.2s cubic-bezier(.4, 0, .2, 1), box-shadow 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .hero-ql:hover {
@@ -63,9 +62,22 @@
   color: var(--gold);
 }
 
-[data-theme="light"] .hero-ql:hover {
-  color: var(--gold);
+.hero-ql:focus-visible {
+  outline: 2px solid rgba(212, 168, 83, 0.8);
+  outline-offset: 3px;
 }
+
+/* When one is selected, hide the other calculator cards and show only the matching one */
+.hero-tool-select {
+  pointer-events: auto;
+}
+
+.hero-tool-select[data-active='sip-calculator']~.ind-body .prod-tabs,
+.hero-tool-select[data-active='loan-calculator']~.ind-body .prod-tabs,
+.hero-tool-select[data-active='ratios-analysis']~.ind-body .prod-tabs {
+  /* leave tabs available; visual change only */
+}
+
 
 
 .prod-tabs {
