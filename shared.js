@@ -1,124 +1,173 @@
-// shared.js — theme toggle + nav inject + reveal + custom cursor
+// shared.js — theme toggle + site nav inject + reveal + custom cursor
 (function () {
   var html = document.documentElement;
   var saved = localStorage.getItem('pp-theme');
   if (saved) html.setAttribute('data-theme', saved);
   else html.setAttribute('data-theme', 'light');
 
-  document.addEventListener('DOMContentLoaded', function () {
-    // ── Inject Floating glass navbar (only if missing) ───────────────
-    (function ensureNav() {
-      var existing = document.querySelector('[data-pp="floating-theme-nav"]');
-      if (existing) return;
+  function pageLink(hash) {
+    var path = location.pathname.split('/').pop() || 'index.html';
+    var isHome = path === '' || path === 'index.html';
+    if (!hash) return isHome ? 'index.html' : 'index.html';
+    return isHome ? '#' + hash : 'index.html#' + hash;
+  }
 
-      var nav = document.createElement('div');
-      nav.setAttribute('data-pp', 'floating-theme-nav');
-      nav.setAttribute('class', 'floating-nav');
-      nav.setAttribute('role', 'navigation');
+  document.addEventListener('DOMContentLoaded', function () {
+    // ── Inject full-width site navbar ─────────────────────────────────
+    (function ensureNav() {
+      if (document.querySelector('[data-pp="site-nav"]')) return;
+
+      var nav = document.createElement('nav');
+      nav.setAttribute('data-pp', 'site-nav');
+      nav.id = 'nav';
 
       nav.innerHTML =
-        '  <div class="floating-nav__brand">' +
-        '    <div class="floating-nav__brand-text">Prince <em>Prajapati</em></div>' +
-        '  </div>' +
-        '  <button type="button" class="floating-nav__toggle" id="themeToggle" aria-label="Toggle theme">' +
-        '    ☼' +
-        '  </button>' +
-        '  <button type="button" class="floating-nav__toggle floating-nav__menu" id="menuToggle" aria-label="Open calculators menu" aria-haspopup="dialog" aria-expanded="false" aria-controls="calcDropdown">' +
-        '    ⊞' +
-        '  </button>' +
-        '  <div class="floating-nav__dropdown hidden" id="calcDropdown" role="dialog" aria-label="Calculators dropdown">' +
-        '    <div class="floating-nav__grid">' +
-        '      <a class="floating-nav__item" href="sip-calculator.html">' +
-        '        <div class="floating-nav__item-title">SIP Calculator</div>' +
-        '        <div class="floating-nav__item-desc">Step-up SIP returns & yearly progression</div>' +
-        '      </a>' +
-        '      <a class="floating-nav__item" href="loan-calculator.html">' +
-        '        <div class="floating-nav__item-title">Loan Calculator</div>' +
-        '        <div class="floating-nav__item-desc">EMI, tenure & amortization preview</div>' +
-        '      </a>' +
-        '      <a class="floating-nav__item" href="ratios.html">' +
-        '        <div class="floating-nav__item-title">Financial Ratios</div>' +
-        '        <div class="floating-nav__item-desc">Quick valuation & ratio estimates</div>' +
-        '      </a>' +
-        '      <a class="floating-nav__item" href="screener.html">' +
-        '        <div class="floating-nav__item-title">Stock Screener</div>' +
-        '        <div class="floating-nav__item-desc">Trend + levels + rules-based news impact</div>' +
-        '      </a>' +
+        '<div class="nav-inner">' +
+        '  <a href="index.html" class="nav-logo">Prince <em>Prajapati</em></a>' +
+        '  <div class="nav-links">' +
+        '    <a href="' + pageLink('about') + '">About</a>' +
+        '    <a href="' + pageLink('services') + '">Services</a>' +
+        '    <div class="nav-dropdown">' +
+        '      <a href="' + pageLink('industries') + '" class="nav-dropbtn" data-nav="industries">Industries We Serve <span class="nav-caret">▼</span></a>' +
+        '      <div class="nav-dropdown-content">' +
+        '        <a href="manufacturing.html">Manufacturing</a>' +
+        '        <a href="logistics.html">Logistics</a>' +
+        '        <a href="construction.html">Construction</a>' +
+        '        <a href="marketing.html">Marketing</a>' +
+        '        <a href="textile.html">Textile</a>' +
+        '      </div>' +
         '    </div>' +
-        '  </div>';
+        '    <div class="nav-dropdown">' +
+        '      <a href="sip-calculator.html" class="nav-dropbtn" data-nav="financial-tools">Financial Tools <span class="nav-caret">▼</span></a>' +
+        '      <div class="nav-dropdown-content">' +
+        '        <a href="sip-calculator.html">SIP Calculator</a>' +
+        '        <a href="loan-calculator.html">Loan Calculator</a>' +
+        '        <a href="ratios.html">Financial Ratio Analysis</a>' +
+        '      </div>' +
+        '    </div>' +
+        '  </div>' +
+        '  <div class="nav-right">' +
+        '    <button class="tog" id="themeToggle" type="button" aria-label="Toggle light/dark mode">' +
+        '      <span class="tog-i m">🌙</span>' +
+        '      <span class="tog-i s">☀️</span>' +
+        '    </button>' +
+        '    <a href="' + pageLink('contact') + '" class="nav-cta">Book a Call</a>' +
+        '    <button class="hamburger" id="hamburger" type="button" aria-label="Toggle menu">' +
+        '      <span></span><span></span><span></span>' +
+        '    </button>' +
+        '  </div>' +
+        '</div>';
 
+      var sidebar = document.createElement('div');
+      sidebar.className = 'sidebar';
+      sidebar.id = 'sidebar';
+      sidebar.innerHTML =
+        '<div class="sidebar-content">' +
+        '  <div class="sidebar-header">' +
+        '    <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Close menu"></button>' +
+        '  </div>' +
+        '  <div class="sidebar-links">' +
+        '    <a href="' + pageLink('about') + '" class="sidebar-link">About</a>' +
+        '    <a href="' + pageLink('services') + '" class="sidebar-link">Services</a>' +
+        '    <div class="sidebar-dropdown">' +
+        '      <button class="sidebar-link sidebar-dropdown-btn" type="button">Industries We Serve</button>' +
+        '      <div class="sidebar-dropdown-content">' +
+        '        <a href="manufacturing.html">Manufacturing</a>' +
+        '        <a href="logistics.html">Logistics</a>' +
+        '        <a href="construction.html">Construction</a>' +
+        '        <a href="marketing.html">Marketing</a>' +
+        '        <a href="textile.html">Textile</a>' +
+        '      </div>' +
+        '    </div>' +
+        '    <div class="sidebar-dropdown">' +
+        '      <button class="sidebar-link sidebar-dropdown-btn" type="button">Financial Tools</button>' +
+        '      <div class="sidebar-dropdown-content">' +
+        '        <a href="sip-calculator.html">SIP Calculator</a>' +
+        '        <a href="loan-calculator.html">Loan Calculator</a>' +
+        '        <a href="ratios.html">Financial Ratio Analysis</a>' +
+        '      </div>' +
+        '    </div>' +
+        '    <a href="' + pageLink('contact') + '" class="sidebar-link sidebar-cta">Book a Free Consultation</a>' +
+        '  </div>' +
+        '</div>';
+
+      document.body.prepend(sidebar);
       document.body.prepend(nav);
-
-      var themeBtn = nav.querySelector('#themeToggle');
-      var menuBtn = nav.querySelector('#menuToggle');
-      var dd = nav.querySelector('#calcDropdown');
-
-      function toggleTheme() {
-        var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        html.setAttribute('data-theme', next);
-        localStorage.setItem('pp-theme', next);
+      document.body.classList.add('has-site-nav');
+      if (document.getElementById('hero')) {
+        document.body.classList.add('has-hero');
       }
 
-      function setMenuOpen(isOpen) {
-        if (!dd || !menuBtn) return;
-        dd.classList.toggle('hidden', !isOpen);
-        menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-      }
-
-      function toggleMenu() {
-        var isOpen = dd && !dd.classList.contains('hidden');
-        setMenuOpen(!isOpen);
-      }
-
+      // Theme toggle
+      var themeBtn = document.getElementById('themeToggle');
       if (themeBtn) {
         themeBtn.addEventListener('click', function (e) {
           e.preventDefault();
-          e.stopPropagation();
-          toggleTheme();
-          // keep menu state unchanged
+          var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          html.setAttribute('data-theme', next);
+          localStorage.setItem('pp-theme', next);
         });
       }
 
-      if (menuBtn && dd) {
-        menuBtn.addEventListener('click', function (e) {
+      // Nav scroll state
+      window.addEventListener('scroll', function () {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+      }, { passive: true });
+
+      // Prevent financial-tools parent link from navigating (dropdown only)
+      nav.querySelectorAll('[data-nav="financial-tools"]').forEach(function (link) {
+        link.addEventListener('click', function (e) {
           e.preventDefault();
-          e.stopPropagation();
-          toggleMenu();
+        });
+      });
+
+      // Mobile sidebar
+      var hamburger = document.getElementById('hamburger');
+      var sidebarClose = document.getElementById('sidebarClose');
+
+      if (hamburger && sidebar && sidebarClose) {
+        function openSidebar() {
+          hamburger.classList.add('active');
+          sidebar.classList.add('active');
+          document.body.classList.add('sidebar-open');
+        }
+
+        function closeSidebar() {
+          hamburger.classList.remove('active');
+          sidebar.classList.remove('active');
+          document.body.classList.remove('sidebar-open');
+        }
+
+        hamburger.addEventListener('click', function () {
+          if (sidebar.classList.contains('active')) closeSidebar();
+          else openSidebar();
         });
 
-        // Close dropdown on outside click / escape
-        document.addEventListener('click', function (ev) {
-          if (!dd) return;
-          if (dd.classList.contains('hidden')) return;
-          var t = ev.target;
-          if (!nav.contains(t)) setMenuOpen(false);
+        sidebarClose.addEventListener('click', closeSidebar);
+
+        sidebar.querySelectorAll('.sidebar-link:not(.sidebar-dropdown-btn)').forEach(function (link) {
+          link.addEventListener('click', function () { closeSidebar(); });
         });
 
-        document.addEventListener('keydown', function (ev) {
-          if (ev.key === 'Escape') setMenuOpen(false);
-        });
-
-        // Close on link click
-        nav.querySelectorAll('a[href]').forEach(function (a) {
-          a.addEventListener('click', function () {
-            setMenuOpen(false);
+        sidebar.querySelectorAll('.sidebar-dropdown-btn').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var content = btn.nextElementSibling;
+            if (content && content.classList.contains('sidebar-dropdown-content')) {
+              btn.classList.toggle('active');
+              content.classList.toggle('active');
+            }
           });
+        });
+
+        document.addEventListener('click', function (e) {
+          if (sidebar.classList.contains('active') &&
+            !sidebar.contains(e.target) &&
+            !hamburger.contains(e.target)) {
+            closeSidebar();
+          }
         });
       }
     })();
-
-    // ── Theme toggle (fallback) ───────────────────────────────────────
-    // Floating nav handler is attached inside ensureNav().
-    // This block is for any other page that might already render #themeToggle.
-    var toggle = document.getElementById('themeToggle');
-    if (toggle && !document.body.querySelector('[data-pp="floating-theme-nav"]')) {
-      toggle.addEventListener('click', function () {
-        var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        html.setAttribute('data-theme', next);
-        localStorage.setItem('pp-theme', next);
-      });
-    }
-
 
     // ── Reveal (IntersectionObserver) ───────────────────────────────────
     var io = new IntersectionObserver(function (entries) {
@@ -150,8 +199,7 @@
     document.addEventListener('mousedown', function () { ring.classList.add('clicking'); });
     document.addEventListener('mouseup', function () { ring.classList.remove('clicking'); });
 
-    // Hover detection — expand ring on interactive elements
-    var hoverEls = 'a, button, .calc-btn, .prod-tab, .ratio-input-method, .svc, .ind-card, .ccard, .btn-gold, .trust-chip, .flow-step';
+    var hoverEls = 'a, button, .calc-btn, .prod-tab, .ratio-input-method, .svc, .ind-card, .ccard, .btn-gold, .trust-chip, .flow-step, .nav-cta, .tog, .hamburger, .nav-links a';
     document.querySelectorAll(hoverEls).forEach(function (el) {
       el.addEventListener('mouseenter', function () { ring.classList.add('hovering'); });
       el.addEventListener('mouseleave', function () { ring.classList.remove('hovering'); });
@@ -179,5 +227,3 @@
     });
   });
 })();
-
-
