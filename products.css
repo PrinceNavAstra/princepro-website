@@ -13,6 +13,11 @@
   background: var(--bg);
 }
 
+.prod-hero .wrap,
+.ind-body .wrap {
+  padding: 0 28px;
+}
+
 .prod-hero::before {
   content: '';
   position: absolute;
@@ -25,6 +30,115 @@
   opacity: .35;
   mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 25%, transparent 78%);
   -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 25%, transparent 78%);
+}
+
+.tool-intro {
+  display: grid;
+  grid-template-columns: 1.25fr 0.95fr;
+  gap: 22px;
+  margin-bottom: 34px;
+}
+
+.tool-quote-card,
+.tool-info-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: var(--shadow-card);
+  transition: var(--transition-theme), transform 0.2s ease;
+}
+
+.tool-quote-card {
+  position: relative;
+  overflow: hidden;
+  animation: toolFloat 7s ease-in-out infinite;
+}
+
+.tool-info-card {
+  animation: toolFloat 7s ease-in-out infinite;
+  animation-delay: .8s;
+}
+
+.tool-quote-card::after {
+  content: '';
+  position: absolute;
+  inset: auto -12% -20% auto;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, var(--gold-glow), transparent 70%);
+  pointer-events: none;
+}
+
+.tool-quote-kicker {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.tool-quote-title {
+  font-family: 'Lora', Georgia, serif;
+  font-size: clamp(1.35rem, 2.5vw, 2rem);
+  line-height: 1.25;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.tool-quote-body {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-body);
+  max-width: 60ch;
+}
+
+.tool-quote-body mark {
+  font-weight: 700;
+}
+
+.tool-info-list {
+  display: grid;
+  gap: 12px;
+}
+
+.tool-info-item {
+  padding: 14px 16px;
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.tool-info-item strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--text-primary);
+}
+
+.tool-info-item span {
+  display: block;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-body);
+}
+
+@media (max-width: 900px) {
+  .tool-intro {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .prod-hero .wrap,
+  .ind-body .wrap {
+    padding: 0 16px;
+  }
+}
+
+@keyframes toolFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
 }
 
 .prod-hero-inner {
@@ -92,7 +206,7 @@
 
 .prod-tab {
   font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 0.84rem;
+  font-size: 0.9rem;
   font-weight: 500;
   padding: 10px 20px;
   border-radius: 100px;
@@ -148,8 +262,8 @@
 
 
 .calc-card h3 {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.45rem;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.55rem;
 
   font-weight: 700;
   color: var(--text-primary);
@@ -157,8 +271,8 @@
 }
 
 .calc-card .calc-desc {
-  font-size: 0.88rem;
-  line-height: 1.65;
+  font-size: 0.95rem;
+  line-height: 1.72;
   color: var(--text-body);
   margin-bottom: 28px;
 }
@@ -169,7 +283,7 @@
 
 .calc-field label {
   display: block;
-  font-size: 0.86rem;
+  font-size: 0.9rem;
 
   font-weight: 500;
   color: var(--text-muted);
@@ -183,7 +297,7 @@
 
   padding: 12px 14px;
   font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 0.92rem;
+  font-size: 0.96rem;
   color: var(--text-primary);
   background: var(--bg-3);
   border: 1px solid var(--border);
@@ -206,7 +320,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 0.88rem;
+  font-size: 0.94rem;
   color: var(--text-muted);
   pointer-events: none;
 }
@@ -269,7 +383,7 @@
 
 .result-label {
   font-family: 'DM Mono', monospace;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-muted);
@@ -277,8 +391,8 @@
 }
 
 .result-value {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.6rem;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.75rem;
   font-weight: 700;
   color: var(--gold);
   line-height: 1.2;
@@ -289,14 +403,14 @@
 }
 
 .result-note {
-  font-size: 0.78rem;
+  font-size: 0.86rem;
   color: var(--text-muted);
   margin-top: 16px;
   line-height: 1.55;
 }
 
 .calc-note {
-  font-size: 0.78rem;
+  font-size: 0.86rem;
   color: var(--text-muted);
   margin-top: -6px;
   margin-bottom: 16px;
@@ -336,7 +450,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.76rem;
+  font-size: 0.82rem;
   color: var(--text-body);
   white-space: nowrap;
 }
@@ -602,7 +716,7 @@
 .loan-amortization-table td,
 .sip-progression-table td {
   padding: 12px 16px;
-  font-size: 0.88rem;
+  font-size: 0.94rem;
   color: var(--text-body);
   white-space: nowrap;
 }
@@ -615,7 +729,7 @@
 /* File upload styling */
 .calc-field input[type="file"] {
   cursor: pointer;
-  font-size: 0.88rem;
+  font-size: 0.94rem;
 }
 
 .calc-field input[type="file"]::file-selector-button {

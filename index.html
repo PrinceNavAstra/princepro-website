@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 
 <head>
   <meta charset="UTF-8" />
@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
     rel="stylesheet" />
   <style>
     /* ═══ TOKENS ════════════════════════════════════════════ */
@@ -21,28 +21,28 @@
     }
 
     [data-theme="dark"] {
-      --bg: #09090f;
-      --bg2: #0f0f18;
-      --bg3: #141420;
-      --card: #181828;
-      --card2: #1d1d30;
-      --bdr: rgba(255, 255, 255, .07);
-      --bdr-md: rgba(255, 255, 255, .13);
-      --bdr-hi: rgba(255, 255, 255, .25);
-      --th: #f0eff8;
-      --tb: #9d9bb8;
-      --tm: #5e5c7a;
+      --bg: #080810;
+      --bg2: #0d0d16;
+      --bg3: #141421;
+      --card: #181829;
+      --card2: #202036;
+      --bdr: rgba(255, 255, 255, .09);
+      --bdr-md: rgba(255, 255, 255, .16);
+      --bdr-hi: rgba(255, 255, 255, .28);
+      --th: #f3f2fb;
+      --tb: #b1afcb;
+      --tm: #7b7896;
       --gold: #d4a853;
       --gold-l: #f0c878;
       --gold-d: #a07830;
-      --gdim: rgba(212, 168, 83, .1);
-      --gglow: rgba(212, 168, 83, .25);
+      --gdim: rgba(212, 168, 83, .12);
+      --gglow: rgba(212, 168, 83, .28);
       --teal: #2dd4bf;
-      --nav-bg: rgba(9, 9, 15, .6);
-      --tog-bg: #1e1e30;
-      --tog-k: #f0eff8;
-      --shc: 0 2px 8px rgba(0, 0, 0, .5), 0 16px 48px rgba(0, 0, 0, .35);
-      --shb: 0 6px 28px rgba(212, 168, 83, .32);
+      --nav-bg: rgba(8, 8, 16, .78);
+      --tog-bg: #24243a;
+      --tog-k: #f8f7ff;
+      --shc: 0 2px 8px rgba(0, 0, 0, .5), 0 18px 50px rgba(0, 0, 0, .38);
+      --shb: 0 10px 28px rgba(212, 168, 83, .3);
       --cur: #d4a853;
       --flow-g: linear-gradient(to bottom, #4ade80, #2dd4bf, #d4a853, #f0c878, #818cf8, #a78bfa);
     }
@@ -85,14 +85,14 @@
 
     html {
       scroll-behavior: smooth;
-      font-size: 16px
+      font-size: 17px
     }
 
     body {
       font-family: 'DM Sans', system-ui, sans-serif;
       background: var(--bg);
       color: var(--tb);
-      line-height: 1.65;
+      line-height: 1.72;
       overflow-x: hidden;
       transition: background-color var(--tt), color var(--tt);
       cursor: none
@@ -178,7 +178,7 @@
 
     /* ═══ TYPE ══════════════════════════════════════════════ */
     .serif {
-      font-family: 'Playfair Display', Georgia, serif;
+      font-family: 'Lora', Georgia, serif;
       color: var(--th);
       font-weight: 700;
       letter-spacing: -.02em;
@@ -188,7 +188,7 @@
 
     .eyebrow {
       font-family: 'DM Mono', monospace;
-      font-size: .7rem;
+      font-size: .76rem;
       font-weight: 500;
       letter-spacing: .2em;
       text-transform: uppercase;
@@ -211,20 +211,30 @@
     }
 
     .sub {
-      font-size: 1.02rem;
-      line-height: 1.76;
+      font-size: 1.08rem;
+      line-height: 1.8;
       color: var(--tb);
       max-width: 520px;
       transition: color var(--tt)
     }
 
     mark {
-      background: var(--gdim);
-      color: var(--gold);
-      padding: 2px 6px;
-      border-radius: 5px;
+      background: linear-gradient(180deg, rgba(212, 168, 83, .28), rgba(212, 168, 83, .18));
+      color: var(--th);
+      padding: 0.08em 0.35em;
+      border-radius: .35em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
       font-weight: 600;
       transition: background var(--tt), color var(--tt)
+    }
+
+    .aurora-text {
+      background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 46%, #7bb8ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 18px rgba(212, 168, 83, .12);
     }
 
     strong {
@@ -334,7 +344,7 @@
       justify-self: start;
       display: inline-flex;
       align-items: center;
-      font-family: 'Playfair Display', serif;
+      font-family: 'Lora', serif;
       font-size: 1.2rem;
       font-weight: 700;
       color: var(--th);
@@ -447,50 +457,50 @@
 
     /* Theme toggle */
     .tog {
-      width: 48px;
-      height: 27px;
+      width: 56px;
+      height: 30px;
       background: var(--tog-bg);
-      border-radius: 14px;
+      border-radius: 999px;
       border: 1px solid var(--bdr-md);
       cursor: none;
       position: relative;
-      transition: background var(--tt), border-color var(--tt);
+      transition: background var(--tt), border-color var(--tt), transform .2s ease;
       flex-shrink: 0
     }
 
     .tog::after {
       content: '';
       position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 19px;
-      height: 19px;
+      top: 4px;
+      left: 4px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       background: var(--tog-k);
       transition: transform .32s cubic-bezier(.4, 0, .2, 1), background var(--tt);
-      box-shadow: 0 1px 4px rgba(0, 0, 0, .3)
+      box-shadow: 0 3px 10px rgba(0, 0, 0, .3)
     }
 
     [data-theme="light"] .tog::after {
-      transform: translateX(21px)
+      transform: translateX(26px)
     }
 
     .tog-i {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      font-size: .6rem;
+      font-size: .68rem;
       pointer-events: none;
       transition: opacity .2s
     }
 
     .tog-i.m {
-      left: 6px;
+      left: 7px;
       opacity: 1
     }
 
     .tog-i.s {
-      right: 6px;
+      right: 7px;
       opacity: .35
     }
 
@@ -500,6 +510,10 @@
 
     [data-theme="light"] .tog-i.s {
       opacity: 1
+    }
+
+    .tog:hover {
+      transform: translateY(-1px)
     }
 
     .nav-cta {
@@ -1002,7 +1016,8 @@
       overflow: hidden;
       border-right: 1px solid var(--bdr);
       border-bottom: 1px solid var(--bdr);
-      transition: background .25s, border-color var(--tt);
+      transition: background .25s, border-color var(--tt), transform .28s cubic-bezier(.4, 0, .2, 1), box-shadow .28s cubic-bezier(.4, 0, .2, 1);
+      z-index: 0;
     }
 
     .svc:nth-child(3n) {
@@ -1037,7 +1052,11 @@
     }
 
     .svc:hover {
-      background: var(--card2)
+      background: var(--card2);
+      transform: translateY(-8px);
+      box-shadow: 0 18px 42px rgba(0, 0, 0, .12);
+      border-color: var(--bdr-hi);
+      z-index: 2
     }
 
     .svc:hover::before {
@@ -1054,26 +1073,47 @@
       letter-spacing: .12em;
       color: var(--gold);
       margin-bottom: 18px;
-      transition: color var(--tt)
+      transition: color var(--tt), transform .25s ease;
     }
 
     .svc-icon {
       font-size: 1.9rem;
-      margin-bottom: 14px
+      margin-bottom: 14px;
+      display: inline-block;
+      transition: transform .28s cubic-bezier(.4, 0, .2, 1), filter .28s ease;
     }
 
     .svc-t {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Lora', serif;
       font-size: 1.1rem;
       font-weight: 700;
       color: var(--th);
       margin-bottom: 10px;
-      transition: color var(--tt)
+      transition: color var(--tt), transform .25s ease
     }
 
     .svc-d {
       font-size: .875rem;
       line-height: 1.72
+    }
+
+    .svc:hover .svc-n {
+      color: var(--gold-l);
+      transform: translateX(2px);
+    }
+
+    .svc:hover .svc-icon {
+      transform: translateY(-3px) scale(1.06);
+      filter: drop-shadow(0 8px 14px rgba(0, 0, 0, .08));
+    }
+
+    .svc:hover .svc-t {
+      color: var(--gold);
+      transform: translateX(2px);
+    }
+
+    .svc:hover .svc-d {
+      color: var(--tb);
     }
 
     /* ═══ INDUSTRIES ═════════════════════════════════════════ */
@@ -1164,7 +1204,7 @@
     }
 
     .ind-name {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Lora', serif;
       font-size: 1.2rem;
       font-weight: 700;
       color: var(--th);
@@ -1314,7 +1354,7 @@
     }
 
     .ai-core-label {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Lora', serif;
       font-size: 2.2rem;
       font-weight: 700;
       color: var(--th);
@@ -1401,7 +1441,7 @@
     }
 
     .exp-title {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Lora', serif;
       font-size: 1.04rem;
       font-weight: 700;
       color: var(--th);
@@ -1603,7 +1643,7 @@
     }
 
     .flow-name {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Lora', serif;
       font-size: 1.18rem;
       font-weight: 700;
       margin-bottom: 7px;
@@ -1779,7 +1819,7 @@
     }
 
     .foot-logo {
-      font-family: 'Playfair Display', serif;
+      font-family: 'Lora', serif;
       font-size: 1rem;
       color: var(--th);
       transition: color var(--tt)
@@ -2037,7 +2077,7 @@
         <a href="#about">About</a>
         <a href="#services">Services</a>
         <div class="nav-dropdown">
-          <a href="#industries" class="nav-dropbtn" style="cursor:pointer">Industries <span
+          <a href="#industries" class="nav-dropbtn" style="cursor:pointer">Industries We Serve <span
               style="font-size: 0.7em;">▼</span></a>
           <div class="nav-dropdown-content">
             <a href="manufacturing.html">Manufacturing</a>
@@ -2051,29 +2091,25 @@
           <a href="products.html" class="nav-dropbtn" style="cursor:pointer">Financial Tools <span
               style="font-size: 0.7em;">▼</span></a>
           <div class="nav-dropdown-content">
-            <a href="products.html" class="nav-dropbtn" style="cursor:pointer">Financial Tools <span
-                style="font-size: 0.7em;">▼</span></a>
-            <div class="nav-dropdown-content">
-              <a href="products.html#ratios-analysis">Financial Ratio Analysis</a>
-              <a href="products.html#sip-calculator">SIP Calculator</a>
-              <a href="products.html#loan-calculator">Loan Calculator</a>
-              <a href="products.html#ratios-analysis">Financial Ratio Analysis</a>
-            </div>
+            <a href="sip-calculator.html">SIP Calculator</a>
+            <a href="loan-calculator.html">Loan Calculator</a>
+            <a href="ratios.html">Financial Ratio Analysis</a>
           </div>
         </div>
-        <div class="nav-right">
-          <button class="tog" id="themeToggle" aria-label="Toggle light/dark mode">
-            <span class="tog-i m">🌙</span>
-            <span class="tog-i s">☀️</span>
-          </button>
-          <a href="#contact" class="nav-cta">Book a Call</a>
-          <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-        </div>
       </div>
+      <div class="nav-right">
+        <button class="tog" id="themeToggle" aria-label="Toggle light/dark mode">
+          <span class="tog-i m">🌙</span>
+          <span class="tog-i s">☀️</span>
+        </button>
+        <a href="#contact" class="nav-cta">Book a Call</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
   </nav>
 
   <!-- Mobile Sidebar -->
@@ -2086,7 +2122,7 @@
         <a href="#about" class="sidebar-link">About</a>
         <a href="#services" class="sidebar-link">Services</a>
         <div class="sidebar-dropdown">
-          <button class="sidebar-link sidebar-dropdown-btn">Industries</button>
+          <button class="sidebar-link sidebar-dropdown-btn">Industries We Serve</button>
           <div class="sidebar-dropdown-content">
             <a href="manufacturing.html">Manufacturing</a>
             <a href="logistics.html">Logistics</a>
@@ -2098,9 +2134,9 @@
         <div class="sidebar-dropdown">
           <button class="sidebar-link sidebar-dropdown-btn">Financial Tools</button>
           <div class="sidebar-dropdown-content">
-            <a href="products.html#sip-calculator">SIP Calculator</a>
-            <a href="products.html#loan-calculator">Loan Calculator</a>
-            <a href="products.html#ratios-analysis">Financial Ratio Analysis</a>
+            <a href="sip-calculator.html">SIP Calculator</a>
+            <a href="loan-calculator.html">Loan Calculator</a>
+            <a href="ratios.html">Financial Ratio Analysis</a>
           </div>
         </div>
         <a href="#contact" class="sidebar-link sidebar-cta">Book a Free Consultation</a>
@@ -2118,7 +2154,7 @@
             <span class="kicker-txt">ERP Consulting · Business Analysis · AI Workflow Design</span>
           </div>
           <h1 class="hero-h1 serif">
-            We Turn Business Complexity<br>Into <em>Scalable ERP Solutions</em>
+            We Turn Business Complexity<br>Into <em class="aurora-text">Scalable ERP Solutions</em>
           </h1>
           <p class="hero-p">Empowering <strong>Manufacturing, Logistics, Construction, Marketing, and Textile</strong>
             businesses to operate smarter — through expert <mark>ERPNext &amp; Odoo</mark> implementation, intelligent
@@ -2713,3 +2749,5 @@
 </body>
 
 </html>
+
+

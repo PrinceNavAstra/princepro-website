@@ -54,7 +54,7 @@ any
 }
 
 .scr-panel-title {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: 'Lora', Georgia, serif;
     font-size: 1.25rem;
     font-weight: 700;
     color: var(--text-primary);

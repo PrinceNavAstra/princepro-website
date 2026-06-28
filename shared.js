@@ -3,6 +3,7 @@
   var html = document.documentElement;
   var saved = localStorage.getItem('pp-theme');
   if (saved) html.setAttribute('data-theme', saved);
+  else html.setAttribute('data-theme', 'light');
 
   document.addEventListener('DOMContentLoaded', function () {
     var toggle = document.getElementById('themeToggle');
@@ -137,3 +138,4 @@
     }
   });
 })();
+

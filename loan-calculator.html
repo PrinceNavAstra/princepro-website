@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loan Calculator — EMI & Repayment Planning | Prince Prajapati</title>
+  <meta name="description" content="Calculate EMI, total interest, and repayment impact for home, car, and personal loans." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="industry.css" />
+  <link rel="stylesheet" href="products.css" />
+</head>
+<body>
+<nav id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Prince <em>Prajapati</em></a>
+      <div class="nav-links">
+        <a href="index.html#about">About</a>
+        <a href="index.html#services">Services</a>
+        <div class="nav-dropdown">
+          <a href="index.html#industries" class="nav-dropbtn" style="cursor:pointer">Industries We Serve <span
+              style="font-size:0.7em">▼</span></a>
+          <div class="nav-dropdown-content">
+            <a href="manufacturing.html">Manufacturing</a>
+            <a href="logistics.html">Logistics</a>
+            <a href="construction.html">Construction</a>
+            <a href="marketing.html">Marketing</a>
+            <a href="textile.html">Textile</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <a href="products.html" class="nav-dropbtn active" style="cursor:pointer">Financial Tools <span
+              style="font-size:0.7em">▼</span></a>
+          <div class="nav-dropdown-content">
+            <a href="sip-calculator.html">SIP Calculator</a>
+            <a href="loan-calculator.html">Loan Calculator</a>
+            <a href="ratios.html">Financial Ratio Analysis</a>
+          </div>
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span class="theme-toggle-icon moon">🌙</span>
+          <span class="theme-toggle-icon sun">☀️</span>
+        </button>
+        <a href="index.html#contact" class="nav-cta">Book a Call</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+<!-- Mobile Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-content">
+      <div class="sidebar-header">
+        <button class="sidebar-close" id="sidebarClose" aria-label="Close menu"></button>
+      </div>
+      <div class="sidebar-links">
+        <a href="index.html#about" class="sidebar-link">About</a>
+        <a href="index.html#services" class="sidebar-link">Services</a>
+        <div class="sidebar-dropdown">
+          <button class="sidebar-link sidebar-dropdown-btn">Industries We Serve</button>
+          <div class="sidebar-dropdown-content">
+            <a href="manufacturing.html">Manufacturing</a>
+            <a href="logistics.html">Logistics</a>
+            <a href="construction.html">Construction</a>
+            <a href="marketing.html">Marketing</a>
+            <a href="textile.html">Textile</a>
+          </div>
+        </div>
+        <div class="sidebar-dropdown">
+          <button class="sidebar-link sidebar-dropdown-btn">Financial Tools</button>
+          <div class="sidebar-dropdown-content">
+            <a href="sip-calculator.html">SIP Calculator</a>
+            <a href="loan-calculator.html">Loan Calculator</a>
+            <a href="ratios.html">Financial Ratio Analysis</a>
+          </div>
+        </div>
+        <a href="index.html#contact" class="sidebar-link sidebar-cta">Book a Free Consultation</a>
+      </div>
+    </div>
+  </div>
+<div class="divider"></div>
+
+  <section class="ind-body bg-2">
+    <div class="wrap">
+      <div class="tool-intro reveal">
+          <div class="tool-quote-card">
+            <div class="tool-quote-kicker">Debt discipline</div>
+            <div class="tool-quote-title">“A loan is a tool — <span class="aurora-text">clarity</span> turns it into progress.”</div>
+            <p class="tool-quote-body">Use the EMI calculator to plan <mark>repayments</mark> with confidence, understand the <mark>cost of borrowing</mark>, and see how <mark>extra principal</mark> can shorten your journey.</p>
+          </div>
+          <div class="tool-info-card">
+            <div class="tool-quote-kicker">Key takeaways</div>
+            <div class="tool-info-list">
+              <div class="tool-info-item"><strong>Know the EMI</strong><span>Clarity on monthly repayment helps you protect cash flow.</span></div>
+              <div class="tool-info-item"><strong>Reduce interest</strong><span>Even modest extra principal can save meaningful interest.</span></div>
+              <div class="tool-info-item"><strong>Protect flexibility</strong><span>Choose a tenure that keeps your business and personal plans steady.</span></div>
+            </div>
+          </div>
+        </div>
+      <div class="calc-layout calc-layout-single">
+          <div class="calc-card">
+            <h3>Loan Calculator</h3>
+            <p class="calc-desc">Calculate your monthly EMI, total interest payable, and overall repayment amount for
+              any loan.</p>
+
+            <div class="calc-field">
+              <label for="loan-type">Loan Type</label>
+              <select id="loan-type">
+                <option value="home">Home Loan</option>
+                <option value="car">Car Loan</option>
+                <option value="personal">Personal Loan</option>
+              </select>
+            </div>
+
+            <div class="calc-field">
+              <label for="loan-amount">Loan Amount</label>
+              <div class="input-wrap">
+                <span class="input-prefix">₹</span>
+                <input type="number" id="loan-amount" value="5000000" min="0" step="10000" />
+              </div>
+            </div>
+            <div class="calc-field">
+              <label for="loan-rate">Annual Interest Rate (%)</label>
+              <div class="input-wrap has-suffix">
+                <input type="number" id="loan-rate" value="8.5" min="0" max="30" step="0.1" />
+                <span class="input-suffix">%</span>
+              </div>
+            </div>
+            <div class="calc-field">
+              <label for="loan-years">Loan Tenure (Years)</label>
+              <div class="input-wrap has-suffix">
+                <input type="number" id="loan-years" value="20" min="1" max="30" step="1" />
+                <span class="input-suffix">yrs</span>
+              </div>
+            </div>
+            <div class="calc-field">
+              <label for="loan-extra-principal">Optional Extra Principal Per Year (₹)</label>
+              <div class="input-wrap">
+                <span class="input-prefix">₹</span>
+                <input type="number" id="loan-extra-principal" min="0" step="10000"
+                  placeholder="Leave blank for regular EMI" />
+              </div>
+            </div>
+            <p class="calc-note">Leave the extra principal field blank to calculate the regular loan schedule.</p>
+            <button class="calc-btn" id="loan-calc-btn" type="button">Calculate EMI</button>
+          </div>
+
+          <div class="calc-card">
+            <h3>Repayment Summary</h3>
+            <p class="calc-desc">Your estimated monthly instalment and total cost of borrowing.</p>
+            <div class="calc-results">
+              <div class="result-item highlight">
+                <div class="result-label">Monthly EMI</div>
+                <div class="result-value" id="loan-emi">—</div>
+              </div>
+              <div class="result-item">
+                <div class="result-label">Total Interest</div>
+                <div class="result-value" id="loan-interest">—</div>
+              </div>
+              <div class="result-item">
+                <div class="result-label">Total Payment</div>
+                <div class="result-value" id="loan-total">—</div>
+              </div>
+            </div>
+            <p class="result-note">EMI calculated using standard reducing-balance method. Processing fees and charges
+              are not included.</p>
+          </div>
+        </div>
+
+        <div class="calc-card" style="margin-top: 36px;">
+          <h3>Extra Principal Impact</h3>
+          <p class="calc-desc">Filled only when you enter an extra principal amount above.</p>
+          <div class="calc-results">
+            <div class="result-item">
+              <div class="result-label">Tenure Reduced By</div>
+              <div class="result-value" id="loan-tenure-reduction">—</div>
+            </div>
+            <div class="result-item highlight">
+              <div class="result-label">Total Interest Saved</div>
+              <div class="result-value" id="loan-interest-saved">—</div>
+            </div>
+            <div class="result-item">
+              <div class="result-label">New Tenure</div>
+              <div class="result-value" id="loan-new-tenure">—</div>
+            </div>
+          </div>
+          <p class="result-note">The impact card updates automatically when extra principal is entered.</p>
+        </div>
+
+        <!-- Loan Amortization Table -->
+        <div
+          style="margin-top: 36px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 32px 28px;">
+          <h3
+            style="font-family: 'Lora', Georgia, serif; font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">
+            Amortization Schedule</h3>
+          <p class="calc-desc" style="margin-bottom: 20px;">Yearly breakdown of principal, interest, remaining
+            balance and balance reduction.</p>
+          <div class="table-wrapper" id="loan-table-wrapper">
+            <table class="loan-amortization-table" id="loan-amortization-table">
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Beginning Balance</th>
+                  <th>Principal Payment</th>
+                  <th>Extra Principal</th>
+                  <th>Interest Payment</th>
+                  <th>Ending Balance</th>
+                  <th>Balance Reduction</th>
+                </tr>
+              </thead>
+              <tbody id="loan-amortization-tbody">
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="calc-card" style="margin-top: 28px;">
+          <h3>Balance Chart</h3>
+          <p class="calc-desc">A visual view of the year-end loan balance for the current repayment plan.</p>
+          <div class="mini-chart" id="loan-chart"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<footer>
+    <div class="footer-inner">
+      <div style="max-width: 1200px; margin: 0 auto; padding-bottom: 28px;">
+        <p style="font-size: 0.7rem; color: var(--text-muted); line-height: 1.4;">
+          <strong>Disclaimer:</strong> The calculations and analysis provided by these financial tools are
+          system-generated and for informational purposes only.
+          The results are based on the data you input and may not reflect actual market conditions, regulatory changes,
+          or unforeseen circumstances.
+          Actual results may differ significantly from the projections. Before making any investment, loan, or financial
+          decision, please consult with a qualified
+          financial adviser or investment professional. Prince Prajapati and associated parties are not responsible for
+          any financial losses or decisions made based on
+          these tools.
+        </p>
+      </div>
+      <div class="footer-logo">Prince <em>Prajapati</em></div>
+      <div class="footer-copy">© 2026 · ERP Consulting &amp; AI Workflow Design</div>
+    </div>
+  </footer>
+
+  <!-- CUSTOM CURSOR -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <script src="shared.js"></script>
+  <script src="products.js"></script>
+</body>
+</html>
+
+
+
+
+

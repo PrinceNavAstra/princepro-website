@@ -177,7 +177,7 @@
       for (var month = 0; month < 12; month++) {
         invested += monthly;
         annualContribution += monthly;
-        balance = balance * (1 + monthlyRate) + monthly;
+        balance = (balance + monthly) * (1 + monthlyRate);
       }
 
       rows.push({
@@ -212,7 +212,7 @@
       for (var month = 0; month < 12; month++) {
         invested += currentMonthly;
         annualContribution += currentMonthly;
-        balance = balance * (1 + monthlyRate) + currentMonthly;
+        balance = (balance + currentMonthly) * (1 + monthlyRate);
       }
 
       rows.push({
@@ -734,3 +734,4 @@
   calcSIP();
   calcLoan();
 })();
+
