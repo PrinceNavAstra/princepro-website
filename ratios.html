@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Financial Ratio Analysis | Prince Prajapati</title>
-  <meta name="description" content="Analyse liquidity, leverage, profitability, and efficiency ratios from manual input or uploaded data." />
+  <meta name="description"
+    content="Analyse liquidity, leverage, profitability, and efficiency ratios from manual input or uploaded data." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="shared.css" />
   <link rel="stylesheet" href="industry.css" />
   <link rel="stylesheet" href="products.css" />
 </head>
+
 <body>
-<nav id="nav">
+  <nav id="nav">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">Prince <em>Prajapati</em></a>
       <div class="nav-links">
@@ -31,7 +36,7 @@
           </div>
         </div>
         <div class="nav-dropdown">
-          <a href="products.html" class="nav-dropbtn active" style="cursor:pointer">Financial Tools <span
+          <a href="#" class="nav-dropbtn active" data-nav="financial-tools" style="cursor:pointer">Financial Tools <span
               style="font-size:0.7em">▼</span></a>
           <div class="nav-dropdown-content">
             <a href="sip-calculator.html">SIP Calculator</a>
@@ -54,7 +59,7 @@
       </div>
     </div>
   </nav>
-<!-- Mobile Sidebar -->
+  <!-- Mobile Sidebar -->
   <div class="sidebar" id="sidebar">
     <div class="sidebar-content">
       <div class="sidebar-header">
@@ -85,239 +90,234 @@
       </div>
     </div>
   </div>
-<div class="divider"></div>
+  <div class="divider"></div>
 
   <section class="ind-body bg-2">
     <div class="wrap">
-      <div class="tool-intro reveal">
-          <div class="tool-quote-card">
-            <div class="tool-quote-kicker">Business clarity</div>
-            <div class="tool-quote-title">“Good decisions start when the numbers start speaking <span class="aurora-text">clearly</span>.”</div>
-            <p class="tool-quote-body">Use ratio analysis to understand <mark>liquidity</mark>, <mark>leverage</mark>, <mark>profitability</mark>, and operational strength before making the next move.</p>
-          </div>
-          <div class="tool-info-card">
-            <div class="tool-quote-kicker">Key takeaways</div>
-            <div class="tool-info-list">
-              <div class="tool-info-item"><strong>Read liquidity</strong><span>See if your business can comfortably meet short-term obligations.</span></div>
-              <div class="tool-info-item"><strong>Track leverage</strong><span>Understand how much debt is supporting your growth.</span></div>
-              <div class="tool-info-item"><strong>Spot profitability</strong><span>Measure whether operations are turning effort into healthy returns.</span></div>
-            </div>
-          </div>
-        </div>
-      <!-- Input Method Selector -->
-        <div
-          style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 28px 28px; margin-bottom: 28px;">
-          <h3
-            style="font-family: 'Lora', Georgia, serif; font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin-bottom: 16px;">
-            Data Input Method</h3>
-          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-            <button class="ratio-input-method active" data-method="manual" type="button"
-              style="padding: 10px 20px; border-radius: 100px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-body); cursor: pointer; transition: all 0.2s; font-weight: 500; font-size: 0.95rem;">
-              Manual Entry
-            </button>
-            <button class="ratio-input-method" data-method="file" type="button"
-              style="padding: 10px 20px; border-radius: 100px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-body); cursor: pointer; transition: all 0.2s; font-weight: 500; font-size: 0.95rem;">
-              Upload CSV/Excel
-            </button>
-          </div>
-          <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 12px;">CSV/Excel format should have
-            columns: Current Assets, Inventory, Current Liabilities, Total Debt, Equity, Total Assets, Revenue, Gross
-            Profit, Net Income</p>
-        </div>
 
-        <!-- File Upload Section -->
-        <div id="file-upload-section"
-          style="display: none; background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 28px 28px; margin-bottom: 28px;">
-          <h3
-            style="font-family: 'Lora', Georgia, serif; font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin-bottom: 16px;">
-            Upload Financial Data</h3>
-          <div class="calc-field">
-            <label for="ratio-file-upload">Select CSV or Excel File</label>
-            <input type="file" id="ratio-file-upload" accept=".csv,.xlsx,.xls"
-              style="padding: 12px 14px; width: 100%; cursor: pointer;" />
-          </div>
-          <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 12px;">Supported formats: CSV, XLSX, XLS
+      <div class="tool-hero reveal">
+        <div class="tool-hero-quote-card">
+          <div class="tool-hero-quote-kicker">Business clarity</div>
+          <div class="tool-hero-quote-title">“Good decisions start when the numbers start speaking <span
+              class="aurora-text">clearly</span>.”</div>
+          <p class="tool-hero-quote-body">Use ratio analysis to understand <mark>liquidity</mark>,
+            <mark>leverage</mark>, <mark>profitability</mark>, and operational strength before making the next move.
           </p>
-          <button class="calc-btn" id="ratio-upload-btn" type="button" style="margin-top: 12px;">Load Data from
-            File</button>
         </div>
+      </div>
 
-        <!-- Manual Entry Section -->
-        <div id="manual-entry-section">
-          <div class="calc-layout">
-            <div class="calc-card">
-              <h3>Enter Financial Data</h3>
-              <p class="calc-desc">Input your balance sheet and income statement figures to instantly compute key
-                financial ratios.</p>
-              <div class="ratios-input-grid">
-                <div class="calc-field">
-                  <label for="ratio-current-assets">Current Assets (₹)</label>
-                  <input type="number" id="ratio-current-assets" min="0" step="1000" placeholder="Enter value" />
-                </div>
-                <div class="calc-field">
-                  <label for="ratio-inventory">Inventory (₹)</label>
-                  <input type="number" id="ratio-inventory" min="0" step="1000" placeholder="Enter value" />
-                </div>
-                <div class="calc-field">
-                  <label for="ratio-current-liab">Current Liabilities (₹)</label>
-                  <input type="number" id="ratio-current-liab" min="0" step="1000" placeholder="Enter value" />
-                </div>
-                <div class="calc-field">
-                  <label for="ratio-total-debt">Total Debt (₹)</label>
-                  <input type="number" id="ratio-total-debt" min="0" step="1000" placeholder="Enter value" />
-                </div>
-                <div class="calc-field">
-                  <label for="ratio-equity">Shareholders' Equity (₹)</label>
-                  <input type="number" id="ratio-equity" min="0" step="1000" placeholder="Enter value" />
-                </div>
-                <div class="calc-field">
-                  <label for="ratio-total-assets">Total Assets (₹)</label>
-                  <input type="number" id="ratio-total-assets" min="0" step="1000" placeholder="Enter value" />
-                </div>
-                <div class="calc-field">
-                  <label for="ratio-revenue">Revenue / Net Sales (₹)</label>
-                  <input type="number" id="ratio-revenue" min="0" step="1000" placeholder="Enter value" />
-                </div>
-                <div class="calc-field">
-                  <label for="ratio-gross-profit">Gross Profit (₹)</label>
-                  <input type="number" id="ratio-gross-profit" min="0" step="1000" placeholder="Enter value" />
-                </div>
-                <div class="calc-field" style="grid-column:1/-1">
-                  <label for="ratio-net-income">Net Income (₹)</label>
-                  <input type="number" id="ratio-net-income" min="0" step="1000" placeholder="Enter value" />
-                </div>
-              </div>
-              <button class="calc-btn" id="ratios-calc-btn" type="button">Analyse Ratios</button>
-            </div>
-
-            <div class="calc-card">
-              <h3>Basic Ratios</h3>
-              <p class="calc-desc">Liquidity and operational efficiency metrics.</p>
-              <div class="ratios-results">
-                <div class="ratio-card">
-                  <div class="result-label">Current Ratio</div>
-                  <div class="result-value" id="ratio-current-value">—</div>
-                  <div class="ratio-formula">Current Assets ÷ Current Liabilities</div>
-                  <span class="ratio-status" id="ratio-current-status"></span>
-                </div>
-                <div class="ratio-card">
-                  <div class="result-label">Quick Ratio</div>
-                  <div class="result-value" id="ratio-quick-value">—</div>
-                  <div class="ratio-formula">(Current Assets − Inventory) ÷ Current Liab.</div>
-                  <span class="ratio-status" id="ratio-quick-status"></span>
-                </div>
-              </div>
-            </div>
-          </div>
+      <!-- Input Method Selector -->
+      <div
+        style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 28px 28px; margin-bottom: 28px;">
+        <h3
+          style="font-family: 'Lora', Georgia, serif; font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin-bottom: 16px;">
+          Data Input Method</h3>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <button class="ratio-input-method active" data-method="manual" type="button"
+            style="padding: 10px 20px; border-radius: 100px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-body); cursor: pointer; transition: all 0.2s; font-weight: 500; font-size: 0.95rem;">
+            Manual Entry
+          </button>
+          <button class="ratio-input-method" data-method="file" type="button"
+            style="padding: 10px 20px; border-radius: 100px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text-body); cursor: pointer; transition: all 0.2s; font-weight: 500; font-size: 0.95rem;">
+            Upload CSV/Excel
+          </button>
         </div>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 12px;">CSV/Excel format should have
+          columns: Current Assets, Inventory, Current Liabilities, Total Debt, Equity, Total Assets, Revenue, Gross
+          Profit, Net Income</p>
+      </div>
 
-        <!-- Advanced Ratios Sections -->
-        <div class="calc-layout" style="margin-top: 28px;">
+      <!-- File Upload Section -->
+      <div id="file-upload-section"
+        style="display: none; background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 28px 28px; margin-bottom: 28px;">
+        <h3
+          style="font-family: 'Lora', Georgia, serif; font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin-bottom: 16px;">
+          Upload Financial Data</h3>
+        <div class="calc-field">
+          <label for="ratio-file-upload">Select CSV or Excel File</label>
+          <input type="file" id="ratio-file-upload" accept=".csv,.xlsx,.xls"
+            style="padding: 12px 14px; width: 100%; cursor: pointer;" />
+        </div>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 12px;">Supported formats: CSV, XLSX, XLS
+        </p>
+        <button class="calc-btn" id="ratio-upload-btn" type="button" style="margin-top: 12px;">Load Data from
+          File</button>
+      </div>
+
+      <!-- Manual Entry Section -->
+      <div id="manual-entry-section">
+        <div class="calc-layout">
           <div class="calc-card">
-            <h3>Leverage Ratios</h3>
-            <p class="calc-desc">Analyse the company's debt structure and capital composition.</p>
-            <div class="ratios-results">
-              <div class="ratio-card">
-                <div class="result-label">Debt-to-Equity</div>
-                <div class="result-value" id="ratio-debt-equity-value">—</div>
-                <div class="ratio-formula">Total Debt ÷ Shareholders' Equity</div>
-                <span class="ratio-status" id="ratio-debt-equity-status"></span>
+            <h3>Enter Financial Data</h3>
+            <p class="calc-desc">Input your balance sheet and income statement figures to instantly compute key
+              financial ratios.</p>
+            <div class="ratios-input-grid">
+              <div class="calc-field">
+                <label for="ratio-current-assets">Current Assets (₹)</label>
+                <input type="number" id="ratio-current-assets" min="0" step="1000" placeholder="Enter value" />
               </div>
-              <div class="ratio-card">
-                <div class="result-label">Debt-to-Assets</div>
-                <div class="result-value" id="ratio-debt-assets-value">—</div>
-                <div class="ratio-formula">Total Debt ÷ Total Assets</div>
-                <span class="ratio-status" id="ratio-debt-assets-status"></span>
+              <div class="calc-field">
+                <label for="ratio-inventory">Inventory (₹)</label>
+                <input type="number" id="ratio-inventory" min="0" step="1000" placeholder="Enter value" />
               </div>
-              <div class="ratio-card">
-                <div class="result-label">Equity Multiplier</div>
-                <div class="result-value" id="ratio-equity-mult-value">—</div>
-                <div class="ratio-formula">Total Assets ÷ Shareholders' Equity</div>
-                <span class="ratio-status" id="ratio-equity-mult-status"></span>
+              <div class="calc-field">
+                <label for="ratio-current-liab">Current Liabilities (₹)</label>
+                <input type="number" id="ratio-current-liab" min="0" step="1000" placeholder="Enter value" />
+              </div>
+              <div class="calc-field">
+                <label for="ratio-total-debt">Total Debt (₹)</label>
+                <input type="number" id="ratio-total-debt" min="0" step="1000" placeholder="Enter value" />
+              </div>
+              <div class="calc-field">
+                <label for="ratio-equity">Shareholders' Equity (₹)</label>
+                <input type="number" id="ratio-equity" min="0" step="1000" placeholder="Enter value" />
+              </div>
+              <div class="calc-field">
+                <label for="ratio-total-assets">Total Assets (₹)</label>
+                <input type="number" id="ratio-total-assets" min="0" step="1000" placeholder="Enter value" />
+              </div>
+              <div class="calc-field">
+                <label for="ratio-revenue">Revenue / Net Sales (₹)</label>
+                <input type="number" id="ratio-revenue" min="0" step="1000" placeholder="Enter value" />
+              </div>
+              <div class="calc-field">
+                <label for="ratio-gross-profit">Gross Profit (₹)</label>
+                <input type="number" id="ratio-gross-profit" min="0" step="1000" placeholder="Enter value" />
+              </div>
+              <div class="calc-field" style="grid-column:1/-1">
+                <label for="ratio-net-income">Net Income (₹)</label>
+                <input type="number" id="ratio-net-income" min="0" step="1000" placeholder="Enter value" />
               </div>
             </div>
+            <button class="calc-btn" id="ratios-calc-btn" type="button">Analyse Ratios</button>
           </div>
 
           <div class="calc-card">
-            <h3>Profitability Ratios</h3>
-            <p class="calc-desc">Measure the company's ability to generate profit from operations.</p>
+            <h3>Basic Ratios</h3>
+            <p class="calc-desc">Liquidity and operational efficiency metrics.</p>
             <div class="ratios-results">
               <div class="ratio-card">
-                <div class="result-label">Gross Profit Margin</div>
-                <div class="result-value" id="ratio-gross-margin-value">—</div>
-                <div class="ratio-formula">Gross Profit ÷ Revenue × 100</div>
-                <span class="ratio-status" id="ratio-gross-margin-status"></span>
+                <div class="result-label">Current Ratio</div>
+                <div class="result-value" id="ratio-current-value">—</div>
+                <div class="ratio-formula">Current Assets ÷ Current Liabilities</div>
+                <span class="ratio-status" id="ratio-current-status"></span>
               </div>
               <div class="ratio-card">
-                <div class="result-label">Net Profit Margin</div>
-                <div class="result-value" id="ratio-net-margin-value">—</div>
-                <div class="ratio-formula">Net Income ÷ Revenue × 100</div>
-                <span class="ratio-status" id="ratio-net-margin-status"></span>
-              </div>
-              <div class="ratio-card">
-                <div class="result-label">Return on Assets (ROA)</div>
-                <div class="result-value" id="ratio-roa-value">—</div>
-                <div class="ratio-formula">Net Income ÷ Total Assets × 100</div>
-                <span class="ratio-status" id="ratio-roa-status"></span>
-              </div>
-              <div class="ratio-card">
-                <div class="result-label">Return on Equity (ROE)</div>
-                <div class="result-value" id="ratio-roe-value">—</div>
-                <div class="ratio-formula">Net Income ÷ Equity × 100</div>
-                <span class="ratio-status" id="ratio-roe-status"></span>
+                <div class="result-label">Quick Ratio</div>
+                <div class="result-value" id="ratio-quick-value">—</div>
+                <div class="ratio-formula">(Current Assets − Inventory) ÷ Current Liab.</div>
+                <span class="ratio-status" id="ratio-quick-status"></span>
               </div>
             </div>
-          </div>
-        </div>
-
-        <!-- Additional Advanced Ratios -->
-        <div class="calc-card" style="margin-top: 28px;">
-          <h3>Advanced Ratios</h3>
-          <p class="calc-desc">Additional financial metrics for deeper analysis.</p>
-          <div class="ratios-results">
-            <div class="ratio-card">
-              <div class="result-label">Equity Ratio</div>
-              <div class="result-value" id="ratio-equity-value">—</div>
-              <div class="ratio-formula">Shareholders' Equity ÷ Total Assets × 100</div>
-              <span class="ratio-status" id="ratio-equity-status"></span>
-            </div>
-            <div class="ratio-card">
-              <div class="result-label">Operating Margin</div>
-              <div class="result-value" id="ratio-operating-margin-value">—</div>
-              <div class="ratio-formula">(Gross Profit − Overhead) ÷ Revenue × 100</div>
-              <span class="ratio-status" id="ratio-operating-margin-status"></span>
-            </div>
-            <div class="ratio-card">
-              <div class="result-label">Asset Turnover</div>
-              <div class="result-value" id="ratio-asset-turnover-value">—</div>
-              <div class="ratio-formula">Revenue ÷ Total Assets</div>
-              <span class="ratio-status" id="ratio-asset-turnover-status"></span>
-            </div>
-            <div class="ratio-card">
-              <div class="result-label">DuPont ROE</div>
-              <div class="result-value" id="ratio-dupont-value">—</div>
-              <div class="ratio-formula">Net Margin × Asset Turnover × Equity Multiplier</div>
-              <span class="ratio-status" id="ratio-dupont-status"></span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Analysis Feedback -->
-        <div
-          style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 28px 28px; margin-top: 28px;">
-          <h3
-            style="font-family: 'Lora', Georgia, serif; font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin-bottom: 12px;">
-            Financial Health Assessment</h3>
-          <div id="ratio-feedback" style="font-size: 1rem; line-height: 1.7; color: var(--text-body);">
-            <p>Fill in the financial data and click "Analyse Ratios" to get detailed assessment.</p>
           </div>
         </div>
       </div>
+
+      <!-- Advanced Ratios Sections -->
+      <div class="calc-layout" style="margin-top: 28px;">
+        <div class="calc-card">
+          <h3>Leverage Ratios</h3>
+          <p class="calc-desc">Analyse the company's debt structure and capital composition.</p>
+          <div class="ratios-results">
+            <div class="ratio-card">
+              <div class="result-label">Debt-to-Equity</div>
+              <div class="result-value" id="ratio-debt-equity-value">—</div>
+              <div class="ratio-formula">Total Debt ÷ Shareholders' Equity</div>
+              <span class="ratio-status" id="ratio-debt-equity-status"></span>
+            </div>
+            <div class="ratio-card">
+              <div class="result-label">Debt-to-Assets</div>
+              <div class="result-value" id="ratio-debt-assets-value">—</div>
+              <div class="ratio-formula">Total Debt ÷ Total Assets</div>
+              <span class="ratio-status" id="ratio-debt-assets-status"></span>
+            </div>
+            <div class="ratio-card">
+              <div class="result-label">Equity Multiplier</div>
+              <div class="result-value" id="ratio-equity-mult-value">—</div>
+              <div class="ratio-formula">Total Assets ÷ Shareholders' Equity</div>
+              <span class="ratio-status" id="ratio-equity-mult-status"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="calc-card">
+          <h3>Profitability Ratios</h3>
+          <p class="calc-desc">Measure the company's ability to generate profit from operations.</p>
+          <div class="ratios-results">
+            <div class="ratio-card">
+              <div class="result-label">Gross Profit Margin</div>
+              <div class="result-value" id="ratio-gross-margin-value">—</div>
+              <div class="ratio-formula">Gross Profit ÷ Revenue × 100</div>
+              <span class="ratio-status" id="ratio-gross-margin-status"></span>
+            </div>
+            <div class="ratio-card">
+              <div class="result-label">Net Profit Margin</div>
+              <div class="result-value" id="ratio-net-margin-value">—</div>
+              <div class="ratio-formula">Net Income ÷ Revenue × 100</div>
+              <span class="ratio-status" id="ratio-net-margin-status"></span>
+            </div>
+            <div class="ratio-card">
+              <div class="result-label">Return on Assets (ROA)</div>
+              <div class="result-value" id="ratio-roa-value">—</div>
+              <div class="ratio-formula">Net Income ÷ Total Assets × 100</div>
+              <span class="ratio-status" id="ratio-roa-status"></span>
+            </div>
+            <div class="ratio-card">
+              <div class="result-label">Return on Equity (ROE)</div>
+              <div class="result-value" id="ratio-roe-value">—</div>
+              <div class="ratio-formula">Net Income ÷ Equity × 100</div>
+              <span class="ratio-status" id="ratio-roe-status"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Advanced Ratios -->
+      <div class="calc-card" style="margin-top: 28px;">
+        <h3>Advanced Ratios</h3>
+        <p class="calc-desc">Additional financial metrics for deeper analysis.</p>
+        <div class="ratios-results">
+          <div class="ratio-card">
+            <div class="result-label">Equity Ratio</div>
+            <div class="result-value" id="ratio-equity-value">—</div>
+            <div class="ratio-formula">Shareholders' Equity ÷ Total Assets × 100</div>
+            <span class="ratio-status" id="ratio-equity-status"></span>
+          </div>
+          <div class="ratio-card">
+            <div class="result-label">Operating Margin</div>
+            <div class="result-value" id="ratio-operating-margin-value">—</div>
+            <div class="ratio-formula">(Gross Profit − Overhead) ÷ Revenue × 100</div>
+            <span class="ratio-status" id="ratio-operating-margin-status"></span>
+          </div>
+          <div class="ratio-card">
+            <div class="result-label">Asset Turnover</div>
+            <div class="result-value" id="ratio-asset-turnover-value">—</div>
+            <div class="ratio-formula">Revenue ÷ Total Assets</div>
+            <span class="ratio-status" id="ratio-asset-turnover-status"></span>
+          </div>
+          <div class="ratio-card">
+            <div class="result-label">DuPont ROE</div>
+            <div class="result-value" id="ratio-dupont-value">—</div>
+            <div class="ratio-formula">Net Margin × Asset Turnover × Equity Multiplier</div>
+            <span class="ratio-status" id="ratio-dupont-status"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Analysis Feedback -->
+      <div
+        style="background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 28px 28px; margin-top: 28px;">
+        <h3
+          style="font-family: 'Lora', Georgia, serif; font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin-bottom: 12px;">
+          Financial Health Assessment</h3>
+        <div id="ratio-feedback" style="font-size: 1rem; line-height: 1.7; color: var(--text-body);">
+          <p>Fill in the financial data and click "Analyse Ratios" to get detailed assessment.</p>
+        </div>
       </div>
     </div>
   </section>
 
-<footer>
+  <footer>
     <div class="footer-inner">
       <div style="max-width: 1200px; margin: 0 auto; padding-bottom: 28px;">
         <p style="font-size: 0.7rem; color: var(--text-muted); line-height: 1.4;">
@@ -344,9 +344,5 @@
   <script src="shared.js"></script>
   <script src="products.js"></script>
 </body>
+
 </html>
-
-
-
-
-

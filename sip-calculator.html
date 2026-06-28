@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SIP Calculator — Step-Up & Returns | Prince Prajapati</title>
-  <meta name="description" content="Estimate future SIP growth, step-up impact, and projected returns with an easy monthly investment calculator." />
+  <meta name="description"
+    content="Estimate future SIP growth, step-up impact, and projected returns with an easy monthly investment calculator." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="shared.css" />
   <link rel="stylesheet" href="industry.css" />
   <link rel="stylesheet" href="products.css" />
 </head>
+
 <body>
-<nav id="nav">
+  <nav id="nav">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">Prince <em>Prajapati</em></a>
       <div class="nav-links">
@@ -54,7 +59,7 @@
       </div>
     </div>
   </nav>
-<!-- Mobile Sidebar -->
+  <!-- Mobile Sidebar -->
   <div class="sidebar" id="sidebar">
     <div class="sidebar-content">
       <div class="sidebar-header">
@@ -85,153 +90,149 @@
       </div>
     </div>
   </div>
-<div class="divider"></div>
+  <div class="divider"></div>
 
   <section class="ind-body bg-2">
     <div class="wrap">
-      <div class="tool-intro reveal">
-          <div class="tool-quote-card">
-            <div class="tool-quote-kicker">Wealth building mindset</div>
-            <div class="tool-quote-title">“<span class="aurora-text">Consistency</span> beats intensity when time is on your side.”</div>
-            <p class="tool-quote-body">Use the SIP calculator to build a habit of <mark>disciplined investing</mark>, test <mark>step-up growth</mark>, and see how <mark>compounding</mark> rewards patience.</p>
-          </div>
-          <div class="tool-info-card">
-            <div class="tool-quote-kicker">Key takeaways</div>
-            <div class="tool-info-list">
-              <div class="tool-info-item"><strong>Stay consistent</strong><span>Regular investing can create meaningful growth over time.</span></div>
-              <div class="tool-info-item"><strong>Use step-ups</strong><span>Small annual increases can make a big difference in maturity value.</span></div>
-              <div class="tool-info-item"><strong>Think long term</strong><span>Compounding works best when you give it time and patience.</span></div>
-            </div>
-          </div>
-        </div>
-      <div class="calc-layout calc-layout-single">
-          <div class="calc-card">
-            <h3>SIP Calculator</h3>
-            <p class="calc-desc">Estimate the future value of your Systematic Investment Plan based on monthly
-              contributions and expected returns.</p>
-            <div class="calc-field">
-              <label for="sip-amount">Monthly Investment</label>
-              <div class="input-wrap">
-                <span class="input-prefix">₹</span>
-                <input type="number" id="sip-amount" value="10000" min="0" step="500" />
-              </div>
-            </div>
-            <div class="calc-field">
-              <label for="sip-rate">Expected Annual Return (%)</label>
-              <div class="input-wrap has-suffix">
-                <input type="number" id="sip-rate" value="12" min="0" max="50" step="0.5" />
-                <span class="input-suffix">%</span>
-              </div>
-            </div>
-            <div class="calc-field">
-              <label for="sip-years">Investment Period (Years)</label>
-              <div class="input-wrap has-suffix">
-                <input type="number" id="sip-years" value="10" min="1" max="40" step="1" />
-                <span class="input-suffix">yrs</span>
-              </div>
-            </div>
-            <div class="calc-field">
-              <label for="sip-stepup-amount">Optional Step-Up Amount (₹)</label>
-              <div class="input-wrap">
-                <span class="input-prefix">₹</span>
-                <input type="number" id="sip-stepup-amount" min="0" step="100"
-                  placeholder="Leave blank for regular SIP" />
-              </div>
-            </div>
-            <div class="calc-field">
-              <label for="sip-stepup-percent">Optional Step-Up by Percentage (%)</label>
-              <div class="input-wrap has-suffix">
-                <input type="number" id="sip-stepup-percent" min="0" max="50" step="0.5"
-                  placeholder="Leave blank for regular SIP" />
-                <span class="input-suffix">%</span>
-              </div>
-            </div>
-            <p class="calc-note">Leave both step-up fields blank to calculate a regular SIP.</p>
-            <button class="calc-btn" id="sip-calc-btn" type="button">Calculate SIP Returns</button>
-          </div>
-          <div class="calc-card">
-            <h3>Projected Results</h3>
-            <p class="calc-desc">Based on monthly SIP contributions compounded at the expected rate of return.</p>
-            <div class="calc-results">
-              <div class="result-item">
-                <div class="result-label">Total Invested</div>
-                <div class="result-value" id="sip-invested">—</div>
-              </div>
-              <div class="result-item">
-                <div class="result-label">Estimated Returns</div>
-                <div class="result-value" id="sip-returns">—</div>
-              </div>
-              <div class="result-item highlight">
-                <div class="result-label">Maturity Value</div>
-                <div class="result-value" id="sip-maturity">—</div>
-              </div>
-            </div>
-            <p class="result-note">Returns are indicative and not guaranteed. Actual performance may vary based on
-              market conditions.</p>
-          </div>
-        </div>
 
-        <div class="calc-card" style="margin-top: 36px;">
-          <h3>Step-Up Impact</h3>
-          <p class="calc-desc">Filled only when optional step-up values are entered above.</p>
+      <div class="tool-hero reveal">
+        <div class="tool-hero-quote-card">
+          <div class="tool-hero-quote-kicker">Wealth building mindset</div>
+          <div class="tool-hero-quote-title">“<span class="aurora-text">Consistency</span> beats intensity when time is
+            on your side.”</div>
+          <p class="tool-hero-quote-body">Use the SIP calculator to build a habit of <mark>disciplined investing</mark>,
+            test <mark>step-up growth</mark>, and see how <mark>compounding</mark> rewards patience.</p>
+        </div>
+      </div>
+
+      <div class="calc-layout calc-layout-single">
+        <div class="calc-card">
+          <h3>SIP Calculator</h3>
+          <p class="calc-desc">Estimate the future value of your Systematic Investment Plan based on monthly
+            contributions and expected returns.</p>
+          <div class="calc-field">
+            <label for="sip-amount">Monthly Investment</label>
+            <div class="input-wrap">
+              <span class="input-prefix">₹</span>
+              <input type="number" id="sip-amount" value="10000" min="0" step="500" />
+            </div>
+          </div>
+          <div class="calc-field">
+            <label for="sip-rate">Expected Annual Return (%)</label>
+            <div class="input-wrap has-suffix">
+              <input type="number" id="sip-rate" value="12" min="0" max="50" step="0.5" />
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
+          <div class="calc-field">
+            <label for="sip-years">Investment Period (Years)</label>
+            <div class="input-wrap has-suffix">
+              <input type="number" id="sip-years" value="10" min="1" max="40" step="1" />
+              <span class="input-suffix">yrs</span>
+            </div>
+          </div>
+          <div class="calc-field">
+            <label for="sip-stepup-amount">Optional Step-Up Amount (₹)</label>
+            <div class="input-wrap">
+              <span class="input-prefix">₹</span>
+              <input type="number" id="sip-stepup-amount" min="0" step="100"
+                placeholder="Leave blank for regular SIP" />
+            </div>
+          </div>
+          <div class="calc-field">
+            <label for="sip-stepup-percent">Optional Step-Up by Percentage (%)</label>
+            <div class="input-wrap has-suffix">
+              <input type="number" id="sip-stepup-percent" min="0" max="50" step="0.5"
+                placeholder="Leave blank for regular SIP" />
+              <span class="input-suffix">%</span>
+            </div>
+          </div>
+          <p class="calc-note">Leave both step-up fields blank to calculate a regular SIP.</p>
+          <button class="calc-btn" id="sip-calc-btn" type="button">Calculate SIP Returns</button>
+        </div>
+        <div class="calc-card">
+          <h3>Projected Results</h3>
+          <p class="calc-desc">Based on monthly SIP contributions compounded at the expected rate of return.</p>
           <div class="calc-results">
             <div class="result-item">
               <div class="result-label">Total Invested</div>
-              <div class="result-value" id="sip-stepup-invested">—</div>
+              <div class="result-value" id="sip-invested">—</div>
             </div>
             <div class="result-item">
               <div class="result-label">Estimated Returns</div>
-              <div class="result-value" id="sip-stepup-returns">—</div>
+              <div class="result-value" id="sip-returns">—</div>
             </div>
             <div class="result-item highlight">
               <div class="result-label">Maturity Value</div>
-              <div class="result-value" id="sip-stepup-maturity">—</div>
-            </div>
-            <div class="result-item" style="border-top: 1px solid var(--border); margin-top: 12px; padding-top: 12px;">
-              <div class="result-label">Extra Returns vs Regular SIP</div>
-              <div class="result-value" id="sip-stepup-extra">—</div>
+              <div class="result-value" id="sip-maturity">—</div>
             </div>
           </div>
-          <p class="result-note">The impact card updates only when you enter a step-up amount or percentage.</p>
-        </div>
-
-        <!-- SIP Yearly Progression Table -->
-        <div
-          style="margin-top: 36px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 32px 28px;">
-          <h3
-            style="font-family: 'Lora', Georgia, serif; font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">
-            Yearly Progression</h3>
-          <p class="calc-desc" style="margin-bottom: 20px;">Detailed year-by-year breakdown of your SIP investment and
-            step-up impact.</p>
-          <div class="table-wrapper" id="sip-table-wrapper">
-            <table class="sip-progression-table" id="sip-progression-table">
-              <thead>
-                <tr>
-                  <th>Year</th>
-                  <th>Monthly SIP</th>
-                  <th>Annual Contribution</th>
-                  <th>Cumulative Invested</th>
-                  <th>Accumulated Value</th>
-                  <th>Cumulative Returns</th>
-                  <th>Step-Up Impact</th>
-                </tr>
-              </thead>
-              <tbody id="sip-progression-tbody">
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="calc-card" style="margin-top: 28px;">
-          <h3>Growth Chart</h3>
-          <p class="calc-desc">A visual view of the yearly accumulated value for the current SIP plan.</p>
-          <div class="mini-chart" id="sip-chart"></div>
+          <p class="result-note">Returns are indicative and not guaranteed. Actual performance may vary based on
+            market conditions.</p>
         </div>
       </div>
+
+      <div class="calc-card" style="margin-top: 36px;">
+        <h3>Step-Up Impact</h3>
+        <p class="calc-desc">Filled only when optional step-up values are entered above.</p>
+        <div class="calc-results">
+          <div class="result-item">
+            <div class="result-label">Total Invested</div>
+            <div class="result-value" id="sip-stepup-invested">—</div>
+          </div>
+          <div class="result-item">
+            <div class="result-label">Estimated Returns</div>
+            <div class="result-value" id="sip-stepup-returns">—</div>
+          </div>
+          <div class="result-item highlight">
+            <div class="result-label">Maturity Value</div>
+            <div class="result-value" id="sip-stepup-maturity">—</div>
+          </div>
+          <div class="result-item" style="border-top: 1px solid var(--border); margin-top: 12px; padding-top: 12px;">
+            <div class="result-label">Extra Returns vs Regular SIP</div>
+            <div class="result-value" id="sip-stepup-extra">—</div>
+          </div>
+        </div>
+        <p class="result-note">The impact card updates only when you enter a step-up amount or percentage.</p>
+      </div>
+
+      <!-- SIP Yearly Progression Table -->
+      <div
+        style="margin-top: 36px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 32px 28px;">
+        <h3
+          style="font-family: 'Lora', Georgia, serif; font-size: 1.35rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">
+          Yearly Progression</h3>
+        <p class="calc-desc" style="margin-bottom: 20px;">Detailed year-by-year breakdown of your SIP investment and
+          step-up impact.</p>
+        <div class="table-wrapper" id="sip-table-wrapper">
+          <table class="sip-progression-table" id="sip-progression-table">
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Monthly SIP</th>
+                <th>Annual Contribution</th>
+                <th>Cumulative Invested</th>
+                <th>Accumulated Value</th>
+                <th>Cumulative Returns</th>
+                <th>Step-Up Impact</th>
+              </tr>
+            </thead>
+            <tbody id="sip-progression-tbody">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="calc-card" style="margin-top: 28px;">
+        <h3>Growth Chart</h3>
+        <p class="calc-desc">A visual view of the yearly accumulated value for the current SIP plan.</p>
+        <div class="mini-chart" id="sip-chart"></div>
+      </div>
+    </div>
     </div>
   </section>
 
-<footer>
+  <footer>
     <div class="footer-inner">
       <div style="max-width: 1200px; margin: 0 auto; padding-bottom: 28px;">
         <p style="font-size: 0.7rem; color: var(--text-muted); line-height: 1.4;">
@@ -258,9 +259,5 @@
   <script src="shared.js"></script>
   <script src="products.js"></script>
 </body>
+
 </html>
-
-
-
-
-

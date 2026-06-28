@@ -2088,14 +2088,15 @@
           </div>
         </div>
         <div class="nav-dropdown">
-          <a href="products.html" class="nav-dropbtn" style="cursor:pointer">Financial Tools <span
-              style="font-size: 0.7em;">▼</span></a>
+          <a href="products.html" class="nav-dropbtn" data-nav="financial-tools" style="cursor:pointer">Financial Tools
+            <span style="font-size:0.7em">▼</span></a>
           <div class="nav-dropdown-content">
             <a href="sip-calculator.html">SIP Calculator</a>
             <a href="loan-calculator.html">Loan Calculator</a>
             <a href="ratios.html">Financial Ratio Analysis</a>
           </div>
         </div>
+
       </div>
       <div class="nav-right">
         <button class="tog" id="themeToggle" aria-label="Toggle light/dark mode">
@@ -2139,6 +2140,7 @@
             <a href="ratios.html">Financial Ratio Analysis</a>
           </div>
         </div>
+
         <a href="#contact" class="sidebar-link sidebar-cta">Book a Free Consultation</a>
       </div>
     </div>
@@ -2239,7 +2241,8 @@
           <div class="svc-icon">🤖</div>
           <div class="svc-t">AI-Assisted Development</div>
           <div class="svc-d"><strong>Prompt engineering</strong> and AI-driven development to accelerate ERP delivery,
-            <mark>reduce costs</mark>, and build smarter, self-improving solutions.</div>
+            <mark>reduce costs</mark>, and build smarter, self-improving solutions.
+          </div>
         </div>
         <div class="svc">
           <div class="svc-n">04</div>
@@ -2327,11 +2330,13 @@
           <div class="eyebrow reveal">AI &amp; Innovation</div>
           <h2 class="serif reveal"
             style="font-size:clamp(1.9rem,3.8vw,2.8rem);margin-bottom:18px;transition-delay:.06s">The Future of ERP Is
-            <mark>Intelligent</mark> — And We're Already There</h2>
+            <mark>Intelligent</mark> — And We're Already There
+          </h2>
           <p class="ai-body reveal" style="transition-delay:.12s">ERP is no longer just about managing data — it's about
             turning that data into <strong>decisions</strong>. We combine deep ERP expertise with cutting-edge
             <strong>AI workflow design</strong> and prompt engineering to build solutions that don't just automate tasks
-            — <mark>they think ahead.</mark></p>
+            — <mark>they think ahead.</mark>
+          </p>
           <div class="ai-pills reveal" style="transition-delay:.18s">
             <span class="ai-pill">AI Workflow Design</span>
             <span class="ai-pill">Prompt Engineering</span>
@@ -2363,7 +2368,8 @@
       <div class="reveal" style="margin-bottom:52px">
         <div class="eyebrow">Our Expertise</div>
         <h2 class="serif" style="font-size:clamp(1.9rem,3.8vw,2.8rem);margin-bottom:14px">Hands-On Expertise Across
-          <mark>Leading ERP</mark> &amp; Analytics Platforms</h2>
+          <mark>Leading ERP</mark> &amp; Analytics Platforms
+        </h2>
         <p class="sub">Every tool applied in <strong>real production environments</strong> — not just in theory.</p>
       </div>
       <div class="exp-grid reveal" style="transition-delay:.1s">
@@ -2433,7 +2439,8 @@
             Our Proven <mark>6-Step</mark> Delivery Process</h2>
           <p class="sub reveal" style="margin-top:16px;transition-delay:.12s">Transparency, structure, and
             <strong>accountability at every stage</strong> — so you always know what's happening, what's next, and what
-            to expect.</p>
+            to expect.
+          </p>
           <div class="reveal" style="transition-delay:.18s;margin-top:32px">
             <a href="#contact" class="btn-g">Start Your Project <span class="arrow">→</span></a>
           </div>
@@ -2492,7 +2499,8 @@
                 <div class="flow-icon">💻</div>
                 <div class="flow-name">Develop</div>
                 <div class="flow-desc">We build customizations, configure automation, and integrate systems — with
-                  <strong>regular reviews</strong> to ensure everything aligns with your expectations.</div>
+                  <strong>regular reviews</strong> to ensure everything aligns with your expectations.
+                </div>
               </div>
             </div>
 
@@ -2583,16 +2591,8 @@
 
   <script>
     (function () {
-      /* ── Theme ─────────────────────────────────────────── */
-      const html = document.documentElement;
-      const saved = localStorage.getItem('pp-theme');
-      if (saved) html.setAttribute('data-theme', saved);
-
-      document.getElementById('themeToggle').addEventListener('click', () => {
-        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        html.setAttribute('data-theme', next);
-        localStorage.setItem('pp-theme', next);
-      });
+      // Homepage JS keeps only the ERP diagram fetch.
+      // Navbar behavior (theme toggle, nav scroll, sidebar) is handled by shared.js.
 
       const erpHost = document.getElementById('erpDiagram');
       if (erpHost) {
@@ -2604,7 +2604,7 @@
           });
       }
 
-      /* ── Nav scroll ────────────────────────────────────── */
+
       const nav = document.getElementById('nav');
       window.addEventListener('scroll', () => {
         nav.classList.toggle('scrolled', window.scrollY > 50);
@@ -2736,7 +2736,19 @@
           });
         });
 
+        // Prevent redirect when clicking the parent "Financial Tools" item (desktop + mobile)
+        const finParentLink = document.querySelector('[data-nav="financial-tools"]');
+        if (finParentLink) {
+          finParentLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            // Close sidebar after click so the dropdown doesn't get stuck open
+            closeSidebar();
+          });
+        }
+
         document.addEventListener('click', e => {
+
           if (sidebar.classList.contains('active') &&
             !sidebar.contains(e.target) &&
             !hamburger.contains(e.target)) {
@@ -2746,8 +2758,7 @@
       }
     })();
   </script>
+  <script src="shared.js"></script>
 </body>
 
 </html>
-
-

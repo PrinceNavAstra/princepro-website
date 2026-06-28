@@ -49,6 +49,82 @@
   transition: var(--transition-theme), transform 0.2s ease;
 }
 
+/* Tool quote card used on calculator pages */
+.tool-hero-quote-card,
+.tool-hero-quote-card * {
+  /* keep existing typography where inline styles already exist */
+}
+
+/* Make quote feel like the primary hero without turning it into homepage hero */
+.tool-hero-quote-card {
+  position: relative;
+  overflow: visible;
+  box-shadow: none;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+
+  /* treat as hero text block (free text, no card effect) */
+  padding: 0 0 36px 0;
+}
+
+
+.tool-hero-quote-card::after {
+  content: none;
+}
+
+/* Decorative “quote person” spacing like the existing calculator quote.
+   Use a plain double-quote so the visual matches the current HTML text. */
+.tool-hero-quote-title::before {
+  content: '"';
+  color: var(--gold);
+  font-family: 'Lora', Georgia, serif;
+  font-size: 2.2rem;
+  line-height: 1;
+  display: inline-block;
+  margin-right: 10px;
+  transform: translateY(8px);
+  opacity: 0.95;
+}
+
+
+.tool-hero-quote-title {
+  /* more “headline text” feel */
+  text-shadow: 0 0 22px rgba(212, 168, 83, 0.12);
+}
+
+
+
+.tool-hero-quote-kicker {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.tool-hero-quote-title {
+  font-family: 'Lora', Georgia, serif;
+  font-size: clamp(1.4rem, 2.8vw, 2.15rem);
+  line-height: 1.22;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+.tool-hero-quote-body {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-body);
+  max-width: 62ch;
+}
+
+.tool-hero-quote-body mark {
+  font-weight: 700;
+}
+
+/* Keep existing animations for homepage cards only */
 .tool-quote-card {
   position: relative;
   overflow: hidden;
@@ -130,6 +206,7 @@
 }
 
 @media (max-width: 768px) {
+
   .prod-hero .wrap,
   .ind-body .wrap {
     padding: 0 16px;
@@ -137,8 +214,15 @@
 }
 
 @keyframes toolFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-7px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
 }
 
 .prod-hero-inner {
