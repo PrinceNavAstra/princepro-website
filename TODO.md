@@ -1,13 +1,13 @@
 # TODO
 
-## Navbar unification
-- [x] Replace `index.html` navbar + mobile sidebar with the canonical markup that matches `shared.css` + `shared.js` (same IDs/classes/buttons).
-
-- [x] Ensure `index.html` uses `shared.js` for navbar behavior only (remove/disable conflicting inline navbar scripts/classes).
-
-- [x] Align navbar dropdown links across all pages to use the same canonical URLs/anchors.
-
-- [x] Ensure every page includes the same navbar + sidebar markup (IDs/classes exactly) and loads `shared.js`.
-
-- [ ] Quick verification on pages: `index.html`, `products.html`, `loan-calculator.html`, `sip-calculator.html`, `ratios.html`, `screener.html`, `construction.html`, `manufacturing.html`, `logistics.html`, `marketing.html`, `textile.html`.
+## Navbar dropdown + link fixes
+- [ ] Update `index.html` to add `data-nav` attribute to the "Industries We Serve" parent dropdown control (desktop and mobile if needed).
+- [ ] Update `shared.js`:
+  - [ ] Prevent default + stop propagation for the Industries We Serve parent dropdown click so it only toggles dropdown.
+  - [ ] Ensure sidebar outside-click handler doesn’t close/toggle state when interacting with the Industries We Serve dropdown.
+  - [ ] Make Financial Tools parent dropdown behavior consistent (prevent redirect/remove link issues).
+- [ ] Test manually:
+  - [ ] Desktop: click Industries We Serve; navbar should not change/redirect unexpectedly.
+  - [ ] Mobile: click Industries We Serve; sidebar dropdown should toggle cleanly.
+  - [ ] Desktop + mobile: click Financial Tools; no link removal/redirect issues.
 

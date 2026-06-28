@@ -17,9 +17,29 @@
 
     var nav = document.getElementById('nav');
     if (nav) {
-      window.addEventListener('scroll', function () {
+      // Nav style change should be driven ONLY by scroll position,
+      // and must not interfere with link clicks / hash navigation.
+      // Avoid any extra toggling here; individual pages may also manage nav state.
+      var ticking = false;
+      function updateNav() {
+        ticking = false;
         nav.classList.toggle('scrolled', window.scrollY > 50);
-      }, { passive: true });
+      }
+
+      function onScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(updateNav);
+      }
+
+      // Initial
+      updateNav();
+
+      // Only when actual scrolling occurs
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('load', function () {
+        updateNav();
+      });
     }
 
     var io = new IntersectionObserver(function (entries) {
@@ -118,7 +138,9 @@
       // Handle dropdown toggles in sidebar
       var dropdownBtns = sidebar.querySelectorAll('.sidebar-dropdown-btn');
       dropdownBtns.forEach(function (btn) {
-        btn.addEventListener('click', function () {
+        btn.addEventListener('click', function (e) {
+          // prevent accidental redirect/bubble from interfering with sidebar behavior
+          e.stopPropagation();
           var content = this.nextElementSibling;
           if (content && content.classList.contains('sidebar-dropdown-content')) {
             this.classList.toggle('active');
@@ -127,15 +149,43 @@
         });
       });
 
-      // Close sidebar when clicking outside
-      document.addEventListener('click', function (e) {
-        if (sidebar.classList.contains('active') &&
-          !sidebar.contains(e.target) &&
-          !hamburger.contains(e.target)) {
+      // Prevent redirect when clicking desktop dropdown parents (Industries + Financial Tools)
+      // (only matters when sidebar is open; harmless otherwise)
+      var industriesParent = document.querySelector('[data-nav="industries"]');
+      if (industriesParent) {
+        industriesParent.addEventListener('click', function (e) {
+          if (!sidebar || !sidebar.classList.contains('active')) return;
+          e.preventDefault();
+          e.stopPropagation();
+        });
+      }
+
+      var finParent = document.querySelector('[data-nav="financial-tools"]');
+      if (finParent) {
+        finParent.addEventListener('click', function (e) {
+          if (!sidebar || !sidebar.classList.contains('active')) return;
+          e.preventDefault();
+          e.stopPropagation();
           closeSidebar();
-        }
+        });
+      }
+
+      // Close sidebar when clicking outside (ignore dropdown parent clicks)
+      document.addEventListener('click', function (e) {
+        if (!sidebar.classList.contains('active')) return;
+
+        // If click is on a dropdown toggle/inside sidebar, don't auto-close.
+        if (sidebar.contains(e.target)) return;
+        if (hamburger && hamburger.contains(e.target)) return;
+
+        // If click is on a dropdown parent inside navbar (desktop), ignore.
+        var navDropdownParent = e.target && e.target.closest ? e.target.closest('[data-nav]') : null;
+        if (navDropdownParent) return;
+
+        closeSidebar();
       });
     }
   });
 })();
+
 
