@@ -374,7 +374,8 @@ body.sidebar-open {
   color: var(--text-primary);
 }
 
-..nav-dropdown.open .nav-dropdown-content {
+.nav-dropdown.open .nav-dropdown-content,
+.nav-dropdown:hover .nav-dropdown-content {
   display: block;
 }
 
@@ -750,15 +751,6 @@ body.touch-device .nav-dropdown:hover .nav-dropdown-content {
   background-clip: text;
   color: transparent;
   text-shadow: 0 0 22px rgba(212, 168, 83, 0.12);
-}
-
-mark {
-  background: linear-gradient(180deg, rgba(212, 168, 83, 0.24), rgba(212, 168, 83, 0.18));
-  color: var(--text-primary);
-  padding: 0.08em 0.35em;
-  border-radius: 0.35em;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
 }
 
 strong {

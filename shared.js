@@ -130,9 +130,9 @@
 
         btn.addEventListener('click', function (e) {
           e.preventDefault();
-          var isOpen = dropdown.classList.toggle('open');
+          e.stopPropagation();
 
-          if (isOpen) {
+          if (!dropdown.classList.contains('open')) {
             closeDropdowns();
             dropdown.classList.add('open');
             document.body.classList.add('nav-dropdown-open');
