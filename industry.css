@@ -7,7 +7,7 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 160px 0 120px;
+  padding: 140px 0 100px;
   position: relative;
   overflow: hidden;
   background: var(--bg);
@@ -15,7 +15,7 @@
 
 .ind-hero .wrap,
 .ind-body .wrap {
-  padding: 0 32px;
+  padding: 0 var(--page-pad);
 }
 
 .ind-hero::before {
@@ -50,24 +50,26 @@
 
 .hero-layout {
   display: grid;
-  grid-template-columns: 1.2fr 0.9fr;
+  grid-template-columns: 1.2fr 0.8fr;
   gap: 40px;
   align-items: center;
 }
 
 .hero-content {
-  max-width: 780px;
+  max-width: 760px;
+  padding-right: 8px;
 }
 
 .hero-kicker {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(212, 168, 83, 0.12);
-  border: 1px solid rgba(212, 168, 83, 0.16);
+  background: var(--gdim);
+  border: 1px solid var(--bdr-md);
   border-radius: 100px;
-  padding: 8px 18px 8px 12px;
+  padding: 6px 16px 6px 10px;
   margin-bottom: 28px;
+  transition: background var(--tt), border-color var(--tt);
 }
 
 .kicker-dot {
@@ -105,11 +107,24 @@
   margin-bottom: 26px;
 }
 
+..hero-h1 mark,
+.hero-p mark {
+  display: inline;
+  padding: 0.08em 0.32em;
+  border-radius: 0.32em;
+  background: linear-gradient(180deg, rgba(212, 168, 83, 0.28), rgba(212, 168, 83, 0.16));
+  color: var(--text-primary);
+  font-weight: 700;
+  line-height: 1.2;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
 .hero-p {
   font-size: 1.08rem;
   line-height: 1.78;
   color: var(--text-body);
-  max-width: 570px;
+  max-width: 620px;
   margin-bottom: 42px;
 }
 
@@ -204,19 +219,20 @@
 .hero-image-wrap {
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-  min-height: 420px;
+  padding: 0 24px 0 0;
+  min-height: 460px;
 }
 
 .hero-3d-card {
   position: relative;
-  width: min(100%, 390px);
-  height: 420px;
-  border-radius: 36px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 243, 225, 0.94));
+  width: min(100%, 420px);
+  height: 460px;
+  border-radius: 42px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.97), rgba(244, 241, 232, 0.94));
   border: 1px solid rgba(212, 168, 83, 0.14);
-  box-shadow: 0 28px 70px rgba(40, 45, 70, 0.12);
+  box-shadow: 0 32px 90px rgba(15, 20, 40, 0.14);
   overflow: hidden;
   transform-style: preserve-3d;
 }
@@ -225,9 +241,9 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 14% 16%, rgba(212, 168, 83, 0.22), transparent 24%),
-    radial-gradient(circle at 82% 24%, rgba(45, 212, 191, 0.16), transparent 22%),
-    radial-gradient(circle at 62% 82%, rgba(212, 168, 83, 0.12), transparent 32%);
+  background: radial-gradient(circle at 18% 16%, rgba(212, 168, 83, 0.22), transparent 22%),
+    radial-gradient(circle at 82% 24%, rgba(45, 212, 191, 0.16), transparent 20%),
+    radial-gradient(circle at 62% 78%, rgba(212, 168, 83, 0.14), transparent 30%);
   pointer-events: none;
 }
 
@@ -242,11 +258,12 @@
 
 .hero-3d-block {
   position: absolute;
-  width: 116px;
-  height: 116px;
+  width: 108px;
+  height: 108px;
   border-radius: 28px;
-  background: linear-gradient(135deg, var(--gold), var(--gold-l));
-  box-shadow: 0 24px 42px rgba(0, 0, 0, 0.18);
+  background: linear-gradient(145deg, rgba(212, 168, 83, 0.95), rgba(255, 255, 255, 0.92));
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 18px 32px rgba(22, 28, 44, 0.16);
   transform-style: preserve-3d;
 }
 
@@ -274,9 +291,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2.3rem;
-  color: #ffffff;
-  text-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+  font-size: 2rem;
+  color: #1d1f2b;
+  text-shadow: none;
 }
 
 .hero-3d-label {
@@ -285,13 +302,14 @@
   right: 22px;
   bottom: 18px;
   padding: 18px 20px;
-  border-radius: 22px;
-  background: rgba(255, 255, 255, 0.86);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(212, 168, 83, 0.16);
+  box-shadow: 0 12px 28px rgba(25, 30, 48, 0.08);
   color: var(--text-primary);
   font-weight: 700;
   text-align: left;
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
 .hero-quote {
@@ -552,6 +570,18 @@
   flex-direction: column;
   gap: 10px;
   min-height: 160px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.fact-card:hover,
+.chart-card:hover,
+.diagram-card:hover,
+.problem-card:hover,
+.hero-badge:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card);
+  border-color: var(--gold);
+  background: rgba(212, 168, 83, 0.05);
 }
 
 .fact-label {
@@ -576,12 +606,20 @@
 
 .chart-card,
 .diagram-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 22px;
+  background: var(--card-soft);
+  border: 1px solid var(--card-soft-border);
+  border-radius: 26px;
   padding: 28px;
-  box-shadow: var(--shadow-card);
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.08);
   margin-top: 32px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.chart-card:hover,
+.diagram-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 26px 50px rgba(0, 0, 0, 0.12);
+  border-color: var(--gold);
 }
 
 .chart-title,
@@ -630,16 +668,32 @@
 }
 
 .diagram-step {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 24px;
+  background: var(--card-soft);
+  border: 1px solid var(--card-soft-border);
+  border-radius: 22px;
+  padding: 26px 24px 24px;
   text-align: center;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.diagram-step:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.1);
+  border-color: var(--gold);
 }
 
 .diagram-icon {
-  font-size: 2.2rem;
-  margin-bottom: 14px;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 18px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  font-size: 1.6rem;
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--text-primary);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08);
 }
 
 .diagram-step-title {

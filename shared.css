@@ -21,6 +21,9 @@
   --gold-light: #f0c878;
   --gold-dim: rgba(212, 168, 83, 0.14);
   --gold-glow: rgba(212, 168, 83, 0.28);
+  --card-soft: rgba(212, 168, 83, 0.08);
+  --card-soft-border: rgba(212, 168, 83, 0.18);
+  --card-soft-glow: rgba(212, 168, 83, 0.14);
   --nav-bg: rgba(8, 8, 16, 0.9);
   --nav-link-hover-bg: rgba(212, 168, 83, 0.22);
   --dropdown-item-hover-bg: rgba(212, 168, 83, 0.16);
@@ -45,6 +48,9 @@
   --gold-light: #d4a853;
   --gold-dim: rgba(184, 134, 46, 0.12);
   --gold-glow: rgba(184, 134, 46, 0.18);
+  --card-soft: rgba(247, 239, 217, 0.72);
+  --card-soft-border: rgba(184, 134, 46, 0.18);
+  --card-soft-glow: rgba(212, 168, 83, 0.14);
   --nav-bg: rgba(255, 255, 255, 0.82);
   --nav-link-hover-bg: rgba(184, 134, 46, 0.12);
   --dropdown-item-hover-bg: rgba(184, 134, 46, 0.12);
@@ -85,12 +91,13 @@ a {
 
 mark,
 .pp-highlight {
-  display: inline-block;
+  display: inline;
   color: inherit;
-  background: rgba(212, 168, 83, 0.18);
-  padding: 0.1em 0.36em;
-  border-radius: 0.4em;
+  background: linear-gradient(180deg, rgba(212, 168, 83, 0.28), rgba(212, 168, 83, 0.16));
+  padding: 0.08em 0.32em;
+  border-radius: 0.32em;
   font-weight: 700;
+  line-height: 1.2;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
   transition: background 0.35s ease, color 0.35s ease;

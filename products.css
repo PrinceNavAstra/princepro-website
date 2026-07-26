@@ -46,7 +46,7 @@
   border-radius: 18px;
   padding: 24px;
   box-shadow: var(--shadow-card);
-  transition: var(--transition-theme), transform 0.2s ease;
+  transition: var(--transition-theme), transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
 /* Tool quote card used on calculator pages */
@@ -184,6 +184,7 @@
   background: var(--bg-3);
   border: 1px solid var(--border);
   border-radius: 14px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
 .tool-info-item strong {
@@ -203,6 +204,16 @@
   .tool-intro {
     grid-template-columns: 1fr;
   }
+}
+
+.tool-quote-card:hover,
+.tool-info-card:hover,
+.tool-info-item:hover,
+.calc-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
+  border-color: var(--gold);
+  background: rgba(212, 168, 83, 0.05);
 }
 
 @media (max-width: 768px) {
@@ -336,11 +347,10 @@
 
 .calc-card {
   background: var(--card-bg);
-
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 40px 32px;
-  transition: var(--transition-theme);
+  transition: var(--transition-theme), transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
 
