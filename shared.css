@@ -24,6 +24,9 @@
   --card-soft: rgba(255, 255, 255, 0.04);
   --card-soft-border: rgba(255, 255, 255, 0.08);
   --card-soft-glow: rgba(255, 255, 255, 0.08);
+  --hero-highlight: rgba(255, 255, 255, 0.18);
+  --hero-block-start: rgba(255, 255, 255, 0.22);
+  --hero-block-end: rgba(255, 255, 255, 0.12);
   --nav-bg: rgba(8, 8, 16, 0.9);
   --nav-link-hover-bg: rgba(212, 168, 83, 0.12);
   --dropdown-item-hover-bg: rgba(212, 168, 83, 0.08);
@@ -51,6 +54,9 @@
   --card-soft: rgba(20, 20, 28, 0.04);
   --card-soft-border: rgba(20, 20, 28, 0.08);
   --card-soft-glow: rgba(20, 20, 28, 0.08);
+  --hero-highlight: rgba(0, 0, 0, 0.08);
+  --hero-block-start: rgba(20, 20, 28, 0.08);
+  --hero-block-end: rgba(20, 20, 28, 0.04);
   --nav-bg: rgba(255, 255, 255, 0.82);
   --nav-link-hover-bg: rgba(184, 134, 46, 0.08);
   --dropdown-item-hover-bg: rgba(184, 134, 46, 0.08);
@@ -760,12 +766,62 @@ strong {
   font-weight: 500;
   font-size: 0.9rem;
   border-radius: 6px;
-  transition: border-color 0.2s, color 0.2s;
+  transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.2s;
 }
 
 .btn-outline:hover {
   border-color: var(--gold);
-  color: var(--gold)
+  color: var(--gold);
+  background: var(--bg-3);
+}
+
+.btn-g {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  background: var(--gold);
+  color: var(--bg);
+  box-shadow: var(--shadow-btn);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.btn-g:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.btn-g:focus-visible,
+.btn-o:focus-visible,
+.btn-outline:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 4px;
+}
+
+.btn-o {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: 1.5px solid var(--border-hover);
+  background: var(--bg-3);
+  color: var(--text-primary);
+  transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.btn-o:hover {
+  transform: translateY(-1px);
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(212, 168, 83, 0.08);
 }
 
 /* REVEAL */
