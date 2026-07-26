@@ -1,4 +1,64 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" fill="none">
+#!/usr/bin/env python3
+"""Fix all SVG files by adding self-contained CSS variable definitions."""
+
+import os
+
+# The CSS variables block to inject into each SVG
+# Common CSS variable block to inject into each SVG
+# Using 'svg' selector instead of ':root' for better compatibility
+# when SVGs are loaded as <img> tags (some browsers don't support :root in SVG context)
+CSS_VARS_BLOCK = """    <style>
+      svg {
+        --ring-inner: rgba(212,168,83,0.08);
+        --ring-mid: rgba(45,212,191,0.05);
+        --ring-outer: transparent;
+        --ring-stroke: rgba(212,168,83,0.12);
+        --ring-stroke2: rgba(45,212,191,0.1);
+        --shadow: rgba(0,0,0,0.25);
+        --hub-bg: rgba(212,168,83,0.15);
+        --hub-border: rgba(212,168,83,0.35);
+        --hub-text: #d4a853;
+        --hub-sub: #9d9bb8;
+        --label-bg: #fff;
+        --label-gold: #a07830;
+        --label-teal: #0d7a6e;
+      }
+    </style>"""
+
+SVG_FILES = [
+    'assets/erp-diagram.svg',
+    'assets/construction-hero.svg',
+    'assets/logistics-hero.svg',
+    'assets/manufacturing-hero.svg',
+    'assets/marketing-hero.svg',
+    'assets/textile-hero.svg',
+]
+
+def fix_svg(filepath):
+    """Add CSS variable definitions inside the <defs> section of an SVG."""
+    with open(filepath, 'r', encoding='utf-8') as f:
+        content = f.read()
+    
+    # Check if already fixed
+    if '<style>' in content and '--ring-inner' in content:
+        print(f"  SKIP (already fixed): {filepath}")
+        return False
+    
+    # Insert CSS vars after the opening <defs> tag
+    if '<defs>' in content:
+        content = content.replace('<defs>', '<defs>\n' + CSS_VARS_BLOCK, 1)
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(content)
+        print(f"  FIXED: {filepath}")
+        return True
+    else:
+        print(f"  ERROR: No <defs> found in {filepath}")
+        return False
+
+def restore_erp_diagram():
+    """Restore the corrupted erp-diagram.svg with full content + style block."""
+    filepath = 'assets/erp-diagram.svg'
+    content = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" fill="none">
   <defs>
     <style>
       svg {
@@ -163,4 +223,36 @@
   <circle cx="175" cy="670" r="5" fill="#fff"/>
   <rect x="68" y="683" width="148" height="34" rx="17" fill="var(--label-bg, #fff)" stroke="#3dbda8" stroke-width="1.5"/>
   <text x="142" y="705" text-anchor="middle" font-family="DM Sans, Arial, sans-serif" font-size="13" font-weight="600" fill="var(--label-teal, #0d7a6e)">Human Resources</text>
-</svg>
+</svg>"""
+    with open(filepath, 'w', encoding='utf-8') as f:
+        f.write(content)
+    print(f"  RESTORED: {filepath}")
+
+def main():
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    os.chdir(base_dir)
+    print(f"Working directory: {os.getcwd()}")
+    
+    # First restore the corrupted erp-diagram.svg
+    restore_erp_diagram()
+    
+    fixed = 0
+    skipped = 0
+    errors = 0
+    
+    for svg_file in SVG_FILES:
+        full_path = os.path.join(base_dir, svg_file)
+        if not os.path.exists(full_path):
+            print(f"  ERROR: File not found: {full_path}")
+            errors += 1
+            continue
+        
+        if fix_svg(full_path):
+            fixed += 1
+        else:
+            skipped += 1
+    
+    print(f"\nSummary: {fixed} fixed, {skipped} skipped, {errors} errors")
+
+if __name__ == '__main__':
+    main()
