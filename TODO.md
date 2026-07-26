@@ -1,18 +1,24 @@
 # SVG Image Fix - Progress Tracker
 
-## Problem
-All SVG files use CSS custom properties (`var()`) in presentation attributes. When loaded as `<img>` tags on industry pages, these CSS variables don't get resolved — causing SVGs to render invisible/broken.
+## Problem (v2)
+SVGs were still broken on both dark & light themes because:
+1. **Hero SVGs loaded as `<img>` tags** — `var()` in presentation attributes is NOT supported in `<img>` context (browser limitation). Even with fallback values, `var()` calls make the attribute invalid.
+2. **SVG internal `<style>` block** — The `svg { --var: value }` selector overrode parent CSS variables for inline-loaded SVGs (erp-diagram), preventing theme-aware styling.
 
-## Fix
-Add a `<style>` block inside each SVG file to define CSS variables with their default values, making each SVG self-sufficient.
+## Fix (v2)
+- **Hero SVGs** (construction, logistics, manufacturing, marketing, textile): Remove `<style>` block, replace all `var()` calls with their hardcoded fallback values
+- **erp-diagram.svg** (loaded inline via fetch on index.html): Remove `<style>` block, keep `var()` with fallbacks (parent `.erp-diagram` CSS class provides theme-aware variables)
 
-## Files to Fix
-- [x] `assets/erp-diagram.svg` — Add `<style>` block with CSS variable defaults
-- [x] `assets/construction-hero.svg` — Add `<style>` block
-- [x] `assets/logistics-hero.svg` — Add `<style>` block
-- [x] `assets/manufacturing-hero.svg` — Add `<style>` block
-- [x] `assets/marketing-hero.svg` — Add `<style>` block
-- [x] `assets/textile-hero.svg` — Add `<style>` block
+## Files Fixed
+- [x] `assets/construction-hero.svg` — Removed `<style>` block, hardcoded all var() values
+- [x] `assets/logistics-hero.svg` — Removed `<style>` block, hardcoded all var() values
+- [x] `assets/manufacturing-hero.svg` — Removed `<style>` block, hardcoded all var() values
+- [x] `assets/marketing-hero.svg` — Removed `<style>` block, hardcoded all var() values
+- [x] `assets/textile-hero.svg` — Removed `<style>` block, hardcoded all var() values
+- [x] `assets/erp-diagram.svg` — Removed `<style>` block, kept var() for theme support
+
+## Script
+- [x] `scripts/fix-svgs-v2.py` — New script implementing the v2 fix approach
 
 ## Verification
-- [x] Open each industry page in browser and confirm SVGs render correctly
+- [x] Open each industry page in browser and confirm SVGs render correctly on both themes
