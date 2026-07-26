@@ -181,6 +181,19 @@
 
     document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
 
+    var highlightObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          highlightObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2, rootMargin: '0px 0px -10% 0px' });
+
+    document.querySelectorAll('mark, .pp-highlight').forEach(function (el) {
+      highlightObserver.observe(el);
+    });
+
     // ── Custom Cursor ──────────────────────────────────────────────────
     var isTouchDevice = window.matchMedia('(pointer:coarse)').matches;
     if (isTouchDevice) {

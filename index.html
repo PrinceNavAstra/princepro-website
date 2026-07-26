@@ -219,15 +219,74 @@
       transition: color var(--tt)
     }
 
-    mark {
-      background: linear-gradient(180deg, rgba(212, 168, 83, .28), rgba(212, 168, 83, .18));
+    mark,
+    .pp-highlight {
+      position: relative;
+      display: inline-block;
+      background: transparent;
       color: var(--th);
-      padding: 0.08em 0.35em;
+      padding: 0.06em 0.32em;
       border-radius: .35em;
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;
       font-weight: 600;
-      transition: background var(--tt), color var(--tt)
+      z-index: 0;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: color var(--tt), opacity .7s cubic-bezier(.4, 0, .2, 1), transform .7s cubic-bezier(.4, 0, .2, 1)
+    }
+
+    mark::before,
+    .pp-highlight::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: .35em;
+      background: linear-gradient(110deg, rgba(212, 168, 83, .18) 0%, rgba(45, 212, 191, .2) 50%, rgba(212, 168, 83, .28) 100%);
+      transform: skewX(-12deg) scaleX(.8);
+      opacity: 0;
+      z-index: -1;
+      transition: transform .7s cubic-bezier(.4, 0, .2, 1), opacity .7s ease;
+    }
+
+    mark::after,
+    .pp-highlight::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: .35em;
+      border: 1px solid rgba(212, 168, 83, .24);
+      box-shadow: 0 0 0 1px rgba(45, 212, 191, .14);
+      opacity: 0;
+      transition: opacity .7s ease;
+    }
+
+    mark.is-visible,
+    .pp-highlight.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    mark.is-visible::before,
+    .pp-highlight.is-visible::before {
+      transform: skewX(-12deg) scaleX(1);
+      opacity: .95;
+    }
+
+    mark.is-visible::after,
+    .pp-highlight.is-visible::after {
+      opacity: 1;
+    }
+
+    [data-theme="light"] mark::before,
+    [data-theme="light"] .pp-highlight::before {
+      background: linear-gradient(110deg, rgba(184, 134, 46, .16) 0%, rgba(13, 148, 136, .18) 50%, rgba(184, 134, 46, .24) 100%);
+    }
+
+    [data-theme="light"] mark::after,
+    [data-theme="light"] .pp-highlight::after {
+      border-color: rgba(184, 134, 46, .24);
+      box-shadow: 0 0 0 1px rgba(13, 148, 136, .12);
     }
 
     .aurora-text {
@@ -456,9 +515,87 @@
       margin-bottom: 26px
     }
 
-    .hero-h1 em {
-      font-style: italic;
-      color: var(--gold)
+    .hero-highlight {
+      position: relative;
+      display: inline-block;
+      color: var(--th);
+      padding: 0.06em 0.18em;
+      border-radius: 0.45em;
+      z-index: 0;
+      animation: heroHighlightIn 1s cubic-bezier(.4, 0, .2, 1) .25s both;
+    }
+
+    .hero-highlight::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 0.45em;
+      background: linear-gradient(110deg, rgba(212, 168, 83, .16) 0%, rgba(45, 212, 191, .2) 50%, rgba(212, 168, 83, .26) 100%);
+      transform: skewX(-12deg) scaleX(.9);
+      opacity: .95;
+      z-index: -1;
+      animation: heroHighlightSweep 1.6s ease-out .35s both;
+    }
+
+    .hero-highlight::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 0.45em;
+      border: 1px solid rgba(212, 168, 83, .24);
+      box-shadow: 0 0 0 1px rgba(45, 212, 191, .16), 0 8px 24px rgba(0, 0, 0, .08);
+      opacity: 0;
+      animation: heroHighlightGlow 1.6s ease-out .45s both;
+    }
+
+    [data-theme="light"] .hero-highlight::before {
+      background: linear-gradient(110deg, rgba(184, 134, 46, .16) 0%, rgba(13, 148, 136, .18) 50%, rgba(184, 134, 46, .24) 100%);
+    }
+
+    [data-theme="light"] .hero-highlight::after {
+      border-color: rgba(184, 134, 46, .24);
+      box-shadow: 0 0 0 1px rgba(13, 148, 136, .12), 0 8px 24px rgba(16, 16, 24, .08);
+    }
+
+    @keyframes heroHighlightSweep {
+      0% {
+        transform: skewX(-12deg) scaleX(.3);
+        opacity: 0;
+      }
+
+      60% {
+        transform: skewX(-12deg) scaleX(1);
+        opacity: .95;
+      }
+
+      100% {
+        transform: skewX(-12deg) scaleX(1);
+        opacity: .95;
+      }
+    }
+
+    @keyframes heroHighlightGlow {
+
+      0%,
+      100% {
+        opacity: 0;
+      }
+
+      60% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes heroHighlightIn {
+      0% {
+        transform: translateY(10px);
+        filter: blur(2px);
+      }
+
+      100% {
+        transform: translateY(0);
+        filter: blur(0);
+      }
     }
 
     .hero-p {
@@ -587,15 +724,19 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 48px 0;
-      opacity: .28;
+      padding: 48px 18px 48px 0;
+      opacity: .42;
       transform: translateY(8px);
       transition: opacity .45s ease, transform .45s ease;
+      border-left: 2px solid transparent;
+      background: transparent;
     }
 
     .sticky-scroll-panel.active {
       opacity: 1;
       transform: none;
+      border-left-color: var(--gold);
+      background: linear-gradient(90deg, var(--gdim) 0%, transparent 100%);
     }
 
     .sticky-scroll-num {
@@ -604,6 +745,7 @@
       letter-spacing: .14em;
       color: var(--gold);
       margin-bottom: 16px;
+      font-weight: 600;
     }
 
     .sticky-scroll-title {
@@ -614,6 +756,8 @@
       margin-bottom: 16px;
       line-height: 1.25;
       transition: color var(--tt);
+      letter-spacing: -0.01em;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.02);
     }
 
     .sticky-scroll-panel.active .sticky-scroll-title {
@@ -621,10 +765,11 @@
     }
 
     .sticky-scroll-desc {
-      font-size: .95rem;
-      line-height: 1.78;
-      color: var(--tb);
-      max-width: 480px;
+      font-size: .96rem;
+      line-height: 1.82;
+      color: var(--th);
+      max-width: 520px;
+      font-weight: 600;
     }
 
     .sticky-scroll-link {
@@ -655,12 +800,14 @@
     .sticky-scroll-vis {
       position: relative;
       height: min(440px, 52vh);
-      border-radius: 22px;
+      border-radius: 24px;
       overflow: hidden;
-      border: 1px solid var(--bdr);
-      background: linear-gradient(135deg, var(--card2), var(--card));
-      transition: background .55s ease, box-shadow .55s ease;
+      border: 1px solid var(--bdr-md);
+      background: linear-gradient(135deg, var(--card) 0%, var(--card2) 100%);
+      transition: background .55s ease, box-shadow .55s ease, border-color .35s ease;
       box-shadow: var(--shc);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
     }
 
     .sticky-scroll-card {
@@ -675,6 +822,8 @@
       transform: scale(.94) translateY(12px);
       transition: opacity .45s ease, transform .45s ease;
       pointer-events: none;
+      padding: 24px;
+      text-shadow: 0 10px 24px rgba(0, 0, 0, .22);
     }
 
     .sticky-scroll-card.active {
@@ -687,22 +836,26 @@
       font-size: clamp(4rem, 8vw, 5.5rem);
       line-height: 1;
       filter: drop-shadow(0 12px 28px rgba(0, 0, 0, .18));
+      transform: translateY(2px);
     }
 
     .sticky-scroll-card-label {
       font-family: 'Lora', serif;
       font-size: 1.35rem;
       font-weight: 700;
-      color: #fff;
+      color: #ffffff;
       text-align: center;
       padding: 0 24px;
+      letter-spacing: -0.01em;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.28);
     }
 
     .sticky-scroll-card-num {
       font-family: 'DM Mono', monospace;
       font-size: .7rem;
       letter-spacing: .16em;
-      color: rgba(255, 255, 255, .72);
+      color: rgba(255, 255, 255, .92);
+      font-weight: 700;
     }
 
     /* ═══ INDUSTRIES ═════════════════════════════════════════ */
@@ -1603,7 +1756,7 @@
             <span class="kicker-txt">ERP Consulting · Business Analysis · AI Workflow Design</span>
           </div>
           <h1 class="hero-h1 serif">
-            We Turn Business Complexity<br>Into <em class="aurora-text">Scalable ERP Solutions</em>
+            We Turn Business Complexity<br>Into <span class="pp-highlight">Scalable ERP Solutions</span>
           </h1>
           <p class="hero-p">Empowering <strong>Manufacturing, Logistics, Construction, Marketing, and Textile</strong>
             businesses to operate smarter — through expert <mark>ERPNext &amp; Odoo</mark> implementation, intelligent
@@ -1674,42 +1827,49 @@
             <div class="sticky-scroll-mobile-vis">🔧</div>
             <div class="sticky-scroll-num">01</div>
             <h3 class="sticky-scroll-title">ERP Implementation</h3>
-            <p class="sticky-scroll-desc">Full-cycle <strong>ERPNext and Odoo</strong> deployments — system configuration, data
+            <p class="sticky-scroll-desc">Full-cycle <strong>ERPNext and Odoo</strong> deployments — system
+              configuration, data
               migration, user training, and go-live support with <strong>zero business disruption</strong>.</p>
           </div>
           <div class="sticky-scroll-panel" data-index="1">
             <div class="sticky-scroll-mobile-vis">⚙️</div>
             <div class="sticky-scroll-num">02</div>
             <h3 class="sticky-scroll-title">ERP Customization</h3>
-            <p class="sticky-scroll-desc"><strong>Custom modules</strong>, automated workflows, tailored reports, and seamless
+            <p class="sticky-scroll-desc"><strong>Custom modules</strong>, automated workflows, tailored reports, and
+              seamless
               third-party integrations aligned perfectly with your operations.</p>
           </div>
           <div class="sticky-scroll-panel" data-index="2">
             <div class="sticky-scroll-mobile-vis">🤖</div>
             <div class="sticky-scroll-num">03</div>
             <h3 class="sticky-scroll-title">AI-Assisted Development</h3>
-            <p class="sticky-scroll-desc"><strong>Prompt engineering</strong> and AI-driven development to accelerate ERP delivery,
-              <mark>reduce costs</mark>, and build smarter, self-improving solutions.</p>
+            <p class="sticky-scroll-desc"><strong>Prompt engineering</strong> and AI-driven development to accelerate
+              ERP delivery,
+              <mark>reduce costs</mark>, and build smarter, self-improving solutions.
+            </p>
           </div>
           <div class="sticky-scroll-panel" data-index="3">
             <div class="sticky-scroll-mobile-vis">📋</div>
             <div class="sticky-scroll-num">04</div>
             <h3 class="sticky-scroll-title">Business Analysis</h3>
-            <p class="sticky-scroll-desc">Structured <strong>requirement gathering</strong>, as-is/to-be process mapping, <strong>gap
+            <p class="sticky-scroll-desc">Structured <strong>requirement gathering</strong>, as-is/to-be process
+              mapping, <strong>gap
                 analysis</strong>, and solution design to ensure solid ERP foundations.</p>
           </div>
           <div class="sticky-scroll-panel" data-index="4">
             <div class="sticky-scroll-mobile-vis">📊</div>
             <div class="sticky-scroll-num">05</div>
             <h3 class="sticky-scroll-title">Power BI Dashboards</h3>
-            <p class="sticky-scroll-desc">Transform complex ERP data into <strong>intuitive, real-time dashboards</strong> and BI
+            <p class="sticky-scroll-desc">Transform complex ERP data into <strong>intuitive, real-time
+                dashboards</strong> and BI
               reports — giving decision-makers the clarity to <mark>act fast and confidently</mark>.</p>
           </div>
           <div class="sticky-scroll-panel" data-index="5">
             <div class="sticky-scroll-mobile-vis">⚡</div>
             <div class="sticky-scroll-num">06</div>
             <h3 class="sticky-scroll-title">Process Automation</h3>
-            <p class="sticky-scroll-desc">Smart <strong>workflow automation</strong> and system integrations that eliminate manual
+            <p class="sticky-scroll-desc">Smart <strong>workflow automation</strong> and system integrations that
+              eliminate manual
               effort, reduce errors, and <strong>free your team's focus</strong>.</p>
           </div>
         </div>

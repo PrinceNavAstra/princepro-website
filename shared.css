@@ -77,6 +77,76 @@ a {
   text-decoration: none
 }
 
+mark,
+.pp-highlight {
+  position: relative;
+  display: inline-block;
+  background: transparent;
+  color: var(--text-primary);
+  padding: 0.06em 0.32em;
+  border-radius: 0.35em;
+  font-weight: 600;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  z-index: 0;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: color 0.35s ease, opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+mark::before,
+.pp-highlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 0.35em;
+  background: linear-gradient(110deg, rgba(212, 168, 83, 0.18) 0%, rgba(45, 212, 191, 0.2) 50%, rgba(212, 168, 83, 0.28) 100%);
+  transform: skewX(-12deg) scaleX(0.8);
+  opacity: 0;
+  z-index: -1;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.7s ease;
+}
+
+mark::after,
+.pp-highlight::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 0.35em;
+  border: 1px solid rgba(212, 168, 83, 0.24);
+  box-shadow: 0 0 0 1px rgba(45, 212, 191, 0.14);
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+mark.is-visible,
+.pp-highlight.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+mark.is-visible::before,
+.pp-highlight.is-visible::before {
+  transform: skewX(-12deg) scaleX(1);
+  opacity: 0.95;
+}
+
+mark.is-visible::after,
+.pp-highlight.is-visible::after {
+  opacity: 1;
+}
+
+[data-theme="light"] mark::before,
+[data-theme="light"] .pp-highlight::before {
+  background: linear-gradient(110deg, rgba(184, 134, 46, 0.16) 0%, rgba(13, 148, 136, 0.18) 50%, rgba(184, 134, 46, 0.24) 100%);
+}
+
+[data-theme="light"] mark::after,
+[data-theme="light"] .pp-highlight::after {
+  border-color: rgba(184, 134, 46, 0.24);
+  box-shadow: 0 0 0 1px rgba(13, 148, 136, 0.12);
+}
+
 /* ═══ CUSTOM CURSOR ═══════════════════════════════════ */
 #cursor-dot,
 #cursor-ring {
