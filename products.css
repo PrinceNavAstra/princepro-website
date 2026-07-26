@@ -213,7 +213,7 @@
   transform: translateY(-4px);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
   border-color: var(--gold);
-  background: rgba(212, 168, 83, 0.05);
+  background: var(--card-soft);
 }
 
 @media (max-width: 768px) {
@@ -272,7 +272,7 @@
 }
 
 .hero-ql:focus-visible {
-  outline: 2px solid rgba(212, 168, 83, 0.8);
+  outline: 2px solid var(--gold-light);
   outline-offset: 3px;
 }
 
@@ -516,7 +516,7 @@
   padding: 18px;
   border: 1px solid var(--border);
   border-radius: 14px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+  background: var(--bg-3);
   overflow-x: auto;
   overflow-y: hidden;
 }
@@ -598,7 +598,7 @@
   flex: 1 1 0;
   min-width: 18px;
   border-radius: 12px 12px 8px 8px;
-  background: linear-gradient(180deg, var(--gold), #8a5a10);
+  background: linear-gradient(180deg, rgba(212, 168, 83, 0.9), rgba(212, 168, 83, 0.55));
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
   transition: transform 0.2s, opacity 0.2s;
 }
@@ -613,11 +613,11 @@
 }
 
 .mini-chart-bar.stepup {
-  background: linear-gradient(180deg, #d4a853, #b0791e);
+  background: linear-gradient(180deg, rgba(212, 168, 83, 0.9), rgba(176, 121, 30, 0.65));
 }
 
 .mini-chart-bar.extra {
-  background: linear-gradient(180deg, #3b82f6, #1d4ed8);
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.9), rgba(29, 78, 216, 0.65));
 }
 
 .mini-chart-bar span {

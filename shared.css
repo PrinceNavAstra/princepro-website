@@ -19,19 +19,19 @@
   --text-muted: #7b7896;
   --gold: #d4a853;
   --gold-light: #f0c878;
-  --gold-dim: rgba(212, 168, 83, 0.14);
-  --gold-glow: rgba(212, 168, 83, 0.28);
-  --card-soft: rgba(212, 168, 83, 0.08);
-  --card-soft-border: rgba(212, 168, 83, 0.18);
-  --card-soft-glow: rgba(212, 168, 83, 0.14);
+  --gold-dim: rgba(212, 168, 83, 0.12);
+  --gold-glow: rgba(212, 168, 83, 0.16);
+  --card-soft: rgba(255, 255, 255, 0.04);
+  --card-soft-border: rgba(255, 255, 255, 0.08);
+  --card-soft-glow: rgba(255, 255, 255, 0.08);
   --nav-bg: rgba(8, 8, 16, 0.9);
-  --nav-link-hover-bg: rgba(212, 168, 83, 0.22);
-  --dropdown-item-hover-bg: rgba(212, 168, 83, 0.16);
-  --nav-dropbtn-active-bg: rgba(212, 168, 83, 0.14);
+  --nav-link-hover-bg: rgba(212, 168, 83, 0.12);
+  --dropdown-item-hover-bg: rgba(212, 168, 83, 0.08);
+  --nav-dropbtn-active-bg: rgba(212, 168, 83, 0.08);
   --toggle-bg: #24243a;
   --toggle-knob: #f8f7ff;
   --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.45), 0 10px 34px rgba(0, 0, 0, 0.32);
-  --shadow-btn: 0 10px 28px rgba(212, 168, 83, 0.28);
+  --shadow-btn: 0 10px 28px rgba(0, 0, 0, 0.16);
 }
 
 [data-theme="light"] {
@@ -47,18 +47,18 @@
   --gold: #b8862e;
   --gold-light: #d4a853;
   --gold-dim: rgba(184, 134, 46, 0.12);
-  --gold-glow: rgba(184, 134, 46, 0.18);
-  --card-soft: rgba(247, 239, 217, 0.72);
-  --card-soft-border: rgba(184, 134, 46, 0.18);
-  --card-soft-glow: rgba(212, 168, 83, 0.14);
+  --gold-glow: rgba(184, 134, 46, 0.12);
+  --card-soft: rgba(20, 20, 28, 0.04);
+  --card-soft-border: rgba(20, 20, 28, 0.08);
+  --card-soft-glow: rgba(20, 20, 28, 0.08);
   --nav-bg: rgba(255, 255, 255, 0.82);
-  --nav-link-hover-bg: rgba(184, 134, 46, 0.12);
-  --dropdown-item-hover-bg: rgba(184, 134, 46, 0.12);
-  --nav-dropbtn-active-bg: rgba(184, 134, 46, 0.12);
+  --nav-link-hover-bg: rgba(184, 134, 46, 0.08);
+  --dropdown-item-hover-bg: rgba(184, 134, 46, 0.08);
+  --nav-dropbtn-active-bg: rgba(184, 134, 46, 0.08);
   --toggle-bg: #ebe7de;
   --toggle-knob: #111118;
   --shadow-card: 0 1px 3px rgba(16, 16, 24, 0.05), 0 10px 32px rgba(16, 16, 24, 0.08);
-  --shadow-btn: 0 10px 24px rgba(184, 134, 46, 0.18);
+  --shadow-btn: 0 10px 24px rgba(0, 0, 0, 0.12);
 }
 
 *,
@@ -93,7 +93,7 @@ mark,
 .pp-highlight {
   display: inline;
   color: inherit;
-  background: linear-gradient(180deg, rgba(212, 168, 83, 0.28), rgba(212, 168, 83, 0.16));
+  background: var(--gold-dim);
   padding: 0.08em 0.32em;
   border-radius: 0.32em;
   font-weight: 700;
@@ -721,7 +721,7 @@ body.touch-device .nav-dropdown:hover .nav-dropdown-content {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  text-shadow: 0 0 22px rgba(212, 168, 83, 0.12);
+  text-shadow: 0 0 18px rgba(212, 168, 83, 0.08);
 }
 
 strong {
