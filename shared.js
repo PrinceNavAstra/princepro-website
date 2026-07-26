@@ -114,11 +114,44 @@
         nav.classList.toggle('scrolled', window.scrollY > 50);
       }, { passive: true });
 
-      // Prevent financial-tools parent link from navigating (dropdown only)
-      nav.querySelectorAll('[data-nav="financial-tools"]').forEach(function (link) {
-        link.addEventListener('click', function (e) {
-          e.preventDefault();
+      // Prevent dropdown parent links from navigating and show dropdowns on click
+      function closeDropdowns() {
+        nav.querySelectorAll('.nav-dropdown.open').forEach(function (dropdown) {
+          dropdown.classList.remove('open');
         });
+        document.body.classList.remove('nav-dropdown-open');
+      }
+
+      nav.querySelectorAll('.nav-dropdown').forEach(function (dropdown) {
+        var btn = dropdown.querySelector('.nav-dropbtn');
+        var content = dropdown.querySelector('.nav-dropdown-content');
+
+        if (!btn || !content) return;
+
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          var isOpen = dropdown.classList.toggle('open');
+
+          if (isOpen) {
+            closeDropdowns();
+            dropdown.classList.add('open');
+            document.body.classList.add('nav-dropdown-open');
+          } else {
+            closeDropdowns();
+          }
+        });
+
+        content.querySelectorAll('a').forEach(function (link) {
+          link.addEventListener('click', function () {
+            closeDropdowns();
+          });
+        });
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.nav-dropdown')) {
+          closeDropdowns();
+        }
       });
 
       // Mobile sidebar

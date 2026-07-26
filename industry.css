@@ -48,6 +48,120 @@
   max-width: 840px;
 }
 
+.hero-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  align-items: center;
+}
+
+.hero-content {
+  max-width: 780px;
+}
+
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(212, 168, 83, 0.12);
+  border: 1px solid rgba(212, 168, 83, 0.16);
+  border-radius: 100px;
+  padding: 8px 18px 8px 12px;
+  margin-bottom: 28px;
+}
+
+.kicker-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: pulse 2.2s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 var(--gglow);
+  }
+
+  50% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+}
+
+.kicker-txt {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.hero-h1 {
+  font-size: clamp(2.6rem, 5.5vw, 4.6rem);
+  max-width: 840px;
+  margin-bottom: 26px;
+}
+
+.hero-p {
+  font-size: 1.08rem;
+  line-height: 1.78;
+  color: var(--text-body);
+  max-width: 570px;
+  margin-bottom: 42px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 44px;
+  align-items: center;
+}
+
+.trust-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.trust-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-body);
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  background: var(--card-bg);
+  transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.2s;
+  cursor: none;
+}
+
+.trust-chip:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(212, 168, 83, 0.08);
+  transform: translateY(-2px);
+}
+
+.chip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.trust-chip:hover .chip-dot {
+  background: var(--gold);
+}
+
 .hero-badges {
   display: flex;
   flex-wrap: wrap;
@@ -85,6 +199,10 @@
   background: var(--gold);
   box-shadow: 0 0 0 6px var(--gold-dim);
   display: inline-block;
+}
+
+.hero-image-wrap {
+  display: none;
 }
 
 .hero-quote {

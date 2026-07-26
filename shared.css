@@ -82,36 +82,37 @@ mark,
   position: relative;
   display: inline-block;
   color: var(--text-primary);
-  padding: 0.12em 0.36em;
+  padding: 0.1em 0.42em;
   border-radius: 0.35em;
-  font-weight: 600;
+  font-weight: 700;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
-  z-index: 0;
-  background: linear-gradient(110deg, rgba(212, 168, 83, 0.22) 0%, rgba(45, 212, 191, 0.18) 50%, rgba(212, 168, 83, 0.28) 100%);
-  opacity: 1;
-  transform: none;
-  transition: background 0.35s ease, color 0.35s ease;
+  background: transparent;
+  transition: color 0.35s ease;
 }
 
 mark::before,
 .pp-highlight::before {
   content: '';
   position: absolute;
-  inset: 0;
-  border-radius: 0.35em;
-  background: transparent;
+  inset: 0 0.14em;
+  border-radius: 0.38em;
+  background: var(--gold);
+  opacity: 0.18;
+  transform: skewX(-6deg);
   z-index: -1;
+  filter: blur(0.3px);
 }
 
 mark::after,
 .pp-highlight::after {
   content: '';
   position: absolute;
-  inset: 0;
-  border-radius: 0.35em;
-  border: 1px solid transparent;
-  pointer-events: none;
+  inset: 0 0.14em;
+  border-radius: 0.38em;
+  border: 1px solid rgba(212, 168, 83, 0.16);
+  opacity: 0.28;
+  z-index: -1;
 }
 
 mark.is-visible,
@@ -121,11 +122,7 @@ mark.is-visible,
 }
 
 mark.is-visible::before,
-.pp-highlight.is-visible::before {
-  transform: none;
-  opacity: 1;
-}
-
+.pp-highlight.is-visible::before,
 mark.is-visible::after,
 .pp-highlight.is-visible::after {
   opacity: 1;
@@ -377,8 +374,26 @@ body.sidebar-open {
   color: var(--text-primary);
 }
 
-.nav-dropdown:hover .nav-dropdown-content {
+..nav-dropdown.open .nav-dropdown-content {
   display: block;
+}
+
+.nav-dropdown.open>.nav-dropbtn {
+  background: var(--gold-dim);
+}
+
+body.nav-dropdown-open>*:not(#nav):not(.sidebar) {
+  filter: blur(10px);
+  transition: filter 0.3s ease;
+  pointer-events: none;
+  user-select: none;
+}
+
+body.nav-dropdown-open #nav,
+body.nav-dropdown-open .nav-dropdown,
+body.nav-dropdown-open .nav-dropdown-content,
+body.nav-dropdown-open .nav-dropbtn {
+  pointer-events: auto;
 }
 
 .nav-right {
