@@ -219,44 +219,6 @@
       transition: color var(--tt)
     }
 
-    mark,
-    .pp-highlight {
-      position: relative;
-      display: inline-block;
-      background: transparent;
-      color: var(--th);
-      padding: 0.1em 0.42em;
-      border-radius: .35em;
-      box-decoration-break: clone;
-      -webkit-box-decoration-break: clone;
-      font-weight: 700;
-      transition: color var(--tt);
-    }
-
-    mark::before,
-    .pp-highlight::before {
-      content: '';
-      position: absolute;
-      inset: 0 0.14em;
-      border-radius: 0.38em;
-      background: var(--gold);
-      opacity: 0.18;
-      transform: skewX(-6deg);
-      z-index: -1;
-      filter: blur(0.3px);
-    }
-
-    mark::after,
-    .pp-highlight::after {
-      content: '';
-      position: absolute;
-      inset: 0 0.14em;
-      border-radius: 0.38em;
-      border: 1px solid rgba(212, 168, 83, .16);
-      opacity: 0.28;
-      z-index: -1;
-    }
-
     .aurora-text {
       background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 46%, #7bb8ff 100%);
       -webkit-background-clip: text;
@@ -692,13 +654,20 @@
       text-align: center;
       opacity: 0;
       transform: translateY(18px);
-      transition: opacity .35s ease, transform .35s ease;
+      visibility: hidden;
+      pointer-events: none;
+      z-index: 1;
+      transition: opacity .35s ease, transform .35s ease, visibility 0s linear .35s;
       color: var(--th);
     }
 
     .service-preview-panel.active {
       opacity: 1;
       transform: none;
+      visibility: visible;
+      pointer-events: auto;
+      z-index: 2;
+      transition-delay: 0s;
     }
 
     .service-preview-icon {
@@ -2130,12 +2099,20 @@
       /* ── Service hover preview activation ───────────────── */
       const serviceCards = document.querySelectorAll('.service-card');
       const previewPanels = document.querySelectorAll('.service-preview-panel');
+      let servicePreviewDelay = null;
 
       serviceCards.forEach(card => {
         card.addEventListener('mouseenter', () => {
-          const activeIndex = card.getAttribute('data-index');
-          serviceCards.forEach(c => c.classList.toggle('active', c === card));
-          previewPanels.forEach(panel => panel.classList.toggle('active', panel.getAttribute('data-index') === activeIndex));
+          clearTimeout(servicePreviewDelay);
+          servicePreviewDelay = setTimeout(() => {
+            const activeIndex = card.getAttribute('data-index');
+            serviceCards.forEach(c => c.classList.toggle('active', c === card));
+            previewPanels.forEach(panel => panel.classList.toggle('active', panel.getAttribute('data-index') === activeIndex));
+          }, 120);
+        });
+
+        card.addEventListener('mouseleave', () => {
+          clearTimeout(servicePreviewDelay);
         });
       });
 
