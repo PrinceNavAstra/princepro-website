@@ -221,72 +221,14 @@
 
     mark,
     .pp-highlight {
-      position: relative;
-      display: inline-block;
-      background: transparent;
+      background: linear-gradient(180deg, rgba(212, 168, 83, .28), rgba(212, 168, 83, .18));
       color: var(--th);
-      padding: 0.06em 0.32em;
+      padding: 0.08em 0.35em;
       border-radius: .35em;
       box-decoration-break: clone;
       -webkit-box-decoration-break: clone;
       font-weight: 600;
-      z-index: 0;
-      opacity: 0;
-      transform: translateY(10px);
-      transition: color var(--tt), opacity .7s cubic-bezier(.4, 0, .2, 1), transform .7s cubic-bezier(.4, 0, .2, 1)
-    }
-
-    mark::before,
-    .pp-highlight::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: .35em;
-      background: linear-gradient(110deg, rgba(212, 168, 83, .18) 0%, rgba(45, 212, 191, .2) 50%, rgba(212, 168, 83, .28) 100%);
-      transform: skewX(-12deg) scaleX(.8);
-      opacity: 0;
-      z-index: -1;
-      transition: transform .7s cubic-bezier(.4, 0, .2, 1), opacity .7s ease;
-    }
-
-    mark::after,
-    .pp-highlight::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: .35em;
-      border: 1px solid rgba(212, 168, 83, .24);
-      box-shadow: 0 0 0 1px rgba(45, 212, 191, .14);
-      opacity: 0;
-      transition: opacity .7s ease;
-    }
-
-    mark.is-visible,
-    .pp-highlight.is-visible {
-      opacity: 1;
-      transform: none;
-    }
-
-    mark.is-visible::before,
-    .pp-highlight.is-visible::before {
-      transform: skewX(-12deg) scaleX(1);
-      opacity: .95;
-    }
-
-    mark.is-visible::after,
-    .pp-highlight.is-visible::after {
-      opacity: 1;
-    }
-
-    [data-theme="light"] mark::before,
-    [data-theme="light"] .pp-highlight::before {
-      background: linear-gradient(110deg, rgba(184, 134, 46, .16) 0%, rgba(13, 148, 136, .18) 50%, rgba(184, 134, 46, .24) 100%);
-    }
-
-    [data-theme="light"] mark::after,
-    [data-theme="light"] .pp-highlight::after {
-      border-color: rgba(184, 134, 46, .24);
-      box-shadow: 0 0 0 1px rgba(13, 148, 136, .12);
+      transition: background var(--tt), color var(--tt)
     }
 
     .aurora-text {
@@ -516,86 +458,14 @@
     }
 
     .hero-highlight {
-      position: relative;
-      display: inline-block;
+      background: linear-gradient(180deg, rgba(212, 168, 83, .28), rgba(212, 168, 83, .18));
       color: var(--th);
-      padding: 0.06em 0.18em;
-      border-radius: 0.45em;
-      z-index: 0;
-      animation: heroHighlightIn 1s cubic-bezier(.4, 0, .2, 1) .25s both;
-    }
-
-    .hero-highlight::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 0.45em;
-      background: linear-gradient(110deg, rgba(212, 168, 83, .16) 0%, rgba(45, 212, 191, .2) 50%, rgba(212, 168, 83, .26) 100%);
-      transform: skewX(-12deg) scaleX(.9);
-      opacity: .95;
-      z-index: -1;
-      animation: heroHighlightSweep 1.6s ease-out .35s both;
-    }
-
-    .hero-highlight::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 0.45em;
-      border: 1px solid rgba(212, 168, 83, .24);
-      box-shadow: 0 0 0 1px rgba(45, 212, 191, .16), 0 8px 24px rgba(0, 0, 0, .08);
-      opacity: 0;
-      animation: heroHighlightGlow 1.6s ease-out .45s both;
-    }
-
-    [data-theme="light"] .hero-highlight::before {
-      background: linear-gradient(110deg, rgba(184, 134, 46, .16) 0%, rgba(13, 148, 136, .18) 50%, rgba(184, 134, 46, .24) 100%);
-    }
-
-    [data-theme="light"] .hero-highlight::after {
-      border-color: rgba(184, 134, 46, .24);
-      box-shadow: 0 0 0 1px rgba(13, 148, 136, .12), 0 8px 24px rgba(16, 16, 24, .08);
-    }
-
-    @keyframes heroHighlightSweep {
-      0% {
-        transform: skewX(-12deg) scaleX(.3);
-        opacity: 0;
-      }
-
-      60% {
-        transform: skewX(-12deg) scaleX(1);
-        opacity: .95;
-      }
-
-      100% {
-        transform: skewX(-12deg) scaleX(1);
-        opacity: .95;
-      }
-    }
-
-    @keyframes heroHighlightGlow {
-
-      0%,
-      100% {
-        opacity: 0;
-      }
-
-      60% {
-        opacity: 1;
-      }
-    }
-
-    @keyframes heroHighlightIn {
-      0% {
-        transform: translateY(10px);
-        filter: blur(2px);
-      }
-
-      100% {
-        transform: translateY(0);
-        filter: blur(0);
-      }
+      padding: 0.08em 0.35em;
+      border-radius: .35em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      font-weight: 600;
+      transition: background var(--tt), color var(--tt)
     }
 
     .hero-p {
@@ -707,155 +577,155 @@
       margin-bottom: 56px
     }
 
-    /* ── Sticky scroll reveal (Services & Industries) ── */
-    .sticky-scroll {
+    /* ═══ SERVICES ═══════════════════════════════════════════ */
+    #services {
+      background: var(--bg)
+    }
+
+    .sec-head {
+      margin-bottom: 56px
+    }
+
+    .service-stack {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.1fr 0.9fr;
       gap: 72px;
       align-items: start;
     }
 
-    .sticky-scroll-left {
-      position: relative;
+    .service-list {
+      display: grid;
+      gap: 24px;
     }
 
-    .sticky-scroll-panel {
-      min-height: 72vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 48px 18px 48px 0;
-      opacity: .42;
-      transform: translateY(8px);
-      transition: opacity .45s ease, transform .45s ease;
-      border-left: 2px solid transparent;
-      background: transparent;
+    .service-card {
+      background: var(--card);
+      border: 1px solid var(--bdr);
+      border-radius: 22px;
+      padding: 30px 28px;
+      box-shadow: var(--shc);
+      transition: transform .25s cubic-bezier(.4, 0, .2, 1), border-color .25s, box-shadow .25s, background .35s;
+      cursor: pointer;
     }
 
-    .sticky-scroll-panel.active {
-      opacity: 1;
-      transform: none;
-      border-left-color: var(--gold);
-      background: linear-gradient(90deg, var(--gdim) 0%, transparent 100%);
+    .service-card:hover,
+    .service-card.active {
+      transform: translateY(-4px);
+      border-color: var(--gold);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, .12);
+      background: linear-gradient(180deg, rgba(255, 255, 255, .95), var(--card));
     }
 
-    .sticky-scroll-num {
+    .service-badge {
       font-family: 'DM Mono', monospace;
       font-size: .72rem;
-      letter-spacing: .14em;
+      letter-spacing: .18em;
       color: var(--gold);
-      margin-bottom: 16px;
-      font-weight: 600;
-    }
-
-    .sticky-scroll-title {
-      font-family: 'Lora', serif;
-      font-size: clamp(1.5rem, 2.4vw, 2rem);
+      margin-bottom: 14px;
       font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .service-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.45rem, 2.4vw, 1.95rem);
+      margin-bottom: 14px;
       color: var(--th);
-      margin-bottom: 16px;
-      line-height: 1.25;
-      transition: color var(--tt);
-      letter-spacing: -0.01em;
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.02);
+      line-height: 1.2;
+      font-weight: 700;
     }
 
-    .sticky-scroll-panel.active .sticky-scroll-title {
-      color: var(--gold);
-    }
-
-    .sticky-scroll-desc {
-      font-size: .96rem;
+    .service-desc {
+      font-size: .98rem;
       line-height: 1.82;
-      color: var(--th);
-      max-width: 520px;
-      font-weight: 600;
+      color: var(--tb);
+      max-width: 600px;
     }
 
-    .sticky-scroll-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 22px;
-      font-size: .82rem;
-      font-weight: 600;
-      color: var(--gold);
-      text-decoration: none;
-      transition: gap .2s;
-    }
-
-    .sticky-scroll-link:hover {
-      gap: 10px;
-    }
-
-    .sticky-scroll-mobile-vis {
-      display: none;
-    }
-
-    .sticky-scroll-right {
+    .service-preview {
       position: sticky;
       top: 110px;
-    }
-
-    .sticky-scroll-vis {
-      position: relative;
-      height: min(440px, 52vh);
-      border-radius: 24px;
-      overflow: hidden;
+      min-height: 58vh;
+      border-radius: 28px;
+      background: var(--card);
       border: 1px solid var(--bdr-md);
-      background: linear-gradient(135deg, var(--card) 0%, var(--card2) 100%);
-      transition: background .55s ease, box-shadow .55s ease, border-color .35s ease;
       box-shadow: var(--shc);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      overflow: hidden;
+      padding: 0;
     }
 
-    .sticky-scroll-card {
+    .service-preview-panel {
       position: absolute;
       inset: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 18px;
+      gap: 20px;
+      padding: 40px 28px;
+      text-align: center;
       opacity: 0;
-      transform: scale(.94) translateY(12px);
-      transition: opacity .45s ease, transform .45s ease;
-      pointer-events: none;
-      padding: 24px;
-      text-shadow: 0 10px 24px rgba(0, 0, 0, .22);
+      transform: translateY(18px);
+      transition: opacity .35s ease, transform .35s ease;
+      color: var(--th);
     }
 
-    .sticky-scroll-card.active {
+    .service-preview-panel.active {
       opacity: 1;
       transform: none;
-      pointer-events: auto;
     }
 
-    .sticky-scroll-card-icon {
-      font-size: clamp(4rem, 8vw, 5.5rem);
+    .service-preview-icon {
+      font-size: clamp(4rem, 7vw, 5.5rem);
       line-height: 1;
-      filter: drop-shadow(0 12px 28px rgba(0, 0, 0, .18));
-      transform: translateY(2px);
+      filter: drop-shadow(0 18px 28px rgba(0, 0, 0, .18));
     }
 
-    .sticky-scroll-card-label {
+    .service-preview-title {
       font-family: 'Lora', serif;
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: #ffffff;
-      text-align: center;
-      padding: 0 24px;
-      letter-spacing: -0.01em;
-      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.28);
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      margin-bottom: 12px;
+      color: var(--th);
     }
 
-    .sticky-scroll-card-num {
-      font-family: 'DM Mono', monospace;
-      font-size: .7rem;
-      letter-spacing: .16em;
-      color: rgba(255, 255, 255, .92);
-      font-weight: 700;
+    .service-preview-copy {
+      max-width: 480px;
+      font-size: 1rem;
+      line-height: 1.82;
+      color: var(--tb);
+    }
+
+    .service-preview-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: .85;
+      background: linear-gradient(135deg, rgba(212, 168, 83, .16), rgba(45, 212, 191, .14));
+      transition: background .35s ease;
+    }
+
+    .service-preview-panel[data-bg="green"] .service-preview-bg {
+      background: linear-gradient(135deg, rgba(34, 197, 94, .25), rgba(13, 148, 136, .18));
+    }
+
+    .service-preview-panel[data-bg="blue"] .service-preview-bg {
+      background: linear-gradient(135deg, rgba(45, 212, 191, .25), rgba(8, 145, 178, .18));
+    }
+
+    .service-preview-panel[data-bg="purple"] .service-preview-bg {
+      background: linear-gradient(135deg, rgba(129, 140, 248, .25), rgba(99, 102, 241, .18));
+    }
+
+    .service-preview-panel[data-bg="gold"] .service-preview-bg {
+      background: linear-gradient(135deg, rgba(252, 211, 77, .25), rgba(212, 168, 83, .18));
+    }
+
+    .service-preview-panel[data-bg="amber"] .service-preview-bg {
+      background: linear-gradient(135deg, rgba(240, 200, 120, .25), rgba(232, 160, 69, .18));
+    }
+
+    .service-preview-panel[data-bg="teal"] .service-preview-bg {
+      background: linear-gradient(135deg, rgba(184, 134, 46, .25), rgba(13, 148, 136, .18));
     }
 
     /* ═══ INDUSTRIES ═════════════════════════════════════════ */
@@ -1821,90 +1691,87 @@
         <p class="sub">From initial consultation to post-deployment support — <strong>complete, reliable, and
             future-ready</strong>.</p>
       </div>
-      <div class="sticky-scroll reveal" data-sticky-scroll style="transition-delay:.1s">
-        <div class="sticky-scroll-left">
-          <div class="sticky-scroll-panel active" data-index="0">
-            <div class="sticky-scroll-mobile-vis">🔧</div>
-            <div class="sticky-scroll-num">01</div>
-            <h3 class="sticky-scroll-title">ERP Implementation</h3>
-            <p class="sticky-scroll-desc">Full-cycle <strong>ERPNext and Odoo</strong> deployments — system
-              configuration, data
-              migration, user training, and go-live support with <strong>zero business disruption</strong>.</p>
+      <div class="service-stack reveal" style="transition-delay:.1s">
+        <div class="service-list">
+          <div class="service-card active" data-index="0">
+            <div class="service-badge">01</div>
+            <h3 class="service-title">ERP Implementation</h3>
+            <p class="service-desc">Full-cycle <strong>ERPNext and Odoo</strong> deployments — system configuration,
+              data migration, user training, and go-live support with <strong>zero business disruption</strong>.</p>
           </div>
-          <div class="sticky-scroll-panel" data-index="1">
-            <div class="sticky-scroll-mobile-vis">⚙️</div>
-            <div class="sticky-scroll-num">02</div>
-            <h3 class="sticky-scroll-title">ERP Customization</h3>
-            <p class="sticky-scroll-desc"><strong>Custom modules</strong>, automated workflows, tailored reports, and
-              seamless
+          <div class="service-card" data-index="1">
+            <div class="service-badge">02</div>
+            <h3 class="service-title">ERP Customization</h3>
+            <p class="service-desc"><strong>Custom modules</strong>, automated workflows, tailored reports, and seamless
               third-party integrations aligned perfectly with your operations.</p>
           </div>
-          <div class="sticky-scroll-panel" data-index="2">
-            <div class="sticky-scroll-mobile-vis">🤖</div>
-            <div class="sticky-scroll-num">03</div>
-            <h3 class="sticky-scroll-title">AI-Assisted Development</h3>
-            <p class="sticky-scroll-desc"><strong>Prompt engineering</strong> and AI-driven development to accelerate
-              ERP delivery,
-              <mark>reduce costs</mark>, and build smarter, self-improving solutions.
-            </p>
+          <div class="service-card" data-index="2">
+            <div class="service-badge">03</div>
+            <h3 class="service-title">AI-Assisted Development</h3>
+            <p class="service-desc"><strong>Prompt engineering</strong> and AI-driven development to accelerate ERP
+              delivery, <mark>reduce costs</mark>, and build smarter, self-improving solutions.</p>
           </div>
-          <div class="sticky-scroll-panel" data-index="3">
-            <div class="sticky-scroll-mobile-vis">📋</div>
-            <div class="sticky-scroll-num">04</div>
-            <h3 class="sticky-scroll-title">Business Analysis</h3>
-            <p class="sticky-scroll-desc">Structured <strong>requirement gathering</strong>, as-is/to-be process
-              mapping, <strong>gap
-                analysis</strong>, and solution design to ensure solid ERP foundations.</p>
+          <div class="service-card" data-index="3">
+            <div class="service-badge">04</div>
+            <h3 class="service-title">Business Analysis</h3>
+            <p class="service-desc">Structured <strong>requirement gathering</strong>, as-is/to-be process mapping,
+              <strong>gap analysis</strong>, and solution design to ensure solid ERP foundations.</p>
           </div>
-          <div class="sticky-scroll-panel" data-index="4">
-            <div class="sticky-scroll-mobile-vis">📊</div>
-            <div class="sticky-scroll-num">05</div>
-            <h3 class="sticky-scroll-title">Power BI Dashboards</h3>
-            <p class="sticky-scroll-desc">Transform complex ERP data into <strong>intuitive, real-time
-                dashboards</strong> and BI
-              reports — giving decision-makers the clarity to <mark>act fast and confidently</mark>.</p>
+          <div class="service-card" data-index="4">
+            <div class="service-badge">05</div>
+            <h3 class="service-title">Power BI Dashboards</h3>
+            <p class="service-desc">Transform complex ERP data into <strong>intuitive, real-time dashboards</strong> and
+              BI reports — giving decision-makers the clarity to <mark>act fast and confidently</mark>.</p>
           </div>
-          <div class="sticky-scroll-panel" data-index="5">
-            <div class="sticky-scroll-mobile-vis">⚡</div>
-            <div class="sticky-scroll-num">06</div>
-            <h3 class="sticky-scroll-title">Process Automation</h3>
-            <p class="sticky-scroll-desc">Smart <strong>workflow automation</strong> and system integrations that
-              eliminate manual
-              effort, reduce errors, and <strong>free your team's focus</strong>.</p>
+          <div class="service-card" data-index="5">
+            <div class="service-badge">06</div>
+            <h3 class="service-title">Process Automation</h3>
+            <p class="service-desc">Smart <strong>workflow automation</strong> and system integrations that eliminate
+              manual effort, reduce errors, and <strong>free your team's focus</strong>.</p>
           </div>
         </div>
-        <div class="sticky-scroll-right">
-          <div class="sticky-scroll-vis">
-            <div class="sticky-scroll-card active" data-index="0" data-bg="linear-gradient(135deg, #22c55e, #0d9488)">
-              <span class="sticky-scroll-card-num">01</span>
-              <span class="sticky-scroll-card-icon">🔧</span>
-              <span class="sticky-scroll-card-label">ERP Implementation</span>
-            </div>
-            <div class="sticky-scroll-card" data-index="1" data-bg="linear-gradient(135deg, #2dd4bf, #0891b2)">
-              <span class="sticky-scroll-card-num">02</span>
-              <span class="sticky-scroll-card-icon">⚙️</span>
-              <span class="sticky-scroll-card-label">ERP Customization</span>
-            </div>
-            <div class="sticky-scroll-card" data-index="2" data-bg="linear-gradient(135deg, #818cf8, #6366f1)">
-              <span class="sticky-scroll-card-num">03</span>
-              <span class="sticky-scroll-card-icon">🤖</span>
-              <span class="sticky-scroll-card-label">AI-Assisted Development</span>
-            </div>
-            <div class="sticky-scroll-card" data-index="3" data-bg="linear-gradient(135deg, #fcd34d, #d4a853)">
-              <span class="sticky-scroll-card-num">04</span>
-              <span class="sticky-scroll-card-icon">📋</span>
-              <span class="sticky-scroll-card-label">Business Analysis</span>
-            </div>
-            <div class="sticky-scroll-card" data-index="4" data-bg="linear-gradient(135deg, #f0c878, #e8a045)">
-              <span class="sticky-scroll-card-num">05</span>
-              <span class="sticky-scroll-card-icon">📊</span>
-              <span class="sticky-scroll-card-label">Power BI Dashboards</span>
-            </div>
-            <div class="sticky-scroll-card" data-index="5" data-bg="linear-gradient(135deg, #b8862e, #0d9488)">
-              <span class="sticky-scroll-card-num">06</span>
-              <span class="sticky-scroll-card-icon">⚡</span>
-              <span class="sticky-scroll-card-label">Process Automation</span>
-            </div>
+        <div class="service-preview">
+          <div class="service-preview-panel active" data-index="0" data-bg="green">
+            <div class="service-preview-bg"></div>
+            <span class="service-preview-icon">🔧</span>
+            <div class="service-preview-title">ERP Implementation</div>
+            <div class="service-preview-copy">This service delivers a smooth implementation path for ERPNext and Odoo,
+              including configuration, migration, and user adoption support.</div>
+          </div>
+          <div class="service-preview-panel" data-index="1" data-bg="blue">
+            <div class="service-preview-bg"></div>
+            <span class="service-preview-icon">⚙️</span>
+            <div class="service-preview-title">ERP Customization</div>
+            <div class="service-preview-copy">Tailored workflows, custom modules, and integrations designed to fit your
+              unique operational needs.</div>
+          </div>
+          <div class="service-preview-panel" data-index="2" data-bg="purple">
+            <div class="service-preview-bg"></div>
+            <span class="service-preview-icon">🤖</span>
+            <div class="service-preview-title">AI-Assisted Development</div>
+            <div class="service-preview-copy">Accelerate delivery with AI-driven design, automations, and
+              prompt-engineered ERP logic.</div>
+          </div>
+          <div class="service-preview-panel" data-index="3" data-bg="gold">
+            <div class="service-preview-bg"></div>
+            <span class="service-preview-icon">📋</span>
+            <div class="service-preview-title">Business Analysis</div>
+            <div class="service-preview-copy">Detailed discovery, process mapping, gap analysis and solution design for
+              ERP success.</div>
+          </div>
+          <div class="service-preview-panel" data-index="4" data-bg="amber">
+            <div class="service-preview-bg"></div>
+            <span class="service-preview-icon">📊</span>
+            <div class="service-preview-title">Power BI Dashboards</div>
+            <div class="service-preview-copy">Make ERP data actionable with real-time dashboards and executive
+              reporting.</div>
+          </div>
+          <div class="service-preview-panel" data-index="5" data-bg="teal">
+            <div class="service-preview-bg"></div>
+            <span class="service-preview-icon">⚡</span>
+            <div class="service-preview-title">Process Automation</div>
+            <div class="service-preview-copy">Connect systems, cut manual work, and keep processes flowing
+              automatically.</div>
           </div>
         </div>
       </div>
@@ -2233,6 +2100,18 @@
         });
       });
 
+      /* ── Service hover preview activation ───────────────── */
+      const serviceCards = document.querySelectorAll('.service-card');
+      const previewPanels = document.querySelectorAll('.service-preview-panel');
+
+      serviceCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          const activeIndex = card.getAttribute('data-index');
+          serviceCards.forEach(c => c.classList.toggle('active', c === card));
+          previewPanels.forEach(panel => panel.classList.toggle('active', panel.getAttribute('data-index') === activeIndex));
+        });
+      });
+
       /* ── Custom cursor ─────────────────────────────────── */
       const isTouchDevice = window.matchMedia('(pointer:coarse)').matches;
       if (isTouchDevice) {
@@ -2249,7 +2128,7 @@
         document.addEventListener('mouseup', () => ring.classList.remove('clicking'));
 
         // Hover detection — expand ring on interactive elements
-        const hoverEls = 'a, button, .svc, .ind-card, .exp-card, .ccard, .ai-pill, .trust-chip, .flow-step';
+        const hoverEls = 'a, button, .svc, .service-card, .ind-card, .exp-card, .ccard, .ai-pill, .trust-chip, .flow-step';
         document.querySelectorAll(hoverEls).forEach(el => {
           el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
           el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
