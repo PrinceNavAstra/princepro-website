@@ -39,6 +39,8 @@
       --gdim: rgba(212, 168, 83, .12);
       --gglow: rgba(212, 168, 83, .28);
       --teal: #2dd4bf;
+      --teal-l: #7ce8d8;
+      --teal-d: #0f766e;
       --nav-bg: rgba(8, 8, 16, .78);
       --tog-bg: #24243a;
       --tog-k: #f8f7ff;
@@ -66,6 +68,8 @@
       --gdim: rgba(184, 134, 46, .1);
       --gglow: rgba(184, 134, 46, .22);
       --teal: #0d9488;
+      --teal-l: #2dd4bf;
+      --teal-d: #0b5f57;
       --nav-bg: rgba(250, 250, 248, .65);
       --tog-bg: #e8e6f0;
       --tog-k: #111118;
@@ -1211,111 +1215,7 @@
       max-width: 580px
     }
 
-    .contact-cards {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 36px
-    }
-
-    .ccard {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      background: var(--card);
-      border: 1px solid var(--bdr);
-      border-radius: 16px;
-      padding: 24px 32px;
-      min-width: 320px;
-      text-align: left;
-      transition: border-color .25s, box-shadow .25s, transform .25s cubic-bezier(.4, 0, .2, 1), background var(--tt);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .ccard::before {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--gold), var(--teal));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform .32s cubic-bezier(.4, 0, .2, 1);
-    }
-
-    .ccard:hover {
-      border-color: var(--bdr-md);
-      box-shadow: var(--shc);
-      transform: translateY(-4px)
-    }
-
-    .ccard:hover::before {
-      transform: scaleX(1)
-    }
-
-    .ccard-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 14px;
-      background: var(--gdim);
-      border: 1px solid var(--bdr-md);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
-      flex-shrink: 0;
-      transition: background var(--tt), transform .25s;
-      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .ccard:hover .ccard-icon {
-      transform: scale(1.06)
-    }
-
-    .ccard-text {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .ccard-label {
-      font-family: 'DM Mono', monospace;
-      font-size: .7rem;
-      font-weight: 600;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 2px;
-      transition: color var(--tt)
-    }
-
-    .ccard-value {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--th);
-      transition: color .2s;
-      line-height: 1.2
-    }
-
-    .ccard:hover .ccard-value {
-      color: var(--gold)
-    }
-
     /* ═══ QR CONNECT CARDS (boarding-pass style) ═════════════ */
-    .qr-lede {
-      font-family: 'DM Mono', monospace;
-      font-size: .7rem;
-      font-weight: 600;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--tm);
-      margin: 4px 0 18px;
-    }
-
     .qr-cards {
       display: flex;
       gap: 20px;
@@ -1332,12 +1232,39 @@
       border-radius: 22px;
       overflow: hidden;
       box-shadow: var(--shc);
+      position: relative;
       transition: border-color .25s, box-shadow .25s, transform .25s cubic-bezier(.4, 0, .2, 1), background var(--tt);
     }
 
+    .qr-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      z-index: 2;
+    }
+
+    .qr-card--call::before {
+      background: linear-gradient(90deg, var(--gold-l), var(--gold), var(--gold-d));
+    }
+
+    .qr-card--mail::before {
+      background: linear-gradient(90deg, var(--teal-l), var(--teal), var(--teal-d));
+    }
+
     .qr-card:hover {
-      border-color: var(--bdr-md);
-      transform: translateY(-5px);
+      transform: translateY(-6px);
+      box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .28), var(--shc);
+    }
+
+    .qr-card--call:hover {
+      border-color: var(--gold);
+    }
+
+    .qr-card--mail:hover {
+      border-color: var(--teal);
     }
 
     /* top pass */
@@ -1356,7 +1283,6 @@
       width: 22px;
       height: 22px;
       border-radius: 7px;
-      background: var(--gold);
       color: var(--bg);
       display: flex;
       align-items: center;
@@ -1366,6 +1292,14 @@
       font-size: .62rem;
       flex-shrink: 0;
       transition: background var(--tt), color var(--tt);
+    }
+
+    .qr-card--call .qr-card__mark {
+      background: linear-gradient(135deg, var(--gold-l), var(--gold-d));
+    }
+
+    .qr-card--mail .qr-card__mark {
+      background: linear-gradient(135deg, var(--teal-l), var(--teal-d));
     }
 
     .qr-card__name {
@@ -1445,22 +1379,32 @@
       right: -11px;
     }
 
-    /* bottom stub — bold color, always readable both themes via var(--bg) text */
+    /* bottom stub — rich gradient, always readable both themes via var(--bg) text */
     .qr-card__bottom {
       padding: 20px;
       color: var(--bg);
       display: flex;
       flex-direction: column;
       gap: 16px;
+      position: relative;
+      overflow: hidden;
       transition: background var(--tt), color var(--tt);
     }
 
+    .qr-card__bottom::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(120% 130% at 8% -15%, rgba(255, 255, 255, .4), transparent 55%);
+      pointer-events: none;
+    }
+
     .qr-card--call .qr-card__bottom {
-      background: var(--gold);
+      background: linear-gradient(160deg, var(--gold-l), var(--gold) 55%, var(--gold-d));
     }
 
     .qr-card--mail .qr-card__bottom {
-      background: var(--teal);
+      background: linear-gradient(160deg, var(--teal-l), var(--teal) 55%, var(--teal-d));
     }
 
     .qr-route {
@@ -1468,6 +1412,8 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
+      position: relative;
+      z-index: 1;
     }
 
     .qr-route__code {
@@ -1476,6 +1422,7 @@
       font-weight: 700;
       letter-spacing: .01em;
       line-height: 1.15;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, .06);
     }
 
     .qr-route__sub {
@@ -1486,25 +1433,33 @@
     }
 
     .qr-route__icon {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, .22);
+      background: rgba(255, 255, 255, .85);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, .18);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 1rem;
       flex-shrink: 0;
+      transition: transform .3s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .qr-card:hover .qr-route__icon {
+      transform: scale(1.08) rotate(-4deg);
     }
 
     .qr-block {
       display: flex;
       align-items: center;
       gap: 12px;
-      background: rgba(255, 255, 255, .16);
-      border: 1px solid rgba(255, 255, 255, .22);
+      background: rgba(255, 255, 255, .18);
+      border: 1px solid rgba(255, 255, 255, .28);
       border-radius: 14px;
       padding: 10px;
+      position: relative;
+      z-index: 1;
     }
 
     .qr-wrap {
@@ -1517,6 +1472,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
     }
 
     .qr-wrap img,
@@ -1529,7 +1485,7 @@
     .qr-copy {
       font-size: .7rem;
       line-height: 1.4;
-      opacity: .9;
+      opacity: .92;
     }
 
     .qr-copy strong {
@@ -1543,14 +1499,16 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      position: relative;
+      z-index: 1;
     }
 
     .qr-help {
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      border: 1.5px solid rgba(255, 255, 255, .4);
-      background: transparent;
+      border: 1.5px solid rgba(255, 255, 255, .55);
+      background: rgba(255, 255, 255, .08);
       color: var(--bg);
       display: flex;
       align-items: center;
@@ -1558,12 +1516,13 @@
       font-size: 1rem;
       cursor: pointer;
       flex-shrink: 0;
-      transition: background .2s, border-color .2s;
+      transition: background .2s, border-color .2s, transform .2s;
     }
 
     .qr-help:hover {
-      background: rgba(255, 255, 255, .18);
-      border-color: rgba(255, 255, 255, .6);
+      background: rgba(255, 255, 255, .24);
+      border-color: rgba(255, 255, 255, .75);
+      transform: scale(1.06);
     }
 
     .qr-wallet {
@@ -1576,8 +1535,9 @@
       cursor: pointer;
       border: none;
       background: var(--card);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .16);
       font-family: 'DM Sans', sans-serif;
-      transition: opacity .2s, transform .15s;
+      transition: opacity .2s, transform .15s, box-shadow .2s;
     }
 
     .qr-card--call .qr-wallet {
@@ -1585,12 +1545,13 @@
     }
 
     .qr-card--mail .qr-wallet {
-      color: var(--teal);
+      color: var(--teal-d);
     }
 
     .qr-wallet:hover {
-      opacity: .88;
-      transform: translateY(-1px);
+      opacity: .92;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, .2);
     }
 
     /* ═══ FOOTER ═════════════════════════════════════════════ */
@@ -1795,11 +1756,6 @@
 
       .exp-grid {
         grid-template-columns: 1fr
-      }
-
-      .contact-cards {
-        flex-direction: column;
-        align-items: center
       }
 
       .qr-cards {
@@ -2240,25 +2196,7 @@
           <mark>honest conversation</mark> about your business.
         </p>
 
-        <div class="contact-cards reveal" style="transition-delay:.18s">
-          <a href="mailto:prince679.pro@gmail.com" class="ccard">
-            <div class="ccard-icon">✉️</div>
-            <div class="ccard-text">
-              <div class="ccard-label">Email Us</div>
-              <div class="ccard-value">prince679.pro@gmail.com</div>
-            </div>
-          </a>
-          <a href="tel:+917043176485" class="ccard">
-            <div class="ccard-icon">📞</div>
-            <div class="ccard-text">
-              <div class="ccard-label">Call Us</div>
-              <div class="ccard-value">+91 70431 76485</div>
-            </div>
-          </a>
-        </div>
-
-        <div class="qr-lede reveal" style="transition-delay:.2s">Or scan with your phone</div>
-        <div class="qr-cards reveal" style="transition-delay:.22s">
+        <div class="qr-cards reveal" style="transition-delay:.14s; margin-top:8px">
 
           <!-- QR: CALL -->
           <div class="qr-card qr-card--call">
@@ -2437,7 +2375,7 @@
         document.addEventListener('mouseup', () => ring.classList.remove('clicking'));
 
         // Hover detection — expand ring on interactive elements
-        const hoverEls = 'a, button, .svc-row, .ind-card, .exp-card, .ccard, .ai-pill, .trust-chip, .flow-step';
+        const hoverEls = 'a, button, .svc-row, .ind-card, .exp-card, .ai-pill, .trust-chip, .flow-step';
         document.querySelectorAll(hoverEls).forEach(el => {
           el.addEventListener('mouseenter', () => ring.classList.add('hovering'));
           el.addEventListener('mouseleave', () => ring.classList.remove('hovering'));
