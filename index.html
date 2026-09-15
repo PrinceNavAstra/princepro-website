@@ -1406,7 +1406,7 @@
       color: var(--gold)
     }
 
-    /* ═══ QR CONNECT CARDS ═══════════════════════════════════ */
+    /* ═══ QR CONNECT CARDS (boarding-pass style) ═════════════ */
     .qr-lede {
       font-family: 'DM Mono', monospace;
       font-size: .7rem;
@@ -1419,18 +1419,18 @@
 
     .qr-cards {
       display: flex;
-      gap: 16px;
+      gap: 20px;
       justify-content: center;
       flex-wrap: wrap;
       margin-bottom: 36px;
     }
 
     .qr-card {
-      width: 300px;
+      width: 272px;
       text-align: left;
       background: var(--card);
       border: 1px solid var(--bdr);
-      border-radius: 18px;
+      border-radius: 22px;
       overflow: hidden;
       box-shadow: var(--shc);
       transition: border-color .25s, box-shadow .25s, transform .25s cubic-bezier(.4, 0, .2, 1), background var(--tt);
@@ -1438,36 +1438,92 @@
 
     .qr-card:hover {
       border-color: var(--bdr-md);
-      transform: translateY(-4px);
+      transform: translateY(-5px);
     }
 
+    /* top pass */
     .qr-card__top {
-      padding: 20px 22px 16px;
+      padding: 18px 20px 14px;
     }
 
-    .qr-card__label {
+    .qr-card__brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .qr-card__mark {
+      width: 22px;
+      height: 22px;
+      border-radius: 7px;
+      background: var(--gold);
+      color: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-family: 'DM Mono', monospace;
-      font-size: .68rem;
-      font-weight: 600;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 4px;
-      transition: color var(--tt);
+      font-weight: 700;
+      font-size: .62rem;
+      flex-shrink: 0;
+      transition: background var(--tt), color var(--tt);
     }
 
-    .qr-card__value {
+    .qr-card__name {
       font-family: 'Lora', Georgia, serif;
       font-weight: 600;
-      font-size: 1.02rem;
+      font-size: .86rem;
       color: var(--th);
       transition: color var(--tt);
     }
 
+    .qr-card__meta {
+      font-size: .68rem;
+      color: var(--tm);
+      margin-bottom: 14px;
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      transition: color var(--tt);
+    }
+
+    .qr-card__meta span:not(:last-child)::after {
+      content: "·";
+      margin-left: 5px;
+      color: var(--bdr-md);
+    }
+
+    .qr-card__fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 8px;
+    }
+
+    .qr-card__fields label {
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: .58rem;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--tm);
+      margin-bottom: 2px;
+      transition: color var(--tt);
+    }
+
+    .qr-card__fields div {
+      font-family: 'DM Sans', sans-serif;
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--th);
+      transition: color var(--tt);
+    }
+
+    /* perforation */
     .qr-perf {
       position: relative;
       height: 0;
       border-top: 1.5px dashed var(--bdr-md);
+      transition: border-color var(--tt);
     }
 
     .qr-perf::before,
@@ -1490,26 +1546,78 @@
       right: -11px;
     }
 
+    /* bottom stub — bold color, always readable both themes via var(--bg) text */
     .qr-card__bottom {
-      padding: 18px 22px;
+      padding: 20px;
+      color: var(--bg);
       display: flex;
-      gap: 14px;
+      flex-direction: column;
+      gap: 16px;
+      transition: background var(--tt), color var(--tt);
+    }
+
+    .qr-card--call .qr-card__bottom {
+      background: var(--gold);
+    }
+
+    .qr-card--mail .qr-card__bottom {
+      background: var(--teal);
+    }
+
+    .qr-route {
+      display: flex;
       align-items: center;
-      background: var(--gdim);
-      transition: background var(--tt);
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .qr-route__code {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: .01em;
+      line-height: 1.15;
+    }
+
+    .qr-route__sub {
+      font-family: 'DM Mono', monospace;
+      font-size: .68rem;
+      opacity: .82;
+      margin-top: 3px;
+    }
+
+    .qr-route__icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .qr-block {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255, 255, 255, .16);
+      border: 1px solid rgba(255, 255, 255, .22);
+      border-radius: 14px;
+      padding: 10px;
     }
 
     .qr-wrap {
-      width: 68px;
-      height: 68px;
+      width: 64px;
+      height: 64px;
       background: #fff;
-      border-radius: 10px;
-      padding: 6px;
+      border-radius: 8px;
+      padding: 5px;
       flex-shrink: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
     }
 
     .qr-wrap img,
@@ -1520,57 +1628,70 @@
     }
 
     .qr-copy {
-      font-size: .74rem;
-      line-height: 1.45;
-      color: var(--tb);
-      transition: color var(--tt);
+      font-size: .7rem;
+      line-height: 1.4;
+      opacity: .9;
     }
 
     .qr-copy strong {
       display: block;
-      color: var(--th);
-      font-size: .8rem;
+      font-size: .76rem;
+      opacity: 1;
       margin-bottom: 2px;
     }
 
     .qr-card__actions {
       display: flex;
-      gap: 8px;
-      padding: 0 22px 20px;
+      align-items: center;
+      gap: 10px;
     }
 
-    .qr-btn {
+    .qr-help {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, .4);
+      background: transparent;
+      color: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background .2s, border-color .2s;
+    }
+
+    .qr-help:hover {
+      background: rgba(255, 255, 255, .18);
+      border-color: rgba(255, 255, 255, .6);
+    }
+
+    .qr-wallet {
       flex: 1;
       text-align: center;
-      padding: 10px 10px;
+      padding: 11px 14px;
       border-radius: 999px;
-      font-size: .76rem;
-      font-weight: 600;
+      font-size: .8rem;
+      font-weight: 700;
       cursor: pointer;
-      border: 1.5px solid var(--bdr-md);
-      background: transparent;
-      color: var(--th);
+      border: none;
+      background: var(--card);
       font-family: 'DM Sans', sans-serif;
-      transition: border-color .2s, color .2s, background .2s;
+      transition: opacity .2s, transform .15s;
     }
 
-    .qr-btn:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-      background: var(--gdim);
+    .qr-card--call .qr-wallet {
+      color: var(--gold-d);
     }
 
-    .qr-btn--solid {
-      background: var(--gold);
-      border-color: var(--gold);
-      color: var(--bg);
+    .qr-card--mail .qr-wallet {
+      color: var(--teal);
     }
 
-    .qr-btn--solid:hover {
-      color: var(--bg);
-      opacity: .9;
-      background: var(--gold-l);
-      border-color: var(--gold-l);
+    .qr-wallet:hover {
+      opacity: .88;
+      transform: translateY(-1px);
     }
 
     /* ═══ FOOTER ═════════════════════════════════════════════ */
@@ -2269,36 +2390,102 @@
         <div class="qr-cards reveal" style="transition-delay:.22s">
 
           <!-- QR: CALL -->
-          <div class="qr-card">
+          <div class="qr-card qr-card--call">
             <div class="qr-card__top">
-              <div class="qr-card__label">Call</div>
-              <div class="qr-card__value">+91 70431 76485</div>
+              <div class="qr-card__brand">
+                <div class="qr-card__mark">PP</div>
+                <div class="qr-card__name">Prince Prajapati</div>
+              </div>
+              <div class="qr-card__meta">
+                <span>ERP &amp; AI Consultant</span>
+                <span>Ahmedabad, IN</span>
+              </div>
+              <div class="qr-card__fields">
+                <div>
+                  <label>Response</label>
+                  <div>Within 24h</div>
+                </div>
+                <div>
+                  <label>Availability</label>
+                  <div>Mon – Sat</div>
+                </div>
+                <div>
+                  <label>Focus</label>
+                  <div>ERPNext / Odoo</div>
+                </div>
+                <div>
+                  <label>Time Zone</label>
+                  <div>IST GMT+5:30</div>
+                </div>
+              </div>
             </div>
             <div class="qr-perf"></div>
             <div class="qr-card__bottom">
-              <div class="qr-wrap" id="qr-call"></div>
-              <div class="qr-copy"><strong>Scan to dial</strong>Opens your phone's dialer with the number ready.</div>
-            </div>
-            <div class="qr-card__actions">
-              <a class="qr-btn" href="tel:+917043176485">Call now</a>
-              <button class="qr-btn qr-btn--solid" type="button" onclick="savePrinceContact()">Save contact</button>
+              <div class="qr-route">
+                <div>
+                  <div class="qr-route__code">CALL</div>
+                  <div class="qr-route__sub">+91 70431 76485</div>
+                </div>
+                <div class="qr-route__icon">📞</div>
+              </div>
+              <div class="qr-block">
+                <div class="qr-wrap" id="qr-call"></div>
+                <div class="qr-copy"><strong>Scan to dial</strong>Opens your phone's dialer, ready to call.</div>
+              </div>
+              <div class="qr-card__actions">
+                <button class="qr-help" type="button" onclick="savePrinceContact()" title="Save contact">＋</button>
+                <a class="qr-wallet" href="tel:+917043176485">Call now</a>
+              </div>
             </div>
           </div>
 
           <!-- QR: EMAIL -->
-          <div class="qr-card">
+          <div class="qr-card qr-card--mail">
             <div class="qr-card__top">
-              <div class="qr-card__label">Email</div>
-              <div class="qr-card__value">prince679.pro@gmail.com</div>
+              <div class="qr-card__brand">
+                <div class="qr-card__mark">PP</div>
+                <div class="qr-card__name">Prince Prajapati</div>
+              </div>
+              <div class="qr-card__meta">
+                <span>ERP &amp; AI Consultant</span>
+                <span>Ahmedabad, IN</span>
+              </div>
+              <div class="qr-card__fields">
+                <div>
+                  <label>Response</label>
+                  <div>Within 24h</div>
+                </div>
+                <div>
+                  <label>Best For</label>
+                  <div>Project briefs</div>
+                </div>
+                <div>
+                  <label>Focus</label>
+                  <div>AI Workflows</div>
+                </div>
+                <div>
+                  <label>Time Zone</label>
+                  <div>IST GMT+5:30</div>
+                </div>
+              </div>
             </div>
             <div class="qr-perf"></div>
             <div class="qr-card__bottom">
-              <div class="qr-wrap" id="qr-mail"></div>
-              <div class="qr-copy"><strong>Scan to email</strong>Opens a new message pre-addressed to Prince.</div>
-            </div>
-            <div class="qr-card__actions">
-              <a class="qr-btn" href="mailto:prince679.pro@gmail.com">Email now</a>
-              <button class="qr-btn qr-btn--solid" type="button" onclick="savePrinceContact()">Save contact</button>
+              <div class="qr-route">
+                <div>
+                  <div class="qr-route__code">MAIL</div>
+                  <div class="qr-route__sub">prince679.pro@gmail.com</div>
+                </div>
+                <div class="qr-route__icon">✉️</div>
+              </div>
+              <div class="qr-block">
+                <div class="qr-wrap" id="qr-mail"></div>
+                <div class="qr-copy"><strong>Scan to email</strong>Opens a message pre-addressed to Prince.</div>
+              </div>
+              <div class="qr-card__actions">
+                <button class="qr-help" type="button" onclick="savePrinceContact()" title="Save contact">＋</button>
+                <a class="qr-wallet" href="mailto:prince679.pro@gmail.com">Email now</a>
+              </div>
             </div>
           </div>
 
@@ -2311,18 +2498,6 @@
       </div>
     </div>
   </section>
-
-  <!-- FOOTER ───────────────────────────────────────────── -->
-  <footer>
-    <div class="foot-inner">
-      <div class="foot-logo">Prince <em>Prajapati</em></div>
-      <div class="foot-links">
-        <a href="mailto:prince679.pro@gmail.com" class="btn-outline">prince679.pro@gmail.com</a>
-        <a href="tel:+917043176485" class="btn-outline">+91 70431 76485</a>
-      </div>
-      <div class="foot-copy">© 2026 · ERP Consulting &amp; AI Workflow Design</div>
-    </div>
-  </footer>
 
   <script>
     (function () {
