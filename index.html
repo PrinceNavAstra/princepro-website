@@ -1406,6 +1406,173 @@
       color: var(--gold)
     }
 
+    /* ═══ QR CONNECT CARDS ═══════════════════════════════════ */
+    .qr-lede {
+      font-family: 'DM Mono', monospace;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--tm);
+      margin: 4px 0 18px;
+    }
+
+    .qr-cards {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+
+    .qr-card {
+      width: 300px;
+      text-align: left;
+      background: var(--card);
+      border: 1px solid var(--bdr);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--shc);
+      transition: border-color .25s, box-shadow .25s, transform .25s cubic-bezier(.4, 0, .2, 1), background var(--tt);
+    }
+
+    .qr-card:hover {
+      border-color: var(--bdr-md);
+      transform: translateY(-4px);
+    }
+
+    .qr-card__top {
+      padding: 20px 22px 16px;
+    }
+
+    .qr-card__label {
+      font-family: 'DM Mono', monospace;
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+      transition: color var(--tt);
+    }
+
+    .qr-card__value {
+      font-family: 'Lora', Georgia, serif;
+      font-weight: 600;
+      font-size: 1.02rem;
+      color: var(--th);
+      transition: color var(--tt);
+    }
+
+    .qr-perf {
+      position: relative;
+      height: 0;
+      border-top: 1.5px dashed var(--bdr-md);
+    }
+
+    .qr-perf::before,
+    .qr-perf::after {
+      content: "";
+      position: absolute;
+      top: -10px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--bg2);
+      transition: background var(--tt);
+    }
+
+    .qr-perf::before {
+      left: -11px;
+    }
+
+    .qr-perf::after {
+      right: -11px;
+    }
+
+    .qr-card__bottom {
+      padding: 18px 22px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      background: var(--gdim);
+      transition: background var(--tt);
+    }
+
+    .qr-wrap {
+      width: 68px;
+      height: 68px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 6px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+    }
+
+    .qr-wrap img,
+    .qr-wrap canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .qr-copy {
+      font-size: .74rem;
+      line-height: 1.45;
+      color: var(--tb);
+      transition: color var(--tt);
+    }
+
+    .qr-copy strong {
+      display: block;
+      color: var(--th);
+      font-size: .8rem;
+      margin-bottom: 2px;
+    }
+
+    .qr-card__actions {
+      display: flex;
+      gap: 8px;
+      padding: 0 22px 20px;
+    }
+
+    .qr-btn {
+      flex: 1;
+      text-align: center;
+      padding: 10px 10px;
+      border-radius: 999px;
+      font-size: .76rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1.5px solid var(--bdr-md);
+      background: transparent;
+      color: var(--th);
+      font-family: 'DM Sans', sans-serif;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+
+    .qr-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: var(--gdim);
+    }
+
+    .qr-btn--solid {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--bg);
+    }
+
+    .qr-btn--solid:hover {
+      color: var(--bg);
+      opacity: .9;
+      background: var(--gold-l);
+      border-color: var(--gold-l);
+    }
+
     /* ═══ FOOTER ═════════════════════════════════════════════ */
     footer {
       background: var(--bg);
@@ -1613,6 +1780,16 @@
       .contact-cards {
         flex-direction: column;
         align-items: center
+      }
+
+      .qr-cards {
+        flex-direction: column;
+        align-items: center
+      }
+
+      .qr-card {
+        width: 100%;
+        max-width: 320px
       }
 
       .foot-inner {
@@ -2088,6 +2265,45 @@
           </a>
         </div>
 
+        <div class="qr-lede reveal" style="transition-delay:.2s">Or scan with your phone</div>
+        <div class="qr-cards reveal" style="transition-delay:.22s">
+
+          <!-- QR: CALL -->
+          <div class="qr-card">
+            <div class="qr-card__top">
+              <div class="qr-card__label">Call</div>
+              <div class="qr-card__value">+91 70431 76485</div>
+            </div>
+            <div class="qr-perf"></div>
+            <div class="qr-card__bottom">
+              <div class="qr-wrap" id="qr-call"></div>
+              <div class="qr-copy"><strong>Scan to dial</strong>Opens your phone's dialer with the number ready.</div>
+            </div>
+            <div class="qr-card__actions">
+              <a class="qr-btn" href="tel:+917043176485">Call now</a>
+              <button class="qr-btn qr-btn--solid" type="button" onclick="savePrinceContact()">Save contact</button>
+            </div>
+          </div>
+
+          <!-- QR: EMAIL -->
+          <div class="qr-card">
+            <div class="qr-card__top">
+              <div class="qr-card__label">Email</div>
+              <div class="qr-card__value">prince679.pro@gmail.com</div>
+            </div>
+            <div class="qr-perf"></div>
+            <div class="qr-card__bottom">
+              <div class="qr-wrap" id="qr-mail"></div>
+              <div class="qr-copy"><strong>Scan to email</strong>Opens a new message pre-addressed to Prince.</div>
+            </div>
+            <div class="qr-card__actions">
+              <a class="qr-btn" href="mailto:prince679.pro@gmail.com">Email now</a>
+              <button class="qr-btn qr-btn--solid" type="button" onclick="savePrinceContact()">Save contact</button>
+            </div>
+          </div>
+
+        </div>
+
         <div class="reveal" style="transition-delay:.24s">
           <a href="mailto:prince679.pro@gmail.com" class="btn-g">Book Your Free Consultation Today <span
               class="arrow">→</span></a>
@@ -2225,6 +2441,64 @@
     })();
 
 
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    (function () {
+      function renderQRCodes() {
+        if (typeof QRCode === 'undefined') return;
+        var callEl = document.getElementById('qr-call');
+        var mailEl = document.getElementById('qr-mail');
+        if (callEl && !callEl.hasChildNodes()) {
+          new QRCode(callEl, {
+            text: 'tel:+917043176485',
+            width: 56,
+            height: 56,
+            colorDark: '#12203D',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.M
+          });
+        }
+        if (mailEl && !mailEl.hasChildNodes()) {
+          new QRCode(mailEl, {
+            text: 'mailto:prince679.pro@gmail.com',
+            width: 56,
+            height: 56,
+            colorDark: '#12203D',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.M
+          });
+        }
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', renderQRCodes);
+      } else {
+        renderQRCodes();
+      }
+    })();
+
+    function savePrinceContact() {
+      var vcard = [
+        'BEGIN:VCARD',
+        'VERSION:3.0',
+        'N:Prajapati;Prince;;;',
+        'FN:Prince Prajapati',
+        'ORG:ERP Consulting & AI Workflow Design',
+        'TITLE:ERP & AI Consultant',
+        'TEL;TYPE=CELL:+917043176485',
+        'EMAIL:prince679.pro@gmail.com',
+        'END:VCARD'
+      ].join('\n');
+      var blob = new Blob([vcard], { type: 'text/vcard' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'prince-prajapati.vcf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
   </script>
   <script src="shared.js"></script>
 </body>
