@@ -47,9 +47,43 @@
 
 .hero-layout {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1.05fr 0.95fr;
   gap: 52px;
   align-items: center;
+}
+
+.hero-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-visual img {
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  display: block;
+  animation: heroFloat 6s ease-in-out infinite;
+  filter: drop-shadow(0 24px 40px rgba(0, 0, 0, .16));
+}
+
+@keyframes heroFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-visual img {
+    animation: none;
+  }
 }
 
 .hero-content {

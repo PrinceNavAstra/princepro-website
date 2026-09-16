@@ -36,34 +36,63 @@
       <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="rgba(0,0,0,0.2)"/>
     </filter>
   </defs>
+  <style>
+    .hero-ring-outer { transform-origin: 400px 400px; animation: heroRingSpin 90s linear infinite; }
+    .hero-ring-mid { transform-origin: 400px 400px; animation: heroRingSpinRev 70s linear infinite; }
+    .hero-center { transform-origin: 400px 400px; animation: heroCenterPulse 3.6s ease-in-out infinite; }
+    .hero-spoke { stroke-dasharray: 340; stroke-dashoffset: 340; animation: heroDraw 1.1s ease-out forwards; }
+    .hero-spoke:nth-of-type(1) { animation-delay: .05s; }
+    .hero-spoke:nth-of-type(2) { animation-delay: .18s; }
+    .hero-spoke:nth-of-type(3) { animation-delay: .31s; }
+    .hero-spoke:nth-of-type(4) { animation-delay: .44s; }
+    .hero-spoke:nth-of-type(5) { animation-delay: .57s; }
+    .hero-spoke:nth-of-type(6) { animation-delay: .70s; }
+    .hero-node { animation: heroBob 3.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    .hero-node:nth-of-type(2) { animation-delay: 0s; }
+    .hero-node:nth-of-type(3) { animation-delay: .5s; }
+    .hero-node:nth-of-type(4) { animation-delay: 1s; }
+    .hero-node:nth-of-type(5) { animation-delay: 1.5s; }
+    .hero-node:nth-of-type(6) { animation-delay: 2s; }
+    .hero-node:nth-of-type(7) { animation-delay: 2.5s; }
+    @keyframes heroRingSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes heroRingSpinRev { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+    @keyframes heroCenterPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.045); } }
+    @keyframes heroDraw { to { stroke-dashoffset: 0; } }
+    @keyframes heroBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-ring-outer, .hero-ring-mid, .hero-center, .hero-node { animation: none; }
+      .hero-spoke { stroke-dasharray: none; stroke-dashoffset: 0; animation: none; }
+    }
+  </style>
+
   <circle cx="400" cy="400" r="360" fill="url(#mBgRing)"/>
-  <circle cx="400" cy="400" r="300" fill="none" stroke="rgba(212,168,83,0.12)" stroke-width="1.5"/>
-  <circle cx="400" cy="400" r="240" fill="none" stroke="rgba(45,212,191,0.1)" stroke-width="1"/>
-  <path d="M400 280 C 380 220, 340 180, 300 160" stroke="url(#mSw6)" stroke-width="28" stroke-linecap="round" fill="none" opacity="0.85"/>
-  <path d="M480 310 C 540 270, 590 230, 620 190" stroke="url(#mSw1)" stroke-width="28" stroke-linecap="round" fill="none" opacity="0.85"/>
-  <path d="M510 400 C 570 410, 620 440, 650 490" stroke="url(#mSw2)" stroke-width="28" stroke-linecap="round" fill="none" opacity="0.85"/>
-  <path d="M460 480 C 480 540, 480 590, 460 640" stroke="url(#mSw3)" stroke-width="28" stroke-linecap="round" fill="none" opacity="0.85"/>
-  <path d="M340 480 C 320 540, 280 590, 240 620" stroke="url(#mSw4)" stroke-width="28" stroke-linecap="round" fill="none" opacity="0.85"/>
-  <path d="M290 400 C 230 390, 180 360, 150 310" stroke="url(#mSw5)" stroke-width="28" stroke-linecap="round" fill="none" opacity="0.85"/>
-  <circle cx="400" cy="400" r="100" fill="rgba(212,168,83,0.15)" stroke="rgba(212,168,83,0.35)" stroke-width="2" filter="url(#mShadow)"/>
+  <circle class="hero-ring-outer" cx="400" cy="400" r="300" fill="none" stroke="rgba(212,168,83,0.12)" stroke-width="1.5"/>
+  <circle class="hero-ring-mid" cx="400" cy="400" r="240" fill="none" stroke="rgba(45,212,191,0.1)" stroke-width="1"/>
+  <path class="hero-spoke" d="M400 280 C 380 220, 340 180, 300 160" stroke="url(#mSw6)" stroke-width="28" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <path class="hero-spoke" d="M480 310 C 540 270, 590 230, 620 190" stroke="url(#mSw1)" stroke-width="28" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <path class="hero-spoke" d="M510 400 C 570 410, 620 440, 650 490" stroke="url(#mSw2)" stroke-width="28" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <path class="hero-spoke" d="M460 480 C 480 540, 480 590, 460 640" stroke="url(#mSw3)" stroke-width="28" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <path class="hero-spoke" d="M340 480 C 320 540, 280 590, 240 620" stroke="url(#mSw4)" stroke-width="28" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <path class="hero-spoke" d="M290 400 C 230 390, 180 360, 150 310" stroke="url(#mSw5)" stroke-width="28" stroke-linecap="round" fill="none" opacity="0.85"/>
+  <g class="hero-center"><circle cx="400" cy="400" r="100" fill="rgba(212,168,83,0.15)" stroke="rgba(212,168,83,0.35)" stroke-width="2" filter="url(#mShadow)"/>
   <text x="400" y="385" text-anchor="middle" font-family="DM Sans, Arial, sans-serif" font-size="32" font-weight="700" fill="#d4a853">MANUFACTURING</text>
-  <text x="400" y="422" text-anchor="middle" font-family="DM Sans, Arial, sans-serif" font-size="11" fill="#9d9bb8">Digital operations &amp; automation</text>
-  <g filter="url(#mNodeShadow)"><circle cx="155" cy="285" r="50" fill="#c9a04a"/><g transform="translate(155,285)" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="-12" y="-10" width="10" height="16" rx="1"/><rect x="2" y="-12" width="10" height="18" rx="1"/><rect x="-12" y="6" width="24" height="8" rx="1"/><line x1="-7" y1="0" x2="-7" y2="6"/><line x1="7" y1="-2" x2="7" y2="6"/></g></g>
+  <text x="400" y="422" text-anchor="middle" font-family="DM Sans, Arial, sans-serif" font-size="11" fill="#9d9bb8">Digital operations &amp; automation</text></g>
+  <g class="hero-node" filter="url(#mNodeShadow)"><circle cx="155" cy="285" r="50" fill="#c9a04a"/><g transform="translate(155,285)" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="-12" y="-10" width="10" height="16" rx="1"/><rect x="2" y="-12" width="10" height="18" rx="1"/><rect x="-12" y="6" width="24" height="8" rx="1"/><line x1="-7" y1="0" x2="-7" y2="6"/><line x1="7" y1="-2" x2="7" y2="6"/></g></g>
   <rect x="28" y="267" width="128" height="34" rx="17" fill="#fff" stroke="#c9a04a" stroke-width="1.5"/>
   <text x="92" y="289" text-anchor="middle" font-family="DM Sans, Arial, sans-serif" font-size="12" font-weight="600" fill="#a07830">Production Planning</text>
-  <g filter="url(#mNodeShadow)"><circle cx="300" cy="145" r="50" fill="#d4a853"/><g transform="translate(300,145)" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="0" cy="0" r="14"/><polyline points="-6,-6 0,0 6,-4"/><line x1="10" y1="10" x2="18" y2="18"/></g></g>
+  <g class="hero-node" filter="url(#mNodeShadow)"><circle cx="300" cy="145" r="50" fill="#d4a853"/><g transform="translate(300,145)" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="0" cy="0" r="14"/><polyline points="-6,-6 0,0 6,-4"/><line x1="10" y1="10" x2="18" y2="18"/></g></g>
   <rect x="228" y="82" width="118" height="34" rx="17" fill="#fff" stroke="#d4a853" stroke-width="1.5"/>
   <text x="287" y="104" text-anchor="middle" font-family="DM Sans, Arial, sans-serif" font-size="12" font-weight="600" fill="#a07830">Quality Control</text>
-  <g filter="url(#mNodeShadow)"><circle cx="620" cy="190" r="50" fill="#b8923f"/><g transform="translate(620,190)" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M-18 -8 L-6 -16 L6 -8 L18 -16"/><path d="M-18 0 L-6 -8 L6 0 L18 -8"/><path d="M-18 8 L-6 0 L6 8 L18 0"/><circle cx="-18" cy="-8" r="3" fill="#fff" stroke="none"/><circle cx="-6" cy="-16" r="3" fill="#fff" stroke="none"/><circle cx="6" cy="-8" r="3" fill="#fff" stroke="none"/><circle cx="18" cy="-16" r="3" fill="#fff" stroke="none"/><circle cx="-18" cy="0" r="3" fill="#fff" stroke="none"/><circle cx="-6" cy="-8" r="3" fill="#fff" stroke="none"/><circle cx="6" cy="0" r="3" fill="#fff" stroke="none"/><circle cx="18" cy="-8" r="3" fill="#fff" stroke="none"/><circle cx="-18" cy="8" r="3" fill="#fff" stroke="none"/><circle cx="-6" cy="0" r="3" fill="#fff" stroke="none"/><circle cx="6" cy="8" r="3" fill="#fff" stroke="none"/><circle cx="18" cy="0" r="3" fill="#fff" stroke="none"/></g></g>
+  <g class="hero-node" filter="url(#mNodeShadow)"><circle cx="620" cy="190" r="50" fill="#b8923f"/><g transform="translate(620,190)" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M-18 -8 L-6 -16 L6 -8 L18 -16"/><path d="M-18 0 L-6 -8 L6 0 L18 -8"/><path d="M-18 8 L-6 0 L6 8 L18 0"/><circle cx="-18" cy="-8" r="3" fill="#fff" stroke="none"/><circle cx="-6" cy="-16" r="3" fill="#fff" stroke="none"/><circle cx="6" cy="-8" r="3" fill="#fff" stroke="none"/><circle cx="18" cy="-16" r="3" fill="#fff" stroke="none"/><circle cx="-18" cy="0" r="3" fill="#fff" stroke="none"/><circle cx="-6" cy="-8" r="3" fill="#fff" stroke="none"/><circle cx="6" cy="0" r="3" fill="#fff" stroke="none"/><circle cx="18" cy="-8" r="3" fill="#fff" stroke="none"/><circle cx="-18" cy="8" r="3" fill="#fff" stroke="none"/><circle cx="-6" cy="0" r="3" fill="#fff" stroke="none"/><circle cx="6" cy="8" r="3" fill="#fff" stroke="none"/><circle cx="18" cy="0" r="3" fill="#fff" stroke="none"/></g></g>
   <rect x="560" y="132" width="112" height="34" rx="17" fill="#fff" stroke="#b8923f" stroke-width="1.5"/>
   <text x="616" y="154" text-anchor="middle" font-family="DM Sans, Arial, sans-serif" font-size="12" font-weight="600" fill="#8a6020">Supply Chain</text>
-  <g filter="url(#mNodeShadow)"><circle cx="655" cy="495" r="50" fill="#2db8a4"/><g transform="translate(655,495)" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="-16" y="-12" width="32" height="24" rx="2"/><line x1="-16" y1="-4" x2="16" y2="-4"/><line x1="-16" y1="4" x2="16" y2="4"/><circle cx="-8" cy="8" r="3" fill="#fff" stroke="none"/><circle cx="0" cy="8" r="3" fill="#fff" stroke="none"/><circle cx="8" cy="8" r="3" fill="#fff" stroke="none"/><line x1="-4" y1="-4" x2="-4" y2="4"/><line x1="4" y1="-4" x2="4" y2="4"/></g></g>
+  <g class="hero-node" filter="url(#mNodeShadow)"><circle cx="655" cy="495" r="50" fill="#2db8a4"/><g transform="translate(655,495)" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="-16" y="-12" width="32" height="24" rx="2"/><line x1="-16" y1="-4" x2="16" y2="-4"/><line x1="-16" y1="4" x2="16" y2="4"/><circle cx="-8" cy="8" r="3" fill="#fff" stroke="none"/><circle cx="0" cy="8" r="3" fill="#fff" stroke="none"/><circle cx="8" cy="8" r="3" fill="#fff" stroke="none"/><line x1="-4" y1="-4" x2="-4" y2="4"/><line x1="4" y1="-4" x2="4" y2="4"/></g></g>
   <rect x="598" y="558" width="108" height="34" rx="17" fill="#fff" stroke="#2db8a4" stroke-width="1.5"/>
   <text x="652" y="580" text-anchor="middle" font-family="DM Sans, Arial, sans-serif" font-size="12" font-weight="600" fill="#0d7a6e">Shop Floor</text>
-  <g filter="url(#mNodeShadow)"><circle cx="460" cy="645" r="50" fill="#24b8a5"/><g transform="translate(460,645)" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="-18" y="-14" width="14" height="22" rx="2"/><rect x="-4" y="-10" width="14" height="18" rx="2"/><rect x="10" y="-16" width="14" height="26" rx="2"/><line x1="-11" y1="0" x2="-11" y2="8"/><line x1="3" y1="0" x2="3" y2="8"/><line x1="17" y1="0" x2="17" y2="10"/></g></g>
+  <g class="hero-node" filter="url(#mNodeShadow)"><circle cx="460" cy="645" r="50" fill="#24b8a5"/><g transform="translate(460,645)" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="-18" y="-14" width="14" height="22" rx="2"/><rect x="-4" y="-10" width="14" height="18" rx="2"/><rect x="10" y="-16" width="14" height="26" rx="2"/><line x1="-11" y1="0" x2="-11" y2="8"/><line x1="3" y1="0" x2="3" y2="8"/><line x1="17" y1="0" x2="17" y2="10"/></g></g>
   <rect x="398" y="703" width="96" height="34" rx="17" fill="#fff" stroke="#24b8a5" stroke-width="1.5"/>
   <text x="446" y="725" text-anchor="middle" font-family="DM Sans, Arial, sans-serif" font-size="12" font-weight="600" fill="#0d7a6e">Inventory</text>
-  <g filter="url(#mNodeShadow)"><circle cx="240" cy="625" r="50" fill="#3dbda8"/><g transform="translate(240,625)" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="0" cy="0" r="16"/><path d="M0 -16 L4 -6 L16 -4 L8 4 L10 16 L0 10 L-10 16 L-8 4 L-16 -4 L-4 -6 Z"/><line x1="12" y1="12" x2="22" y2="22"/><circle cx="22" cy="22" r="4" fill="#fff" stroke="none"/></g></g>
+  <g class="hero-node" filter="url(#mNodeShadow)"><circle cx="240" cy="625" r="50" fill="#3dbda8"/><g transform="translate(240,625)" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="0" cy="0" r="16"/><path d="M0 -16 L4 -6 L16 -4 L8 4 L10 16 L0 10 L-10 16 L-8 4 L-16 -4 L-4 -6 Z"/><line x1="12" y1="12" x2="22" y2="22"/><circle cx="22" cy="22" r="4" fill="#fff" stroke="none"/></g></g>
   <rect x="175" y="635" width="124" height="34" rx="17" fill="#fff" stroke="#3dbda8" stroke-width="1.5"/>
   <text x="237" y="657" text-anchor="middle" font-family="DM Sans, Arial, sans-serif" font-size="12" font-weight="600" fill="#0d7a6e">Maintenance</text>
 </svg>
