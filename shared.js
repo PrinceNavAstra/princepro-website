@@ -6,10 +6,12 @@
   else html.setAttribute('data-theme', 'light');
 
   function pageLink(hash) {
-    var path = location.pathname.split('/').pop() || 'index.html';
-    var isHome = path === '' || path === 'index.html';
-    if (!hash) return isHome ? 'index.html' : 'index.html';
-    return isHome ? '#' + hash : 'index.html#' + hash;
+    // Clean-URL aware: works whether the current URL still has .html
+    // (local file preview) or not (Vercel's cleanUrls in production).
+    var path = location.pathname.replace(/\/$/, '').split('/').pop() || '';
+    var isHome = path === '' || path === 'index' || path === 'index.html';
+    if (!hash) return '/';
+    return isHome ? '#' + hash : '/#' + hash;
   }
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -23,26 +25,26 @@
 
       nav.innerHTML =
         '<div class="nav-inner">' +
-        '  <a href="index.html" class="nav-logo">Prince <em>Prajapati</em></a>' +
+        '  <a href="/" class="nav-logo">Prince <em>Prajapati</em></a>' +
         '  <div class="nav-links">' +
         '    <a href="' + pageLink('about') + '">About</a>' +
         '    <a href="' + pageLink('services') + '">Services</a>' +
         '    <div class="nav-dropdown">' +
         '      <a href="' + pageLink('industries') + '" class="nav-dropbtn" data-nav="industries">Industries We Serve <span class="nav-caret">▼</span></a>' +
         '      <div class="nav-dropdown-content">' +
-        '        <a href="manufacturing.html">Manufacturing</a>' +
-        '        <a href="logistics.html">Logistics</a>' +
-        '        <a href="construction.html">Construction</a>' +
-        '        <a href="marketing.html">Marketing</a>' +
-        '        <a href="textile.html">Textile</a>' +
+        '        <a href="manufacturing">Manufacturing</a>' +
+        '        <a href="logistics">Logistics</a>' +
+        '        <a href="construction">Construction</a>' +
+        '        <a href="marketing">Marketing</a>' +
+        '        <a href="textile">Textile</a>' +
         '      </div>' +
         '    </div>' +
         '    <div class="nav-dropdown">' +
-        '      <a href="sip-calculator.html" class="nav-dropbtn" data-nav="financial-tools">Financial Tools <span class="nav-caret">▼</span></a>' +
+        '      <a href="sip-calculator" class="nav-dropbtn" data-nav="financial-tools">Financial Tools <span class="nav-caret">▼</span></a>' +
         '      <div class="nav-dropdown-content">' +
-        '        <a href="sip-calculator.html">SIP Calculator</a>' +
-        '        <a href="loan-calculator.html">Loan Calculator</a>' +
-        '        <a href="ratios.html">Financial Ratio Analysis</a>' +
+        '        <a href="sip-calculator">SIP Calculator</a>' +
+        '        <a href="loan-calculator">Loan Calculator</a>' +
+        '        <a href="ratios">Financial Ratio Analysis</a>' +
         '      </div>' +
         '    </div>' +
         '  </div>' +
@@ -72,19 +74,19 @@
         '    <div class="sidebar-dropdown">' +
         '      <button class="sidebar-link sidebar-dropdown-btn" type="button">Industries We Serve</button>' +
         '      <div class="sidebar-dropdown-content">' +
-        '        <a href="manufacturing.html">Manufacturing</a>' +
-        '        <a href="logistics.html">Logistics</a>' +
-        '        <a href="construction.html">Construction</a>' +
-        '        <a href="marketing.html">Marketing</a>' +
-        '        <a href="textile.html">Textile</a>' +
+        '        <a href="manufacturing">Manufacturing</a>' +
+        '        <a href="logistics">Logistics</a>' +
+        '        <a href="construction">Construction</a>' +
+        '        <a href="marketing">Marketing</a>' +
+        '        <a href="textile">Textile</a>' +
         '      </div>' +
         '    </div>' +
         '    <div class="sidebar-dropdown">' +
         '      <button class="sidebar-link sidebar-dropdown-btn" type="button">Financial Tools</button>' +
         '      <div class="sidebar-dropdown-content">' +
-        '        <a href="sip-calculator.html">SIP Calculator</a>' +
-        '        <a href="loan-calculator.html">Loan Calculator</a>' +
-        '        <a href="ratios.html">Financial Ratio Analysis</a>' +
+        '        <a href="sip-calculator">SIP Calculator</a>' +
+        '        <a href="loan-calculator">Loan Calculator</a>' +
+        '        <a href="ratios">Financial Ratio Analysis</a>' +
         '      </div>' +
         '    </div>' +
         '    <a href="' + '#contact' + '" class="sidebar-link sidebar-cta">Book a Free Consultation</a>' +
@@ -328,7 +330,7 @@
       foot.setAttribute('data-pp', 'site-footer');
       foot.innerHTML =
         '<div class="footer-inner">' +
-        '  <a href="index.html" class="footer-logo">Prince <em>Prajapati</em></a>' +
+        '  <a href="/" class="footer-logo">Prince <em>Prajapati</em></a>' +
         '  <div class="footer-copy">© ' + year + ' Prince Prajapati · ERP &amp; AI Consultant · Ahmedabad, India</div>' +
         '  <div class="footer-links">' +
         '    <a href="' + pageLink('about') + '">About</a>' +
