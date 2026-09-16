@@ -375,57 +375,6 @@
   background: var(--bg);
 }
 
-.caps-table {
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  overflow: hidden;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-  background: var(--card-bg);
-}
-
-.caps-row {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 0;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.25s ease;
-}
-
-.caps-row:last-child {
-  border-bottom: none;
-}
-
-.caps-row:not(.caps-header):hover {
-  background: var(--card-soft);
-}
-
-.caps-header {
-  background: var(--bg);
-}
-
-.caps-module,
-.caps-deliver {
-  padding: 18px 24px;
-  font-size: 0.96rem;
-  line-height: 1.75;
-}
-
-.caps-module {
-  font-weight: 700;
-  color: var(--text-primary);
-  border-right: 1px solid rgba(212, 168, 83, 0.12);
-}
-
-.caps-header .caps-module,
-.caps-header .caps-deliver {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--gold);
-  font-weight: 600;
-}
-
 /* INDUSTRY FACTS & VISUALS */
 .fact-grid {
   display: grid;
@@ -582,6 +531,109 @@
   font-size: 0.95rem;
 }
 
+/* CAPABILITIES (icon list — matches homepage services section) */
+.cap-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 56px;
+  margin-top: 8px;
+}
+
+.cap-row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--border);
+  transition: border-color 0.3s;
+}
+
+.cap-row:nth-last-child(-n+2) {
+  border-bottom: none;
+}
+
+.cap-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.28rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .18);
+  transition: transform .3s cubic-bezier(.4, 0, .2, 1);
+}
+
+.cap-row:hover .cap-icon {
+  transform: scale(1.07) translateY(-2px);
+}
+
+.cap-row:nth-child(1) .cap-icon {
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+}
+
+.cap-row:nth-child(2) .cap-icon {
+  background: linear-gradient(135deg, #2dd4bf, #14b8a6);
+}
+
+.cap-row:nth-child(3) .cap-icon {
+  background: linear-gradient(135deg, #fcd34d, #d4a853);
+}
+
+.cap-row:nth-child(4) .cap-icon {
+  background: linear-gradient(135deg, #f0c878, #e8a045);
+}
+
+.cap-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.cap-num {
+  font-family: 'DM Mono', monospace;
+  font-size: .68rem;
+  letter-spacing: .14em;
+  color: var(--gold);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.cap-title {
+  font-family: 'Lora', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  line-height: 1.25;
+  transition: color 0.3s;
+}
+
+.cap-row:hover .cap-title {
+  color: var(--gold);
+}
+
+.cap-desc {
+  font-size: .92rem;
+  line-height: 1.72;
+  color: var(--text-body);
+}
+
+@media (max-width: 768px) {
+  .cap-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cap-row:nth-last-child(-n+2) {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cap-row:last-child {
+    border-bottom: none;
+  }
+}
+
 /* CTA SECTION */
 .ind-cta {
   background: var(--bg-2);
@@ -624,24 +676,11 @@ section {
   .problem-card {
     flex-basis: calc(50% - 10px);
   }
-
-  .caps-row {
-    grid-template-columns: 180px 1fr;
-  }
 }
 
 @media (max-width: 680px) {
   .problem-card {
     flex-basis: 100%;
     max-width: 420px;
-  }
-
-  .caps-row {
-    grid-template-columns: 1fr;
-  }
-
-  .caps-module {
-    border-right: none;
-    border-bottom: 1px solid rgba(212, 168, 83, 0.12);
   }
 }
