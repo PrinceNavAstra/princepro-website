@@ -746,7 +746,8 @@ body.nav-dropdown-open .nav-dropbtn {
   }
 }
 
-.display {
+.display,
+.serif {
   font-family: 'Lora', Georgia, serif;
   color: var(--text-primary);
   font-weight: 700;
