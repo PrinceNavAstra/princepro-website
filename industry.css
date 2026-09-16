@@ -141,15 +141,8 @@
 
 .hero-h1 mark,
 .hero-p mark {
-  display: inline;
-  padding: 0.08em 0.34em;
-  border-radius: 0.36em;
-  background: var(--gold-dim);
-  color: var(--text-primary);
   font-weight: 700;
   line-height: 1.2;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
 }
 
 .hero-p {
