@@ -290,23 +290,23 @@
 
 .ind-two-col {
   display: grid;
-  grid-template-columns: 320px minmax(0, 1fr);
-  gap: 72px;
+  grid-template-columns: 400px minmax(0, 1fr);
+  gap: 80px;
   align-items: start;
 }
 
 .ind-h2 {
-  font-size: clamp(1.75rem, 2.9vw, 2.4rem);
-  margin-bottom: 18px;
+  font-size: clamp(1.9rem, 3.5vw, 2.7rem);
+  margin-bottom: 20px;
   color: var(--text-primary);
 }
 
 .gold-bar {
-  width: 52px;
-  height: 4px;
-  background: linear-gradient(90deg, var(--gold), rgba(212, 168, 83, 0.6));
-  border-radius: 999px;
-  margin-bottom: 24px;
+  width: 44px;
+  height: 3px;
+  background: var(--gold);
+  border-radius: 2px;
+  margin-bottom: 22px;
 }
 
 .ind-two-col p {
@@ -326,12 +326,15 @@
 }
 
 .problems-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
 }
 
 .problem-card {
+  flex: 1 1 260px;
+  max-width: 300px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: 24px;
@@ -579,27 +582,6 @@
   font-size: 0.95rem;
 }
 
-@media (max-width: 960px) {
-  .hero-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .fact-grid,
-  .chart-grid,
-  .diagram-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .ind-two-col {
-    grid-template-columns: 1fr;
-    gap: 48px;
-  }
-
-  .problems-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
 /* CTA SECTION */
 .ind-cta {
   background: var(--bg-2);
@@ -617,7 +599,6 @@
   font-size: 1rem;
   line-height: 1.7;
 }
-
 
 /* RESPONSIVE */
 section {
@@ -640,8 +621,8 @@ section {
     gap: 40px;
   }
 
-  .problems-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .problem-card {
+    flex-basis: calc(50% - 10px);
   }
 
   .caps-row {
@@ -650,8 +631,9 @@ section {
 }
 
 @media (max-width: 680px) {
-  .problems-grid {
-    grid-template-columns: 1fr;
+  .problem-card {
+    flex-basis: 100%;
+    max-width: 420px;
   }
 
   .caps-row {
@@ -661,11 +643,5 @@ section {
   .caps-module {
     border-right: none;
     border-bottom: 1px solid rgba(212, 168, 83, 0.12);
-  }
-}
-
-@media (max-width: 420px) {
-  .problems-grid {
-    grid-template-columns: 1fr;
   }
 }
