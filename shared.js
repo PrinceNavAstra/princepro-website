@@ -51,7 +51,7 @@
         '      <span class="tog-i m">🌙</span>' +
         '      <span class="tog-i s">☀️</span>' +
         '    </button>' +
-        '    <a href="' + pageLink('contact') + '" class="nav-cta">Book a Call</a>' +
+        '    <a href="' + '#contact' + '" class="nav-cta">Book a Call</a>' +
         '    <button class="hamburger" id="hamburger" type="button" aria-label="Toggle menu">' +
         '      <span></span><span></span><span></span>' +
         '    </button>' +
@@ -87,7 +87,7 @@
         '        <a href="ratios.html">Financial Ratio Analysis</a>' +
         '      </div>' +
         '    </div>' +
-        '    <a href="' + pageLink('contact') + '" class="sidebar-link sidebar-cta">Book a Free Consultation</a>' +
+        '    <a href="' + '#contact' + '" class="sidebar-link sidebar-cta">Book a Free Consultation</a>' +
         '  </div>' +
         '</div>';
 
@@ -114,12 +114,25 @@
         nav.classList.toggle('scrolled', window.scrollY > 50);
       }, { passive: true });
 
-      // Prevent dropdown parent links from navigating and show dropdowns on click
+      // Single code path for opening/closing dropdowns — used by both click
+      // and hover-intent, so the background-blur is ALWAYS applied together
+      // with the dropdown, on any input method (this is what fixes the
+      // "hover shows the menu but background stays crisp" bug).
+      var isCoarsePointer = window.matchMedia('(pointer:coarse)').matches;
+      var hoverCloseTimer = null;
+
       function closeDropdowns() {
         nav.querySelectorAll('.nav-dropdown.open').forEach(function (dropdown) {
           dropdown.classList.remove('open');
         });
         document.body.classList.remove('nav-dropdown-open');
+      }
+
+      function openDropdown(dropdown) {
+        if (dropdown.classList.contains('open')) return;
+        closeDropdowns();
+        dropdown.classList.add('open');
+        document.body.classList.add('nav-dropdown-open');
       }
 
       nav.querySelectorAll('.nav-dropdown').forEach(function (dropdown) {
@@ -131,15 +144,22 @@
         btn.addEventListener('click', function (e) {
           e.preventDefault();
           e.stopPropagation();
-
-          if (!dropdown.classList.contains('open')) {
-            closeDropdowns();
-            dropdown.classList.add('open');
-            document.body.classList.add('nav-dropdown-open');
-          } else {
-            closeDropdowns();
-          }
+          if (dropdown.classList.contains('open')) closeDropdowns();
+          else openDropdown(dropdown);
         });
+
+        if (!isCoarsePointer) {
+          // Hover-intent: open on enter, close shortly after leaving both
+          // the button and the panel (so travelling between them is safe).
+          dropdown.addEventListener('mouseenter', function () {
+            clearTimeout(hoverCloseTimer);
+            openDropdown(dropdown);
+          });
+          dropdown.addEventListener('mouseleave', function () {
+            clearTimeout(hoverCloseTimer);
+            hoverCloseTimer = setTimeout(closeDropdowns, 180);
+          });
+        }
 
         content.querySelectorAll('a').forEach(function (link) {
           link.addEventListener('click', function () {
@@ -152,6 +172,10 @@
         if (!e.target.closest('.nav-dropdown')) {
           closeDropdowns();
         }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeDropdowns();
       });
 
       // Mobile sidebar
@@ -202,6 +226,119 @@
       }
     })();
 
+    // ── Inject shared CONTACT section (identical on every page) ────────
+    (function ensureContact() {
+      var slot = document.querySelector('[data-pp="contact-slot"]');
+      if (!slot || document.querySelector('[data-pp="contact-section"]')) return;
+
+      var titleTpl = slot.querySelector('[data-cta-title]');
+      var subTpl = slot.querySelector('[data-cta-sub]');
+
+      var titleHTML = titleTpl ? titleTpl.innerHTML.trim()
+        : 'Ready to <mark>transform your business?</mark><br>Let\'s talk.';
+      var subHTML = subTpl ? subTpl.innerHTML.trim()
+        : 'Whether you\'re embarking on your <strong>first ERP implementation</strong>, migrating from a legacy system, or ready to unlock <strong>AI-driven automation</strong> — we\'re here to help. No pressure, no jargon — just an <mark>honest conversation</mark> about your business.';
+
+      var section = document.createElement('section');
+      section.id = 'contact';
+      section.setAttribute('data-pp', 'contact-section');
+      section.innerHTML =
+        '<div class="wrap">' +
+        '  <div class="contact-inner">' +
+        '    <div class="eyebrow reveal" style="justify-content:center">Get In Touch</div>' +
+        '    <h2 class="contact-h2 serif reveal" style="transition-delay:.06s">' + titleHTML + '</h2>' +
+        '    <p class="sub contact-sub reveal" style="transition-delay:.12s">' + subHTML + '</p>' +
+        '    <div class="qr-cards reveal" style="transition-delay:.14s; margin-top:8px">' +
+        '      <div class="qr-card qr-card--call">' +
+        '        <div class="qr-card__top">' +
+        '          <div class="qr-card__brand"><div class="qr-card__mark">PP</div><div class="qr-card__name">Prince Prajapati</div></div>' +
+        '          <div class="qr-card__meta"><span>ERP &amp; AI Consultant</span><span>Ahmedabad, IN</span></div>' +
+        '          <div class="qr-card__fields"><div><label>Response</label><div>Within 24h</div></div><div><label>Availability</label><div>Mon – Sat</div></div></div>' +
+        '        </div>' +
+        '        <div class="qr-perf"></div>' +
+        '        <div class="qr-card__bottom">' +
+        '          <div class="qr-route"><div><div class="qr-route__code">CALL</div><div class="qr-route__sub">+91 70431 76485</div></div><div class="qr-route__icon">📞</div></div>' +
+        '          <div class="qr-block"><div class="qr-wrap" id="qr-call"></div><div class="qr-copy"><strong>Scan to dial</strong>Opens your phone\'s dialer, ready to call.</div></div>' +
+        '          <div class="qr-card__actions"><button class="qr-help" type="button" onclick="savePrinceContact()" title="Save contact">＋</button><a class="qr-wallet" href="tel:+917043176485">Call now</a></div>' +
+        '        </div>' +
+        '      </div>' +
+        '      <div class="qr-card qr-card--mail">' +
+        '        <div class="qr-card__top">' +
+        '          <div class="qr-card__brand"><div class="qr-card__mark">PP</div><div class="qr-card__name">Prince Prajapati</div></div>' +
+        '          <div class="qr-card__meta"><span>ERP &amp; AI Consultant</span><span>Ahmedabad, IN</span></div>' +
+        '          <div class="qr-card__fields"><div><label>Response</label><div>Within 24h</div></div><div><label>Best For</label><div>Project briefs</div></div></div>' +
+        '        </div>' +
+        '        <div class="qr-perf"></div>' +
+        '        <div class="qr-card__bottom">' +
+        '          <div class="qr-route"><div><div class="qr-route__code">MAIL</div><div class="qr-route__sub">prince679.pro@gmail.com</div></div><div class="qr-route__icon">✉️</div></div>' +
+        '          <div class="qr-block"><div class="qr-wrap" id="qr-mail"></div><div class="qr-copy"><strong>Scan to email</strong>Opens a message pre-addressed to Prince.</div></div>' +
+        '          <div class="qr-card__actions"><button class="qr-help" type="button" onclick="savePrinceContact()" title="Save contact">＋</button><a class="qr-wallet" href="mailto:prince679.pro@gmail.com">Email now</a></div>' +
+        '        </div>' +
+        '      </div>' +
+        '    </div>' +
+        '  </div>' +
+        '</div>';
+
+      slot.replaceWith(section);
+      // Note: the reveal IntersectionObserver is wired up right after this
+      // IIFE runs (same DOMContentLoaded handler), and it selects '.reveal'
+      // fresh from the DOM — so elements injected here are picked up
+      // automatically without needing to observe them manually here.
+
+      // Save-to-contacts (vCard) — global, used by the qr-help "+" buttons.
+      window.savePrinceContact = window.savePrinceContact || function () {
+        var vcard = ['BEGIN:VCARD', 'VERSION:3.0', 'N:Prajapati;Prince;;;', 'FN:Prince Prajapati',
+          'ORG:ERP Consulting & AI Workflow Design', 'TITLE:ERP & AI Consultant',
+          'TEL;TYPE=CELL:+917043176485', 'EMAIL:prince679.pro@gmail.com', 'END:VCARD'].join('\n');
+        var blob = new Blob([vcard], { type: 'text/vcard' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url; a.download = 'prince-prajapati.vcf';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      };
+
+      function renderQRCodes() {
+        if (typeof QRCode === 'undefined') return;
+        var callEl = document.getElementById('qr-call');
+        var mailEl = document.getElementById('qr-mail');
+        if (callEl && !callEl.hasChildNodes()) {
+          new QRCode(callEl, { text: 'tel:+917043176485', width: 54, height: 54, colorDark: '#111118', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+        }
+        if (mailEl && !mailEl.hasChildNodes()) {
+          new QRCode(mailEl, { text: 'mailto:prince679.pro@gmail.com', width: 54, height: 54, colorDark: '#111118', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.M });
+        }
+      }
+
+      if (typeof QRCode === 'undefined') {
+        var qrScript = document.createElement('script');
+        qrScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+        qrScript.onload = renderQRCodes;
+        document.head.appendChild(qrScript);
+      } else {
+        renderQRCodes();
+      }
+    })();
+
+    // ── Inject shared FOOTER (identical on every page) ──────────────────
+    (function ensureFooter() {
+      if (document.querySelector('footer[data-pp="site-footer"]')) return;
+      var year = new Date().getFullYear();
+      var foot = document.createElement('footer');
+      foot.setAttribute('data-pp', 'site-footer');
+      foot.innerHTML =
+        '<div class="footer-inner">' +
+        '  <a href="index.html" class="footer-logo">Prince <em>Prajapati</em></a>' +
+        '  <div class="footer-copy">© ' + year + ' Prince Prajapati · ERP &amp; AI Consultant · Ahmedabad, India</div>' +
+        '  <div class="footer-links">' +
+        '    <a href="' + pageLink('about') + '">About</a>' +
+        '    <a href="' + pageLink('services') + '">Services</a>' +
+        '    <a href="' + '#contact' + '">Contact</a>' +
+        '  </div>' +
+        '</div>';
+      document.body.appendChild(foot);
+    })();
+
     // ── Reveal (IntersectionObserver) ───────────────────────────────────
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
@@ -245,7 +382,7 @@
     document.addEventListener('mousedown', function () { ring.classList.add('clicking'); });
     document.addEventListener('mouseup', function () { ring.classList.remove('clicking'); });
 
-    var hoverEls = 'a, button, .calc-btn, .prod-tab, .ratio-input-method, .svc, .ind-card, .ccard, .btn-gold, .trust-chip, .flow-step, .nav-cta, .tog, .hamburger, .nav-links a';
+    var hoverEls = 'a, button, .calc-btn, .prod-tab, .ratio-input-method, .svc, .ind-card, .ccard, .btn-gold, .trust-chip, .flow-step, .nav-cta, .tog, .hamburger, .nav-links a, .qr-wallet, .qr-help, .qr-card, .footer-links a';
     document.querySelectorAll(hoverEls).forEach(function (el) {
       el.addEventListener('mouseenter', function () { ring.classList.add('hovering'); });
       el.addEventListener('mouseleave', function () { ring.classList.remove('hovering'); });

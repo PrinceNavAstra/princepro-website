@@ -35,6 +35,9 @@
   --toggle-knob: #f8f7ff;
   --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.45), 0 10px 34px rgba(0, 0, 0, 0.32);
   --shadow-btn: 0 10px 28px rgba(0, 0, 0, 0.16);
+  --teal: #2dd4bf;
+  --teal-light: #7ce8d8;
+  --teal-dark: #0f766e;
 }
 
 [data-theme="light"] {
@@ -65,6 +68,9 @@
   --toggle-knob: #111118;
   --shadow-card: 0 1px 3px rgba(16, 16, 24, 0.05), 0 10px 32px rgba(16, 16, 24, 0.08);
   --shadow-btn: 0 10px 24px rgba(0, 0, 0, 0.12);
+  --teal: #0d9488;
+  --teal-light: #2dd4bf;
+  --teal-dark: #0b5f57;
 }
 
 *,
@@ -336,6 +342,8 @@ body.sidebar-open {
 .nav-caret {
   font-size: 0.7em;
   opacity: 0.75;
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-dropdown {
@@ -345,28 +353,38 @@ body.sidebar-open {
 }
 
 .nav-dropdown-content {
-  display: none;
+  /* Always in the layout (no display:none toggle) so opacity/transform can
+     animate smoothly; visibility + pointer-events gate interactivity. */
   position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-6px) scale(0.98);
   background-color: var(--nav-bg);
-  min-width: 180px;
+  min-width: 190px;
   box-shadow: var(--shadow-card);
-  border-radius: 8px;
+  border-radius: 10px;
   z-index: 100;
   border: 1px solid var(--border);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
-  top: 100%;
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  top: calc(100% + 10px);
   left: 0;
-  padding: 8px 0;
+  padding: 8px;
+  transition: opacity 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0.22s;
 }
 
 .nav-dropdown-content a {
   color: var(--text-body);
-  padding: 8px 16px;
+  padding: 9px 14px;
   display: block;
   text-align: left;
-  border-radius: 0;
+  border-radius: 6px;
   white-space: nowrap;
+  font-size: 0.85rem;
+  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
 }
 
 .nav-dropdown-content a::after {
@@ -375,16 +393,27 @@ body.sidebar-open {
 
 .nav-dropdown-content a:hover {
   background-color: var(--dropdown-item-hover-bg);
-  color: var(--text-primary);
+  color: var(--gold);
+  transform: translateX(3px);
 }
 
-.nav-dropdown.open .nav-dropdown-content,
-.nav-dropdown:hover .nav-dropdown-content {
-  display: block;
+/* Single source of truth: JS toggles .open (on click AND hover-intent) —
+   no plain CSS :hover rule here, since that was opening the menu without
+   ever triggering the background-blur below, leaving crisp hero text
+   showing through a half-transparent panel. */
+.nav-dropdown.open .nav-dropdown-content {
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 .nav-dropdown.open>.nav-dropbtn {
   background: var(--nav-dropbtn-active-bg);
+}
+
+.nav-dropdown.open .nav-caret {
+  transform: rotate(180deg);
 }
 
 body.nav-dropdown-open>*:not(#nav):not(.sidebar) {
@@ -692,10 +721,6 @@ body.nav-dropdown-open .nav-dropbtn {
   opacity: 0.9;
 }
 
-body.touch-device .nav-dropdown:hover .nav-dropdown-content {
-  display: none;
-}
-
 @media (max-width: 768px) {
   .nav-inner {
     grid-template-columns: 1fr auto;
@@ -814,12 +839,41 @@ strong {
   background: var(--gold);
   color: var(--bg);
   box-shadow: var(--shadow-btn);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s ease, background 0.2s ease;
+}
+
+.btn-g::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-g:hover::before {
+  left: 130%;
 }
 
 .btn-g:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.btn-g .arrow,
+.btn-o .arrow {
+  display: inline-block;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-g:hover .arrow,
+.btn-o:hover .arrow {
+  transform: translateX(4px);
 }
 
 .btn-g:focus-visible,
@@ -899,6 +953,389 @@ footer {
   color: var(--text-muted)
 }
 
+.footer-links {
+  display: flex;
+  gap: 22px;
+}
+
+.footer-links a {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+  position: relative;
+}
+
+.footer-links a:hover {
+  color: var(--gold);
+}
+
+/* ═══ CONTACT (shared across every page — injected by shared.js) ═════ */
+#contact {
+  background: var(--bg-2);
+}
+
+.contact-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.contact-h2 {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  margin-bottom: 20px;
+  line-height: 1.1;
+}
+
+.contact-sub {
+  margin-bottom: 44px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  max-width: 580px;
+}
+
+.qr-cards {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.qr-card {
+  width: 300px;
+  text-align: left;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), background 0.35s;
+}
+
+.qr-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 2;
+}
+
+.qr-card--call::before {
+  background: linear-gradient(90deg, var(--gold-light), var(--gold), var(--gold));
+}
+
+.qr-card--mail::before {
+  background: linear-gradient(90deg, var(--teal-light), var(--teal), var(--teal-dark));
+}
+
+.qr-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.28), var(--shadow-card);
+}
+
+.qr-card--call:hover {
+  border-color: var(--gold);
+}
+
+.qr-card--mail:hover {
+  border-color: var(--teal);
+}
+
+.qr-card__top {
+  padding: 18px 20px 14px;
+}
+
+.qr-card__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.qr-card__mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-weight: 700;
+  font-size: 0.62rem;
+  flex-shrink: 0;
+  transition: background 0.35s, color 0.35s;
+}
+
+.qr-card--call .qr-card__mark {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+}
+
+.qr-card--mail .qr-card__mark {
+  background: linear-gradient(135deg, var(--teal-light), var(--teal-dark));
+}
+
+.qr-card__name {
+  font-family: 'Lora', Georgia, serif;
+  font-weight: 600;
+  font-size: 0.86rem;
+  color: var(--text-primary);
+  transition: color 0.35s;
+}
+
+.qr-card__meta {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  transition: color 0.35s;
+}
+
+.qr-card__meta span:not(:last-child)::after {
+  content: "·";
+  margin-left: 5px;
+  color: var(--border-hover);
+}
+
+.qr-card__fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 8px;
+}
+
+.qr-card__fields label {
+  display: block;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+  transition: color 0.35s;
+}
+
+.qr-card__fields div {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: color 0.35s;
+}
+
+.qr-perf {
+  position: relative;
+  height: 0;
+  border-top: 1.5px dashed var(--border-hover);
+  transition: border-color 0.35s;
+}
+
+.qr-perf::before,
+.qr-perf::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--bg-2);
+  transition: background 0.35s;
+}
+
+.qr-perf::before {
+  left: -11px;
+}
+
+.qr-perf::after {
+  right: -11px;
+}
+
+.qr-card__bottom {
+  padding: 20px;
+  color: var(--bg);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.35s, color 0.35s;
+}
+
+.qr-card__bottom::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 130% at 8% -15%, rgba(255, 255, 255, 0.4), transparent 55%);
+  pointer-events: none;
+}
+
+.qr-card--call .qr-card__bottom {
+  background: linear-gradient(160deg, var(--gold-light), var(--gold) 55%, var(--gold));
+}
+
+.qr-card--mail .qr-card__bottom {
+  background: linear-gradient(160deg, var(--teal-light), var(--teal) 55%, var(--teal-dark));
+}
+
+.qr-route {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.qr-route__code {
+  font-family: 'Lora', Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.15;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.qr-route__sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  opacity: 0.82;
+  margin-top: 3px;
+}
+
+.qr-route__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.qr-card:hover .qr-route__icon {
+  transform: scale(1.08) rotate(-4deg);
+}
+
+.qr-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 14px;
+  padding: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.qr-wrap {
+  width: 64px;
+  height: 64px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 5px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.qr-wrap img,
+.qr-wrap canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.qr-copy {
+  font-size: 0.7rem;
+  line-height: 1.4;
+  opacity: 0.92;
+}
+
+.qr-copy strong {
+  display: block;
+  font-size: 0.76rem;
+  opacity: 1;
+  margin-bottom: 2px;
+}
+
+.qr-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.qr-help {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.qr-help:hover {
+  background: rgba(255, 255, 255, 0.24);
+  border-color: rgba(255, 255, 255, 0.75);
+  transform: scale(1.06);
+}
+
+.qr-wallet {
+  flex: 1;
+  text-align: center;
+  padding: 11px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  background: var(--card-bg);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+  font-family: 'DM Sans', sans-serif;
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+
+.qr-card--call .qr-wallet {
+  color: var(--gold);
+}
+
+.qr-card--mail .qr-wallet {
+  color: var(--teal-dark);
+}
+
+.qr-wallet:hover {
+  opacity: 0.92;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 640px) {
+  .qr-card {
+    width: 100%;
+    max-width: 340px;
+  }
+}
+
 /* RESPONSIVE */
 @media(max-width:768px) {
   .wrap {
@@ -911,6 +1348,16 @@ footer {
 
   .nav-inner {
     grid-template-columns: 1fr auto;
+  }
+
+  .qr-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
   }
 
 }
