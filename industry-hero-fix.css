@@ -1,7 +1,7 @@
 /* Industry pages — homepage-aligned visual system.
    Each page keeps its own copy, icons and hero artwork. */
 
-.ind-hero{min-height:100vh!important;display:flex!important;align-items:center!important;padding:140px 0 100px!important;position:relative!important;overflow:hidden!important;background:var(--bg)!important}
+.ind-hero{min-height:100vh!important;display:flex!important;align-items:center!important;padding:60px 0 100px!important;position:relative!important;overflow:hidden!important;background:var(--bg)!important}
 .ind-hero:before{content:''!important;position:absolute!important;inset:0!important;pointer-events:none!important;width:auto!important;height:auto!important;border:0!important;background-image:linear-gradient(var(--bdr-md) 1px,transparent 1px),linear-gradient(90deg,var(--bdr-md) 1px,transparent 1px)!important;background-size:40px 40px!important;opacity:.35!important;mask-image:radial-gradient(ellipse 90% 80% at 50% 50%,black 25%,transparent 78%)!important;-webkit-mask-image:radial-gradient(ellipse 90% 80% at 50% 50%,black 25%,transparent 78%)!important}
 .ind-hero:after{display:none!important}
 .ind-hero .hero-layout{position:relative!important;z-index:2!important;display:grid!important;grid-template-columns:1.15fr .85fr!important;gap:52px!important;align-items:center!important}
