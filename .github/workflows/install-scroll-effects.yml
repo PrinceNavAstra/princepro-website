@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - '.github/workflows/install-scroll-effects.yml'
+permissions:
+  contents: write
 jobs:
   install:
     runs-on: ubuntu-latest
