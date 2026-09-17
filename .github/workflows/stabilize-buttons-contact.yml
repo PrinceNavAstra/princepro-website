@@ -1,9 +1,7 @@
 name: Stabilize buttons and contact cards
-
 on:
   push:
-    paths:
-      - '.github/workflows/stabilize-buttons-contact.yml'
+    branches: [main]
 
 jobs:
   fix:
@@ -13,12 +11,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Patch shared interaction and contact UI
-        shell: python
         run: |
+          python - <<'PY'
           from pathlib import Path
           p = Path('shared.js')
           s = p.read_text(encoding='utf-8')
-
           old = """      function renderQRCodes() {
         if (typeof QRCode === 'undefined') return;
         var callEl = document.getElementById('qr-call');
@@ -32,10 +29,8 @@ jobs:
       }
 
       renderQRCodes();"""
-
           new = """      function renderQRCodes() {
-        // Keep contact cards completely local: no external QR library/network
-        // dependency is required for the page to become interactive.
+        // Local SVG contact icons: no external QR library/network dependency.
         var callEl = document.getElementById('qr-call');
         var mailEl = document.getElementById('qr-mail');
         var phoneIcon = '<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6.6 2.8 9.2 2.2c.6-.1 1.2.2 1.5.8l1.2 2.8c.2.5.1 1.1-.3 1.4l-1.6 1.3c1 2 2.7 3.7 4.7 4.7l1.3-1.6c.3-.4.9-.5 1.4-.3l2.8 1.2c.6.3.9.9.8 1.5l-.6 2.6c-.1.7-.7 1.2-1.4 1.2C11.5 17.8 6.2 12.5 5.4 5.2c-.1-.7.5-1.3 1.2-1.4Z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>';
@@ -47,21 +42,14 @@ jobs:
       renderQRCodes();"""
           if old not in s:
               raise SystemExit('Expected QR block not found')
-          p.write_text(s.replace(old, new), encoding='utf-8')
+          p.write_text(s.replace(old, new, 1), encoding='utf-8')
 
           css = Path('shared.css')
           c = css.read_text(encoding='utf-8')
-          marker = "/* ═══ CUSTOM CURSOR ═══════════════════════════════════ */"
-          insert = """/* Stable pointer behavior: never hide the native pointer over controls. */
-          """
-          if marker in c and 'Stable pointer behavior' not in c:
-              c = c.replace(marker, insert + marker, 1)
-          c = c.replace('body {\n  font-family:', 'body {\n  font-family:', 1)
-          # Append stable contact-card styling once.
           if '.contact-route-icon' not in c:
               c += """
 
-/* ═══ CONTACT CARD — stable local icons + wider professional layout ═══ */
+/* CONTACT CARD — wider, responsive, and independent of external icon/QR assets */
 .qr-cards {
   width: min(1080px, calc(100vw - 32px));
   margin-left: auto;
@@ -70,10 +58,7 @@ jobs:
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 24px;
 }
-.qr-card {
-  width: 100%;
-  min-width: 0;
-}
+.qr-card { width: 100%; min-width: 0; }
 .contact-route-icon {
   width: 42px;
   height: 42px;
@@ -81,7 +66,7 @@ jobs:
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(255,255,255,.88);
+  background: rgba(255,255,255,.92);
   color: #1b1b22;
   box-shadow: 0 5px 16px rgba(0,0,0,.12);
   flex: 0 0 auto;
@@ -92,10 +77,9 @@ jobs:
 }
 """
           css.write_text(c, encoding='utf-8')
-
+          PY
       - name: Validate JavaScript
         run: node --check shared.js && node --check products.js && node --check financial-charts.js
-
       - name: Commit
         run: |
           git config user.name 'github-actions[bot]'
