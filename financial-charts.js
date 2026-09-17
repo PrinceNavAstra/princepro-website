@@ -150,10 +150,21 @@
   function boot() {
     makeStyles();
     [['sip-chart','sip'],['loan-chart','loan']].forEach(function(pair){var c=document.getElementById(pair[0]);if(c)render(c,pair[1]);});
-    var observer=new MutationObserver(function(){
-      [['sip-chart','sip'],['loan-chart','loan']].forEach(function(pair){var c=document.getElementById(pair[0]);if(c&&c.dataset.ppChartReady)render(c,pair[1]);});
+
+    // IMPORTANT: never observe the whole document. Chart rendering itself changes
+    // the chart DOM, so a body-wide MutationObserver creates an infinite
+    // render -> mutation -> render loop whenever a calculator button is clicked.
+    [['sip-progression-table','sip'],['loan-amortization-table','loan']].forEach(function(pair){
+      var table=document.getElementById(pair[0]);
+      if(!table) return;
+      var tbody=table.querySelector('tbody');
+      if(!tbody) return;
+      new MutationObserver(function(){
+        var c=document.getElementById(pair[0]==='sip-progression-table'?'sip-chart':'loan-chart');
+        if(c&&c.dataset.ppChartReady) render(c,pair[1]);
+      }).observe(tbody,{childList:true});
     });
-    observer.observe(document.body,{subtree:true,childList:true});
+
     window.addEventListener('resize',function(){[['sip-chart','sip'],['loan-chart','loan']].forEach(function(pair){var c=document.getElementById(pair[0]);if(c&&c.dataset.ppChartReady)render(c,pair[1]);});});
     new MutationObserver(function(){[['sip-chart','sip'],['loan-chart','loan']].forEach(function(pair){var c=document.getElementById(pair[0]);if(c&&c.dataset.ppChartReady)render(c,pair[1]);});}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
   }
