@@ -30,6 +30,18 @@
       document.head.appendChild(style);
     }
 
+    /* Industry pages contain many content blocks without a reveal class.
+       Promote those blocks to the same scroll choreography as the homepage. */
+    if(document.querySelector('.ind-body')){
+      var targets=document.querySelectorAll('.ind-body .fact-card,.ind-body .chart-card,.ind-body .diagram-card,.ind-body .ind-two-col,.ind-body .ind-caps,.ind-body .problem-card,.ind-body .cap-row');
+      targets.forEach(function(el,i){
+        if(!el.classList.contains('reveal')) el.classList.add('reveal');
+        if(i%4===1) el.setAttribute('data-reveal-delay','1');
+        else if(i%4===2) el.setAttribute('data-reveal-delay','2');
+        else if(i%4===3) el.setAttribute('data-reveal-delay','3');
+      });
+    }
+
     document.documentElement.classList.add('scroll-effects-ready');
 
     var progress=nav.querySelector('#pp-scroll-progress span');
@@ -51,8 +63,7 @@
     var reveals=document.querySelectorAll('.reveal');
     if(!reveals.length || !('IntersectionObserver' in window)) return;
 
-    /* Re-trigger when the visitor scrolls back up. Unlike the old one-shot
-       observer, elements leave their revealed state when fully out of view. */
+    /* Re-trigger when the visitor scrolls back up. */
     var revealObserver=new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
         if(entry.isIntersecting){
