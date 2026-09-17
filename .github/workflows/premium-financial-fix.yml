@@ -1,0 +1,50 @@
+name: Premium financial tools fix
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/premium-financial-fix.yml'
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace chart engine and repair calculator pages
+        env:
+          FIN_B64: __FIN_B64__
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64, os, re
+          Path('financial-tools-fix.js').write_bytes(base64.b64decode(os.environ['FIN_B64']))
+
+          sip=Path('sip-calculator.html')
+          text=sip.read_text(encoding='utf-8')
+          text=re.sub(r'\n\s*<div class="calc-card" style="margin-top: 28px;">\s*<h3>Growth Chart</h3>.*?<div class="mini-chart" id="sip-chart"></div>\s*</div>', '', text, flags=re.S)
+          if 'financial-tools-fix.js' not in text:
+              text=text.replace('  <script src="products.js?v=20260917-1"></script>', '  <script src="products.js?v=20260917-1"></script>\n  <script src="financial-tools-fix.js?v=20260917-3"></script>')
+          sip.write_text(text,encoding='utf-8')
+
+          loan=Path('loan-calculator.html')
+          text=loan.read_text(encoding='utf-8')
+          text=re.sub(r'\n\s*<div class="calc-card" style="margin-top: 28px;">\s*<h3>Balance Chart</h3>.*?<div class="mini-chart" id="loan-chart"></div>\s*</div>', '', text, flags=re.S)
+          text=text.replace('  <script src="financial-charts.js"></script>\n','')
+          text=text.replace('  <script src="financial-tools-fix.js"></script>','  <script src="financial-tools-fix.js?v=20260917-3"></script>')
+          loan.write_text(text,encoding='utf-8')
+
+          ratios=Path('ratios.html')
+          text=ratios.read_text(encoding='utf-8')
+          text=text.replace('  <script src="financial-tools-fix.js"></script>','  <script src="financial-tools-fix.js?v=20260917-3"></script>')
+          ratios.write_text(text,encoding='utf-8')
+          PY
+      - name: Validate JavaScript
+        run: node --check financial-tools-fix.js
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add financial-tools-fix.js sip-calculator.html loan-calculator.html ratios.html
+          git diff --cached --quiet || git commit -m 'fix: premium financial charts and SIP calculator'
+          git push
