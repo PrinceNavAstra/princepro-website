@@ -327,7 +327,6 @@
       }
 
       renderQRCodes();
-      }
     })();
 
     // ── Inject shared FOOTER (identical on every page) ──────────────────
