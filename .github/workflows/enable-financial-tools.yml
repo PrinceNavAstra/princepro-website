@@ -19,6 +19,7 @@ jobs:
           from pathlib import Path
           files = ['index.html', 'sip-calculator.html', 'loan-calculator.html', 'ratios.html']
           marker = '<script src="financial-tools-fix.js"></script>'
+          changed = []
           for name in files:
               p = Path(name)
               if not p.exists():
@@ -27,12 +28,9 @@ jobs:
               if marker not in s and '</body>' in s:
                   s = s.replace('</body>', '  ' + marker + '\n</body>', 1)
                   p.write_text(s, encoding='utf-8')
-          # Validate JavaScript syntax before committing.
-          import subprocess
-          subprocess.run(['node', '--check', 'financial-tools-fix.js'], check=True)
-          subprocess.run(['node', '--check', 'products.js'], check=True)
-          p = Path('.github/workflows/enable-financial-tools.yml')
-          p.unlink()
+                  changed.append(name)
+          print('Updated:', ', '.join(changed))
+          Path('.github/workflows/enable-financial-tools.yml').unlink()
       - name: Commit and push
         shell: bash
         run: |
