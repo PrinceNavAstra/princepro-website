@@ -388,6 +388,15 @@
     renderSIPChart(result);
   }
 
+  var sipBtn = document.getElementById('sip-calc-btn');
+  if (sipBtn) sipBtn.addEventListener('click', calcSIP);
+
+  // Real-time SIP calculation on input change
+  ['sip-amount', 'sip-rate', 'sip-years', 'sip-stepup-amount', 'sip-stepup-percent'].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('change', calcSIP);
+  });
+
   /* ── Loan Calculator ──────────────────────────────── */
   function buildLoanSchedule(principal, rate, years, extraPrincipal) {
     var months = years * 12;
@@ -653,6 +662,12 @@
   var loanAdvanceBtn = document.getElementById('loan-advance-btn');
   if (loanAdvanceBtn) loanAdvanceBtn.addEventListener('click', calcLoanAdvance);
 
+  // Real-time Loan calculation on input change
+  ['loan-amount', 'loan-rate', 'loan-years', 'loan-extra-principal'].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('change', calcLoan);
+  });
+
   /* ── Ratios Input Method Selector ──────────────────── */
   var ratioInputMethods = document.querySelectorAll('.ratio-input-method');
   ratioInputMethods.forEach(function (btn) {
@@ -792,6 +807,13 @@
 
   var ratiosBtn = document.getElementById('ratios-calc-btn');
   if (ratiosBtn) ratiosBtn.addEventListener('click', calcRatios);
+
+  // Real-time Ratios calculation on input change
+  ['ratio-current-assets', 'ratio-inventory', 'ratio-current-liab', 'ratio-total-debt', 
+   'ratio-equity', 'ratio-total-assets', 'ratio-revenue', 'ratio-gross-profit', 'ratio-net-income'].forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('change', calcRatios);
+  });
 
   // File upload handler
   var fileUploadBtn = document.getElementById('ratio-upload-btn');
