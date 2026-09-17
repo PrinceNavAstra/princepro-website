@@ -138,12 +138,7 @@
 
 .tool-quote-card::after {
   content: '';
-  position: absolute;
-  inset: auto -12% -20% auto;
-  width: 220px;
-  height: 220px;
-  background: radial-gradient(circle, var(--gold-glow), transparent 70%);
-  pointer-events: none;
+  display: none;
 }
 
 .tool-quote-kicker {
@@ -513,68 +508,76 @@
 
 .mini-chart {
   margin-top: 8px;
-  padding: 18px;
+  padding: 24px;
   border: 1px solid var(--border);
   border-radius: 14px;
   background: var(--bg-3);
   overflow-x: auto;
   overflow-y: hidden;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .mini-chart-empty {
-  min-height: 220px;
+  min-height: 260px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px dashed var(--border);
+  border: 2px dashed var(--border);
   border-radius: 12px;
-  background: var(--bg-3);
+  background: linear-gradient(135deg, var(--bg-3) 0%, rgba(212, 168, 83, 0.03) 100%);
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 500;
 }
 
 .mini-chart-legend {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
 }
 
 .mini-chart-legend-item {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--text-body);
   white-space: nowrap;
+  font-weight: 500;
 }
 
 .mini-chart-swatch {
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
   display: inline-block;
   background: var(--gold);
-  box-shadow: 0 0 0 3px rgba(212, 168, 83, 0.12);
+  box-shadow: 0 2px 8px rgba(212, 168, 83, 0.25);
 }
 
 .mini-chart-swatch.regular {
-  background: #6b7280;
+  background: linear-gradient(135deg, #6b7280, #4b5563);
+  box-shadow: 0 2px 8px rgba(107, 114, 128, 0.25);
 }
 
 .mini-chart-swatch.stepup {
-  background: #d4a853;
+  background: linear-gradient(135deg, #d4a853, #c49640);
+  box-shadow: 0 2px 8px rgba(212, 168, 83, 0.25);
 }
 
 .mini-chart-swatch.extra {
-  background: #3b82f6;
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.25);
 }
 
 .mini-chart-grid {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 92px;
-  gap: 14px;
+  grid-auto-columns: 88px;
+  gap: 16px;
   align-items: end;
   min-width: 100%;
   width: max-content;
@@ -583,41 +586,61 @@
 .mini-chart-group {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .mini-chart-bars {
   display: flex;
   align-items: flex-end;
-  gap: 6px;
-  height: 220px;
+  gap: 7px;
+  height: 240px;
+  background: linear-gradient(to top, rgba(212, 168, 83, 0.05), transparent 20%);
+  border-radius: 8px;
+  padding: 12px;
 }
 
 .mini-chart-bar {
   position: relative;
   flex: 1 1 0;
-  min-width: 18px;
-  border-radius: 12px 12px 8px 8px;
-  background: linear-gradient(180deg, rgba(212, 168, 83, 0.9), rgba(212, 168, 83, 0.55));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  transition: transform 0.2s, opacity 0.2s;
+  min-width: 20px;
+  border-radius: 8px 8px 4px 4px;
+  background: linear-gradient(180deg, rgba(212, 168, 83, 0.95), rgba(212, 168, 83, 0.6));
+  box-shadow: 0 4px 12px rgba(212, 168, 83, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
 }
 
 .mini-chart-bar:hover {
-  transform: translateY(-2px);
-  opacity: 0.96;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(212, 168, 83, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  opacity: 1;
 }
 
 .mini-chart-bar.regular {
-  background: linear-gradient(180deg, #6b7280, #3f4654);
+  background: linear-gradient(180deg, #757d8c, #525c6f);
+  box-shadow: 0 4px 12px rgba(107, 114, 128, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.mini-chart-bar.regular:hover {
+  box-shadow: 0 6px 16px rgba(107, 114, 128, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .mini-chart-bar.stepup {
-  background: linear-gradient(180deg, rgba(212, 168, 83, 0.9), rgba(176, 121, 30, 0.65));
+  background: linear-gradient(180deg, rgba(212, 168, 83, 0.95), rgba(176, 121, 30, 0.7));
+  box-shadow: 0 4px 12px rgba(212, 168, 83, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.mini-chart-bar.stepup:hover {
+  box-shadow: 0 6px 16px rgba(212, 168, 83, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 .mini-chart-bar.extra {
-  background: linear-gradient(180deg, rgba(59, 130, 246, 0.9), rgba(29, 78, 216, 0.65));
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.95), rgba(29, 78, 216, 0.7));
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.mini-chart-bar.extra:hover {
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 .mini-chart-bar span {
@@ -627,22 +650,24 @@
   align-items: flex-start;
   justify-content: center;
   padding: 8px 4px 0;
-  font-size: 0.66rem;
-  line-height: 1.2;
+  font-size: 0.7rem;
+  line-height: 1.3;
   font-weight: 700;
   color: var(--bg);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .mini-chart-axis {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   color: var(--text-muted);
   text-align: center;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   white-space: nowrap;
+  font-weight: 500;
+  text-transform: capitalize;
 }
 
 /* Ratios grid */
@@ -840,4 +865,102 @@
 
 .calc-field input[type="file"]::file-selector-button:hover {
   background: var(--border);
+}
+
+/* ══════════════════════════════════════════════════════
+   TOOL HERO SECTION — Homepage hero styling
+══════════════════════════════════════════════════════ */
+
+.tool-hero {
+  min-height: 65vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 0 100px;
+  position: relative;
+  overflow: hidden;
+}
+
+.tool-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--bdr-md) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bdr-md) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: .35;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 25%, transparent 78%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 25%, transparent 78%);
+}
+
+.tool-hero-quote-card {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.tool-hero-quote-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gdim);
+  border: 1px solid var(--bdr-md);
+  border-radius: 100px;
+  padding: 6px 16px 6px 8px;
+  margin-bottom: 28px;
+  transition: background var(--tt), border-color var(--tt);
+  font-family: 'DM Mono', monospace;
+  font-size: .7rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.tool-hero-quote-title {
+  font-family: 'Lora', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.3;
+  color: var(--th);
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.tool-hero-quote-title .aurora-text {
+  background: linear-gradient(180deg, rgba(212, 168, 83, .28), rgba(212, 168, 83, .18));
+  color: var(--th);
+  padding: 0.08em 0.35em;
+  border-radius: .35em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  transition: background var(--tt), color var(--tt);
+}
+
+.tool-hero-quote-body {
+  font-size: 1.08rem;
+  line-height: 1.78;
+  color: var(--tb);
+  max-width: 650px;
+  margin: 0 auto 32px;
+}
+
+.tool-hero-quote-body mark {
+  font-weight: 700;
+  background: transparent;
+  color: var(--gold);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
