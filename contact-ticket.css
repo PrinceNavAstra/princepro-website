@@ -1,3 +1,5 @@
+@import url("industry-home.css");
+
 #contact[data-pp="contact-section"]{padding:96px 0 112px;overflow:hidden}
 #contact[data-pp="contact-section"] .contact-inner{width:min(1180px,calc(100vw - 40px));margin:0 auto;text-align:center}
 #contact .contact-h2{max-width:900px;margin:0 auto 18px;font-size:clamp(2.2rem,4.8vw,4.15rem);line-height:1.06;letter-spacing:-.045em}
