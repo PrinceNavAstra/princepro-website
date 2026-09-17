@@ -1,0 +1,20 @@
+name: Inspect financial chart calls
+on:
+  push:
+    paths:
+      - '.github/workflows/inspect-financial.js.yml'
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect
+        run: |
+          echo '--- showChart calls ---'
+          grep -n "showChart" financial-tools-fix.js || true
+          echo '--- calculateSIP ---'
+          grep -n -A45 -B3 "function calculateSIP" financial-tools-fix.js || true
+          echo '--- calculateLoan ---'
+          grep -n -A45 -B3 "function calculateLoan" financial-tools-fix.js || true
+          echo '--- calculateRatios ---'
+          grep -n -A45 -B3 "function calculateRatios" financial-tools-fix.js || true
