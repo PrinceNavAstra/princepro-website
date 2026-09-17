@@ -1,0 +1,30 @@
+name: Install industry visual fix
+on:
+  push:
+    paths:
+      - '.github/workflows/install-industry-fix.yml'
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add industry fix stylesheet
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          pages=['manufacturing.html','logistics.html','construction.html','marketing.html','textile.html']
+          tag='<link rel="stylesheet" href="industry-fix.css?v=20260917-1">'
+          for name in pages:
+              p=Path(name)
+              s=p.read_text(encoding='utf-8')
+              if tag not in s:
+                  s=s.replace('<link rel="stylesheet" href="industry.css" />','<link rel="stylesheet" href="industry.css" />\n    '+tag)
+                  p.write_text(s,encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add manufacturing.html logistics.html construction.html marketing.html textile.html
+          git diff --cached --quiet || git commit -m "fix: apply industry visual consistency layer"
+          git push
