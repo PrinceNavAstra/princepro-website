@@ -1,0 +1,77 @@
+/* INDUSTRY ATTRACTIVE LAYOUT — homepage-aligned, editorial first */
+
+/* Remove the feeling of a page made entirely from boxed cards. */
+.ind-body,.ind-problems,.ind-caps{position:relative;overflow:hidden}
+
+/* Snapshot: big editorial metrics, not three floating boxes. */
+.ind-body.bg-2 .fact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:42px 0 0;border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr)}
+.ind-body.bg-2 .fact-card{min-height:210px;padding:30px 34px;background:transparent;border:0;border-right:1px solid var(--bdr);border-radius:0;box-shadow:none;transform:none!important}
+.ind-body.bg-2 .fact-card:last-child{border-right:0}
+.ind-body.bg-2 .fact-label{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.16em;color:var(--gold);text-transform:uppercase}
+.ind-body.bg-2 .fact-value{font-family:'Lora',Georgia,serif;font-size:clamp(3rem,6vw,5rem);font-weight:500;letter-spacing:-.05em;line-height:1;margin:12px 0 10px}
+.ind-body.bg-2 .fact-copy{max-width:290px;font-size:.9rem;line-height:1.7}
+
+/* Chart becomes a wide data-story section with a side label. */
+.ind-body.bg-2 .chart-card{display:grid;grid-template-columns:minmax(220px,.65fr) minmax(0,1.35fr);gap:56px;align-items:center;margin-top:0;padding:58px 0;background:transparent;border:0;border-radius:0;box-shadow:none;border-bottom:1px solid var(--bdr)}
+.ind-body.bg-2 .chart-title{margin:0}
+.ind-body.bg-2 .chart-title h3,.ind-body.bg-2 .diagram-title-section h3{font-family:'Lora',Georgia,serif;font-size:1.8rem;line-height:1.2;margin-bottom:10px}
+.ind-body.bg-2 .chart-title p,.ind-body.bg-2 .diagram-title-section p{font-size:.9rem;line-height:1.7;color:var(--tb);max-width:330px}
+.ind-body.bg-2 .bar-chart{gap:19px}
+.ind-body.bg-2 .bar-track{height:7px;background:var(--bg-3);border-radius:99px}
+.ind-body.bg-2 .bar-fill{background:linear-gradient(90deg,var(--gold),var(--teal));box-shadow:0 0 18px rgba(212,168,83,.18)}
+.ind-body.bg-2 .bar-row{font-size:.82rem;font-family:'DM Mono',monospace;letter-spacing:.03em}
+
+/* Transformation: horizontal journey, no repeated card shells. */
+.ind-body.bg-2 .diagram-card{margin-top:0;padding:62px 0 12px;background:transparent;border:0;border-radius:0;box-shadow:none}
+.ind-body.bg-2 .diagram-title-section{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:40px}
+.ind-body.bg-2 .diagram-title-section p{margin:0}
+.ind-body.bg-2 .diagram-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative}
+.ind-body.bg-2 .diagram-grid:before{content:'';position:absolute;left:7%;right:7%;top:31px;border-top:1px dashed var(--bdr-hi);z-index:0}
+.ind-body.bg-2 .diagram-step{position:relative;z-index:1;padding:0 30px 30px;text-align:left;background:transparent;border:0;border-radius:0;box-shadow:none;transform:none!important}
+.ind-body.bg-2 .diagram-step:first-child{padding-left:0}
+.ind-body.bg-2 .diagram-step:last-child{padding-right:0}
+.ind-body.bg-2 .diagram-icon{width:62px;height:62px;margin:0 0 22px;border-radius:50%;background:var(--bg-2);border:1px solid var(--bdr-hi);box-shadow:0 0 0 8px var(--bg-2);font-size:1.4rem}
+.ind-body.bg-2 .diagram-step-title{font-family:'Lora',Georgia,serif;font-size:1.25rem;color:var(--th);margin-bottom:8px}
+.ind-body.bg-2 .diagram-step-copy{font-size:.86rem;line-height:1.7;color:var(--tb);max-width:280px}
+
+/* Problems: editorial numbered list with one visual accent instead of cards. */
+.ind-two-col{gap:90px}
+.ind-two-col .problems-grid{display:flex;flex-direction:column;gap:0}
+.ind-two-col .problem-card{display:grid;grid-template-columns:42px minmax(0,1fr);gap:18px;padding:22px 0;border:0;border-top:1px solid var(--bdr);border-radius:0;background:transparent;box-shadow:none;transform:none!important;max-width:none;min-height:0}
+.ind-two-col .problem-card:last-child{border-bottom:1px solid var(--bdr)}
+.ind-two-col .problem-icon{width:38px;height:38px;border-radius:50%;background:var(--gdim);border:1px solid var(--bdr-md);font-size:1rem}
+.ind-two-col .problem-card strong{display:block;font-family:'Lora',Georgia,serif;font-size:1.08rem;font-weight:600;color:var(--th);margin-bottom:4px}
+.ind-two-col .problem-card p{font-size:.88rem;line-height:1.65;margin:0;max-width:620px}
+
+/* Capabilities: alternating editorial rows with giant index numbers. */
+.ind-caps{margin-top:110px!important;padding-top:0!important}
+.ind-caps .cap-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:40px;border-top:1px solid var(--bdr)}
+.ind-caps .cap-row{display:grid;grid-template-columns:74px minmax(0,1fr);gap:20px;min-height:180px;padding:30px 34px 30px 0;border:0;border-bottom:1px solid var(--bdr);border-radius:0;background:transparent;box-shadow:none;transform:none!important}
+.ind-caps .cap-row:nth-child(even){padding-left:34px;border-left:1px solid var(--bdr)}
+.ind-caps .cap-icon{width:52px;height:52px;border-radius:50%;background:var(--gdim);border:1px solid var(--bdr-md);font-size:1.25rem}
+.ind-caps .cap-num{font-size:.68rem;letter-spacing:.18em;margin-bottom:9px}
+.ind-caps .cap-title{font-size:1.2rem;margin-bottom:8px}
+.ind-caps .cap-desc{font-size:.86rem;line-height:1.7;max-width:390px}
+
+/* Decorative section marker. */
+.ind-caps:before{content:'CAPABILITIES / DELIVERY';display:block;font-family:'DM Mono',monospace;font-size:.66rem;letter-spacing:.18em;color:var(--gold);margin-bottom:18px}
+
+@media(max-width:900px){
+ .ind-body.bg-2 .fact-grid{grid-template-columns:1fr}
+ .ind-body.bg-2 .fact-card{border-right:0;border-bottom:1px solid var(--bdr);padding:26px 0}
+ .ind-body.bg-2 .fact-card:last-child{border-bottom:0}
+ .ind-body.bg-2 .chart-card{grid-template-columns:1fr;gap:30px;padding:44px 0}
+ .ind-body.bg-2 .diagram-title-section{display:block}
+ .ind-body.bg-2 .diagram-title-section p{margin-top:12px}
+ .ind-body.bg-2 .diagram-grid{grid-template-columns:1fr;gap:0}
+ .ind-body.bg-2 .diagram-grid:before{left:30px;right:auto;top:30px;bottom:30px;border-top:0;border-left:1px dashed var(--bdr-hi)}
+ .ind-body.bg-2 .diagram-step,.ind-body.bg-2 .diagram-step:first-child,.ind-body.bg-2 .diagram-step:last-child{padding:0 0 34px 70px}
+ .ind-body.bg-2 .diagram-icon{position:absolute;left:0;top:0}
+ .ind-caps .cap-grid{grid-template-columns:1fr}
+ .ind-caps .cap-row,.ind-caps .cap-row:nth-child(even){padding:26px 0;border-left:0}
+}
+@media(max-width:560px){
+ .ind-body.bg-2 .fact-value{font-size:3.4rem}
+ .ind-two-col .problem-card{grid-template-columns:36px minmax(0,1fr);gap:14px}
+ .ind-caps{margin-top:80px!important}
+}
