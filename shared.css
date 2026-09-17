@@ -84,12 +84,11 @@ mark::before,.pp-highlight::before { content:''; position:absolute; inset:-6% -5
 [data-theme="light"] mark::before,[data-theme="light"] .pp-highlight::before { background-color:rgba(184,134,46,.4) }
 mark::after,.pp-highlight::after { display:none }
 
-/* CUSTOM CURSOR */
-#cursor-dot,#cursor-ring { position:fixed; pointer-events:none; z-index:9999; border-radius:50%; transform:translate(-50%,-50%); transition:opacity .3s; }
-#cursor-dot { width:7px; height:7px; background:var(--gold); top:0; left:0; box-shadow:0 0 0 1px rgba(0,0,0,.55),0 0 0 2px rgba(255,255,255,.85); }
-#cursor-ring { width:36px; height:36px; border:.5px solid var(--gold); top:0; left:0; transition:width .22s cubic-bezier(.4,0,.2,1),height .22s cubic-bezier(.4,0,.2,1),border-color .22s,opacity .3s; opacity:.9; box-shadow:0 0 0 1px rgba(0,0,0,.45),0 0 0 2.5px rgba(255,255,255,.6); }
-#cursor-ring.hovering { width:56px; height:56px; border:.5px solid var(--gold-light); opacity:.55; }
-#cursor-ring.clicking { width:28px; height:28px; border-width:.5px; opacity:1; }
+/* CUSTOM CURSOR — gold ring only; no dot or dark/white outline. */
+#cursor-dot { display:none!important; }
+#cursor-ring { position:fixed; pointer-events:none; z-index:9999; border-radius:50%; transform:translate(-50%,-50%); width:36px; height:36px; top:0; left:0; border:.5px solid var(--gold); box-shadow:none!important; transition:width .22s cubic-bezier(.4,0,.2,1),height .22s cubic-bezier(.4,0,.2,1),border-color .22s,opacity .3s; opacity:.9; }
+#cursor-ring.hovering { width:56px; height:56px; border:.5px solid var(--gold-light); opacity:.55; box-shadow:none!important; }
+#cursor-ring.clicking { width:28px; height:28px; border:.5px solid var(--gold-light); opacity:1; box-shadow:none!important; }
 body.touch-device #cursor-dot,body.touch-device #cursor-ring { display:none }
 @media(max-width:1024px){#cursor-dot,#cursor-ring{display:none}body{cursor:auto}}
 
