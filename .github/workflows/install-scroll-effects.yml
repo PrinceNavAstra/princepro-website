@@ -1,0 +1,35 @@
+name: Install shared scroll effects
+on:
+  push:
+    paths:
+      - '.github/workflows/install-scroll-effects.yml'
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add scroll effects script to all site pages
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          pages = [
+              'index.html','manufacturing.html','logistics.html','construction.html','marketing.html','textile.html',
+              'sip-calculator.html','loan-calculator.html','ratios.html'
+          ]
+          tag = '<script src="scroll-effects.js?v=20260917-1"></script>'
+          for name in pages:
+              p=Path(name)
+              if not p.exists():
+                  continue
+              s=p.read_text(encoding='utf-8')
+              if tag not in s:
+                  s=s.replace('</body>', '    '+tag+'\n</body>')
+                  p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add *.html
+          git diff --cached --quiet || git commit -m "feat: integrate shared scroll effects"
+          git push
