@@ -76,7 +76,7 @@
   .ind-two-col>div:first-child{position:static}
 }
 @media(max-width:900px){
-  .ind-hero{min-height:auto!important;padding:128px 0 82px!important}
+  .ind-hero{min-height:auto!important;padding:120px 0 100px!important}
   .ind-hero .hero-layout{grid-template-columns:1fr!important;gap:32px!important;transform:none!important}
   .ind-hero .hero-visual{padding-right:0!important}
   .ind-hero .hero-visual img{max-width:620px!important;margin:0 auto!important}
@@ -85,7 +85,7 @@
   .problem-card:last-child{grid-column:auto}
 }
 @media(max-width:720px){
-  .ind-hero{padding:112px 0 68px!important}
+  .ind-hero{padding:120px 0 100px!important}
   .ind-hero .hero-h1{font-size:clamp(2.35rem,10vw,3.5rem)!important}
   .ind-hero .hero-actions{gap:10px!important}
   .ind-hero .hero-visual img{max-width:560px!important}
@@ -101,22 +101,20 @@
 }
 @media(prefers-reduced-motion:reduce){.ind-hero .hero-visual img{animation:none!important}}
 
-/* Shared Industry hero spacing. */
-.ind-hero{min-height:auto!important;padding:120px 0!important}
+/* Shared Industry hero spacing: 120px top / 100px bottom on every industry page. */
+.ind-hero{min-height:auto!important;padding:120px 0 100px!important}
 .ind-hero .hero-layout{transform:none!important}
 
-/* Manufacturing gets a little more breathing room above the hero content. */
-.manufacturing-hero{padding-top:140px!important;padding-bottom:120px!important}
+/* Manufacturing follows the same industry-page hero spacing. */
+.manufacturing-hero{padding-top:120px!important;padding-bottom:100px!important}
 
 @media(max-width:900px){
-  .ind-hero{min-height:auto!important;padding:120px 0!important}
+  .ind-hero{min-height:auto!important;padding:120px 0 100px!important}
   .ind-hero .hero-layout{transform:none!important}
-  .manufacturing-hero{padding-top:140px!important;padding-bottom:120px!important}
+  .manufacturing-hero{padding-top:120px!important;padding-bottom:100px!important}
 }
 
 @media(max-width:720px){
-  .ind-hero{padding:120px 0!important}
-  .manufacturing-hero{padding-top:140px!important;padding-bottom:120px!important}
+  .ind-hero{padding:120px 0 100px!important}
+  .manufacturing-hero{padding-top:120px!important;padding-bottom:100px!important}
 }
-
-@media(prefers-reduced-motion:reduce){.ind-hero .hero-visual img{animation:none!important}}
