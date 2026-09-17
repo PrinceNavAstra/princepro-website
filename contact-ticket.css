@@ -1,3 +1,4 @@
+:root{--bdr:var(--border);--bdr-md:var(--border-hover);--th:var(--text-primary);--tb:var(--text-body);--tm:var(--text-muted);--gdim:var(--gold-dim);--bg2:var(--bg-2);--bg3:var(--bg-3);--card:var(--card-bg)}
 @import url("industry-home.css");
 
 #contact[data-pp="contact-section"]{padding:96px 0 112px;overflow:hidden}
