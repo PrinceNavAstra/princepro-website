@@ -1,23 +1,37 @@
-/* EXPERTISE — editorial capability matrix. No cards. */
-#skills{position:relative;overflow:hidden;padding:118px 0 126px;background:radial-gradient(circle at 88% 18%,var(--gdim) 0,transparent 24%),radial-gradient(circle at 8% 86%,rgba(13,148,136,.045) 0,transparent 22%)}
-#skills::before{content:"";position:absolute;width:360px;height:360px;right:-170px;top:110px;border:1px solid var(--bdr);border-radius:50%;pointer-events:none}
+/* EXPERTISE — premium editorial capability grid inspired by the supplied reference. */
+#skills{position:relative;overflow:hidden;padding:116px 0 124px;background:radial-gradient(circle at 92% 12%,var(--gdim) 0,transparent 23%),radial-gradient(circle at 6% 92%,rgba(13,148,136,.04) 0,transparent 22%)}
+#skills::before{content:"";position:absolute;width:390px;height:390px;right:-185px;top:80px;border:1px solid var(--bdr);border-radius:50%;pointer-events:none}
+#skills::after{content:"";position:absolute;right:54px;top:132px;width:82px;height:54px;background-image:radial-gradient(var(--gold) 1.4px,transparent 1.4px);background-size:13px 13px;opacity:.28;mask-image:linear-gradient(90deg,transparent,black);pointer-events:none}
 #skills>.wrap{max-width:1440px}
-#skills>.wrap>.reveal:first-child{max-width:920px;margin:0 0 58px!important}
-#skills .eyebrow{margin-bottom:16px}
-#skills h2{max-width:860px;font-size:clamp(2rem,4vw,3.15rem)!important;line-height:1.08!important;letter-spacing:-.035em;margin-bottom:18px!important}
-#skills .sub{max-width:620px;font-size:1rem}
+#skills>.wrap>.reveal:first-child{max-width:980px;margin:0 0 62px!important}
+#skills .eyebrow{margin-bottom:17px}
+#skills h2{max-width:900px;font-size:clamp(2.35rem,4.4vw,4.05rem)!important;line-height:1.05!important;letter-spacing:-.045em;margin-bottom:19px!important;color:var(--th)}
+#skills h2 mark,#skills h2 .pp-highlight{position:relative;z-index:0;background:none!important;color:inherit!important;text-shadow:none!important;padding:0 .08em!important}
+#skills h2 mark::before,#skills h2 .pp-highlight::before{content:"";position:absolute;z-index:-1;left:-.08em;right:-.08em;bottom:.08em;height:.42em;border-radius:28px 22px 30px 18px;background:rgba(184,134,46,.34);transform:rotate(-1.5deg);transform-origin:center}
+#skills .sub{max-width:680px;font-size:1.03rem;line-height:1.75}
 #skills .exp-grid{counter-reset:expertise;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid var(--bdr);border-left:1px solid var(--bdr);background:transparent!important;gap:0!important;overflow:visible}
-#skills .exp-card{counter-increment:expertise;position:relative;min-height:270px;padding:34px 32px 30px;background:transparent!important;border:0!important;border-right:1px solid var(--bdr);border-bottom:1px solid var(--bdr);border-radius:0!important;box-shadow:none!important;transform:none!important;transition:background-color .25s ease,border-color .25s ease}
-#skills .exp-card:hover{background:linear-gradient(135deg,var(--gdim),transparent 65%)!important;box-shadow:none!important;transform:none!important}
-#skills .exp-icon{width:auto!important;height:auto!important;margin:0 0 30px!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:var(--gold)!important;font-family:'DM Mono',monospace;font-size:0!important;font-weight:500;letter-spacing:.16em;line-height:1;box-shadow:none!important}
-#skills .exp-icon::before{content:counter(expertise,decimal-leading-zero);display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;margin-right:10px;border:1px solid color-mix(in srgb,var(--gold) 52%,transparent);border-radius:50%;font-size:.7rem;letter-spacing:0;vertical-align:middle}
-#skills .exp-icon::after{display:none!important}
-#skills .exp-title{margin-bottom:12px;color:var(--th);font-family:'Lora',Georgia,serif;font-size:1.15rem;font-weight:700;letter-spacing:-.02em;line-height:1.25}
-#skills .exp-desc{max-width:310px;min-height:88px;color:var(--tb);font-size:.86rem;line-height:1.7}
+#skills .exp-card{counter-increment:expertise;position:relative;min-height:330px;padding:28px 32px 28px;background:transparent!important;border:0!important;border-right:1px solid var(--bdr);border-bottom:1px solid var(--bdr);border-radius:0!important;box-shadow:none!important;transform:none!important;transition:background .3s ease}
+#skills .exp-card:hover{background:linear-gradient(145deg,var(--gdim),transparent 72%)!important}
+#skills .exp-icon{display:flex!important;align-items:center!important;gap:13px!important;width:auto!important;height:auto!important;margin:0 0 29px!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;color:var(--gold)!important;font-family:'DM Mono',monospace;font-size:0!important;font-weight:500;line-height:1;box-shadow:none!important}
+#skills .exp-icon::before{content:"";display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;flex:0 0 46px;border:1px solid color-mix(in srgb,var(--gold) 38%,transparent);border-radius:50%;background:radial-gradient(circle at 35% 30%,rgba(184,134,46,.16),transparent 65%);font-size:20px;box-shadow:inset 0 0 0 6px rgba(184,134,46,.025);transition:transform .25s ease,background .25s ease}
+#skills .exp-icon::after{content:counter(expertise,decimal-leading-zero);display:inline-flex;align-items:center;height:46px;font:500 1.15rem 'Lora',Georgia,serif;color:color-mix(in srgb,var(--gold) 52%,var(--tm));letter-spacing:-.02em}
+#skills .exp-card:hover .exp-icon::before{transform:translateY(-2px) scale(1.04);background:radial-gradient(circle at 35% 30%,rgba(184,134,46,.24),transparent 68%)}
+#skills .exp-card:nth-child(1) .exp-icon::before{content:"⚙"}
+#skills .exp-card:nth-child(2) .exp-icon::before{content:"◎"}
+#skills .exp-card:nth-child(3) .exp-icon::before{content:"▥"}
+#skills .exp-card:nth-child(4) .exp-icon::before{content:"▤"}
+#skills .exp-card:nth-child(5) .exp-icon::before{content:"✦"}
+#skills .exp-card:nth-child(6) .exp-icon::before{content:"⌘"}
+#skills .exp-card:nth-child(7) .exp-icon::before{content:"▣"}
+#skills .exp-card:nth-child(8) .exp-icon::before{content:"‹/›"}
+#skills .exp-title{margin-bottom:13px;color:var(--th);font-family:'Lora',Georgia,serif;font-size:1.2rem;font-weight:700;letter-spacing:-.025em;line-height:1.25}
+#skills .exp-desc{max-width:315px;min-height:92px;color:var(--tb);font-size:.88rem;line-height:1.72}
 #skills .exp-desc strong{color:var(--th)}
-#skills .exp-tags{display:flex;flex-wrap:wrap;gap:0;margin-top:20px;padding-top:16px;border-top:1px dashed var(--bdr)}
-#skills .exp-tag{padding:0!important;margin:0!important;background:transparent!important;border:0!important;border-radius:0!important;color:var(--gold)!important;font-family:'DM Mono',monospace;font-size:.58rem!important;font-weight:500;letter-spacing:.1em;line-height:1.4;text-transform:uppercase}
+#skills .exp-tags{display:flex;flex-wrap:wrap;gap:0;margin-top:23px;padding-top:15px;border-top:1px dashed var(--bdr)}
+#skills .exp-tag{padding:0!important;margin:0!important;background:transparent!important;border:0!important;border-radius:0!important;color:var(--gold)!important;font-family:'DM Mono',monospace;font-size:.57rem!important;font-weight:500;letter-spacing:.105em;line-height:1.55;text-transform:uppercase}
 #skills .exp-tag:not(:last-child)::after{content:'·';margin:0 9px;color:var(--tm)}
-[data-theme="dark"] #skills{background:radial-gradient(circle at 88% 18%,rgba(212,168,83,.055) 0,transparent 24%),radial-gradient(circle at 8% 86%,rgba(45,212,191,.035) 0,transparent 22%)}
-@media(max-width:1050px){#skills .exp-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#skills .exp-card{min-height:255px}}
-@media(max-width:640px){#skills{padding:88px 0 96px}#skills>.wrap>.reveal:first-child{margin-bottom:42px!important}#skills .exp-grid{grid-template-columns:1fr}#skills .exp-card{min-height:0;padding:28px 22px 26px}#skills .exp-desc{min-height:0;max-width:none}#skills .exp-tags{margin-top:18px}}
+#skills .exp-card:nth-child(n+5){min-height:300px;padding-top:28px}
+[data-theme="dark"] #skills{background:radial-gradient(circle at 92% 12%,rgba(212,168,83,.055) 0,transparent 23%),radial-gradient(circle at 6% 92%,rgba(45,212,191,.035) 0,transparent 22%)}
+[data-theme="dark"] #skills h2 mark::before,[data-theme="dark"] #skills h2 .pp-highlight::before{background:rgba(212,168,83,.35)}
+@media(max-width:1050px){#skills .exp-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#skills .exp-card,#skills .exp-card:nth-child(n+5){min-height:290px;padding:28px 26px}}
+@media(max-width:720px){#skills{padding:88px 0 96px}#skills::after{right:18px;top:100px;opacity:.18}#skills>.wrap>.reveal:first-child{margin-bottom:44px!important}#skills h2{font-size:clamp(2.1rem,8.5vw,3.2rem)!important}#skills .exp-grid{grid-template-columns:1fr}#skills .exp-card,#skills .exp-card:nth-child(n+5){min-height:0;padding:27px 22px 28px}#skills .exp-desc{min-height:0;max-width:none}}
