@@ -158,37 +158,39 @@ mark::after,
   border-radius: 50%;
   transform: translate(-50%, -50%);
   transition: opacity .3s;
-  /* Inverts against whatever is underneath, so the cursor stays visible
-     even over gold/teal accents, images, or busy backgrounds. */
-  mix-blend-mode: difference;
 }
 
 #cursor-dot {
-  width: 8px;
-  height: 8px;
-  background: #ffffff;
+  width: 7px;
+  height: 7px;
+  background: var(--gold);
   top: 0;
   left: 0;
+  /* Fixed dark+light double outline so the dot reads the same gold
+     color on every page/background, instead of a blend mode that
+     shifts hue depending on what's underneath. */
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .55), 0 0 0 2px rgba(255, 255, 255, .85);
 }
 
 #cursor-ring {
   width: 36px;
   height: 36px;
-  border: 2px solid #ffffff;
+  border: 2px solid var(--gold);
   top: 0;
   left: 0;
   transition: width .22s cubic-bezier(.4, 0, .2, 1),
     height .22s cubic-bezier(.4, 0, .2, 1),
     border-color .22s,
     opacity .3s;
-  opacity: .85;
+  opacity: .9;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .45), 0 0 0 2.5px rgba(255, 255, 255, .6);
 }
 
 #cursor-ring.hovering {
   width: 56px;
   height: 56px;
-  border-color: #ffffff;
-  opacity: .6;
+  border-color: var(--gold-light);
+  opacity: .55;
 }
 
 #cursor-ring.clicking {
