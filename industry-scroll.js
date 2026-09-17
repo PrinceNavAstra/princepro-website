@@ -6,7 +6,7 @@
     if (document.querySelector('link[data-industry-scroll-css]')) return;
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = 'industry-scroll.css?v=20260917-1';
+    link.href = 'industry-scroll.css?v=20260917-2';
     link.dataset.industryScrollCss = 'true';
     document.head.appendChild(link);
   };
@@ -23,15 +23,17 @@
   const init = () => {
     loadStyles();
     const hero = document.querySelector('.ind-hero');
-    if (!hero || hero.querySelector('.industry-scroll-indicator')) return;
+    if (!hero) return;
+
+    if (!hero.id) hero.id = 'top';
 
     const nextSection = hero.nextElementSibling;
-    if (nextSection) {
+    if (nextSection && !hero.querySelector('.industry-scroll-indicator:not(.up)')) {
       if (!nextSection.id) nextSection.id = 'industry-content-start';
       hero.appendChild(makeIndicator('down', `#${nextSection.id}`, 'SCROLL TO EXPLORE'));
     }
 
-    const contact = document.querySelector('[data-pp="contact-slot"]');
+    const contact = document.querySelector('[data-pp="contact-section"], [data-pp="contact-slot"]');
     if (contact && !document.querySelector('.industry-scroll-bottom')) {
       const bottom = document.createElement('div');
       bottom.className = 'industry-scroll-bottom';
@@ -39,9 +41,9 @@
       contact.insertAdjacentElement('afterend', bottom);
     }
 
-    if (!document.getElementById('top')) hero.id = 'top';
-
     document.querySelectorAll('.industry-scroll-indicator').forEach((indicator) => {
+      if (indicator.dataset.scrollBound) return;
+      indicator.dataset.scrollBound = 'true';
       indicator.addEventListener('click', (event) => {
         const selector = indicator.getAttribute('href');
         if (!selector || !selector.startsWith('#')) return;
