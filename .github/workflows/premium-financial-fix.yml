@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Replace chart engine and repair calculator pages
         env:
-          FIN_B64: __FIN_B64__
+          FIN_B64: " + b64 + "
         run: |
           python - <<'PY'
           from pathlib import Path
