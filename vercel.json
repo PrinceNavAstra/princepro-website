@@ -8,18 +8,6 @@
     { "source": "/logistics", "destination": "/logistics.html" },
     { "source": "/construction", "destination": "/construction.html" },
     { "source": "/marketing", "destination": "/marketing.html" },
-    { "source": "/textile", "destination": "/textile.html" },
-    { "source": "/favicon.png", "destination": "/favicon.svg" },
-    { "source": "/favicon-16.png", "destination": "/favicon.svg" },
-    { "source": "/favicon-32.png", "destination": "/favicon.svg" },
-    { "source": "/favicon-128.png", "destination": "/favicon.svg" },
-    { "source": "/favicon-light-16.png", "destination": "/favicon.svg" },
-    { "source": "/favicon-light-32.png", "destination": "/favicon.svg" },
-    { "source": "/favicon-light-64.png", "destination": "/favicon.svg" },
-    { "source": "/favicon-light-128.png", "destination": "/favicon.svg" },
-    { "source": "/favicon-dark-16.png", "destination": "/favicon.svg" },
-    { "source": "/favicon-dark-32.png", "destination": "/favicon.svg" },
-    { "source": "/favicon-dark-64.png", "destination": "/favicon.svg" },
-    { "source": "/favicon-dark-128.png", "destination": "/favicon.svg" }
+    { "source": "/textile", "destination": "/textile.html" }
   ]
 }
