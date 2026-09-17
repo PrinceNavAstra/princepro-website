@@ -543,124 +543,42 @@
           label: 'Ending Balance',
           className: 'regular',
           values: result.regular.rows.map(function (row) { return row.endingBalance; }),
-          var assetTurnover = totalAssets > 0 ? revenue / totalAssets : NaN;
-          var dupont = (netMargin / 100) * assetTurnover * equityMult;
-
-          // Set status for each ratio
-          var s1 = ratioStatus(currentRatio, 1.5, 3);
-          var s2 = ratioStatus(quickRatio, 1, 2.5);
-          var s3 = ratioStatus(debtEquity, 0, 1);
-          var s4 = ratioStatus(debtAssets, 0, 0.5);
-          var s5 = ratioStatus(roe, 10, 100);
-          var s6 = ratioStatus(roa, 5, 50);
-          var s7 = ratioStatus(netMargin, 5, 100);
-          var s8 = ratioStatus(grossMargin, 20, 100);
-          var s9 = ratioStatus(operatingMargin, 10, 50);
-          var s10 = ratioStatus(assetTurnover, 1, 3);
-
-          // Display all ratios
-          setRatioCard('ratio-current', formatRatio(currentRatio), s1.cls, s1.text);
-      setRatioCard('ratio-quick', formatRatio(quickRatio), s2.cls, s2.text);
-      setRatioCard('ratio-debt-equity', formatRatio(debtEquity), s3.cls, debtEquity <= 1 ? s3.text : 'High leverage');
-      setRatioCard('ratio-debt-assets', formatPct(debtAssets * 100), s4.cls, s4.text);
-      setRatioCard('ratio-equity-mult', formatRatio(equityMult), 'info', 'Leverage effect');
-      setRatioCard('ratio-roe', formatPct(roe), s5.cls, s5.text);
-      setRatioCard('ratio-roa', formatPct(roa), s6.cls, s6.text);
-      setRatioCard('ratio-net-margin', formatPct(netMargin), s7.cls, s7.text);
-      setRatioCard('ratio-gross-margin', formatPct(grossMargin), s8.cls, s8.text);
-      setRatioCard('ratio-equity', formatPct(equityRatio), ratioStatus(equityRatio, 30, 70).cls, 'Of total assets');
-      setRatioCard('ratio-operating-margin', formatPct(operatingMargin), s9.cls, s9.text);
-      setRatioCard('ratio-asset-turnover', formatRatio(assetTurnover), s10.cls, s10.text);
-      setRatioCard('ratio-dupont', formatPct(dupont * 100), ratioStatus(dupont * 100, 5, 50).cls, 'DuPont ROE');
-
-      // Generate feedback
-      generateRatioFeedback(currentRatio, quickRatio, debtEquity, roe, roa, netMargin);
-    }
-
-    var ratiosBtn = document.getElementById('ratios-calc-btn');
-    if (ratiosBtn) ratiosBtn.addEventListener('click', calcRatios);
-
-    // File upload handler
-    var fileUploadBtn = document.getElementById('ratio-upload-btn');
-    if (fileUploadBtn) {
-      fileUploadBtn.addEventListener('click', function () {
-        var fileInput = document.getElementById('ratio-file-upload');
-        if (fileInput.files.length === 0) {
-          alert('Please select a file');
-          return;
+          format: formatShortINR
         }
-
-        var file = fileInput.files[0];
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-          var text = e.target.result;
-          var lines = text.split('\n');
-          if (lines.length > 1) {
-            var values = lines[1].split(',');
-            if (values.length >= 9) {
-              document.getElementById('ratio-current-assets').value = values[0].trim();
-              document.getElementById('ratio-inventory').value = values[1].trim();
-              document.getElementById('ratio-current-liab').value = values[2].trim();
-              document.getElementById('ratio-total-debt').value = values[3].trim();
-              document.getElementById('ratio-equity').value = values[4].trim();
-              document.getElementById('ratio-total-assets').value = values[5].trim();
-              document.getElementById('ratio-revenue').value = values[6].trim();
-              document.getElementById('ratio-gross-profit').value = values[7].trim();
-              document.getElementById('ratio-net-income').value = values[8].trim();
-              calcRatios();
-            }
-          }
-        };
-        reader.readAsText(file);
-      });
+      ]);
     }
+  }
 
+  function calcLoan() {
+    var principal = parseNum('loan-amount');
+    var rate = parseNum('loan-rate');
     var years = parseNum('loan-years');
     var extraPrincipal = parseNum('loan-extra-principal');
-    var months = years * 12;
-    var r = rate / 12 / 100;
 
-    if (principal <= 0 || years <= 0 || extraPrincipal <= 0) return;
+    if (principal <= 0 || rate < 0 || years <= 0) return;
 
-    // Calculate regular EMI
-    var emi;
-    if (r === 0) {
-      emi = principal / months;
+    var result = buildLoanSchedule(principal, rate, years, extraPrincipal);
+
+    setText('loan-emi', formatINR(result.emi));
+    setText('loan-interest', formatINR(result.interest));
+    setText('loan-total', formatINR(result.total));
+
+    if (result.hasExtra) {
+      setText('loan-tenure-reduction', formatTenure(result.tenureReductionMonths));
+      setText('loan-interest-saved', formatINR(result.interestSaved));
+      setText('loan-new-tenure', formatTenure(result.newTenureMonths));
     } else {
-      emi = principal * r * Math.pow(1 + r, months) / (Math.pow(1 + r, months) - 1);
+      setText('loan-tenure-reduction', '—');
+      setText('loan-interest-saved', '—');
+      setText('loan-new-tenure', '—');
     }
 
-    var totalInterest = (emi * months) - principal;
-
-    // Calculate with extra principal
-    var balance = principal;
-    var monthsPaid = 0;
-    var totalInterestWithExtra = 0;
-    var extraPrincipalMonthly = extraPrincipal / 12;
-
-    while (balance > 0 && monthsPaid < 500) {
-      var interest = balance * r;
-      var principalPay = emi - interest + extraPrincipalMonthly;
-      totalInterestWithExtra += interest;
-      balance -= principalPay;
-      monthsPaid++;
-    }
-
-    var newYears = Math.ceil(monthsPaid / 12);
-    var tenureReduction = years - newYears;
-    var interestSaved = totalInterest - totalInterestWithExtra;
-
-    setText('loan-tenure-reduction', tenureReduction + ' years');
-    setText('loan-interest-saved', formatINR(interestSaved));
-    setText('loan-new-tenure', newYears + ' years');
+    renderLoanTable(result);
+    renderLoanChart(result);
   }
 
   var loanBtn = document.getElementById('loan-calc-btn');
   if (loanBtn) loanBtn.addEventListener('click', calcLoan);
-
-  var loanAdvanceBtn = document.getElementById('loan-advance-btn');
-  if (loanAdvanceBtn) loanAdvanceBtn.addEventListener('click', calcLoanAdvance);
 
   // Real-time Loan calculation on input change
   ['loan-amount', 'loan-rate', 'loan-years', 'loan-extra-principal'].forEach(function (id) {
