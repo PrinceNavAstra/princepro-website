@@ -1,6 +1,7 @@
 name: Fix financial chart observer loop
 on:
-  workflow_dispatch:
+  push:
+    branches: [main]
 
 jobs:
   fix:
