@@ -1,0 +1,74 @@
+name: Upgrade financial charts to principal and return
+on:
+  push:
+    paths:
+      - '.github/workflows/financial-principal-return-fix.yml'
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch financial chart series
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('financial-tools-fix.js')
+          s=p.read_text()
+          start=s.index('  function renderChart(key,type){')
+          end=s.index('  function showChart(', start)
+          new=r'''  function renderChart(key,type){
+            var state=chartState[key]; if(!state||!state.data||!state.data.length)return; var panel=el('pp-fin-chart-'+key); if(!panel)return;
+            var stage=panel.querySelector('.pp-fin-chart__stage'),legend=panel.querySelector('.pp-chart-legend'); stage.innerHTML=''; legend.innerHTML='';
+            var data=state.data,isRatio=key==='ratios',w=Math.max(640,stage.clientWidth||920),h=Math.max(300,stage.clientHeight||390);
+            var series=state.series&&state.series.length?state.series:[{key:'value',label:'Value'}];
+            var pad=isRatio&&type==='bar'?{l:150,r:42,t:30,b:28}:{l:82,r:28,t:30,b:54};
+            var values=[];data.forEach(function(d){series.forEach(function(sr){var v=Number(d.values?d.values[sr.key]:d.value);if(isFinite(v))values.push(v);});});
+            var max=Math.max.apply(null,values.concat([1])),min=Math.min.apply(null,values.concat([0]));
+            if(min>0)min=0;if(max===min)max=min+1;
+            var fmt=state.format||function(v){return inr(v);};
+            var colors=state.colors,svg=svgEl('svg',{viewBox:'0 0 '+w+' '+h,preserveAspectRatio:'none'}),tip=document.createElement('div');tip.className='pp-fin-tooltip';stage.appendChild(tip);
+            function val(d,sr){var v=Number(d.values?d.values[sr.key]:d.value);return isFinite(v)?v:0;}
+            function tipShow(x,y,title,rows){var html='<strong>'+esc(title)+'</strong>';rows.forEach(function(r){html+='<br><span style="color:'+r.color+'">●</span> '+esc(r.label)+': '+esc(r.value);});tip.innerHTML=html;tip.style.left=Math.max(12,Math.min((stage.clientWidth||w)-12,x))+'px';tip.style.top=Math.max(42,Math.min((stage.clientHeight||h)-12,y))+'px';tip.classList.add('show');}
+            function tipHide(){tip.classList.remove('show');}
+            function grid(){for(var g=0;g<=4;g++){var gv=min+(max-min)*g/4,gy=pad.t+(h-pad.t-pad.b)*(1-(gv-min)/(max-min||1));svg.appendChild(svgEl('line',{class:'pp-chart-grid',x1:pad.l,x2:w-pad.r,y1:gy,y2:gy}));var tx=svgEl('text',{class:'pp-chart-axis',x:pad.l-10,y:gy+4,'text-anchor':'end'});tx.textContent=fmt(gv);svg.appendChild(tx);}}
+            if(type==='line'){
+              grid(); var pw=w-pad.l-pad.r,ph=h-pad.t-pad.b;
+              series.forEach(function(sr,si){
+                var pts=data.map(function(d,i){var v=val(d,sr);return{x:pad.l+(data.length===1?pw/2:i*pw/(data.length-1)),y:pad.t+ph-((v-min)/(max-min||1))*ph};});
+                var path=svgEl('path',{class:'pp-chart-line pp-chart-line-'+si,d:pts.map(function(pt,i){return(i?'L':'M')+pt.x.toFixed(1)+' '+pt.y.toFixed(1);}).join(' ')});path.style.stroke=colors[si%colors.length];svg.appendChild(path);
+                pts.forEach(function(pt,i){var c=svgEl('circle',{class:'pp-chart-point',cx:pt.x,cy:pt.y,r:5});c.style.stroke=colors[si%colors.length];c.addEventListener('mouseenter',function(){tipShow(pt.x,pt.y,data[i].label,series.map(function(s2,sj){return{label:s2.label,value:fmt(val(data[i],s2)),color:colors[sj%colors.length]};}));});c.addEventListener('mouseleave',tipHide);svg.appendChild(c);});
+              });
+              data.forEach(function(d,i){var x=pad.l+(data.length===1?pw/2:i*pw/(data.length-1)),tx=svgEl('text',{class:'pp-chart-axis',x:x,y:h-16,'text-anchor':'middle'});tx.textContent=d.label;svg.appendChild(tx);});
+            }else if(type==='bar'){
+              var horizontal=isRatio&&data.length>=7;
+              if(horizontal){var left=pad.l,top=pad.t,plotW=w-pad.l-pad.r,rowH=(h-pad.t-pad.b)/data.length;data.forEach(function(d,i){var y=top+i*rowH+rowH*.18,bh=rowH*.64,slot=bh/Math.max(1,series.length);series.forEach(function(sr,si){var bw=val(d,sr)/(max||1)*plotW,yy=y+si*slot;if(si===0){var label=svgEl('text',{class:'pp-chart-axis',x:left-12,y:y+bh*.68,'text-anchor':'end'});label.textContent=d.label;svg.appendChild(label);}var r=svgEl('rect',{class:'pp-chart-bar',x:left,y:yy,width:Math.max(2,bw),height:Math.max(3,slot-4),rx:6});r.style.fill=colors[si%colors.length];r.style.animationDelay=(i*.045+si*.06)+'s';r.addEventListener('mouseenter',function(){tipShow(Math.min(left+bw,(stage.clientWidth||w)-20),yy,d.label,series.map(function(s2,sj){return{label:s2.label,value:fmt(val(d,s2)),color:colors[sj%colors.length]};}));});r.addEventListener('mouseleave',tipHide);svg.appendChild(r);});});}
+              else{grid();var pw2=w-pad.l-pad.r,ph2=h-pad.t-pad.b,groupW=pw2/data.length,slotW=groupW/Math.max(1,series.length),bw2=Math.min(54,slotW*.68);data.forEach(function(d,i){series.forEach(function(sr,si){var v=Math.max(0,val(d,sr)),bh=ph2*(v/max),x=pad.l+i*groupW+si*slotW+(slotW-bw2)/2,y=h-pad.b-bh,r2=svgEl('rect',{class:'pp-chart-bar',x:x,y:y,width:bw2,height:Math.max(2,bh),rx:8});r2.style.fill=colors[si%colors.length];r2.style.animationDelay=(i*.045+si*.06)+'s';r2.addEventListener('mouseenter',function(){tipShow(x+bw2/2,y,d.label,series.map(function(s2,sj){return{label:s2.label,value:fmt(val(d,s2)),color:colors[sj%colors.length]};}));});r2.addEventListener('mouseleave',tipHide);svg.appendChild(r2);});var tx=svgEl('text',{class:'pp-chart-axis',x:pad.l+i*groupW+groupW/2,y:h-16,'text-anchor':'middle'});tx.textContent=d.label;svg.appendChild(tx);});}
+            }else{
+              var last=data[data.length-1],pieSeries=series.length>1?series.slice(0,8):series,totalBySeries=pieSeries.map(function(sr){return Math.max(0,val(last,sr));}),total=totalBySeries.reduce(function(a,b){return a+b;},0)||1,cx=w/2,cy=h/2,r=Math.min(110,(h-40)/2),circ=2*Math.PI*r,offset=0;
+              pieSeries.forEach(function(sr,i){var dash=totalBySeries[i]/total*circ,c=svgEl('circle',{class:'pp-chart-pie',cx:cx,cy:cy,r:r,fill:'none',stroke:colors[i%colors.length],'stroke-width':40,'stroke-dasharray':dash+' '+circ,'stroke-dashoffset':-offset});c.style.transformOrigin=cx+'px '+cy+'px';c.style.animationDelay=(i*.05)+'s';c.addEventListener('mouseenter',function(){tipShow(cx,cy-r,sr.label,[{label:sr.label,value:fmt(totalBySeries[i]),color:colors[i%colors.length]}]);});c.addEventListener('mouseleave',tipHide);svg.appendChild(c);offset+=dash;});
+              svg.appendChild(svgEl('circle',{cx:cx,cy:cy,r:r-22,fill:'var(--card-bg,var(--card))'}));var tv=svgEl('text',{class:'pp-chart-center',x:cx,y:cy-2});tv.textContent=fmt(total);svg.appendChild(tv);var ts=svgEl('text',{class:'pp-chart-center-sub',x:cx,y:cy+18});ts.textContent='Final';svg.appendChild(ts);
+            }
+            stage.appendChild(svg); series.forEach(function(sr,i){var dot=document.createElement('span');dot.innerHTML='<i class="pp-chart-dot" style="background:'+colors[i%colors.length]+'"></i>'+esc(sr.label);legend.appendChild(dot);});
+          }
+
+          '''
+          s=s[:start]+new+s[end:]
+          s=s.replace("function showChart(key,title,desc,data,format){chartState[key]={data:data,format:format,colors:","function showChart(key,title,desc,data,format,series){chartState[key]={data:data,format:format,series:series||[{key:'value',label:'Value'}],colors:")
+          old_sip="showChart('sip','SIP Growth & Wealth Journey','Explore your yearly accumulated value with interactive line, bar and pie views.',(hasStep?stepRows:regularRows).map(function(r){return{label:'Y'+r.year,value:r.value};}),function(v){return inr(v);});"
+          new_sip="showChart('sip','SIP Principal vs Return','See how your invested principal compares with estimated returns over time.',(hasStep?stepRows:regularRows).map(function(r){return{label:'Y'+r.year,values:{principal:r.invested,returns:Math.max(0,r.value-r.invested)}};}),function(v){return inr(v);},[{key:'principal',label:'Principal Amount'},{key:'returns',label:'Estimated Return'}]);"
+          s=s.replace(old_sip,new_sip)
+          old_loan="showChart('loan','Loan Balance Journey','Track how the outstanding balance falls year by year with clear hover values.',(r.accelerated||r.regular).rows.map(function(row){return{label:'Y'+row.year,value:row.end};}),function(v){return inr(v);});"
+          new_loan="var loanRows=(r.accelerated||r.regular).rows,loanPrincipalPaid=0,loanInterestPaid=0;var loanChartData=loanRows.map(function(row){loanPrincipalPaid+=row.principal+row.extra;loanInterestPaid+=row.interest;return{label:'Y'+row.year,values:{principal:loanPrincipalPaid,interest:loanInterestPaid}};});showChart('loan','Loan Principal vs Interest','Compare cumulative principal repaid with cumulative interest paid year by year.',loanChartData,function(v){return inr(v);},[{key:'principal',label:'Principal Repaid'},{key:'interest',label:'Interest Paid'}]);"
+          s=s.replace(old_loan,new_loan)
+          if old_sip not in s or old_loan not in s or "series:series||" not in s:
+              raise SystemExit('Expected chart call patterns were not found after patch')
+          p.write_text(s)
+          PY
+          node --check financial-tools-fix.js
+          git diff --check
+          git add financial-tools-fix.js
+          git config user.name 'PrinceNavAstra'
+          git config user.email 'prince679.pro@gmail.com'
+          git commit -m 'feat: show principal and return in financial charts'
+          git push
