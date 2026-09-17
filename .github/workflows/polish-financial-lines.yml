@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - '.github/workflows/polish-financial-lines.yml'
+permissions:
+  contents: write
 jobs:
   polish:
     runs-on: ubuntu-latest
