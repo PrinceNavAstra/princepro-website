@@ -1,13 +1,10 @@
-/* Manufacturing-only hero spacing fix.
-   Keeps the existing hero design unchanged; only restores a modest top breathing room. */
-.ind-hero{
-  padding-top:120px!important;
-}
+/* Manufacturing uses the same Industry hero spacing as every other Industry page. */
+.ind-hero{padding:120px 0!important}
 
 @media(max-width:900px){
-  .ind-hero{padding-top:128px!important}
+  .ind-hero{padding:120px 0!important}
 }
 
 @media(max-width:720px){
-  .ind-hero{padding-top:112px!important}
+  .ind-hero{padding:120px 0!important}
 }
