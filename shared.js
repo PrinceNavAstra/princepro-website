@@ -108,8 +108,22 @@
           var next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
           html.setAttribute('data-theme', next);
           localStorage.setItem('pp-theme', next);
+          updateFavicon(next);
         });
       }
+
+      // Function to update favicon based on theme
+      function updateFavicon(theme) {
+        var prefix = theme === 'dark' ? 'favicon-dark' : 'favicon-light';
+        document.getElementById('favicon-main').href = prefix + '-64.png';
+        document.getElementById('favicon-32').href = prefix + '-32.png';
+        document.getElementById('favicon-16').href = prefix + '-16.png';
+        document.getElementById('favicon-apple').href = prefix + '-128.png';
+      }
+
+      // Set initial favicon based on saved theme
+      var initialTheme = localStorage.getItem('pp-theme') || 'light';
+      updateFavicon(initialTheme);
 
       // Nav scroll state
       window.addEventListener('scroll', function () {
