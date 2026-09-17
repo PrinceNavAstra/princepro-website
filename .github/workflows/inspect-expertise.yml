@@ -1,0 +1,22 @@
+name: Inspect expertise section
+on:
+  push:
+    paths:
+      - '.github/workflows/inspect-expertise.yml'
+  workflow_dispatch:
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          text=Path('index.html').read_text(encoding='utf-8')
+          for needle in ['Hands-On Expertise','ERPNext','Financial Analytics']:
+              i=text.find(needle)
+              print('\n===', needle, 'index', i, '===')
+              if i >= 0:
+                  print(text[max(0,i-1800):i+5000])
+          PY
