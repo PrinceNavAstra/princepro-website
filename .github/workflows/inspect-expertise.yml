@@ -9,14 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Inspect
+      - name: Verify expertise stylesheet
         run: |
           python - <<'PY'
           from pathlib import Path
           text=Path('index.html').read_text(encoding='utf-8')
-          for needle in ['Hands-On Expertise','ERPNext','Financial Analytics']:
-              i=text.find(needle)
-              print('\n===', needle, 'index', i, '===')
-              if i >= 0:
-                  print(text[max(0,i-1800):i+5000])
+          marker='expertise-modern.css?v=20260917-1'
+          print('EXPERTISE_STYLESHEET_PRESENT=', marker in text)
+          if marker not in text:
+              raise SystemExit('Expertise stylesheet link missing from index.html')
+          print('index_sha_bytes=', len(text.encode('utf-8')))
           PY
