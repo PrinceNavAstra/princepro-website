@@ -1,0 +1,13 @@
+/* Manufacturing-only hero spacing fix.
+   Keeps the existing hero design unchanged; only restores a modest top breathing room. */
+.ind-hero{
+  padding-top:120px!important;
+}
+
+@media(max-width:900px){
+  .ind-hero{padding-top:128px!important}
+}
+
+@media(max-width:720px){
+  .ind-hero{padding-top:112px!important}
+}
