@@ -326,13 +326,7 @@
         }
       }
 
-      if (typeof QRCode === 'undefined') {
-        var qrScript = document.createElement('script');
-        qrScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
-        qrScript.onload = renderQRCodes;
-        document.head.appendChild(qrScript);
-      } else {
-        renderQRCodes();
+      renderQRCodes();
       }
     })();
 

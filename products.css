@@ -872,11 +872,11 @@
 ══════════════════════════════════════════════════════ */
 
 .tool-hero {
-  min-height: 65vh;
+  min-height: 34vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 120px 0 100px;
+  padding: 78px 0 58px;
   position: relative;
   overflow: hidden;
 }
