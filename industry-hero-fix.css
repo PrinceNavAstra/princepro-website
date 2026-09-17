@@ -105,3 +105,9 @@
   .fact-card,.problem-card,.cap-row,.diagram-step{border-radius:19px!important}
 }
 @media(prefers-reduced-motion:reduce){.ind-hero .hero-visual img{animation:none!important}}
+
+/* Desktop: give every industry hero a deliberate 120px breathing space above and below. */
+@media(min-width:901px){
+  .ind-hero{min-height:auto!important;padding:120px 0!important}
+  .ind-hero .hero-layout{transform:none!important}
+}
