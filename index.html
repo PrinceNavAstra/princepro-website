@@ -140,37 +140,39 @@
     }
 
     #cursor-dot {
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
       background: var(--gold);
       top: 0;
       left: 0;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, .55), 0 0 0 2px rgba(255, 255, 255, .85);
     }
 
     #cursor-ring {
       width: 36px;
       height: 36px;
-      border: 1.5px solid var(--gold);
+      border: 2px solid var(--gold);
       top: 0;
       left: 0;
       transition: width .22s cubic-bezier(.4, 0, .2, 1),
         height .22s cubic-bezier(.4, 0, .2, 1),
         border-color .22s,
         opacity .3s;
-      opacity: .6;
+      opacity: .9;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, .45), 0 0 0 2.5px rgba(255, 255, 255, .6);
     }
 
     #cursor-ring.hovering {
       width: 56px;
       height: 56px;
       border-color: var(--gold-l);
-      opacity: .35;
+      opacity: .55;
     }
 
     #cursor-ring.clicking {
       width: 28px;
       height: 28px;
-      opacity: .9;
+      opacity: 1;
     }
 
     body.touch-device #cursor-dot,
