@@ -106,15 +106,17 @@
 .ind-hero .hero-layout{transform:none!important}
 
 /* Manufacturing gets a little more breathing room above the hero content. */
-.manufacturing-hero{padding-top:160px!important;padding-bottom:120px!important}
+.manufacturing-hero{padding-top:140px!important;padding-bottom:120px!important}
 
 @media(max-width:900px){
   .ind-hero{min-height:auto!important;padding:120px 0!important}
   .ind-hero .hero-layout{transform:none!important}
-  .manufacturing-hero{padding-top:160px!important;padding-bottom:120px!important}
+  .manufacturing-hero{padding-top:140px!important;padding-bottom:120px!important}
 }
 
 @media(max-width:720px){
   .ind-hero{padding:120px 0!important}
-  .manufacturing-hero{padding-top:160px!important;padding-bottom:120px!important}
+  .manufacturing-hero{padding-top:140px!important;padding-bottom:120px!important}
 }
+
+@media(prefers-reduced-motion:reduce){.ind-hero .hero-visual img{animation:none!important}}
