@@ -1,0 +1,67 @@
+/* Industry page visual consistency + layout repair layer. */
+
+/* Full-page rhythm matching the homepage */
+.ind-body,.ind-problems,.ind-caps{padding:112px 0}
+.ind-body .wrap,.ind-problems .wrap,.ind-caps .wrap{max-width:var(--page-max,1440px);margin:0 auto;padding:0 var(--page-pad,16px)}
+
+/* Keep editorial text readable and consistent */
+.ind-h2{font-family:'Lora',Georgia,serif;font-size:clamp(2.05rem,3.2vw,2.85rem);line-height:1.14;letter-spacing:-.025em;color:var(--text-primary);margin-bottom:22px}
+.ind-body> .wrap>p:first-of-type{max-width:760px;font-size:1rem;line-height:1.8;color:var(--text-body);margin:0 0 40px}
+.ind-two-col p{font-size:1rem;line-height:1.8;color:var(--text-body)}
+.gold-bar{width:44px;height:3px;margin-bottom:22px}
+
+/* Problems: clean 3-column editorial grid instead of narrow flex cards */
+.ind-two-col{display:grid;grid-template-columns:minmax(280px,360px) minmax(0,1fr);gap:72px;align-items:start}
+.problems-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch}
+.problem-card{width:auto;max-width:none;min-height:100%;padding:24px 20px;border-radius:20px;gap:13px}
+.problem-icon{width:44px;height:44px;border-radius:14px;font-size:1.3rem;flex:none}
+.problem-card strong{font-size:.92rem;line-height:1.35}
+.problem-card p{font-size:.84rem;line-height:1.65;margin:6px 0 0}
+
+/* Capability section was collapsing into a single vertical list on some pages. */
+.ind-caps{margin-top:0}
+.ind-caps .gold-bar{margin-bottom:22px}
+.cap-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 22px;margin-top:34px}
+.cap-row{display:grid;grid-template-columns:54px minmax(0,1fr);gap:18px;align-items:start;padding:22px 22px;border:1px solid var(--border);background:var(--card-bg);border-radius:20px;min-height:138px;transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease,background .28s ease}
+.cap-row:hover{transform:translateY(-4px);border-color:var(--border-hover);box-shadow:0 22px 48px rgba(24,28,40,.10)}
+.cap-icon{width:54px;height:54px;display:grid;place-items:center;border-radius:16px;background:var(--card-soft);border:1px solid var(--border);font-size:1.45rem;line-height:1}
+.cap-body{min-width:0}
+.cap-num{font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.14em;color:var(--gold);margin-bottom:5px}
+.cap-title{font-family:'Lora',Georgia,serif;font-size:1.08rem;line-height:1.3;color:var(--text-primary);margin:0 0 6px}
+.cap-desc{font-size:.84rem;line-height:1.6;color:var(--text-body);margin:0}
+
+/* Make the content cards breathe like the homepage cards */
+.fact-grid{gap:22px;margin-top:40px}
+.fact-card{padding:30px 26px;min-height:190px}
+.chart-card,.diagram-card{padding:34px;border-radius:24px;margin-top:34px}
+.diagram-grid{gap:20px}
+.diagram-step{padding:30px 26px}
+
+/* Scroll-reveal targets added by scroll-effects.js */
+.scroll-effects-ready .ind-body> .wrap> .fact-grid,
+.scroll-effects-ready .ind-body> .wrap> .chart-card,
+.scroll-effects-ready .ind-body> .wrap> .diagram-card,
+.scroll-effects-ready .ind-body> .wrap> .ind-two-col,
+.scroll-effects-ready .ind-body> .wrap> .ind-caps{will-change:opacity,transform}
+
+@media(max-width:1100px){
+  .ind-two-col{grid-template-columns:1fr;gap:46px}
+  .problems-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:900px){
+  .ind-body,.ind-problems,.ind-caps{padding:96px 0}
+  .cap-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .ind-body,.ind-problems,.ind-caps{padding:84px 0}
+  .ind-body .wrap,.ind-problems .wrap,.ind-caps .wrap{padding-left:16px;padding-right:16px}
+  .problems-grid{grid-template-columns:1fr}
+  .problem-card{min-height:0}
+  .cap-row{grid-template-columns:48px minmax(0,1fr);padding:18px}
+  .cap-icon{width:48px;height:48px}
+  .ind-h2{font-size:clamp(1.9rem,8vw,2.5rem)}
+}
+@media(max-width:560px){
+  .fact-grid{grid-template-columns:1fr}
+  .chart-card,.diagram-card{padding:24px 18px}
+}
