@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - '.github/workflows/install-industry-fix.yml'
+permissions:
+  contents: write
 jobs:
   install:
     runs-on: ubuntu-latest
