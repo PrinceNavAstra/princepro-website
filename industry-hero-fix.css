@@ -1,0 +1,69 @@
+/* Industry hero final polish: remove the bright/white right-side object and enlarge the industry artwork. */
+.ind-hero{
+  background:
+    radial-gradient(circle at 8% 88%,rgba(13,148,136,.045),transparent 24%),
+    var(--bg) !important;
+}
+
+/* The oversized right-side pseudo glow was making the hero look washed out. */
+.ind-hero:after{
+  display:none !important;
+}
+
+.ind-hero .hero-visual{
+  min-height:620px !important;
+}
+
+.ind-hero .hero-visual:before{
+  width:min(620px,96%) !important;
+  box-shadow:inset 0 0 70px rgba(184,134,46,.025),0 0 70px rgba(184,134,46,.025) !important;
+}
+
+.ind-hero .hero-visual:after{
+  width:min(455px,72%) !important;
+  border-color:rgba(45,212,191,.14) !important;
+}
+
+/* Larger artwork so labels and text inside each industry diagram are readable. */
+.ind-hero .hero-visual img{
+  width:min(100%,700px) !important;
+  max-width:700px !important;
+  transform:scale(1.06);
+  transform-origin:center;
+  filter:drop-shadow(0 24px 48px rgba(0,0,0,.20));
+}
+
+@keyframes industryFloatLarge{
+  0%,100%{transform:scale(1.06) translateY(0)}
+  50%{transform:scale(1.06) translateY(-10px)}
+}
+.ind-hero .hero-visual img{
+  animation:industryFloatLarge 6s ease-in-out infinite !important;
+}
+
+@media(max-width:1100px){
+  .ind-hero .hero-visual{min-height:560px !important}
+  .ind-hero .hero-visual img{width:min(100%,650px) !important;max-width:650px !important}
+}
+
+@media(max-width:900px){
+  .ind-hero .hero-visual{min-height:520px !important}
+  .ind-hero .hero-visual img{width:min(100%,620px) !important;max-width:620px !important}
+}
+
+@media(max-width:720px){
+  .ind-hero .hero-visual{min-height:410px !important}
+  .ind-hero .hero-visual img{
+    width:min(108%,560px) !important;
+    max-width:560px !important;
+  }
+}
+
+@media(max-width:480px){
+  .ind-hero .hero-visual{min-height:350px !important}
+  .ind-hero .hero-visual img{width:min(112%,480px) !important;max-width:480px !important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .ind-hero .hero-visual img{animation:none !important;transform:scale(1.06)}
+}
