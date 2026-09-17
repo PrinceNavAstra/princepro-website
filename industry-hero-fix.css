@@ -1,5 +1,4 @@
-/* Industry pages — homepage-aligned visual system.
-   Each page keeps its own copy, icons and hero artwork. */
+/* Industry pages — homepage-aligned visual system. */
 
 .ind-hero{min-height:100vh!important;display:flex!important;align-items:center!important;padding:60px 0 100px!important;position:relative!important;overflow:hidden!important;background:var(--bg)!important}
 .ind-hero:before{content:''!important;position:absolute!important;inset:0!important;pointer-events:none!important;width:auto!important;height:auto!important;border:0!important;background-image:linear-gradient(var(--bdr-md) 1px,transparent 1px),linear-gradient(90deg,var(--bdr-md) 1px,transparent 1px)!important;background-size:40px 40px!important;opacity:.35!important;mask-image:radial-gradient(ellipse 90% 80% at 50% 50%,black 25%,transparent 78%)!important;-webkit-mask-image:radial-gradient(ellipse 90% 80% at 50% 50%,black 25%,transparent 78%)!important}
@@ -22,10 +21,6 @@
 .ind-hero .hero-visual img{width:100%!important;max-width:620px!important;height:auto!important;display:block!important;transform:none!important;transform-origin:center!important;filter:drop-shadow(0 22px 44px rgba(0,0,0,.28))!important;animation:industryHomeFloat 6s ease-in-out infinite!important}
 @keyframes industryHomeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
 
-/* Keep mobile hero spacing readable while tightening desktop whitespace. */
-@media(max-width:900px){.ind-hero .hero-layout{transform:none!important}}
-
-/* ───────────── Industry body: same editorial rhythm as homepage ───────────── */
 .ind-body,.ind-problems,.ind-caps{position:relative;overflow:hidden}
 .ind-body.bg-2{background:var(--bg-2)!important}
 .ind-body:not(.bg-2){background:var(--bg)!important}
@@ -106,8 +101,15 @@
 }
 @media(prefers-reduced-motion:reduce){.ind-hero .hero-visual img{animation:none!important}}
 
-/* Desktop: give every industry hero a deliberate 120px breathing space above and below. */
-@media(min-width:901px){
+/* Final spacing rule: identical 120px top and bottom on every Industry hero. */
+.ind-hero{min-height:auto!important;padding:120px 0!important}
+.ind-hero .hero-layout{transform:none!important}
+
+@media(max-width:900px){
   .ind-hero{min-height:auto!important;padding:120px 0!important}
   .ind-hero .hero-layout{transform:none!important}
+}
+
+@media(max-width:720px){
+  .ind-hero{padding:120px 0!important}
 }
