@@ -84,8 +84,8 @@ mark::before,.pp-highlight::before { content:''; position:absolute; inset:-6% -5
 [data-theme="light"] mark::before,[data-theme="light"] .pp-highlight::before { background-color:rgba(184,134,46,.4) }
 mark::after,.pp-highlight::after { display:none }
 
-/* CUSTOM CURSOR — gold ring only; no dot or dark/white outline. */
-#cursor-dot { display:none!important; }
+/* CUSTOM CURSOR — gold ring + inner gold dot. */
+#cursor-dot { position:fixed; pointer-events:none; z-index:10000; width:7px; height:7px; top:0; left:0; transform:translate(-50%,-50%); border-radius:50%; background:var(--gold-light); box-shadow:0 0 8px rgba(212,168,83,.8); opacity:.95; transition:width .18s ease,height .18s ease,opacity .2s ease; }
 #cursor-ring { position:fixed; pointer-events:none; z-index:9999; border-radius:50%; transform:translate(-50%,-50%); width:36px; height:36px; top:0; left:0; border:.5px solid var(--gold); box-shadow:none!important; transition:width .22s cubic-bezier(.4,0,.2,1),height .22s cubic-bezier(.4,0,.2,1),border-color .22s,opacity .3s; opacity:.9; }
 #cursor-ring.hovering { width:56px; height:56px; border:.5px solid var(--gold-light); opacity:.55; box-shadow:none!important; }
 #cursor-ring.clicking { width:28px; height:28px; border:.5px solid var(--gold-light); opacity:1; box-shadow:none!important; }
