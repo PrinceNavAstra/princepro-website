@@ -183,6 +183,10 @@
       <p>Use arrow keys (or swipe on mobile) to slide tiles. Combine matching numbers to reach 2048.</p>
     </div>
 
+    <div class="game-level-bar" id="game-level-bar"><button data-level="beginner">Beginner</button><button data-level="intermediate">Intermediate</button><button data-level="expert" class="active">Expert</button><button data-level="professional">Professional</button></div>
+
+    <div class="play-ad" id="play-ad" hidden><div class="play-ad__box"><span>ADVERTISEMENT</span><strong>Your game is loading…</strong><small>This ad appears only while a game is being started.</small><button id="play-ad-close">Continue</button></div></div>
+
     <div class="g2048-topbar">
       <div class="g2048-score">
         <span class="label">Score</span>
@@ -202,10 +206,12 @@
     </div>
   </div>
 
-  <script src="shared.js"></script>
+  <script src="shared.js?v=20260921-2"></script>
   <script>
     (function () {
       var SIZE = 4;
+      var level = 'expert';
+      var LEVELS = { beginner:{target:512,tileChance:.95}, intermediate:{target:1024,tileChance:.92}, expert:{target:2048,tileChance:.9}, professional:{target:Number.MAX_SAFE_INTEGER,tileChance:.82} };
       var board = [];
       var score = 0;
       var best = parseInt(localStorage.getItem('pp-2048-best') || '0', 10);
@@ -232,7 +238,7 @@
         }
         if (empties.length === 0) return;
         var pick = empties[Math.floor(Math.random() * empties.length)];
-        board[pick[0]][pick[1]] = Math.random() < 0.9 ? 2 : 4;
+        board[pick[0]][pick[1]] = Math.random() < LEVELS[level].tileChance ? 2 : 4;
       }
 
       function render() {
@@ -320,11 +326,11 @@
         var won = false;
         for (var r = 0; r < SIZE; r++) {
           for (var c = 0; c < SIZE; c++) {
-            if (board[r][c] === 2048) won = true;
+            if (board[r][c] >= LEVELS[level].target && level !== 'professional') won = true;
           }
         }
         if (won) {
-          msgEl.textContent = 'You reached 2048! Keep going or start a new game.';
+          msgEl.textContent = 'You cleared ' + LEVELS[level].target + '! Keep going or start a new game.';
         } else if (!canMove()) {
           msgEl.textContent = 'Game over — no more moves. Try again!';
         } else {
@@ -367,6 +373,10 @@
       }, { passive: true });
 
       document.getElementById('g2048-new').addEventListener('click', newGame);
+      document.querySelectorAll('.game-level-bar button').forEach(function(btn){btn.addEventListener('click',function(){level=btn.getAttribute('data-level');document.querySelectorAll('.game-level-bar button').forEach(function(b){b.classList.toggle('active',b===btn)});newGame();showPlayAd();});});
+      function showPlayAd(){var ad=document.getElementById('play-ad');ad.hidden=false;setTimeout(function(){ad.hidden=true},2500)}
+      document.getElementById('play-ad-close').addEventListener('click',function(){document.getElementById('play-ad').hidden=true;});
+      showPlayAd();
 
       newGame();
     })();
