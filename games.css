@@ -309,3 +309,106 @@
   .game-stage-layout { grid-template-columns: 1fr; }
   .game-side-ad { min-height: 90px; width: 100%; }
 }
+
+
+/* ── Galaxy hover effect for Brain Game cards ─────────────── */
+.play-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.play-card::before,
+.play-card::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .45s ease;
+}
+
+.play-card::before {
+  inset: -35%;
+  z-index: -2;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,.95) 0 1px, transparent 2px) 0 0 / 34px 34px,
+    radial-gradient(circle at 30% 70%, rgba(212,168,83,.9) 0 1px, transparent 2px) 12px 18px / 46px 46px,
+    radial-gradient(circle at 75% 25%, rgba(93,203,190,.8) 0 1px, transparent 2px) 20px 8px / 58px 58px;
+  transform: rotate(0deg) scale(.8);
+  transition: opacity .45s ease, transform 1.8s cubic-bezier(.2,.8,.2,1);
+}
+
+.play-card::after {
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(212,168,83,.22), transparent 48%),
+    radial-gradient(circle at 15% 15%, rgba(93,203,190,.12), transparent 32%),
+    linear-gradient(135deg, rgba(255,255,255,.04), transparent 55%);
+  box-shadow: inset 0 0 0 1px rgba(212,168,83,.45);
+}
+
+.play-card:hover::before,
+.play-card:hover::after {
+  opacity: 1;
+}
+
+.play-card:hover::before {
+  transform: rotate(360deg) scale(1.05);
+}
+
+.play-card:hover {
+  transform: translateY(-8px) scale(1.015);
+  border-color: rgba(212,168,83,.85);
+  box-shadow:
+    0 0 0 1px rgba(212,168,83,.12),
+    0 0 28px rgba(212,168,83,.22),
+    0 28px 70px -20px rgba(212,168,83,.42);
+}
+
+.play-card:hover .play-card-icon {
+  box-shadow: 0 0 22px rgba(212,168,83,.28);
+  transform: translateY(-2px) rotate(-4deg);
+}
+
+.play-card-icon {
+  position: relative;
+  z-index: 1;
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+
+.play-card-cta {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 9px 15px;
+  border: 1px solid rgba(212,168,83,.5);
+  border-radius: 999px;
+  background: rgba(212,168,83,.08);
+  transition: color .3s ease, background .3s ease, box-shadow .3s ease, transform .3s ease;
+}
+
+.play-card:hover .play-card-cta {
+  color: #fff;
+  background: linear-gradient(135deg, rgba(212,168,83,.95), rgba(139,99,28,.95));
+  box-shadow:
+    0 0 12px rgba(212,168,83,.45),
+    0 0 28px rgba(212,168,83,.2);
+  transform: translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .play-card::before,
+  .play-card,
+  .play-card-icon,
+  .play-card-cta {
+    transition: none;
+  }
+
+  .play-card:hover::before {
+    transform: scale(1);
+  }
+}
