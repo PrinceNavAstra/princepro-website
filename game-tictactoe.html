@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Play Tic Tac Toe | Prince Prajapati</title>
+  <meta name="description" content="Play Tic Tac Toe in your browser with Beginner, Intermediate, Expert and Professional challenge levels." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="games.css" />
+  <style>
+    .ttt-board{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:min(100%,520px);aspect-ratio:1}.ttt-cell{border:1px solid var(--border);border-radius:18px;background:var(--bg-3);color:var(--text-primary);font:700 clamp(2.2rem,9vw,5rem) 'DM Sans',sans-serif;cursor:pointer;transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease}.ttt-cell:hover:not(:disabled){transform:translateY(-3px);border-color:var(--gold);box-shadow:0 12px 28px rgba(212,168,83,.15)}.ttt-cell:disabled{cursor:default}.ttt-cell.x{color:var(--gold)}.ttt-cell.o{color:#2dd4bf}.ttt-cell.win{background:rgba(212,168,83,.16);border-color:var(--gold);box-shadow:0 0 24px rgba(212,168,83,.22)}.ttt-status{min-height:24px;margin:16px 0 4px;text-align:center;color:var(--gold);font:600 .82rem 'DM Mono',monospace}.ttt-info{margin-top:8px;text-align:center;color:var(--text-muted);font-size:.78rem}.ttt-new{margin-top:18px;padding:10px 22px;border:0;border-radius:999px;background:var(--gold);color:var(--bg);font-weight:700;cursor:pointer;transition:transform .2s ease,opacity .2s ease}.ttt-new:hover{transform:translateY(-2px);opacity:.92}.ttt-symbols{display:flex;justify-content:center;gap:22px;margin-bottom:16px;font:600 .72rem 'DM Mono',monospace;color:var(--text-muted)}.ttt-symbols b:first-child{color:var(--gold)}.ttt-symbols b:last-child{color:#2dd4bf}
+  </style>
+</head>
+<body>
+  <div class="game-play-wrap">
+    <div class="game-play-head">
+      <a href="games.html" class="back-link">← All Games</a>
+      <h1>Tic Tac Toe</h1>
+      <p>Play against the computer. Choose your challenge level and try to get three in a row.</p>
+    </div>
+
+    <div class="game-level-bar" id="game-level-bar">
+      <button data-level="beginner" class="active">Beginner</button>
+      <button data-level="intermediate">Intermediate</button>
+      <button data-level="expert">Expert</button>
+      <button data-level="professional">Professional</button>
+    </div>
+
+    <div class="game-stage">
+      <div class="game-stage-layout">
+        <div class="game-board-column">
+          <div class="ttt-symbols"><b>You: X</b><b>Computer: O</b></div>
+          <div class="ttt-board" id="ttt-board" role="grid" aria-label="Tic Tac Toe board"></div>
+          <div class="ttt-status" id="ttt-status"></div>
+          <div class="ttt-info" id="ttt-info">Beginner: the computer plays randomly.</div>
+          <button class="ttt-new" id="ttt-new">New Game</button>
+        </div>
+        <aside class="game-side-ad" aria-label="Advertisement"><span>ADVERTISEMENT</span></aside>
+      </div>
+    </div>
+  </div>
+
+  <script src="shared.js?v=20260921-2"></script>
+  <script>
+    (function(){
+      var boardEl=document.getElementById('ttt-board'), statusEl=document.getElementById('ttt-status'), infoEl=document.getElementById('ttt-info');
+      var level='beginner', board=[], over=false, thinking=false;
+      var lines=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+      var descriptions={beginner:'Beginner: the computer plays randomly.',intermediate:'Intermediate: the computer can block obvious threats.',expert:'Expert: the computer uses optimal play.',professional:'Professional: no winning state is awarded.'};
+
+      function winner(b){
+        for(var i=0;i<lines.length;i++){var l=lines[i];if(b[l[0]]&&b[l[0]]===b[l[1]]&&b[l[1]]===b[l[2]])return {p:b[l[0]],line:l};}
+        return null;
+      }
+      function empty(){return board.map(function(v,i){return v?null:i}).filter(function(v){return v!==null;});}
+      function render(winLine){
+        boardEl.innerHTML='';
+        for(var i=0;i<9;i++){
+          var b=document.createElement('button'); b.className='ttt-cell'+(board[i]?' '+board[i].toLowerCase():'');
+          if(winLine&&winLine.indexOf(i)!==-1)b.classList.add('win');
+          b.textContent=board[i]||''; b.disabled=!!board[i]||over||thinking;
+          b.setAttribute('aria-label','Cell '+(i+1));
+          (function(n){b.addEventListener('click',function(){humanMove(n);});})(i); boardEl.appendChild(b);
+        }
+      }
+      function setStatus(t){statusEl.textContent=t;}
+      function finish(result){
+        over=true;
+        if(level==='professional'){setStatus('Professional challenge complete — no winning state exists.');render(result&&result.line);return;}
+        if(result){setStatus(result.p==='X'?'You win!':'Computer wins!');render(result.line);}
+        else {setStatus("It's a draw!");render();}
+      }
+      function humanMove(i){
+        if(over||thinking||board[i])return;
+        board[i]='X'; var w=winner(board);
+        if(w){finish(w);return;}
+        if(!empty().length){finish(null);return;}
+        thinking=true; render(); setStatus('Computer is thinking…');
+        setTimeout(function(){computerMove();},level==='beginner'?250:400);
+      }
+      function randomMove(moves){return moves[Math.floor(Math.random()*moves.length)];}
+      function winningMove(player){
+        var e=empty(); for(var i=0;i<e.length;i++){var n=e[i],b=board.slice();b[n]=player;if(winner(b))return n;} return null;
+      }
+      function minimax(b,isMax){
+        var w=winner(b); if(w)return w.p==='O'?10:-10;
+        var e=b.map(function(v,i){return v?null:i}).filter(function(v){return v!==null;});
+        if(!e.length)return 0;
+        var best=isMax?-Infinity:Infinity;
+        for(var i=0;i<e.length;i++){var n=e[i],next=b.slice();next[n]=isMax?'O':'X';var s=minimax(next,!isMax)+(isMax?-e.length:e.length);best=isMax?Math.max(best,s):Math.min(best,s);}
+        return best;
+      }
+      function bestMove(){
+        var e=empty(),best=-Infinity,pick=e[0];
+        e.forEach(function(n){var b=board.slice();b[n]='O';var s=minimax(b,false);if(s>best){best=s;pick=n;}});return pick;
+      }
+      function computerMove(){
+        if(over)return;
+        var e=empty(),move;
+        if(level==='beginner') move=randomMove(e);
+        else if(level==='intermediate') move=winningMove('O'); if(move==null&&level==='intermediate') move=winningMove('X'); if(move==null&&level==='intermediate') move=randomMove(e);
+        if(level==='expert'||level==='professional') move=bestMove();
+        if(move!=null)board[move]='O';
+        thinking=false;
+        var w=winner(board);
+        if(w){finish(w);return;}
+        if(!empty().length){finish(null);return;}
+        setStatus('Your turn — place X.'); render();
+      }
+      function newGame(){
+        board=[null,null,null,null,null,null,null,null,null];over=false;thinking=false;
+        infoEl.textContent=descriptions[level];setStatus('Your turn — place X.');render();
+      }
+      document.getElementById('ttt-new').addEventListener('click',newGame);
+      document.querySelectorAll('.game-level-bar button').forEach(function(btn){btn.addEventListener('click',function(){level=btn.getAttribute('data-level');document.querySelectorAll('.game-level-bar button').forEach(function(b){b.classList.toggle('active',b===btn);});newGame();});});
+      newGame();
+    })();
+  </script>
+</body>
+</html>
