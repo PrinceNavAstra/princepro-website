@@ -128,51 +128,56 @@
       cursor: none
     }
 
-    /* ═══ CUSTOM CURSOR ══════════════════════════════════════ */
-    #cursor-dot,
+    /* ═══ CUSTOM CURSOR — gold ring + inner gold dot. ═══════════ */
+    #cursor-dot {
+      position: fixed;
+      pointer-events: none;
+      z-index: 10000;
+      width: 7px;
+      height: 7px;
+      top: 0;
+      left: 0;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: var(--gold-l);
+      box-shadow: 0 0 8px rgba(212, 168, 83, .8);
+      opacity: .95;
+      transition: width .18s ease, height .18s ease, opacity .2s ease;
+    }
+
     #cursor-ring {
       position: fixed;
       pointer-events: none;
       z-index: 9999;
       border-radius: 50%;
       transform: translate(-50%, -50%);
-      transition: opacity .3s;
-    }
-
-    #cursor-dot {
-      width: 7px;
-      height: 7px;
-      background: var(--gold);
-      top: 0;
-      left: 0;
-      box-shadow: 0 0 0 1px rgba(0, 0, 0, .55), 0 0 0 2px rgba(255, 255, 255, .85);
-    }
-
-    #cursor-ring {
       width: 36px;
       height: 36px;
-      border: 2px solid var(--gold);
       top: 0;
       left: 0;
+      border: .5px solid var(--gold);
+      box-shadow: none !important;
       transition: width .22s cubic-bezier(.4, 0, .2, 1),
         height .22s cubic-bezier(.4, 0, .2, 1),
         border-color .22s,
         opacity .3s;
       opacity: .9;
-      box-shadow: 0 0 0 1px rgba(0, 0, 0, .45), 0 0 0 2.5px rgba(255, 255, 255, .6);
     }
 
     #cursor-ring.hovering {
       width: 56px;
       height: 56px;
-      border-color: var(--gold-l);
+      border: .5px solid var(--gold-l);
       opacity: .55;
+      box-shadow: none !important;
     }
 
     #cursor-ring.clicking {
       width: 28px;
       height: 28px;
+      border: .5px solid var(--gold-l);
       opacity: 1;
+      box-shadow: none !important;
     }
 
     body.touch-device #cursor-dot,
@@ -1775,7 +1780,7 @@
 
   <div class="divider"></div>
 
-  <!-- CONTACT — populated by shared.js?v=20260921-1 so it's identical on every page ── -->
+  <!-- CONTACT — populated by shared.js so it's identical on every page ── -->
   <div data-pp="contact-slot">
     <template data-cta-title>Ready to <mark>transform your business?</mark><br>Let's talk.</template>
     <template data-cta-sub>Whether you're embarking on your <strong>first ERP implementation</strong>, migrating from a legacy system, or ready to unlock <strong>AI-driven automation</strong> — we're here to help. No pressure, no jargon — just an <mark>honest conversation</mark> about your business.</template>
@@ -1784,7 +1789,9 @@
   <script>
     (function () {
       // Homepage JS keeps only the ERP diagram fetch.
-      // Navbar is injected by shared.js?v=20260921-1      const erpHost = document.getElementById('erpDiagram');
+      // Navbar is injected by shared.js.
+
+      const erpHost = document.getElementById('erpDiagram');
 
       if (erpHost) {
         fetch('assets/erp-diagram.svg')
@@ -1823,7 +1830,7 @@
       });
 
       // Scroll reveal, the custom cursor, the contact section (with its QR
-      // codes) and the site footer are all handled by shared.js?v=20260921-1 now, so
+      // codes) and the site footer are all handled by shared.js now, so
       // every page — including this one — behaves identically.
     })();
   </script>
