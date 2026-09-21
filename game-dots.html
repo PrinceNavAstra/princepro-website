@@ -129,8 +129,7 @@
     </div>
 
     <div class="game-level-bar" id="game-level-bar"><button data-level="beginner" class="active">Beginner</button><button data-level="intermediate">Intermediate</button><button data-level="expert">Expert</button><button data-level="professional">Professional</button></div>
-    <div class="play-ad" id="play-ad"><div class="play-ad__box"><span>ADVERTISEMENT</span><strong>Your game is loading…</strong><small>This ad appears only while a game is being started.</small><button id="play-ad-close">Continue</button></div></div>
-
+    
     <div class="dots-turn-bar">
       <div class="dots-player active" id="dots-player1"><span class="swatch" style="background:#d4a853"></span>
         Player 1</div>
@@ -139,16 +138,21 @@
     </div>
 
     <div class="game-stage">
-      <div id="dots-board-wrap">
-        <svg id="dots-board" width="320" height="320" viewBox="0 0 320 320"></svg>
-      </div>
-      <div class="dots-score-row">
-        <div><span class="label">Player 1</span><span class="value" id="dots-score1">0</span></div>
-        <div><span class="label">Player 2</span><span class="value" id="dots-score2">0</span></div>
-      </div>
-      <div class="dots-msg" id="dots-msg"></div>
-      <div style="text-align:center">
-        <button class="dots-new-btn" id="dots-new">New Game</button>
+      <div class="game-stage-layout">
+        <div class="game-board-column">
+          <div id="dots-board-wrap">
+            <svg id="dots-board" width="520" height="520" viewBox="0 0 320 320"></svg>
+          </div>
+          <div class="dots-score-row">
+            <div><span class="label">Player 1</span><span class="value" id="dots-score1">0</span></div>
+            <div><span class="label">Player 2</span><span class="value" id="dots-score2">0</span></div>
+          </div>
+          <div class="dots-msg" id="dots-msg"></div>
+          <div style="text-align:center">
+            <button class="dots-new-btn" id="dots-new">New Game</button>
+          </div>
+        </div>
+        <aside class="game-side-ad" aria-label="Advertisement"><span>ADVERTISEMENT</span></aside>
       </div>
     </div>
   </div>
@@ -354,10 +358,7 @@
       }
 
       document.getElementById('dots-new').addEventListener('click', newGame);
-      document.querySelectorAll('.game-level-bar button').forEach(function(btn){btn.addEventListener('click',function(){level=btn.getAttribute('data-level');document.querySelectorAll('.game-level-bar button').forEach(function(b){b.classList.toggle('active',b===btn)});newGame();showPlayAd();});});
-      function showPlayAd(){var ad=document.getElementById('play-ad');ad.hidden=false;setTimeout(function(){ad.hidden=true},2500)}
-      document.getElementById('play-ad-close').addEventListener('click',function(){document.getElementById('play-ad').hidden=true;});
-      showPlayAd();
+      document.querySelectorAll('.game-level-bar button').forEach(function(btn){btn.addEventListener('click',function(){level=btn.getAttribute('data-level');document.querySelectorAll('.game-level-bar button').forEach(function(b){b.classList.toggle('active',b===btn)});newGame();});});
 
       newGame();
     })();
