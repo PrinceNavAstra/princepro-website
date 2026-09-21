@@ -185,8 +185,7 @@
 
     <div class="game-level-bar" id="game-level-bar"><button data-level="beginner">Beginner</button><button data-level="intermediate">Intermediate</button><button data-level="expert" class="active">Expert</button><button data-level="professional">Professional</button></div>
 
-    <div class="play-ad" id="play-ad" hidden><div class="play-ad__box"><span>ADVERTISEMENT</span><strong>Your game is loading…</strong><small>This ad appears only while a game is being started.</small><button id="play-ad-close">Continue</button></div></div>
-
+    
     <div class="g2048-topbar">
       <div class="g2048-score">
         <span class="label">Score</span>
@@ -200,9 +199,14 @@
     </div>
 
     <div class="game-stage">
-      <div id="g2048-board"></div>
-      <div class="g2048-msg" id="g2048-msg"></div>
-      <div class="g2048-hint">Tip: keep your biggest tile in a corner.</div>
+      <div class="game-stage-layout">
+        <div class="game-board-column">
+          <div id="g2048-board"></div>
+          <div class="g2048-msg" id="g2048-msg"></div>
+          <div class="g2048-hint">Tip: keep your biggest tile in a corner.</div>
+        </div>
+        <aside class="game-side-ad" aria-label="Advertisement"><span>ADVERTISEMENT</span></aside>
+      </div>
     </div>
   </div>
 
@@ -373,10 +377,7 @@
       }, { passive: true });
 
       document.getElementById('g2048-new').addEventListener('click', newGame);
-      document.querySelectorAll('.game-level-bar button').forEach(function(btn){btn.addEventListener('click',function(){level=btn.getAttribute('data-level');document.querySelectorAll('.game-level-bar button').forEach(function(b){b.classList.toggle('active',b===btn)});newGame();showPlayAd();});});
-      function showPlayAd(){var ad=document.getElementById('play-ad');ad.hidden=false;setTimeout(function(){ad.hidden=true},2500)}
-      document.getElementById('play-ad-close').addEventListener('click',function(){document.getElementById('play-ad').hidden=true;});
-      showPlayAd();
+      document.querySelectorAll('.game-level-bar button').forEach(function(btn){btn.addEventListener('click',function(){level=btn.getAttribute('data-level');document.querySelectorAll('.game-level-bar button').forEach(function(b){b.classList.toggle('active',b===btn)});newGame();});});
 
       newGame();
     })();
