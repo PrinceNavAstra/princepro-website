@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Play 2048 | Prince Prajapati</title>
+  <meta name="description" content="Play 2048 free, right in your browser. Slide tiles, combine numbers, reach 2048." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="games.css" />
+  <style>
+    #g2048-board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      background: var(--bg-3);
+      border-radius: 14px;
+      padding: 10px;
+      aspect-ratio: 1 / 1;
+      touch-action: none;
+      user-select: none;
+    }
+
+    .g2048-cell {
+      position: relative;
+      border-radius: 8px;
+      background: var(--card-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1rem, 4.5vw, 1.7rem);
+      color: var(--text-primary);
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+
+    .g2048-cell[data-v="0"] {
+      background: var(--card-bg);
+      opacity: 0.5;
+    }
+
+    .g2048-cell[data-v="2"] {
+      background: #eee4da;
+      color: #776e65;
+    }
+
+    .g2048-cell[data-v="4"] {
+      background: #ede0c8;
+      color: #776e65;
+    }
+
+    .g2048-cell[data-v="8"] {
+      background: #f2b179;
+      color: #fff;
+    }
+
+    .g2048-cell[data-v="16"] {
+      background: #f59563;
+      color: #fff;
+    }
+
+    .g2048-cell[data-v="32"] {
+      background: #f67c5f;
+      color: #fff;
+    }
+
+    .g2048-cell[data-v="64"] {
+      background: #f65e3b;
+      color: #fff;
+    }
+
+    .g2048-cell[data-v="128"] {
+      background: #edcf72;
+      color: #fff;
+      font-size: clamp(.9rem, 4vw, 1.4rem);
+    }
+
+    .g2048-cell[data-v="256"] {
+      background: #edcc61;
+      color: #fff;
+      font-size: clamp(.9rem, 4vw, 1.4rem);
+    }
+
+    .g2048-cell[data-v="512"] {
+      background: #edc850;
+      color: #fff;
+      font-size: clamp(.9rem, 4vw, 1.4rem);
+    }
+
+    .g2048-cell[data-v="1024"] {
+      background: #edc53f;
+      color: #fff;
+      font-size: clamp(.8rem, 3.5vw, 1.2rem);
+    }
+
+    .g2048-cell[data-v="2048"] {
+      background: #edc22e;
+      color: #fff;
+      font-size: clamp(.8rem, 3.5vw, 1.2rem);
+      box-shadow: 0 0 30px rgba(237, 194, 46, 0.7);
+    }
+
+    .g2048-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 480px;
+      margin-bottom: 16px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .g2048-score {
+      background: var(--bg-3);
+      border-radius: 12px;
+      padding: 8px 18px;
+      text-align: center;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .g2048-score .label {
+      display: block;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .g2048-score .value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .g2048-new-btn {
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: none;
+      background: var(--gold);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .g2048-new-btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.92;
+    }
+
+    .g2048-msg {
+      margin-top: 14px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--gold);
+      min-height: 20px;
+      text-align: center;
+    }
+
+    .g2048-hint {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="game-play-wrap">
+    <div class="game-play-head">
+      <a href="games.html" class="back-link">← All Games</a>
+      <h1>2048</h1>
+      <p>Use arrow keys (or swipe on mobile) to slide tiles. Combine matching numbers to reach 2048.</p>
+    </div>
+
+    <div class="g2048-topbar">
+      <div class="g2048-score">
+        <span class="label">Score</span>
+        <span class="value" id="g2048-score">0</span>
+      </div>
+      <button class="g2048-new-btn" id="g2048-new">New Game</button>
+      <div class="g2048-score">
+        <span class="label">Best</span>
+        <span class="value" id="g2048-best">0</span>
+      </div>
+    </div>
+
+    <div class="game-stage">
+      <div id="g2048-board"></div>
+      <div class="g2048-msg" id="g2048-msg"></div>
+      <div class="g2048-hint">Tip: keep your biggest tile in a corner.</div>
+    </div>
+  </div>
+
+  <script src="shared.js"></script>
+  <script>
+    (function () {
+      var SIZE = 4;
+      var board = [];
+      var score = 0;
+      var best = parseInt(localStorage.getItem('pp-2048-best') || '0', 10);
+      var boardEl = document.getElementById('g2048-board');
+      var scoreEl = document.getElementById('g2048-score');
+      var bestEl = document.getElementById('g2048-best');
+      var msgEl = document.getElementById('g2048-msg');
+      bestEl.textContent = best;
+
+      function emptyBoard() {
+        var b = [];
+        for (var r = 0; r < SIZE; r++) {
+          b.push([0, 0, 0, 0]);
+        }
+        return b;
+      }
+
+      function addRandomTile() {
+        var empties = [];
+        for (var r = 0; r < SIZE; r++) {
+          for (var c = 0; c < SIZE; c++) {
+            if (board[r][c] === 0) empties.push([r, c]);
+          }
+        }
+        if (empties.length === 0) return;
+        var pick = empties[Math.floor(Math.random() * empties.length)];
+        board[pick[0]][pick[1]] = Math.random() < 0.9 ? 2 : 4;
+      }
+
+      function render() {
+        boardEl.innerHTML = '';
+        for (var r = 0; r < SIZE; r++) {
+          for (var c = 0; c < SIZE; c++) {
+            var cell = document.createElement('div');
+            cell.className = 'g2048-cell';
+            cell.setAttribute('data-v', board[r][c]);
+            cell.textContent = board[r][c] === 0 ? '' : board[r][c];
+            boardEl.appendChild(cell);
+          }
+        }
+        scoreEl.textContent = score;
+        if (score > best) {
+          best = score;
+          bestEl.textContent = best;
+          localStorage.setItem('pp-2048-best', String(best));
+        }
+      }
+
+      function slideRowLeft(row) {
+        var arr = row.filter(function (v) { return v !== 0; });
+        for (var i = 0; i < arr.length - 1; i++) {
+          if (arr[i] === arr[i + 1]) {
+            arr[i] *= 2;
+            score += arr[i];
+            arr.splice(i + 1, 1);
+          }
+        }
+        while (arr.length < SIZE) arr.push(0);
+        return arr;
+      }
+
+      function boardsEqual(a, b) {
+        for (var r = 0; r < SIZE; r++) {
+          for (var c = 0; c < SIZE; c++) {
+            if (a[r][c] !== b[r][c]) return false;
+          }
+        }
+        return true;
+      }
+
+      function cloneBoard(b) {
+        return b.map(function (row) { return row.slice(); });
+      }
+
+      function rotateBoard(b) {
+        var newB = emptyBoard();
+        for (var r = 0; r < SIZE; r++) {
+          for (var c = 0; c < SIZE; c++) {
+            newB[c][SIZE - 1 - r] = b[r][c];
+          }
+        }
+        return newB;
+      }
+
+      function move(direction) {
+        var prev = cloneBoard(board);
+        var rotations = { left: 0, up: 1, right: 2, down: 3 };
+        var n = rotations[direction];
+        for (var i = 0; i < n; i++) board = rotateBoard(board);
+        for (var r = 0; r < SIZE; r++) board[r] = slideRowLeft(board[r]);
+        for (var i2 = 0; i2 < (4 - n) % 4; i2++) board = rotateBoard(board);
+
+        if (!boardsEqual(prev, board)) {
+          addRandomTile();
+          render();
+          checkGameState();
+        }
+      }
+
+      function canMove() {
+        for (var r = 0; r < SIZE; r++) {
+          for (var c = 0; c < SIZE; c++) {
+            if (board[r][c] === 0) return true;
+            if (c < SIZE - 1 && board[r][c] === board[r][c + 1]) return true;
+            if (r < SIZE - 1 && board[r][c] === board[r + 1][c]) return true;
+          }
+        }
+        return false;
+      }
+
+      function checkGameState() {
+        var won = false;
+        for (var r = 0; r < SIZE; r++) {
+          for (var c = 0; c < SIZE; c++) {
+            if (board[r][c] === 2048) won = true;
+          }
+        }
+        if (won) {
+          msgEl.textContent = 'You reached 2048! Keep going or start a new game.';
+        } else if (!canMove()) {
+          msgEl.textContent = 'Game over — no more moves. Try again!';
+        } else {
+          msgEl.textContent = '';
+        }
+      }
+
+      function newGame() {
+        board = emptyBoard();
+        score = 0;
+        msgEl.textContent = '';
+        addRandomTile();
+        addRandomTile();
+        render();
+      }
+
+      document.addEventListener('keydown', function (e) {
+        var map = { ArrowLeft: 'left', ArrowRight: 'right', ArrowUp: 'up', ArrowDown: 'down' };
+        if (map[e.key]) {
+          e.preventDefault();
+          move(map[e.key]);
+        }
+      });
+
+      var touchStartX = 0, touchStartY = 0;
+      boardEl.addEventListener('touchstart', function (e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      boardEl.addEventListener('touchend', function (e) {
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        var dy = e.changedTouches[0].clientY - touchStartY;
+        if (Math.max(Math.abs(dx), Math.abs(dy)) < 24) return;
+        if (Math.abs(dx) > Math.abs(dy)) {
+          move(dx > 0 ? 'right' : 'left');
+        } else {
+          move(dy > 0 ? 'down' : 'up');
+        }
+      }, { passive: true });
+
+      document.getElementById('g2048-new').addEventListener('click', newGame);
+
+      newGame();
+    })();
+  </script>
+</body>
+
+</html>

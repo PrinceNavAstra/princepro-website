@@ -51,7 +51,7 @@
       renderContactIcons();
     })();
 
-    (function ensureFooter(){if(document.querySelector('footer[data-pp="site-footer"]'))return;var year=new Date().getFullYear(),foot=document.createElement('footer');foot.setAttribute('data-pp','site-footer');foot.innerHTML='<div class="footer-inner"><a href="/" class="footer-logo">Prince <em>Prajapati</em></a><div class="footer-copy">© '+year+' Prince Prajapati · ERP &amp; AI Consultant · Ahmedabad, India</div><div class="footer-links"><a href="'+pageLink('about')+'">About</a><a href="'+pageLink('services')+'">Services</a><a href="#contact">Contact</a></div></div>';document.body.appendChild(foot);})();
+    (function ensureFooter(){if(document.querySelector('footer[data-pp="site-footer"]'))return;var year=new Date().getFullYear(),foot=document.createElement('footer');foot.setAttribute('data-pp','site-footer');foot.innerHTML='<div class="footer-inner"><a href="/" class="footer-logo">Prince <em>Prajapati</em></a><div class="footer-copy">© '+year+' Prince Prajapati · ERP &amp; AI Consultant · Ahmedabad, India</div><div class="footer-links"><a href="'+pageLink('about')+'">About</a><a href="'+pageLink('services')+'">Services</a><a href="#contact">Contact</a><a href="games.html" class="footer-highlight">\ud83c\udfae Brain Games</a></div></div>';document.body.appendChild(foot);})();
 
     /* Homepage scroll cues: down hint in hero, up hint only while Contact is visible. */
     (function ensureHomepageScrollCues(){

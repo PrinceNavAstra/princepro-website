@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Play Dot Connects | Prince Prajapati</title>
+  <meta name="description"
+    content="Play Dot Connects (dots and boxes) free in your browser — a 2-player pass-and-play strategy game." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css" />
+  <link rel="stylesheet" href="games.css" />
+  <style>
+    .dots-turn-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      width: 100%;
+      max-width: 420px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .dots-player {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: var(--bg-3);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .dots-player .swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .dots-player.active {
+      background: var(--gdim, rgba(212, 168, 83, 0.15));
+      color: var(--text-primary);
+      box-shadow: 0 0 0 1.5px var(--gold);
+    }
+
+    #dots-board-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    #dots-board {
+      touch-action: manipulation;
+    }
+
+    .dots-new-btn {
+      margin-top: 16px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: none;
+      background: var(--gold);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .dots-new-btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.92;
+    }
+
+    .dots-msg {
+      margin-top: 14px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--gold);
+      min-height: 20px;
+      text-align: center;
+    }
+
+    .dots-score-row {
+      display: flex;
+      gap: 26px;
+      justify-content: center;
+      margin-top: 4px;
+    }
+
+    .dots-score-row div {
+      text-align: center;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .dots-score-row .label {
+      display: block;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .dots-score-row .value {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="game-play-wrap">
+    <div class="game-play-head">
+      <a href="games.html" class="back-link">← All Games</a>
+      <h1>Dot Connects</h1>
+      <p>Take turns drawing a line between two neighbouring dots. Complete the 4th side of a box to claim it —
+        and go again.</p>
+    </div>
+
+    <div class="dots-turn-bar">
+      <div class="dots-player active" id="dots-player1"><span class="swatch" style="background:#d4a853"></span>
+        Player 1</div>
+      <div class="dots-player" id="dots-player2"><span class="swatch" style="background:#2dd4bf"></span> Player
+        2</div>
+    </div>
+
+    <div class="game-stage">
+      <div id="dots-board-wrap">
+        <svg id="dots-board" width="320" height="320" viewBox="0 0 320 320"></svg>
+      </div>
+      <div class="dots-score-row">
+        <div><span class="label">Player 1</span><span class="value" id="dots-score1">0</span></div>
+        <div><span class="label">Player 2</span><span class="value" id="dots-score2">0</span></div>
+      </div>
+      <div class="dots-msg" id="dots-msg"></div>
+      <div style="text-align:center">
+        <button class="dots-new-btn" id="dots-new">New Game</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="shared.js"></script>
+  <script>
+    (function () {
+      var GRID = 5; // 5x5 dots = 4x4 boxes
+      var PAD = 30;
+      var SIZE = 320;
+      var STEP = (SIZE - PAD * 2) / (GRID - 1);
+      var COLORS = ['#d4a853', '#2dd4bf'];
+
+      var svg = document.getElementById('dots-board');
+      var msgEl = document.getElementById('dots-msg');
+      var score1El = document.getElementById('dots-score1');
+      var score2El = document.getElementById('dots-score2');
+      var p1El = document.getElementById('dots-player1');
+      var p2El = document.getElementById('dots-player2');
+
+      var hLines, vLines, boxes, scores, turn, gameOver;
+
+      function pos(i) { return PAD + i * STEP; }
+
+      function newGame() {
+        hLines = []; // hLines[r][c] = -1 (not drawn) or player index who drew it
+        vLines = []; // vLines[r][c] = -1 (not drawn) or player index who drew it
+        boxes = [];  // boxes[r][c] owner index or -1
+        for (var r = 0; r < GRID; r++) {
+          hLines.push(new Array(GRID - 1).fill(-1));
+        }
+        for (var r2 = 0; r2 < GRID - 1; r2++) {
+          vLines.push(new Array(GRID).fill(-1));
+        }
+        for (var r3 = 0; r3 < GRID - 1; r3++) {
+          boxes.push(new Array(GRID - 1).fill(-1));
+        }
+        scores = [0, 0];
+        turn = 0;
+        gameOver = false;
+        msgEl.textContent = '';
+        score1El.textContent = '0';
+        score2El.textContent = '0';
+        updateTurnUI();
+        render();
+      }
+
+      function updateTurnUI() {
+        p1El.classList.toggle('active', turn === 0 && !gameOver);
+        p2El.classList.toggle('active', turn === 1 && !gameOver);
+      }
+
+      function boxComplete(r, c) {
+        return hLines[r][c] !== -1 && hLines[r + 1][c] !== -1 && vLines[r][c] !== -1 && vLines[r][c + 1] !== -1;
+      }
+
+      function checkBoxesAround(r, c, isH) {
+        var claimed = false;
+        if (isH) {
+          // horizontal line at row r, col c affects box above (r-1,c) and below (r,c)
+          if (r > 0 && boxes[r - 1][c] === -1 && boxComplete(r - 1, c)) {
+            boxes[r - 1][c] = turn; scores[turn]++; claimed = true;
+          }
+          if (r < GRID - 1 && boxes[r][c] === -1 && boxComplete(r, c)) {
+            boxes[r][c] = turn; scores[turn]++; claimed = true;
+          }
+        } else {
+          // vertical line at row r, col c affects box left (r,c-1) and right (r,c)
+          if (c > 0 && boxes[r][c - 1] === -1 && boxComplete(r, c - 1)) {
+            boxes[r][c - 1] = turn; scores[turn]++; claimed = true;
+          }
+          if (c < GRID - 1 && boxes[r][c] === -1 && boxComplete(r, c)) {
+            boxes[r][c] = turn; scores[turn]++; claimed = true;
+          }
+        }
+        return claimed;
+      }
+
+      function allBoxesFilled() {
+        for (var r = 0; r < GRID - 1; r++) {
+          for (var c = 0; c < GRID - 1; c++) {
+            if (boxes[r][c] === -1) return false;
+          }
+        }
+        return true;
+      }
+
+      function endGameIfDone() {
+        if (allBoxesFilled()) {
+          gameOver = true;
+          if (scores[0] > scores[1]) msgEl.textContent = 'Player 1 wins!';
+          else if (scores[1] > scores[0]) msgEl.textContent = 'Player 2 wins!';
+          else msgEl.textContent = "It's a tie!";
+        }
+      }
+
+      function playLine(isH, r, c) {
+        if (gameOver) return;
+        if (isH) {
+          if (hLines[r][c] !== -1) return;
+          hLines[r][c] = turn;
+        } else {
+          if (vLines[r][c] !== -1) return;
+          vLines[r][c] = turn;
+        }
+        score1El.textContent = scores[0];
+        score2El.textContent = scores[1];
+        var claimed = checkBoxesAround(r, c, isH);
+        score1El.textContent = scores[0];
+        score2El.textContent = scores[1];
+        render();
+        endGameIfDone();
+        if (!claimed && !gameOver) {
+          turn = 1 - turn;
+        }
+        updateTurnUI();
+      }
+
+      function svgEl(tag, attrs) {
+        var el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+        for (var k in attrs) el.setAttribute(k, attrs[k]);
+        return el;
+      }
+
+      function render() {
+        svg.innerHTML = '';
+
+        // boxes
+        for (var r = 0; r < GRID - 1; r++) {
+          for (var c = 0; c < GRID - 1; c++) {
+            if (boxes[r][c] !== -1) {
+              svg.appendChild(svgEl('rect', {
+                x: pos(c) + 4, y: pos(r) + 4, width: STEP - 8, height: STEP - 8,
+                rx: 4, fill: COLORS[boxes[r][c]], opacity: 0.28
+              }));
+            }
+          }
+        }
+
+        // horizontal line slots
+        for (var r2 = 0; r2 < GRID; r2++) {
+          for (var c2 = 0; c2 < GRID - 1; c2++) {
+            var drawnBy = hLines[r2][c2];
+            var drawn = drawnBy !== -1;
+            var hit = svgEl('line', {
+              x1: pos(c2), y1: pos(r2), x2: pos(c2 + 1), y2: pos(r2),
+              stroke: drawn ? COLORS[drawnBy] : 'transparent',
+              'stroke-width': drawn ? 5 : 14, 'stroke-linecap': 'round',
+              class: drawn ? '' : 'dots-hit', style: drawn ? '' : 'cursor:pointer'
+            });
+            if (!drawn) {
+              (function (rr, cc) {
+                hit.addEventListener('click', function () { playLine(true, rr, cc); });
+              })(r2, c2);
+              var visible = svgEl('line', {
+                x1: pos(c2), y1: pos(r2), x2: pos(c2 + 1), y2: pos(r2),
+                stroke: 'var(--border-hover)', 'stroke-width': 2, 'stroke-linecap': 'round', 'pointer-events': 'none'
+              });
+              svg.appendChild(visible);
+            }
+            svg.appendChild(hit);
+          }
+        }
+
+        // vertical line slots
+        for (var r3 = 0; r3 < GRID - 1; r3++) {
+          for (var c3 = 0; c3 < GRID; c3++) {
+            var drawnByV = vLines[r3][c3];
+            var drawnV = drawnByV !== -1;
+            var hitV = svgEl('line', {
+              x1: pos(c3), y1: pos(r3), x2: pos(c3), y2: pos(r3 + 1),
+              stroke: drawnV ? COLORS[drawnByV] : 'transparent',
+              'stroke-width': drawnV ? 5 : 14, 'stroke-linecap': 'round',
+              style: drawnV ? '' : 'cursor:pointer'
+            });
+            if (!drawnV) {
+              (function (rr, cc) {
+                hitV.addEventListener('click', function () { playLine(false, rr, cc); });
+              })(r3, c3);
+              var visibleV = svgEl('line', {
+                x1: pos(c3), y1: pos(r3), x2: pos(c3), y2: pos(r3 + 1),
+                stroke: 'var(--border-hover)', 'stroke-width': 2, 'stroke-linecap': 'round', 'pointer-events': 'none'
+              });
+              svg.appendChild(visibleV);
+            }
+            svg.appendChild(hitV);
+          }
+        }
+
+        // dots
+        for (var r4 = 0; r4 < GRID; r4++) {
+          for (var c4 = 0; c4 < GRID; c4++) {
+            svg.appendChild(svgEl('circle', {
+              cx: pos(c4), cy: pos(r4), r: 4.5, fill: 'var(--text-primary)'
+            }));
+          }
+        }
+      }
+
+      document.getElementById('dots-new').addEventListener('click', newGame);
+
+      newGame();
+    })();
+  </script>
+</body>
+
+</html>

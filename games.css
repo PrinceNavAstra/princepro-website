@@ -1,0 +1,272 @@
+/* ══════════════════════════════════════════════════════
+   GAMES HUB + GAME-PLAY PAGES
+══════════════════════════════════════════════════════ */
+
+.games-hero {
+  padding: 150px 0 60px;
+  text-align: center;
+  background: var(--bg);
+}
+
+.games-hero .eyebrow {
+  justify-content: center;
+  display: flex;
+}
+
+.games-hero h1 {
+  font-family: 'Lora', serif;
+  font-weight: 700;
+  font-size: clamp(2.1rem, 4.6vw, 3.2rem);
+  line-height: 1.12;
+  margin: 16px auto 14px;
+  max-width: 780px;
+  color: var(--text-primary);
+}
+
+.games-hero p {
+  max-width: 620px;
+  margin: 0 auto;
+  color: var(--text-body);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* Ad placeholder — swap the inner comment for real ad code later */
+.ad-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 36px auto;
+  max-width: var(--page-max);
+  min-height: 90px;
+  border: 1.5px dashed var(--border-hover);
+  border-radius: 12px;
+  background: var(--bg-3);
+  color: var(--text-muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ad-slot--wide {
+  min-height: 120px;
+}
+
+/* ── Section shell ─────────────────────────────────────── */
+.games-section {
+  padding: 60px 0;
+}
+
+.games-section-head {
+  max-width: 640px;
+  margin: 0 auto 36px;
+  text-align: center;
+}
+
+.games-section-head h2 {
+  font-family: 'Lora', serif;
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  color: var(--text-primary);
+  margin-bottom: 10px;
+}
+
+.games-section-head p {
+  color: var(--text-body);
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+/* ── Playable game cards (on the hub page) ────────────────── */
+.play-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 22px;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--page-pad);
+}
+
+.play-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 26px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  text-decoration: none;
+  transition: transform 0.3s cubic-bezier(.4, 0, .2, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.play-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold);
+  box-shadow: 0 24px 50px -18px rgba(212, 168, 83, 0.3);
+}
+
+.play-card-icon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  font-size: 1.6rem;
+  background: var(--gdim, rgba(212, 168, 83, 0.12));
+}
+
+.play-card h3 {
+  font-family: 'Lora', serif;
+  font-size: 1.12rem;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.play-card p {
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: var(--text-body);
+  margin: 0;
+  flex: 1;
+}
+
+.play-card-cta {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* ── External directory cards ─────────────────────────────── */
+.directory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--page-pad);
+}
+
+.directory-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 18px 20px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.92rem;
+  transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.directory-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.directory-card .arrow-out {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.directory-card:hover .arrow-out {
+  color: var(--gold);
+  transform: translate(2px, -2px);
+}
+
+/* ══════════════════════════════════════════════════════
+   GAME-PLAY PAGE (the actual game screen)
+   Desktop: generous left/right padding, game stage centered.
+   Tablet/Mobile: side padding shrinks, top/bottom padding
+   takes over instead so the game stage can use full width.
+══════════════════════════════════════════════════════ */
+
+.game-play-wrap {
+  min-height: 100vh;
+  padding: 130px 64px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--bg);
+}
+
+.game-play-head {
+  width: 100%;
+  max-width: 640px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.game-play-head a.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  transition: color 0.2s ease;
+}
+
+.game-play-head a.back-link:hover {
+  color: var(--gold);
+}
+
+.game-play-head h1 {
+  font-family: 'Lora', serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.game-play-head p {
+  color: var(--text-body);
+  font-size: 0.92rem;
+}
+
+.game-stage {
+  width: 100%;
+  max-width: 480px;
+  padding: 28px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.15);
+}
+
+/* Tablet: reduce side padding, add a bit more vertical breathing room */
+@media (max-width: 1024px) {
+  .game-play-wrap {
+    padding: 120px 32px 48px;
+  }
+}
+
+/* Mobile: side padding shrinks right down; top/bottom carries the spacing instead */
+@media (max-width: 600px) {
+  .game-play-wrap {
+    padding: 110px 12px 40px;
+  }
+
+  .game-stage {
+    padding: 18px;
+    border-radius: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .games-hero {
+    padding: 130px 0 44px;
+  }
+
+  .games-section {
+    padding: 44px 0;
+  }
+}
