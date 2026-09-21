@@ -85,10 +85,11 @@ mark::before,.pp-highlight::before { content:''; position:absolute; inset:-6% -5
 mark::after,.pp-highlight::after { display:none }
 
 /* CUSTOM CURSOR — gold ring + inner gold dot. */
-#cursor-dot { position:fixed; pointer-events:none; z-index:10000; width:7px; height:7px; top:0; left:0; transform:translate(-50%,-50%); border-radius:50%; background:var(--gold-light); box-shadow:0 0 8px rgba(212,168,83,.8); opacity:.95; transition:width .18s ease,height .18s ease,opacity .2s ease; }
-#cursor-ring { position:fixed; pointer-events:none; z-index:9999; border-radius:50%; transform:translate(-50%,-50%); width:36px; height:36px; top:0; left:0; border:.5px solid var(--gold); box-shadow:none!important; transition:width .22s cubic-bezier(.4,0,.2,1),height .22s cubic-bezier(.4,0,.2,1),border-color .22s,opacity .3s; opacity:.9; }
-#cursor-ring.hovering { width:56px; height:56px; border:.5px solid var(--gold-light); opacity:.55; box-shadow:none!important; }
-#cursor-ring.clicking { width:28px; height:28px; border:.5px solid var(--gold-light); opacity:1; box-shadow:none!important; }
+/* ═══ CUSTOM CURSOR — single canonical definition, used on every page. ═══ */
+#cursor-dot { position:fixed; pointer-events:none; z-index:10000; width:9px; height:9px; top:0; left:0; transform:translate(-50%,-50%); border-radius:50%; background:radial-gradient(circle at 35% 32%,#fff6e0,var(--gold-light) 55%,var(--gold) 100%); box-shadow:0 0 10px rgba(212,168,83,.85),0 0 22px rgba(212,168,83,.4); opacity:.97; transition:width .18s ease,height .18s ease,opacity .2s ease; }
+#cursor-ring { position:fixed; pointer-events:none; z-index:9999; border-radius:50%; transform:translate(-50%,-50%); width:38px; height:38px; top:0; left:0; border:1.5px solid var(--gold); box-shadow:0 0 14px rgba(212,168,83,.3); transition:width .22s cubic-bezier(.4,0,.2,1),height .22s cubic-bezier(.4,0,.2,1),border-color .22s,opacity .3s,box-shadow .22s; opacity:.85; }
+#cursor-ring.hovering { width:58px; height:58px; border-color:var(--gold-light); box-shadow:0 0 24px rgba(212,168,83,.42); opacity:.6; }
+#cursor-ring.clicking { width:26px; height:26px; border-color:var(--gold-light); box-shadow:0 0 18px rgba(212,168,83,.6); opacity:1; }
 body.touch-device #cursor-dot,body.touch-device #cursor-ring { display:none }
 @media(max-width:1024px){#cursor-dot,#cursor-ring{display:none}body{cursor:auto}}
 

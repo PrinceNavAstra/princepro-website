@@ -56,14 +56,8 @@
 }
 @media(prefers-reduced-motion:reduce){#skills .exp-card,#skills .exp-icon,#skills .exp-card::after{transition:none!important}}
 
-/* HOW WE WORK — unified deep navy process palette */
+/* HOW WE WORK — connecting line only; step circles/names keep their
+   own per-step rainbow palette instead of being forced to one color. */
 #process .flow-line{background:#102E50!important;box-shadow:0 0 22px rgba(16,46,80,.24)!important}
 #process .flow-line.animated::after{background:linear-gradient(180deg,rgba(255,255,255,0),rgba(91,141,184,.5) 50%,rgba(16,46,80,.55) 75%,rgba(255,255,255,0))!important}
-#process .flow-step .flow-circle{background:linear-gradient(135deg,#183F68,#102E50)!important;color:#fff!important}
-#process .flow-step .flow-name{color:#102E50!important}
-#process .flow-step:hover .flow-circle{box-shadow:0 8px 28px rgba(16,46,80,.34)!important}
-#process .flow-dash{border-color:rgba(16,46,80,.32)!important}
 
-@media(prefers-color-scheme:dark){
-  #process .flow-step .flow-name{color:#5B8DB8!important}
-}

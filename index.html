@@ -27,8 +27,8 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="shared.css?v=20260918-2" />
-  <link rel="stylesheet" href="expertise-modern.css?v=20260917-1">
+  <link rel="stylesheet" href="shared.css?v=20260921-2" />
+  <link rel="stylesheet" href="expertise-modern.css?v=20260921-2">
   <style>
     /* ═══ TOKENS ════════════════════════════════════════════ */
     :root {
@@ -128,62 +128,9 @@
       cursor: none
     }
 
-    /* ═══ CUSTOM CURSOR — gold ring + inner gold dot. ═══════════ */
-    #cursor-dot {
-      position: fixed;
-      pointer-events: none;
-      z-index: 10000;
-      width: 7px;
-      height: 7px;
-      top: 0;
-      left: 0;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      background: var(--gold-l);
-      box-shadow: 0 0 8px rgba(212, 168, 83, .8);
-      opacity: .95;
-      transition: width .18s ease, height .18s ease, opacity .2s ease;
-    }
-
-    #cursor-ring {
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      width: 36px;
-      height: 36px;
-      top: 0;
-      left: 0;
-      border: .5px solid var(--gold);
-      box-shadow: none !important;
-      transition: width .22s cubic-bezier(.4, 0, .2, 1),
-        height .22s cubic-bezier(.4, 0, .2, 1),
-        border-color .22s,
-        opacity .3s;
-      opacity: .9;
-    }
-
-    #cursor-ring.hovering {
-      width: 56px;
-      height: 56px;
-      border: .5px solid var(--gold-l);
-      opacity: .55;
-      box-shadow: none !important;
-    }
-
-    #cursor-ring.clicking {
-      width: 28px;
-      height: 28px;
-      border: .5px solid var(--gold-l);
-      opacity: 1;
-      box-shadow: none !important;
-    }
-
-    body.touch-device #cursor-dot,
-    body.touch-device #cursor-ring {
-      display: none;
-    }
+    /* Custom cursor styling lives solely in shared.css now — no local
+       override here, so the homepage can never drift out of sync with
+       every other page again. */
 
     /* ═══ LAYOUT ════════════════════════════════════════════ */
     .wrap {
@@ -1162,8 +1109,44 @@
     }
 
     .flow-icon {
-      font-size: 1.45rem;
-      margin-bottom: 6px
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      font-size: 1.28rem;
+      margin-bottom: 10px;
+      background: var(--bg-3);
+      transition: transform .3s cubic-bezier(.4, 0, .2, 1), background .3s;
+    }
+
+    .flow-step:hover .flow-icon {
+      transform: translateY(-2px) scale(1.07);
+    }
+
+    .flow-step:nth-child(2) .flow-icon {
+      background: rgba(74, 222, 128, .14);
+    }
+
+    .flow-step:nth-child(3) .flow-icon {
+      background: rgba(45, 212, 191, .14);
+    }
+
+    .flow-step:nth-child(4) .flow-icon {
+      background: rgba(212, 168, 83, .16);
+    }
+
+    .flow-step:nth-child(5) .flow-icon {
+      background: rgba(240, 200, 120, .16);
+    }
+
+    .flow-step:nth-child(6) .flow-icon {
+      background: rgba(129, 140, 248, .14);
+    }
+
+    .flow-step:nth-child(7) .flow-icon {
+      background: rgba(167, 139, 250, .14);
     }
 
     .flow-name {
@@ -1399,7 +1382,7 @@
       overflow: hidden
     }
   </style>
-<link rel="stylesheet" href="contact-ticket.css?v=20260917-2">
+<link rel="stylesheet" href="contact-ticket.css?v=20260921-2">
 </head>
 
 <body>
@@ -1834,7 +1817,7 @@
       // every page — including this one — behaves identically.
     })();
   </script>
-  <script src="shared.js?v=20260921-1"></script>
+  <script src="shared.js?v=20260921-2"></script>
   <script src="financial-tools-fix.js"></script>
     <script src="scroll-effects.js?v=20260917-1"></script>
 </body>
