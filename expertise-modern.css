@@ -58,6 +58,6 @@
 
 /* HOW WE WORK — connecting line only; step circles/names keep their
    own per-step rainbow palette instead of being forced to one color. */
-#process .flow-line{background:#102E50!important;box-shadow:0 0 22px rgba(16,46,80,.24)!important}
-#process .flow-line.animated::after{background:linear-gradient(180deg,rgba(255,255,255,0),rgba(91,141,184,.5) 50%,rgba(16,46,80,.55) 75%,rgba(255,255,255,0))!important}
+#process .flow-line{background:var(--gold)!important;box-shadow:0 0 24px rgba(212,168,83,.35)!important}
+#process .flow-line.animated::after{background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.55),rgba(255,255,255,.18),rgba(255,255,255,0))!important}
 
