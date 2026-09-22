@@ -1,5 +1,15 @@
 // shared.js — theme toggle + site nav inject + reveal + custom cursor
 (function () {
+  // Auto-load the scroll-cue script on any page that doesn't already
+  // include it, so "scroll to explore" / "back to top" is guaranteed to
+  // appear everywhere the footer does, without needing a manual <script>
+  // tag added to every new page.
+  if (!document.querySelector('script[src*="industry-scroll-cues.js"]')) {
+    var cueScript = document.createElement('script');
+    cueScript.src = 'industry-scroll-cues.js?v=20260921-3';
+    document.head.appendChild(cueScript);
+  }
+
   var html = document.documentElement;
   var saved = localStorage.getItem('pp-theme');
   if (saved) html.setAttribute('data-theme', saved);
@@ -58,17 +68,9 @@
       }})();
 
     /* Homepage scroll cues: down hint in hero, up hint only while Contact is visible. */
-    (function ensureHomepageScrollCues(){
-      if(!document.getElementById('hero') || document.querySelector('[data-pp="home-scroll-cues"]')) return;
-      var style=document.createElement('style');style.id='pp-home-scroll-cue-style';style.textContent='@keyframes ppCueWheel{0%{transform:translate(-50%,0);opacity:1}65%{transform:translate(-50%,11px);opacity:0}100%{transform:translate(-50%,11px);opacity:0}}@keyframes ppCueUp{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}.pp-home-scroll-cue{position:fixed;left:50%;bottom:22px;width:36px;height:48px;min-width:36px;min-height:48px;transform:translateX(-50%);z-index:400;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:.96;visibility:visible;transition:opacity .3s,transform .3s,visibility .3s;background:none;border:none;padding:0;margin:0}.pp-home-scroll-cue:hover{opacity:1}.pp-home-scroll-cue.is-hidden{opacity:0;visibility:hidden;pointer-events:none;transform:translate(-50%,8px)}.pp-home-scroll-cue.pp-down{border-radius:11px}.pp-home-scroll-cue .pp-mouse{position:relative;display:block;width:20px;height:32px;min-width:20px;min-height:32px;box-sizing:border-box;border:2px solid var(--gold-l,#d4a853);border-radius:11px;background:rgba(212,168,83,.035);box-shadow:0 0 12px rgba(212,168,83,.35),inset 0 0 7px rgba(212,168,83,.08)}.pp-home-scroll-cue.pp-up .pp-mouse{display:flex;align-items:center;justify-content:center}.pp-home-scroll-cue.pp-up svg{width:13px;height:13px;color:var(--gold-l,#d4a853);filter:drop-shadow(0 0 6px rgba(212,168,83,.7));animation:ppCueUp 1.6s ease-in-out infinite}.pp-home-scroll-cue.pp-down .pp-wheel{position:absolute;left:50%;top:5px;width:5px;height:9px;min-width:5px;min-height:9px;border-radius:5px;background:var(--gold-l,#d4a853);box-shadow:0 0 8px rgba(212,168,83,.9);transform:translateX(-50%);animation:ppCueWheel 1.7s ease-in-out infinite}@media(max-width:560px){.pp-home-scroll-cue{bottom:16px;width:34px;height:44px;min-width:34px;min-height:44px}.pp-home-scroll-cue .pp-mouse{width:18px;height:30px;min-width:18px;min-height:30px;border-radius:10px}.pp-home-scroll-cue.pp-down .pp-wheel{top:5px;width:5px;height:8px;min-width:5px;min-height:8px}}@media(prefers-reduced-motion:reduce){.pp-home-scroll-cue *{animation:none!important}.pp-home-scroll-cue{transition:none!important}}';document.head.appendChild(style);
-      var down=document.createElement('div');down.setAttribute('data-pp','home-scroll-cues');down.className='pp-home-scroll-cue pp-down';down.setAttribute('role','button');down.setAttribute('aria-label','Scroll to explore');down.innerHTML='<span class="pp-mouse"><span class="pp-wheel"></span></span>';
-      var up=document.createElement('div');up.className='pp-home-scroll-cue pp-up is-hidden';up.setAttribute('role','button');up.setAttribute('aria-label','Back to top');up.innerHTML='<span class="pp-mouse"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg></span>';
-      document.body.appendChild(down);document.body.appendChild(up);
-      function goNext(){var hero=document.getElementById('hero'),target=hero&&hero.nextElementSibling;if(target)target.scrollIntoView({behavior:'smooth',block:'start'});}
-      down.addEventListener('click',goNext);up.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
-      function update(){var y=window.scrollY||window.pageYOffset,contact=document.querySelector('[data-pp="contact-section"]'),contactVisible=false;if(contact){var r=contact.getBoundingClientRect();contactVisible=r.top<window.innerHeight*0.92&&r.bottom>window.innerHeight*0.08;}down.classList.toggle('is-hidden',y>100);up.classList.toggle('is-hidden',!contactVisible);}
-      window.addEventListener('scroll',update,{passive:true});window.addEventListener('resize',update);update();
-    })();
+    /* The scroll cue (down + back-to-top) is handled entirely by
+       industry-scroll-cues.js now, auto-loaded below for every page —
+       removing the old homepage-only duplicate that used to live here. */
 
     var io=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.1,rootMargin:'0px 0px -40px 0px'});document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
     var highlightObserver=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('is-visible');highlightObserver.unobserve(entry.target);}});},{threshold:.2,rootMargin:'0px 0px -10% 0px'});document.querySelectorAll('mark, .pp-highlight').forEach(function(el){highlightObserver.observe(el);});
