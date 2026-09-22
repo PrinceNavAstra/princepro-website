@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="shared.css" />
-  <link rel="stylesheet" href="games.css" />
+  <link rel="stylesheet" href="games.css?v=20260922-1" />
   <style>
     .ttt-board{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:min(100%,520px);aspect-ratio:1}.ttt-cell{border:1px solid var(--border);border-radius:18px;background:var(--bg-3);color:var(--text-primary);font:700 clamp(2.2rem,9vw,5rem) 'DM Sans',sans-serif;cursor:pointer;transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease}.ttt-cell:hover:not(:disabled){transform:translateY(-3px);border-color:var(--gold);box-shadow:0 12px 28px rgba(212,168,83,.15)}.ttt-cell:disabled{cursor:default}.ttt-cell.x{color:var(--gold)}.ttt-cell.o{color:#2dd4bf}.ttt-cell.win{background:rgba(212,168,83,.16);border-color:var(--gold);box-shadow:0 0 24px rgba(212,168,83,.22)}.ttt-status{min-height:24px;margin:16px 0 4px;text-align:center;color:var(--gold);font:600 .82rem 'DM Mono',monospace}.ttt-info{margin-top:8px;text-align:center;color:var(--text-muted);font-size:.78rem}.ttt-new{margin-top:18px;padding:10px 22px;border:0;border-radius:999px;background:var(--gold);color:var(--bg);font-weight:700;cursor:pointer;transition:transform .2s ease,opacity .2s ease}.ttt-new:hover{transform:translateY(-2px);opacity:.92}.ttt-symbols{display:flex;justify-content:center;gap:22px;margin-bottom:16px;font:600 .72rem 'DM Mono',monospace;color:var(--text-muted)}.ttt-symbols b:first-child{color:var(--gold)}.ttt-symbols b:last-child{color:#2dd4bf}
   </style>
@@ -46,7 +46,7 @@
     </div>
   </div>
 
-  <script src="shared.js?v=20260921-3"></script>
+  <script src="shared.js?v=20260922-1"></script>
   <script>
     (function(){
       var boardEl=document.getElementById('ttt-board'), statusEl=document.getElementById('ttt-status'), infoEl=document.getElementById('ttt-info');

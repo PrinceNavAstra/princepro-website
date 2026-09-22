@@ -6,17 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Play Dot Connects | Prince Prajapati</title>
   <meta name="description"
-    content="Play Dot Connects (dots and boxes) free in your browser — a 2-player pass-and-play strategy game." />
+    content="Play Dot Connects (dots and boxes) free in your browser against a computer opponent with four real difficulty levels." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="shared.css" />
-  <link rel="stylesheet" href="games.css" />
+  <link rel="stylesheet" href="games.css?v=20260922-1" />
   <style>
-    .game-level-bar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:0 auto 16px}.game-level-bar button{border:1px solid var(--border);background:var(--card-bg);color:var(--text-body);border-radius:999px;padding:8px 14px;font:600 .72rem 'DM Sans',sans-serif;cursor:pointer}.game-level-bar button.active,.game-level-bar button:hover{background:var(--gold);color:var(--bg);border-color:var(--gold)}.play-ad{position:fixed;inset:0;z-index:10001;display:grid;place-items:center;background:rgba(8,8,16,.72);backdrop-filter:blur(8px)}.play-ad[hidden]{display:none}.play-ad__box{width:min(420px,calc(100% - 32px));padding:28px;border:1px solid var(--border);border-radius:20px;background:var(--card-bg);text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.35)}.play-ad__box span{display:block;color:var(--text-muted);font:600 .62rem 'DM Mono',monospace;letter-spacing:.14em}.play-ad__box strong{display:block;margin:10px 0 6px;color:var(--text-primary);font:700 1.25rem 'Lora',serif}.play-ad__box small{display:block;color:var(--text-body);margin-bottom:18px}.play-ad__box button{border:0;border-radius:999px;background:var(--gold);color:var(--bg);padding:10px 20px;font-weight:700;cursor:pointer}
-
     .dots-turn-bar {
       display: flex;
       align-items: center;
@@ -124,7 +122,7 @@
     <div class="game-play-head">
       <a href="games.html" class="back-link">← All Games</a>
       <h1>Dot Connects</h1>
-      <p>Take turns drawing a line between two neighbouring dots. Complete the 4th side of a box to claim it —
+      <p>Take turns with the computer drawing a line between two neighbouring dots. Complete the 4th side of a box to claim it —
         and go again.</p>
     </div>
 
@@ -132,9 +130,8 @@
     
     <div class="dots-turn-bar">
       <div class="dots-player active" id="dots-player1"><span class="swatch" style="background:#d4a853"></span>
-        Player 1</div>
-      <div class="dots-player" id="dots-player2"><span class="swatch" style="background:#2dd4bf"></span> Player
-        2</div>
+        You</div>
+      <div class="dots-player" id="dots-player2"><span class="swatch" style="background:#2dd4bf"></span> Computer</div>
     </div>
 
     <div class="game-page-layout">
@@ -160,7 +157,7 @@
     </div>
   </div>
 
-  <script src="shared.js?v=20260921-3"></script>
+  <script src="shared.js?v=20260922-1"></script>
   <script>
     (function () {
       var GRID = 5; // 5x5 dots = 4x4 boxes
@@ -178,11 +175,14 @@
       var p1El = document.getElementById('dots-player1');
       var p2El = document.getElementById('dots-player2');
 
-      var hLines, vLines, boxes, scores, turn, gameOver;
+      var hLines, vLines, boxes, scores, turn, gameOver, thinking = false;
 
       function pos(i) { return PAD + i * STEP; }
 
+      var thinkTimeout = null;
       function newGame() {
+        if (thinkTimeout) { clearTimeout(thinkTimeout); thinkTimeout = null; }
+        thinking = false;
         GRID = LEVEL_GRID[level];
         STEP = (SIZE - PAD * 2) / (GRID - 1);
         hLines = []; // hLines[r][c] = -1 (not drawn) or player index who drew it
@@ -210,6 +210,7 @@
       function updateTurnUI() {
         p1El.classList.toggle('active', turn === 0 && !gameOver);
         p2El.classList.toggle('active', turn === 1 && !gameOver);
+        if (!gameOver) msgEl.textContent = thinking ? 'Computer is thinking…' : (turn === 0 ? 'Your move.' : '');
       }
 
       function boxComplete(r, c) {
@@ -250,11 +251,112 @@
       function endGameIfDone() {
         if (allBoxesFilled()) {
           gameOver = true;
-          if (level === 'professional') msgEl.textContent = 'Professional challenge complete — no winning state exists.';
-          else if (scores[0] > scores[1]) msgEl.textContent = 'Player 1 wins!';
-          else if (scores[1] > scores[0]) msgEl.textContent = 'Player 2 wins!';
+          if (scores[0] > scores[1]) msgEl.textContent = 'You win! 🎉';
+          else if (scores[1] > scores[0]) msgEl.textContent = 'Computer wins — try again!';
           else msgEl.textContent = "It's a tie!";
         }
+      }
+
+      /* ── Computer opponent — four real strength tiers ─────────
+         beginner: fully random legal move.
+         intermediate: takes free boxes, otherwise avoids handing you
+           a free box when a safe move exists.
+         expert: same, but when forced to sacrifice, opens the
+           smallest available region instead of a random one.
+         professional: same as expert, and also prefers safe moves
+           that don't touch a box that already has a side drawn,
+           keeping the board "virgin" longer to deny you easy chains. */
+      function legalMoves() {
+        var m = [];
+        for (var r = 0; r < GRID; r++) for (var c = 0; c < GRID - 1; c++) if (hLines[r][c] === -1) m.push({ isH: true, r: r, c: c });
+        for (var r2 = 0; r2 < GRID - 1; r2++) for (var c2 = 0; c2 < GRID; c2++) if (vLines[r2][c2] === -1) m.push({ isH: false, r: r2, c: c2 });
+        return m;
+      }
+      function sidesOf(r, c) {
+        if (r < 0 || r > GRID - 2 || c < 0 || c > GRID - 2) return -1;
+        var n = 0;
+        if (hLines[r][c] !== -1) n++; if (hLines[r + 1][c] !== -1) n++;
+        if (vLines[r][c] !== -1) n++; if (vLines[r][c + 1] !== -1) n++;
+        return n;
+      }
+      function wouldScore(mv) {
+        if (mv.isH) {
+          if (mv.r > 0 && boxes[mv.r - 1][mv.c] === -1 && sidesOf(mv.r - 1, mv.c) === 3) return true;
+          if (mv.r < GRID - 1 && boxes[mv.r][mv.c] === -1 && sidesOf(mv.r, mv.c) === 3) return true;
+        } else {
+          if (mv.c > 0 && boxes[mv.r][mv.c - 1] === -1 && sidesOf(mv.r, mv.c - 1) === 3) return true;
+          if (mv.c < GRID - 1 && boxes[mv.r][mv.c] === -1 && sidesOf(mv.r, mv.c) === 3) return true;
+        }
+        return false;
+      }
+      function isSafeMove(mv) {
+        if (mv.isH) {
+          if (mv.r > 0 && sidesOf(mv.r - 1, mv.c) === 2) return false;
+          if (mv.r < GRID - 1 && sidesOf(mv.r, mv.c) === 2) return false;
+        } else {
+          if (mv.c > 0 && sidesOf(mv.r, mv.c - 1) === 2) return false;
+          if (mv.c < GRID - 1 && sidesOf(mv.r, mv.c) === 2) return false;
+        }
+        return true;
+      }
+      function touchesLoadedBox(mv) {
+        if (mv.isH) {
+          if (mv.r > 0 && sidesOf(mv.r - 1, mv.c) >= 1) return true;
+          if (mv.r < GRID - 1 && sidesOf(mv.r, mv.c) >= 1) return true;
+        } else {
+          if (mv.c > 0 && sidesOf(mv.r, mv.c - 1) >= 1) return true;
+          if (mv.c < GRID - 1 && sidesOf(mv.r, mv.c) >= 1) return true;
+        }
+        return false;
+      }
+      function regionSizeIfOpened(mv) {
+        var savedH = hLines.map(function (row) { return row.slice(); });
+        var savedV = vLines.map(function (row) { return row.slice(); });
+        var savedB = boxes.map(function (row) { return row.slice(); });
+        function claim(r, c) { if (r >= 0 && r <= GRID - 2 && c >= 0 && c <= GRID - 2 && boxes[r][c] === -1 && sidesOf(r, c) === 4) boxes[r][c] = 99; }
+        if (mv.isH) hLines[mv.r][mv.c] = 99; else vLines[mv.r][mv.c] = 99;
+        if (mv.isH) { claim(mv.r - 1, mv.c); claim(mv.r, mv.c); } else { claim(mv.r, mv.c - 1); claim(mv.r, mv.c); }
+        var count = 0, guard = 0, mv2;
+        while (guard++ < 60 && (mv2 = legalMoves().filter(wouldScore)[0])) {
+          if (mv2.isH) hLines[mv2.r][mv2.c] = 99; else vLines[mv2.r][mv2.c] = 99;
+          if (mv2.isH) { claim(mv2.r - 1, mv2.c); claim(mv2.r, mv2.c); } else { claim(mv2.r, mv2.c - 1); claim(mv2.r, mv2.c); }
+          count++;
+        }
+        hLines = savedH; vLines = savedV; boxes = savedB;
+        return count;
+      }
+      function aiMove() {
+        var moves = legalMoves();
+        if (level === 'beginner') return moves[Math.floor(Math.random() * moves.length)];
+        var scoring = moves.filter(wouldScore);
+        if (scoring.length > 0) return scoring[0];
+        var safe = moves.filter(isSafeMove);
+        if (safe.length > 0) {
+          if (level === 'greedy' || level === 'intermediate') return safe[Math.floor(Math.random() * safe.length)];
+          if (level === 'professional') {
+            var virgin = safe.filter(function (mv) { return !touchesLoadedBox(mv); });
+            var pool = virgin.length > 0 ? virgin : safe;
+            return pool[Math.floor(Math.random() * pool.length)];
+          }
+          return safe[Math.floor(Math.random() * safe.length)];
+        }
+        var best = null, bestSize = Infinity;
+        for (var i = 0; i < moves.length; i++) {
+          var sz = regionSizeIfOpened(moves[i]);
+          if (sz < bestSize) { bestSize = sz; best = moves[i]; }
+        }
+        return best;
+      }
+      function computerTurn() {
+        if (gameOver || turn !== 1) return;
+        thinking = true;
+        updateTurnUI();
+        thinkTimeout = setTimeout(function () {
+          thinkTimeout = null;
+          var mv = aiMove();
+          thinking = false;
+          if (mv) playLine(mv.isH, mv.r, mv.c);
+        }, 380 + Math.random() * 320);
       }
 
       function playLine(isH, r, c) {
@@ -277,6 +379,7 @@
           turn = 1 - turn;
         }
         updateTurnUI();
+        if (!gameOver && turn === 1) computerTurn();
       }
 
       function svgEl(tag, attrs) {
@@ -313,7 +416,7 @@
             });
             if (!drawn) {
               (function (rr, cc) {
-                hit.addEventListener('click', function () { playLine(true, rr, cc); });
+                hit.addEventListener('click', function () { if (turn !== 0 || gameOver || thinking) return; playLine(true, rr, cc); });
               })(r2, c2);
               var visible = svgEl('line', {
                 x1: pos(c2), y1: pos(r2), x2: pos(c2 + 1), y2: pos(r2),
@@ -338,7 +441,7 @@
             });
             if (!drawnV) {
               (function (rr, cc) {
-                hitV.addEventListener('click', function () { playLine(false, rr, cc); });
+                hitV.addEventListener('click', function () { if (turn !== 0 || gameOver || thinking) return; playLine(false, rr, cc); });
               })(r3, c3);
               var visibleV = svgEl('line', {
                 x1: pos(c3), y1: pos(r3), x2: pos(c3), y2: pos(r3 + 1),

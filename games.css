@@ -491,3 +491,34 @@
     margin: 0 auto;
   }
 }
+
+/* ── Difficulty selector bar — shared across every playable game ──── */
+.game-level-bar {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto 16px;
+}
+
+.game-level-bar button {
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text-body);
+  border-radius: 999px;
+  padding: 8px 14px;
+  font: 600 .72rem 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
+}
+
+.game-level-bar button:hover {
+  transform: translateY(-1px);
+  border-color: var(--gold);
+}
+
+.game-level-bar button.active {
+  background: var(--gold);
+  color: var(--bg);
+  border-color: var(--gold);
+}
