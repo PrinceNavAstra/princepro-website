@@ -18,6 +18,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 10px;
+      width: min(100%, 420px);
       background: var(--bg-3);
       border-radius: 14px;
       padding: 10px;
@@ -180,7 +181,7 @@
     <div class="game-play-head">
       <a href="games.html" class="back-link">← All Games</a>
       <h1>2048</h1>
-      <p>Use arrow keys (or swipe on mobile) to slide tiles. Combine matching numbers to reach 2048.</p>
+      <p id="g2048-intro">Use arrow keys (or swipe on mobile) to slide tiles. Combine matching numbers to reach 2048.</p>
     </div>
 
     <div class="game-level-bar" id="game-level-bar"><button data-level="beginner">Beginner</button><button data-level="intermediate">Intermediate</button><button data-level="expert" class="active">Expert</button><button data-level="professional">Professional</button></div>
@@ -226,6 +227,7 @@
       var scoreEl = document.getElementById('g2048-score');
       var bestEl = document.getElementById('g2048-best');
       var msgEl = document.getElementById('g2048-msg');
+      var introEl = document.getElementById('g2048-intro');
       bestEl.textContent = best;
 
       function emptyBoard() {
@@ -349,6 +351,9 @@
         board = emptyBoard();
         score = 0;
         msgEl.textContent = '';
+        var t = LEVELS[level].target;
+        introEl.textContent = 'Use arrow keys (or swipe on mobile) to slide tiles. Combine matching numbers to reach ' +
+          (t === Number.MAX_SAFE_INTEGER ? 'as far as you can' : t) + '.';
         addRandomTile();
         addRandomTile();
         render();
