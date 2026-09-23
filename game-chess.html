@@ -1,51 +1,371 @@
 <!doctype html>
 <html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Play Chess | Prince Prajapati</title>
-  <meta name="description" content="Play a polished chess game against the computer with themes, board controls, undo and redo.">
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="shared.css"><link rel="stylesheet" href="games.css?v=20260922-1"><link rel="stylesheet" href="chess.css?v=20260923-2">
+  <meta name="description" content="Play a polished chess game against the computer with game settings, undo, redo, and themes." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="shared.css?v=20260922-1" />
+  <link rel="stylesheet" href="games.css?v=20260922-1" />
+  <link rel="stylesheet" href="chess.css?v=20260923-3" />
 </head>
 <body>
-<main class="chess-page">
-  <a class="chess-back" href="games.html">← All Games</a>
-  <header class="chess-header"><div><span class="eyebrow">Grandmaster mode</span><h1>Chess, beautifully played.</h1><p>Classic rules, thoughtful challenges, and a board that feels at home in any theme.</p></div><button class="chess-new" id="newGame">New game</button></header>
-  <section class="chess-layout">
-    <aside class="chess-ad" aria-label="Advertisement"><span>ADVERTISEMENT</span></aside>
-    <div class="board-shell">
-      <div class="board-topline"><span id="turnLabel">Your turn</span><span id="gameState">White to move</span></div>
-      <div class="chess-board" id="board" aria-label="Chess board"></div>
-      <div class="board-files" aria-hidden="true"><span>a</span><span>b</span><span>c</span><span>d</span><span>e</span><span>f</span><span>g</span><span>h</span></div>
-      <div class="board-actions"><button id="undo">↶ Undo</button><button id="redo">Redo ↷</button><button id="flip">⇄ Flip board</button></div>
+  <div class="game-play-wrap">
+    <div class="game-play-head">
+      <a href="games.html" class="back-link">← All Games</a>
+      <h1>Chess</h1>
+      <p>Play a polished match against the computer with genuine chess rules and clean board controls.</p>
     </div>
-    <aside class="chess-panel">
-      <div class="panel-card status-card"><div class="opponent"><span class="avatar">♞</span><div><strong>Computer</strong><small id="difficultyLabel">Thoughtful · depth 2</small></div><span class="online-dot"></span></div><div class="scoreline"><span>White <b id="whiteScore">0</b></span><span>Black <b id="blackScore">0</b></span></div></div>
-      <div class="panel-card"><h2>Game settings</h2><label>Challenge<select id="difficulty"><option value="1">Casual · depth 1</option><option value="2" selected>Thoughtful · depth 2</option><option value="3">Sharp · depth 3</option></select></label><label>Board theme<select id="theme"><option value="classic">Classic</option><option value="wood">Warm wood</option><option value="frost">Frosted glass</option><option value="midnight">Midnight</option></select></label><button class="primary-action" id="resign">Resign game</button></div>
-      <div class="panel-card tips"><h2>How to play</h2><p>Select a piece to see its legal moves. You play White; the computer responds as Black.</p><div class="notation" id="notation">No moves yet</div></div>
-    </aside>
-    <aside class="chess-ad chess-ad--right" aria-label="Advertisement"><span>ADVERTISEMENT</span></aside>
-  </section>
-</main>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
-<script src="shared.js?v=20260922-1"></script>
-<script>
-(function(){
-  if(typeof Chess!=='function'){document.getElementById('board').innerHTML='<div class="chess-error">Chess could not load. Please refresh and try again.</div>';return;}
-  const game=new Chess(), board=document.getElementById('board'), turnLabel=document.getElementById('turnLabel'), state=document.getElementById('gameState'), notation=document.getElementById('notation');
-  const glyph={wp:'♙',wn:'♘',wb:'♗',wr:'♖',wq:'♕',wk:'♔',bp:'♟',bn:'♞',bb:'♝',br:'♜',bq:'♛',bk:'♚'};
-  let flipped=false,selected=null,redoStack=[],depth=2,thinking=false;
-  const files=['a','b','c','d','e','f','g','h'];
-  function square(r,c){return files[c]+(8-r)}
-  function render(){board.innerHTML='';const history=game.history({verbose:true}),last=history[history.length-1];for(let r=0;r<8;r++)for(let c=0;c<8;c++){const rr=flipped?7-r:r,cc=flipped?7-c:c,sq=square(rr,cc),p=game.get(sq),cell=document.createElement('button');cell.className='square '+((rr+cc)%2?'dark':'light');if(selected===sq)cell.classList.add('selected');if(last&&(last.from===sq||last.to===sq))cell.classList.add('last');if(selected&&game.moves({square:selected,verbose:true}).some(m=>m.to===sq))cell.classList.add(p?'capture':'legal');cell.setAttribute('aria-label',sq);if(p){cell.textContent=glyph[p.color+p.type];cell.classList.add(p.color==='w'?'white-piece':'black-piece')}cell.onclick=()=>click(sq);board.appendChild(cell)}update()}
-  function click(sq){if(thinking||game.game_over()||game.turn()!=='w')return;const p=game.get(sq);if(selected){let move;try{move=game.move({from:selected,to:sq,promotion:'q'})}catch(e){}if(move){redoStack=[];selected=null;render();if(!game.game_over()){thinking=true;render();setTimeout(aiMove,280)}return}selected=p&&p.color==='w'?sq:null}else if(p&&p.color==='w')selected=sq;render()}
-  function evaluate(){const val={p:100,n:320,b:330,r:500,q:900,k:20000};let s=0;game.board().forEach(row=>row.forEach(p=>{if(p)s+=(p.color==='w'?1:-1)*val[p.type]}));return s}
-  function search(d,maximizing){if(d===0||game.game_over())return evaluate();const moves=game.moves();if(!moves.length)return evaluate();let best=maximizing?-Infinity:Infinity;moves.forEach(m=>{game.move(m);const score=search(d-1,!maximizing);game.undo();best=maximizing?Math.max(best,score):Math.min(best,score)});return best}
-  function aiMove(){if(game.game_over()){thinking=false;render();return}const moves=game.moves({verbose:true});let best=moves[0],bestScore=Infinity;moves.forEach(m=>{game.move(m);const score=search(Math.max(0,depth-1),true);game.undo();if(score<bestScore){bestScore=score;best=m}});game.move(best.san);thinking=false;render()}
-  function update(){const over=game.game_over();turnLabel.textContent=thinking?'Computer is thinking…':over?'Game complete':game.turn()==='w'?'Your turn':'Computer turn';state.textContent=game.in_checkmate()?'Checkmate':game.in_draw()?'Draw':game.in_check()?'Check — defend your king':(game.turn()==='w'?'White to move':'Black to move');const h=game.history();notation.textContent=h.length?h.map((m,i)=>(i%2?'… ':'')+m).join(' '):'No moves yet';document.getElementById('undo').disabled=!h.length||thinking;document.getElementById('redo').disabled=!redoStack.length||thinking}
-  function newGame(){game.reset();redoStack=[];selected=null;thinking=false;render()}
-  document.getElementById('newGame').onclick=newGame;document.getElementById('undo').onclick=()=>{if(thinking)return;const m=game.undo();if(m){redoStack.push(m);if(game.turn()==='b'){const w=game.undo();if(w)redoStack.push(w)}render()}};document.getElementById('redo').onclick=()=>{const m=redoStack.pop();if(m){game.move(m);render()}};document.getElementById('flip').onclick=()=>{flipped=!flipped;render()};document.getElementById('resign').onclick=()=>{if(!game.game_over()){state.textContent='You resigned';thinking=true;render()}};document.getElementById('difficulty').onchange=e=>{depth=+e.target.value;document.getElementById('difficultyLabel').textContent=e.target.options[e.target.selectedIndex].text};document.getElementById('theme').onchange=e=>document.documentElement.dataset.chessTheme=e.target.value;render();
-})();
-</script>
-</body></html>
+
+    <div class="game-page-layout chess-page-layout">
+      <aside class="game-outer-ad game-outer-ad--left" aria-label="Advertisement"><span>ADVERTISEMENT</span></aside>
+
+      <div class="game-center-column">
+        <div class="game-stage chess-stage">
+          <div class="chess-board-panel">
+            <div class="board-topline">
+              <span id="turnLabel">Your turn</span>
+              <span id="gameState">White to move</span>
+            </div>
+
+            <div id="board" class="chess-board" role="grid" aria-label="Chess board"></div>
+
+            <div class="board-files" aria-hidden="true">
+              <span>a</span><span>b</span><span>c</span><span>d</span><span>e</span><span>f</span><span>g</span><span>h</span>
+            </div>
+
+            <div class="board-actions">
+              <button id="undoBtn" type="button">Undo</button>
+              <button id="redoBtn" type="button">Redo</button>
+              <button id="flipBtn" type="button">Flip</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="chess-sidebar">
+        <div class="panel-card status-card">
+          <div class="opponent-row">
+            <div class="avatar-wrap">♞</div>
+            <div class="opponent-meta">
+              <strong>Computer</strong>
+              <small id="difficultyLabel">Thoughtful · depth 2</small>
+            </div>
+            <span class="online-dot"></span>
+          </div>
+          <div class="score-row">
+            <div>White <b id="whiteScore">0</b></div>
+            <div>Black <b id="blackScore">0</b></div>
+          </div>
+        </div>
+
+        <div class="panel-card settings-card">
+          <h2>Game settings</h2>
+          <label>
+            <span>Challenge</span>
+            <select id="difficultySelect">
+              <option value="1">Casual · depth 1</option>
+              <option value="2" selected>Thoughtful · depth 2</option>
+              <option value="3">Sharp · depth 3</option>
+            </select>
+          </label>
+          <label>
+            <span>Board theme</span>
+            <select id="themeSelect">
+              <option value="classic" selected>Classic</option>
+              <option value="wood">Warm wood</option>
+              <option value="frost">Frosted glass</option>
+              <option value="midnight">Midnight</option>
+            </select>
+          </label>
+          <button id="newGameBtn" class="primary-action" type="button">New game</button>
+        </div>
+
+        <div class="panel-card help-card">
+          <h2>How to play</h2>
+          <p>Select a piece to see its legal moves. You play White; the computer responds as Black.</p>
+          <div class="notation" id="notationBox">No moves yet</div>
+        </div>
+      </aside>
+      <aside class="game-outer-ad game-outer-ad--right" aria-label="Advertisement"><span>ADVERTISEMENT</span></aside>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+  <script src="shared.js?v=20260922-1"></script>
+  <script>
+    (function () {
+      if (typeof Chess !== 'function') {
+        document.getElementById('board').innerHTML = '<div class="chess-error">Chess engine failed to load. Please refresh.</div>';
+        return;
+      }
+
+      const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+      const pieceGlyph = {
+        wp: '♙', wn: '♘', wb: '♗', wr: '♖', wq: '♕', wk: '♔',
+        bp: '♟', bn: '♞', bb: '♝', br: '♜', bq: '♛', bk: '♚'
+      };
+      const boardEl = document.getElementById('board');
+      const turnLabel = document.getElementById('turnLabel');
+      const gameState = document.getElementById('gameState');
+      const notationBox = document.getElementById('notationBox');
+      const difficultySelect = document.getElementById('difficultySelect');
+      const themeSelect = document.getElementById('themeSelect');
+      const difficultyLabel = document.getElementById('difficultyLabel');
+      const whiteScore = document.getElementById('whiteScore');
+      const blackScore = document.getElementById('blackScore');
+      const undoBtn = document.getElementById('undoBtn');
+      const redoBtn = document.getElementById('redoBtn');
+      const flipBtn = document.getElementById('flipBtn');
+
+      const game = new Chess();
+      let flipped = false;
+      let selected = null;
+      let redoStack = [];
+      let reasoningDepth = Number(difficultySelect.value || 2);
+      let thinking = false;
+
+      function squareName(row, col) {
+        return files[col] + (8 - row);
+      }
+
+      function getMovesForSquare(square) {
+        if (!square || !game.get(square)) return [];
+        return game.moves({ square: square, verbose: true }) || [];
+      }
+
+      function getPieceValue(piece) {
+        const values = { p: 100, n: 320, b: 330, r: 500, q: 900, k: 20000 };
+        return values[piece.type] || 0;
+      }
+
+      function evaluateBoard() {
+        let score = 0;
+        const board = game.board();
+        for (let row = 0; row < 8; row++) {
+          for (let col = 0; col < 8; col++) {
+            const piece = board[row][col];
+            if (!piece) continue;
+            const value = getPieceValue(piece);
+            score += piece.color === 'w' ? value : -value;
+          }
+        }
+        return score;
+      }
+
+      function minimax(depth, maximize) {
+        if (depth === 0 || game.game_over()) return evaluateBoard();
+        const moves = game.moves({ verbose: true });
+        if (!moves.length) return evaluateBoard();
+
+        let bestScore = maximize ? -Infinity : Infinity;
+        for (const move of moves) {
+          game.move(move);
+          const score = minimax(depth - 1, !maximize);
+          game.undo();
+          bestScore = maximize ? Math.max(bestScore, score) : Math.min(bestScore, score);
+        }
+        return bestScore;
+      }
+
+      function bestComputerMove() {
+        const moves = game.moves({ verbose: true });
+        if (!moves.length) return null;
+
+        let bestMove = moves[0];
+        let bestScore = Infinity;
+        for (const move of moves) {
+          game.move(move);
+          const score = minimax(Math.max(0, reasoningDepth - 1), true);
+          game.undo();
+          if (score < bestScore) {
+            bestScore = score;
+            bestMove = move;
+          }
+        }
+        return bestMove;
+      }
+
+      function updateScores() {
+        const history = game.history({ verbose: true });
+        let whiteCount = 0;
+        let blackCount = 0;
+        for (const move of history) {
+          if (move.color === 'w') whiteCount += 1;
+          if (move.color === 'b') blackCount += 1;
+        }
+        whiteScore.textContent = String(whiteCount);
+        blackScore.textContent = String(blackCount);
+      }
+
+      function updateStatus() {
+        const over = game.game_over();
+        const history = game.history();
+
+        if (thinking) {
+          turnLabel.textContent = 'Computer is thinking…';
+        } else if (over) {
+          turnLabel.textContent = 'Game complete';
+        } else {
+          turnLabel.textContent = game.turn() === 'w' ? 'Your turn' : 'Computer turn';
+        }
+
+        if (game.in_checkmate()) {
+          gameState.textContent = 'Checkmate';
+        } else if (game.in_draw()) {
+          gameState.textContent = 'Draw';
+        } else if (game.in_check()) {
+          gameState.textContent = 'Check';
+        } else {
+          gameState.textContent = game.turn() === 'w' ? 'White to move' : 'Black to move';
+        }
+
+        notationBox.textContent = history.length ? history.join(' ') : 'No moves yet';
+        undoBtn.disabled = history.length === 0 || thinking;
+        redoBtn.disabled = redoStack.length === 0 || thinking;
+      }
+
+      function renderBoard() {
+        boardEl.innerHTML = '';
+        const history = game.history({ verbose: true });
+        const lastMove = history[history.length - 1] || null;
+
+        for (let row = 0; row < 8; row++) {
+          for (let col = 0; col < 8; col++) {
+            const displayRow = flipped ? 7 - row : row;
+            const displayCol = flipped ? 7 - col : col;
+            const square = squareName(displayRow, displayCol);
+            const piece = game.get(square);
+            const cell = document.createElement('button');
+            cell.type = 'button';
+            cell.className = 'square ' + (((displayRow + displayCol) % 2 === 0) ? 'light' : 'dark');
+            cell.setAttribute('role', 'gridcell');
+            cell.setAttribute('aria-label', square);
+
+            if (selected === square) cell.classList.add('selected');
+            if (lastMove && (lastMove.from === square || lastMove.to === square)) cell.classList.add('last-move');
+
+            const legalTargets = selected ? getMovesForSquare(selected).map((m) => m.to) : [];
+            if (selected && legalTargets.includes(square)) {
+              cell.classList.add(piece ? 'capture-target' : 'legal-target');
+            }
+
+            if (piece) {
+              cell.textContent = pieceGlyph[piece.color + piece.type];
+              cell.classList.add(piece.color === 'w' ? 'white-piece' : 'black-piece');
+            }
+
+            cell.addEventListener('click', function () {
+              handleSquareClick(square);
+            });
+            boardEl.appendChild(cell);
+          }
+        }
+
+        updateStatus();
+        updateScores();
+      }
+
+      function handleSquareClick(square) {
+        if (thinking || game.game_over() || game.turn() !== 'w') return;
+
+        const piece = game.get(square);
+
+        if (selected) {
+          const legalTargets = getMovesForSquare(selected).map((m) => m.to);
+          if (legalTargets.includes(square)) {
+            const result = game.move({ from: selected, to: square, promotion: 'q' });
+            if (result) {
+              selected = null;
+              redoStack = [];
+              renderBoard();
+
+              if (!game.game_over()) {
+                thinking = true;
+                renderBoard();
+                setTimeout(() => {
+                  const bestMove = bestComputerMove();
+                  if (bestMove) game.move(bestMove);
+                  thinking = false;
+                  renderBoard();
+                }, 320);
+              }
+            } else {
+              selected = piece && piece.color === 'w' ? square : null;
+              renderBoard();
+            }
+            return;
+          }
+
+          if (piece && piece.color === 'w') {
+            selected = square;
+            renderBoard();
+            return;
+          }
+
+          selected = null;
+          renderBoard();
+          return;
+        }
+
+        if (piece && piece.color === 'w') {
+          selected = square;
+          renderBoard();
+        }
+      }
+
+      function resetGame() {
+        game.reset();
+        selected = null;
+        redoStack = [];
+        thinking = false;
+        renderBoard();
+      }
+
+      function undoMove() {
+        if (thinking) return;
+        const move = game.undo();
+        if (move) {
+          redoStack.push(move);
+          selected = null;
+          renderBoard();
+        }
+      }
+
+      function redoMove() {
+        if (thinking || redoStack.length === 0) return;
+        const move = redoStack.pop();
+        if (move) {
+          game.move({ from: move.from, to: move.to, promotion: move.promotion || 'q' });
+          selected = null;
+          renderBoard();
+        }
+      }
+
+      function applyTheme() {
+        document.documentElement.setAttribute('data-chess-theme', themeSelect.value || 'classic');
+      }
+
+      difficultySelect.addEventListener('change', function () {
+        reasoningDepth = Number(this.value);
+        difficultyLabel.textContent = this.options[this.selectedIndex].text;
+      });
+
+      themeSelect.addEventListener('change', applyTheme);
+      document.getElementById('newGameBtn').addEventListener('click', resetGame);
+      undoBtn.addEventListener('click', undoMove);
+      redoBtn.addEventListener('click', redoMove);
+      flipBtn.addEventListener('click', function () {
+        flipped = !flipped;
+        renderBoard();
+      });
+
+      applyTheme();
+      resetGame();
+    })();
+  </script>
+</body>
+</html>
