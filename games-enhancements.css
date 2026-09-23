@@ -1,0 +1,72 @@
+/* Simple, readable Brain Games card and CTA hover states. */
+.play-card {
+  position: relative;
+  isolation: auto;
+  overflow: hidden;
+  transform: translateY(0);
+  border-color: var(--border);
+  box-shadow: none;
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease, background-color .25s ease;
+}
+
+.play-card::before,
+.play-card::after {
+  display: none;
+}
+
+.play-card:hover,
+.play-card:focus-visible {
+  transform: translateY(-5px);
+  border-color: var(--gold);
+  background: var(--card-bg);
+  box-shadow: var(--shadow-card), 0 10px 24px var(--gold-glow);
+}
+
+.play-card:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.play-card .play-card-icon {
+  transform: none;
+  box-shadow: none;
+  transition: background-color .25s ease;
+}
+
+.play-card:hover .play-card-icon,
+.play-card:focus-visible .play-card-icon {
+  transform: none;
+  box-shadow: none;
+  background: var(--gold-dim);
+}
+
+.play-card .play-card-cta {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 9px 15px;
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  color: var(--gold);
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+  transition: color .25s ease, background-color .25s ease, border-color .25s ease;
+}
+
+.play-card:hover .play-card-cta,
+.play-card:focus-visible .play-card-cta {
+  color: var(--bg);
+  background: var(--gold);
+  border-color: var(--gold);
+  box-shadow: none;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .play-card,
+  .play-card .play-card-icon,
+  .play-card .play-card-cta {
+    transition: none;
+  }
+}
